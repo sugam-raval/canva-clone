@@ -1,0 +1,650 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "210b6d7e-ed4c-46d8-b8df-672575c5d107",
+          "14819dc3-ee3c-410d-ae88-ef2d6de07b2e",
+          "86279fff-8f09-48bd-94eb-c0e981c4a67d",
+          "d151f974-b143-47fd-9b56-d64625400d89",
+          "d835c471-0cb3-418d-901c-33f64b5c7140",
+          "bab7c3c8-d0ce-468c-8faa-311e0d0563ee",
+          "d73f71ae-32c9-4e72-ae99-94d780750314"
+        ],
+        "props": {
+          "color": "rgb(255,255,255)",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/restaurant2.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/restaurant2.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "transparency": 1
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "14819dc3-ee3c-410d-ae88-ef2d6de07b2e": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Healthy but Tasty Diet?"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "20px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins, serif",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Healthy but Tasty Diet?",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins, serif",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 160,
+            "height": 50
+          },
+          "position": {
+            "x": 40,
+            "y": 122
+          },
+          "fontSizes": [
+            20
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "210b6d7e-ed4c-46d8-b8df-672575c5d107": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 78.854369,
+              "height": 63.952755960629936
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "100px",
+            "height": "75px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 78.854369,
+            "height": 63.952755960629936
+          },
+          "position": {
+            "x": 40,
+            "y": 20
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "86279fff-8f09-48bd-94eb-c0e981c4a67d": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Get Yours!",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "40px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Allura",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Get Yours!",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Allura",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/allura/v23/9oRPNYsQpS4zjuAPjAIXPtrrGA.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 300,
+            "height": 48
+          },
+          "position": {
+            "x": 40,
+            "y": 181
+          },
+          "fontSizes": [
+            40
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "bab7c3c8-d0ce-468c-8faa-311e0d0563ee": {
+        "type": {
+          "type": "website",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "www.yourwebsite.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "16px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins, serif",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "www.yourwebsite.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins, serif",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 300,
+            "height": 50
+          },
+          "position": {
+            "x": 40,
+            "y": 583
+          },
+          "fontSizes": [
+            16
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d151f974-b143-47fd-9b56-d64625400d89": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Healthy Food"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "50px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Yeseva One, serif",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Healthy Food",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Yeseva One, serif",
+              "fonts": [
+                {
+                  "urls": []
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 50
+          },
+          "position": {
+            "x": 40,
+            "y": 244
+          },
+          "fontSizes": [
+            50
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d73f71ae-32c9-4e72-ae99-94d780750314": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1787137665_30b3d004-0807-41d5-ab17-cbcdb2f63527.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1787137665_30b3d004-0807-41d5-ab17-cbcdb2f63527.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 499.99999999999994,
+              "height": 510.59322033898303
+            },
+            "position": {
+              "x": 0,
+              "y": -5.296610169491544
+            }
+          },
+          "scale": 0.7427124792974624,
+          "rotate": 0,
+          "boxSize": {
+            "x": 197.0559791609799,
+            "y": 249.7105730730528,
+            "width": 371.35623964873116,
+            "height": 371.35623964873116
+          },
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 197.0559791609799,
+            "y": 246.76655223403267
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d835c471-0cb3-418d-901c-33f64b5c7140": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Limited Happy Hours Promo"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "35px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Allerta",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": -0.077,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Limited Happy Hours Promo",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Allerta",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/allerta/v19/TwMO-IAHRlkbx940UnEdSQqO5uY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 150,
+            "height": 140
+          },
+          "position": {
+            "x": 40,
+            "y": 376
+          },
+          "fontSizes": [
+            35
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_2",
+      "name": "Healthy Promo Ad",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "healthy",
+        "promotion",
+        "food"
+      ],
+      "description": "Template with a headline, a subheading, body copy, a website, a logo and a photo frame.",
+      "canvas_size": {
+        "width": 675.0,
+        "height": 675.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/restaurant2.png",
+      "slots": [
+        {
+          "layer_id": "14819dc3-ee3c-410d-ae88-ef2d6de07b2e",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Healthy but Tasty Diet?",
+          "max_chars": 40,
+          "font_size": 20.0,
+          "position": {
+            "x": 40.0,
+            "y": 122.0
+          },
+          "box_size": {
+            "width": 160.0,
+            "height": 50.0
+          }
+        },
+        {
+          "layer_id": "210b6d7e-ed4c-46d8-b8df-672575c5d107",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "font_size": null,
+          "position": {
+            "x": 40.0,
+            "y": 20.0
+          },
+          "box_size": {
+            "width": 78.854369,
+            "height": 63.952755960629936
+          }
+        },
+        {
+          "layer_id": "86279fff-8f09-48bd-94eb-c0e981c4a67d",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Get Yours!",
+          "max_chars": 22,
+          "font_size": 40.0,
+          "position": {
+            "x": 40.0,
+            "y": 181.0
+          },
+          "box_size": {
+            "width": 300.0,
+            "height": 48.0
+          }
+        },
+        {
+          "layer_id": "bab7c3c8-d0ce-468c-8faa-311e0d0563ee",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.yourwebsite.com",
+          "max_chars": 34,
+          "font_size": 16.0,
+          "position": {
+            "x": 40.0,
+            "y": 583.0
+          },
+          "box_size": {
+            "width": 300.0,
+            "height": 50.0
+          }
+        },
+        {
+          "layer_id": "d151f974-b143-47fd-9b56-d64625400d89",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Healthy Food",
+          "max_chars": 24,
+          "font_size": 50.0,
+          "position": {
+            "x": 40.0,
+            "y": 244.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 50.0
+          }
+        },
+        {
+          "layer_id": "d73f71ae-32c9-4e72-ae99-94d780750314",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "font_size": null,
+          "position": {
+            "x": 197.0559791609799,
+            "y": 246.76655223403267
+          },
+          "box_size": {
+            "x": 197.0559791609799,
+            "y": 249.7105730730528,
+            "width": 371.35623964873116,
+            "height": 371.35623964873116
+          }
+        },
+        {
+          "layer_id": "d835c471-0cb3-418d-901c-33f64b5c7140",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Limited Happy Hours Promo",
+          "max_chars": 43,
+          "font_size": 35.0,
+          "position": {
+            "x": 40.0,
+            "y": 376.0
+          },
+          "box_size": {
+            "width": 150.0,
+            "height": 140.0
+          }
+        }
+      ]
+    }
+  }
+]

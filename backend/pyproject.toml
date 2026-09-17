@@ -1,0 +1,80 @@
+[project]
+name = "layered-design-backend"
+version = "0.1.0"
+description = "AI Layered Design Generator — Part One (prompt to editable composition)"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.32",
+  "pydantic>=2.9",
+  "pydantic-settings>=2.6",
+  "python-multipart>=0.0.12",
+  "httpx>=0.27",
+  "sqlalchemy[asyncio]>=2.0.36",
+  "asyncpg>=0.30",
+  "aiosqlite>=0.20",
+  "pgvector>=0.3.6",
+  "greenlet>=3.1",
+  "redis>=5.2",
+  "boto3>=1.35",
+  "openai>=1.55",
+  "pillow>=11.0",
+  "numpy>=1.26,<2.2",
+  "opencv-python-headless>=4.10",
+  "scipy>=1.14",
+  "uharfbuzz>=0.42",
+  "fonttools>=4.55",
+  "skia-python>=87.6",
+  "structlog>=24.4",
+  "tenacity>=9.0",
+]
+
+[project.optional-dependencies]
+# CPU-only local ML. Optional so the core stack installs small and fast.
+localml = [
+  "rembg>=2.0.59",
+  "onnxruntime>=1.19",
+]
+embed = [
+  # CPU-only torch: install with
+  #   uv pip install --extra-index-url https://download.pytorch.org/whl/cpu -e ".[embed]"
+  # or the default wheel pulls ~3 GB of CUDA libraries that a CPU box cannot use.
+  "sentence-transformers>=3.0",
+  "torch>=2.2",
+]
+dev = [
+  "pytest>=8.3",
+  "pytest-asyncio>=0.24",
+  "anyio>=4.6",
+  "ruff>=0.8",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI dependency injection is expressed as a call in an argument default. That is
+# the framework's documented idiom, not the mutable-default bug B008 targets.
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Path",
+                          "fastapi.Body", "fastapi.Header", "fastapi.File",
+                          "fastapi.Form", "fastapi.Security"]
+
+[tool.ruff.lint.isort]
+# Keep hand-wrapped multi-line imports as written instead of exploding them one per line.
+split-on-trailing-comma = false
+
+[tool.ruff.format]
+skip-magic-trailing-comma = true

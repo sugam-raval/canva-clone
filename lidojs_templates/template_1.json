@@ -1,0 +1,873 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "d08d81f0-1bec-42bc-bac7-df38ff9f55f6",
+          "c196ee1c-1c96-411d-a11c-bc078b7ef259",
+          "b9f97447-0bc9-49e0-a389-9d61f9650f24",
+          "8b8f0fb5-0fc2-4d69-8fd1-90f400a7c2b3",
+          "1ef29784-8f41-4c1f-ba97-9c3610d67423",
+          "99d1d652-b11c-4d81-881e-dc3a0255981b",
+          "e15dfe99-a709-4ad1-a88b-37a28e59df68",
+          "32d2ad1e-e9f3-47c9-8f3f-ce389b3eca67",
+          "465d00dd-ff17-4472-8088-b6f48f5855c1"
+        ],
+        "props": {
+          "color": "rgb(255,255,255)",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/restaurant1.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/restaurant1.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "transparency": 1
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "1ef29784-8f41-4c1f-ba97-9c3610d67423": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Contact:",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "17px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "ABeeZee",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": null
+                },
+                "content": [
+                  {
+                    "text": "Contact:",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "ABeeZee",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/abeezee/v23/esDR31xSG-6AGleN6tKukbcHCpE.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/abeezee/v23/esDR31xSG-6AGleN6tKukbcHCpE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 150,
+            "height": 17
+          },
+          "position": {
+            "x": 40,
+            "y": 597.203205245125
+          },
+          "fontSizes": [
+            17
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "32d2ad1e-e9f3-47c9-8f3f-ce389b3eca67": {
+        "type": {
+          "type": "address",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "123 Anywhere St., Any City"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "16px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins, serif",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "123 Anywhere St., Any City",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins, serif",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 300,
+            "height": 19
+          },
+          "position": {
+            "x": 427.2677894966437,
+            "y": 620
+          },
+          "fontSizes": [
+            16
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "465d00dd-ff17-4472-8088-b6f48f5855c1": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1787137401_c2684ffd-8ccf-4720-b024-8b39dd427c5b.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1787137401_c2684ffd-8ccf-4720-b024-8b39dd427c5b.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 499.99999999999994,
+              "height": 499.99999999999994
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1.2617896948575884,
+          "rotate": 0,
+          "boxSize": {
+            "x": 22.341057335134643,
+            "y": 98.11635232127207,
+            "width": 630.8948474287942,
+            "height": 630.8948474287942
+          },
+          "clipPath": "M 0 0 L 500 0 L 500 500 L 0 500 Z",
+          "position": {
+            "x": 22.341057335134643,
+            "y": 98.11635232127207
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "8b8f0fb5-0fc2-4d69-8fd1-90f400a7c2b3": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Taste the Tradition, Love the Flavor: Your Passage to Indian Gastronomy with Us."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(176, 79, 19)",
+                  "indent": 0,
+                  "fontSize": "17px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Yeseva One, serif",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Taste the Tradition, Love the Flavor: Your Passage to Indian ",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(176, 79, 19)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(176, 79, 19)",
+                  "indent": 0,
+                  "fontSize": "17px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Yeseva One, serif",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Gastronomy with Us.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(176, 79, 19)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Yeseva One, serif",
+              "fonts": [
+                {
+                  "urls": []
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(176, 79, 19)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 146.8667530382033,
+            "y": 75.78465524840155,
+            "width": 882.5706060698535,
+            "height": 34
+          },
+          "position": {
+            "x": -96.41854999672344,
+            "y": 156.84723861846228
+          },
+          "fontSizes": [
+            17
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "99d1d652-b11c-4d81-881e-dc3a0255981b": {
+        "type": {
+          "type": "phoneNumber",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "+123-456-7890"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "16px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins, serif",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "+123-456-7890",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins, serif",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 300,
+            "height": 50
+          },
+          "position": {
+            "x": 40,
+            "y": 620
+          },
+          "fontSizes": [
+            16
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b9f97447-0bc9-49e0-a389-9d61f9650f24": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "The taste of India"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "51px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Akaya Telivigala",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "The Taste of India",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Akaya Telivigala",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/akayatelivigala/v28/lJwc-oo_iG9wXqU3rCTD395tp0uifdLdsIH0YH8.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 175.99999999999997,
+            "y": 87.84723861846228,
+            "width": 385.73350607640674,
+            "height": 61
+          },
+          "position": {
+            "x": 153.99999999999997,
+            "y": 89.84723861846228
+          },
+          "fontSizes": [
+            51
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c196ee1c-1c96-411d-a11c-bc078b7ef259": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "\"King's Kitchen\""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(176, 79, 19)",
+                  "indent": 0,
+                  "fontSize": "13.74085px",
+                  "listType": "",
+                  "textAlign": "justify",
+                  "fontFamily": "Allura, serif",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "\"King's Kitchen\"",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(176, 79, 19)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Allura, serif",
+              "fonts": [
+                {
+                  "urls": []
+                }
+              ]
+            }
+          ],
+          "scale": 1.5976614606287967,
+          "colors": [
+            "rgb(176, 79, 19)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 264.11842043941834,
+            "y": 59.28465524840155,
+            "width": 362.7927162961158,
+            "height": 25.562583370060747
+          },
+          "position": {
+            "x": 251.11842043941834,
+            "y": 59.28465524840155
+          },
+          "fontSizes": [
+            13.74085
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d08d81f0-1bec-42bc-bac7-df38ff9f55f6": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 96.00000000000006,
+              "height": 77.85826771653548
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "100px",
+            "height": "75px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 96.00000000000006,
+            "height": 77.85826771653548
+          },
+          "position": {
+            "x": 544.2677894966437,
+            "y": 25.78465524840155
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e15dfe99-a709-4ad1-a88b-37a28e59df68": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Location:",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "17px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "ABeeZee",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": null
+                },
+                "content": [
+                  {
+                    "text": "Location:",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "ABeeZee",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/abeezee/v23/esDR31xSG-6AGleN6tKukbcHCpE.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/abeezee/v23/esDR31xSG-6AGleN6tKukbcHCpE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 150,
+            "height": 17
+          },
+          "position": {
+            "x": 557.2677894966437,
+            "y": 597.203205245125
+          },
+          "fontSizes": [
+            17
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_1",
+      "name": "Restaurant Promotion",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "restaurant",
+        "promotion",
+        "food"
+      ],
+      "description": "Template with a headline, a subheading, body copy, a phone number, an address, a logo and a photo frame.",
+      "canvas_size": {
+        "width": 675.0,
+        "height": 675.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/restaurant1.png",
+      "slots": [
+        {
+          "layer_id": "1ef29784-8f41-4c1f-ba97-9c3610d67423",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Contact:",
+          "max_chars": 19,
+          "font_size": 17.0,
+          "position": {
+            "x": 40.0,
+            "y": 597.203205245125
+          },
+          "box_size": {
+            "width": 150.0,
+            "height": 17.0
+          }
+        },
+        {
+          "layer_id": "32d2ad1e-e9f3-47c9-8f3f-ce389b3eca67",
+          "resolved_name": "TextLayer",
+          "role": "address",
+          "editable": true,
+          "default_text": "123 Anywhere St., Any City",
+          "max_chars": 44,
+          "font_size": 16.0,
+          "position": {
+            "x": 427.2677894966437,
+            "y": 620.0
+          },
+          "box_size": {
+            "width": 300.0,
+            "height": 19.0
+          }
+        },
+        {
+          "layer_id": "465d00dd-ff17-4472-8088-b6f48f5855c1",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "font_size": null,
+          "position": {
+            "x": 22.341057335134643,
+            "y": 98.11635232127207
+          },
+          "box_size": {
+            "x": 22.341057335134643,
+            "y": 98.11635232127207,
+            "width": 630.8948474287942,
+            "height": 630.8948474287942
+          }
+        },
+        {
+          "layer_id": "8b8f0fb5-0fc2-4d69-8fd1-90f400a7c2b3",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Taste the Tradition, Love the Flavor: Your Passage to Indian Gastronomy with Us.",
+          "max_chars": 120,
+          "font_size": 17.0,
+          "position": {
+            "x": -96.41854999672344,
+            "y": 156.84723861846228
+          },
+          "box_size": {
+            "x": 146.8667530382033,
+            "y": 75.78465524840155,
+            "width": 882.5706060698535,
+            "height": 34.0
+          }
+        },
+        {
+          "layer_id": "99d1d652-b11c-4d81-881e-dc3a0255981b",
+          "resolved_name": "TextLayer",
+          "role": "phone",
+          "editable": true,
+          "default_text": "+123-456-7890",
+          "max_chars": 26,
+          "font_size": 16.0,
+          "position": {
+            "x": 40.0,
+            "y": 620.0
+          },
+          "box_size": {
+            "width": 300.0,
+            "height": 50.0
+          }
+        },
+        {
+          "layer_id": "b9f97447-0bc9-49e0-a389-9d61f9650f24",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "The taste of India",
+          "max_chars": 33,
+          "font_size": 51.0,
+          "position": {
+            "x": 153.99999999999997,
+            "y": 89.84723861846228
+          },
+          "box_size": {
+            "x": 175.99999999999997,
+            "y": 87.84723861846228,
+            "width": 385.73350607640674,
+            "height": 61.0
+          }
+        },
+        {
+          "layer_id": "c196ee1c-1c96-411d-a11c-bc078b7ef259",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "\"King's Kitchen\"",
+          "max_chars": 30,
+          "font_size": 13.74085,
+          "position": {
+            "x": 251.11842043941834,
+            "y": 59.28465524840155
+          },
+          "box_size": {
+            "x": 264.11842043941834,
+            "y": 59.28465524840155,
+            "width": 362.7927162961158,
+            "height": 25.562583370060747
+          }
+        },
+        {
+          "layer_id": "d08d81f0-1bec-42bc-bac7-df38ff9f55f6",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "font_size": null,
+          "position": {
+            "x": 544.2677894966437,
+            "y": 25.78465524840155
+          },
+          "box_size": {
+            "width": 96.00000000000006,
+            "height": 77.85826771653548
+          }
+        },
+        {
+          "layer_id": "e15dfe99-a709-4ad1-a88b-37a28e59df68",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Location:",
+          "max_chars": 20,
+          "font_size": 17.0,
+          "position": {
+            "x": 557.2677894966437,
+            "y": 597.203205245125
+          },
+          "box_size": {
+            "width": 150.0,
+            "height": 17.0
+          }
+        }
+      ]
+    }
+  }
+]

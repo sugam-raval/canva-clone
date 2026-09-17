@@ -1,0 +1,523 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "d2a38bf7-5ea5-4b70-aa4a-c0909257303d",
+          "bb6b3e90-2c89-4c29-a07f-3553ef37341c",
+          "fefb965f-facc-46e4-a6da-39b4c2ff6389",
+          "9266c375-7b3f-4599-9874-a03ce5490c17",
+          "e38c51a7-14b2-4a3c-ab62-2e4eff89e923"
+        ],
+        "props": {
+          "color": "rgb(255,255,255)",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/restaurant3.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/restaurant3.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "transparency": 1
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "9266c375-7b3f-4599-9874-a03ce5490c17": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Monday - Sunday | 5:00 PM - 10:00 PM"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "9.342843px",
+                  "listType": "",
+                  "textAlign": "justify",
+                  "fontFamily": "Roboto",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Monday - Sunday | 5:00pm - 10:00pm",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/roboto/v49/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuYaammTggvWl0Qn.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/roboto/v49/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuYaammTggvWl0Qn.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/roboto/v49/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbWmTggvWl0Qn.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/roboto/v49/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbWmTggvWl0Qn.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 2.5688113931661576,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": -22.32170897492361,
+            "y": 513.7178298651568,
+            "width": 850.5005136330889,
+            "height": 28.256925324827733
+          },
+          "position": {
+            "x": 62.15679787683598,
+            "y": 624
+          },
+          "fontSizes": [
+            9.342843
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "bb6b3e90-2c89-4c29-a07f-3553ef37341c": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "We Are Open!",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(223, 172, 75)",
+                  "indent": 0,
+                  "fontSize": "65px",
+                  "listType": "",
+                  "textAlign": "justify",
+                  "fontFamily": "Castoro",
+                  "lineHeight": "0.8",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "We Are Open!",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(223, 172, 75)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Castoro",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/castoro/v19/1q2GY5yMCld3-O4cHYhEzOYenEU.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/castoro/v19/1q2GY5yMCld3-O4cHYhEzOYenEU.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(223, 172, 75)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 30.000000000000004,
+            "y": 325.9861064399223,
+            "width": 229.85709568324174,
+            "height": 156
+          },
+          "position": {
+            "x": 58,
+            "y": 373.9861064399223
+          },
+          "fontSizes": [
+            65
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d2a38bf7-5ea5-4b70-aa4a-c0909257303d": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 78.854369,
+              "height": 63.952755960629936
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1.1168640424632805,
+          "style": {
+            "width": "100px",
+            "height": "75px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "x": 46.74561698531223,
+            "y": 29.216010615820146,
+            "width": 78.854369,
+            "height": 63.952755960629936
+          },
+          "position": {
+            "x": 49.15679787683597,
+            "y": 37.00694678003885
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e38c51a7-14b2-4a3c-ab62-2e4eff89e923": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1787138074_061a6ac9-7aff-4e34-a423-c2cab705c89b.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1787138074_061a6ac9-7aff-4e34-a423-c2cab705c89b.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 641.4473684210526,
+              "height": 499.99999999999994
+            },
+            "position": {
+              "x": -70.72368421052633,
+              "y": 0
+            }
+          },
+          "scale": 1.2055411906783837,
+          "rotate": 0,
+          "boxSize": {
+            "x": 192.43959400779724,
+            "y": -50.70349200146811,
+            "width": 602.7705953391918,
+            "height": 602.7705953391918
+          },
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 194.57887300246813,
+            "y": -54.98204999080992
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fefb965f-facc-46e4-a6da-39b4c2ff6389": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Opening Hours:",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "23px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Roboto",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Opening Hours:",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/roboto/v49/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuYaammTggvWl0Qn.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/roboto/v49/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuYaammTggvWl0Qn.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/roboto/v49/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbWmTggvWl0Qn.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/roboto/v49/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbWmTggvWl0Qn.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 300,
+            "height": 28
+          },
+          "position": {
+            "x": 61.99999999999997,
+            "y": 587
+          },
+          "fontSizes": [
+            23
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_3",
+      "name": "Weekly Schedule Post",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "schedule",
+        "business",
+        "social media"
+      ],
+      "description": "Template with a headline, a logo and a photo frame.",
+      "canvas_size": {
+        "width": 675.0,
+        "height": 675.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/restaurant3.png",
+      "slots": [
+        {
+          "layer_id": "9266c375-7b3f-4599-9874-a03ce5490c17",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Monday - Sunday | 5:00 PM - 10:00 PM",
+          "max_chars": 58,
+          "font_size": 9.342843,
+          "position": {
+            "x": 62.15679787683598,
+            "y": 624.0
+          },
+          "box_size": {
+            "x": -22.32170897492361,
+            "y": 513.7178298651568,
+            "width": 850.5005136330889,
+            "height": 28.256925324827733
+          }
+        },
+        {
+          "layer_id": "bb6b3e90-2c89-4c29-a07f-3553ef37341c",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "We Are Open!",
+          "max_chars": 24,
+          "font_size": 65.0,
+          "position": {
+            "x": 58.0,
+            "y": 373.9861064399223
+          },
+          "box_size": {
+            "x": 30.000000000000004,
+            "y": 325.9861064399223,
+            "width": 229.85709568324174,
+            "height": 156.0
+          }
+        },
+        {
+          "layer_id": "d2a38bf7-5ea5-4b70-aa4a-c0909257303d",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "font_size": null,
+          "position": {
+            "x": 49.15679787683597,
+            "y": 37.00694678003885
+          },
+          "box_size": {
+            "x": 46.74561698531223,
+            "y": 29.216010615820146,
+            "width": 78.854369,
+            "height": 63.952755960629936
+          }
+        },
+        {
+          "layer_id": "e38c51a7-14b2-4a3c-ab62-2e4eff89e923",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "font_size": null,
+          "position": {
+            "x": 194.57887300246813,
+            "y": -54.98204999080992
+          },
+          "box_size": {
+            "x": 192.43959400779724,
+            "y": -50.70349200146811,
+            "width": 602.7705953391918,
+            "height": 602.7705953391918
+          }
+        },
+        {
+          "layer_id": "fefb965f-facc-46e4-a6da-39b4c2ff6389",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Opening Hours:",
+          "max_chars": 27,
+          "font_size": 23.0,
+          "position": {
+            "x": 61.99999999999997,
+            "y": 587.0
+          },
+          "box_size": {
+            "width": 300.0,
+            "height": 28.0
+          }
+        }
+      ]
+    }
+  }
+]

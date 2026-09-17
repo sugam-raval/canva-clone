@@ -1,0 +1,1 @@
+{"root":["./src/main.tsx","./src/components/Inspector.tsx","./src/components/LayerPanel.tsx","./src/editor/DrawListStage.tsx","./src/editor/fonts.ts","./src/editor/matrix.ts","./src/editor/useDocument.ts","./src/editor/useImage.ts","./src/lib/api.ts","./src/lib/types.ts","./src/pages/Editor.tsx","./src/pages/Home.tsx"],"version":"5.9.3"}

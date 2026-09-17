@@ -1,0 +1,12 @@
+# Root lint config, so files outside backend/ (scripts/) share the project's rules.
+line-length = 100
+target-version = "py311"
+extend-exclude = ["backend/.venv", "frontend", "node_modules"]
+
+[lint]
+# Scripts must insert the backend onto sys.path before importing from it, which
+# necessarily puts imports after code.
+ignore = ["E402", "EXE001"]
+
+[lint.isort]
+split-on-trailing-comma = false
