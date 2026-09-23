@@ -64,6 +64,7 @@ class LidoGenerateRequest(Base):
     """Generate a design from a Lido template — simpler prompt interface than DesignBrief."""
     prompt: str = Field(min_length=1, max_length=2000)
     kind: Literal["story", "post", "poster", "banner", "thumbnail", "ad", "flyer"] | None = None
+    generate_images: bool = True
 
 
 class LidoSlotFillInfo(Base):
@@ -77,13 +78,22 @@ class LidoAssetInfo(Base):
     url: str
 
 
+class LidoImagePromptInfo(Base):
+    layer_id: str
+    prompt: str
+
+
 class LidoGenerateResponse(Base):
-    """A filled Lido document ready to open in the editor."""
+    """A filled Lido document ready to open in the editor, also saved to disk."""
     document: list[dict[str, Any]]
     template_id: str
     template_score: float
+    design_id: str
+    path: str
     text_fills: list[LidoSlotFillInfo] = Field(default_factory=list)
     image_fills: list[LidoAssetInfo] = Field(default_factory=list)
+    image_prompts: list[LidoImagePromptInfo] = Field(default_factory=list)
+    image_failures: list[str] = Field(default_factory=list)
 
 
 # Lido scratch generation — designed from the brief, no template retrieval

@@ -18,6 +18,7 @@ dist/
 
 # Local model and asset caches
 backend/assets_local/fonts/*.ttf
+lidojs_templates/fonts/
 backend/.cache/
 
 # Generated output

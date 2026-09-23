@@ -53,6 +53,11 @@ class Settings(BaseSettings):
     sentence_transformer_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     embedding_dim: int = 384
     image_model: str = "gpt-image-2.5-sunburst"
+    # The Lido.js (template) flow makes a single LLM call per design that writes every
+    # layer's copy and both image prompts at once, so it gets more thinking than the
+    # global default. Only applies when llm_reasoning_effort is set (a reasoning model).
+    lido_template_reasoning_effort: str = "high"
+    lido_template_image_quality: str = Field(default="high", description="low | medium | high")
 
     # -- adapter selection (§0.3) -----------------------------------------------------
     # "auto" means best available, degrading silently when a key or dependency is

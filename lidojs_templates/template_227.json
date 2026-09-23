@@ -507,21 +507,32 @@
       }
     },
     "meta": {
-      "id": "template_2",
-      "name": "Healthy Promo Ad",
+      "id": "template_227",
+      "name": "Restaurant Split Promo",
       "kind": "post",
       "aspect": "1:1",
       "tags": [
-        "healthy",
-        "promotion",
-        "food"
+        "restaurant",
+        "food",
+        "promo",
+        "split-layout"
       ],
-      "description": "Template with a headline, a subheading, body copy, a website, a logo and a photo frame.",
+      "description": "Diagonal split-panel food promo: solid color panel + light surface panel, a circular transparent subject cutout floating over the seam, a logo, and five text layers (kicker, script accent, headline, promo line, website).",
       "canvas_size": {
         "width": 675.0,
         "height": 675.0
       },
       "background_image_url": "https://assets.quickhub.ai/qh-templates-2/restaurant2.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Diagonal two-panel flat-lay background on a square canvas. A solid flat brand-color panel (this template: warm orange) fills roughly the left 40% of the frame; the remaining ~60% on the right is a light neutral surface (this template: white marble/stone). The seam between the two panels runs top-to-bottom at a slight diagonal angle, not perfectly vertical. In the top-right corner, a few natural green leaves and a small sprig of white flowers overlap the frame edge. On the light-surface side, near the right edge, a few whole halved fruit (this template: apricots, cut side showing the pit) sit directly on the surface as a styling accent. Even, soft studio lighting, minimal shadow, clean editorial food/brand aesthetic. IMPORTANT: leave the visual center of the frame empty of any dish, plate, or product — do not generate a subject there. That area is reserved for a separate transparent subject cutout composited on top. No text, lettering or logos anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-templates-2/restaurant2.png",
+        "notes": "All of the design's text (logo, kicker, headline, offer, website) is set in WHITE directly on the left colour panel, so that panel must be a saturated, medium-to-dark brand colour that white text reads clearly on — never pastel, pale, cream or near-white, even when the request asks for soft or light tones (put those in the light surface and the accents instead). The reference photo currently on this layer has its own dish baked into the center; when generating a fresh background, leave that central subject out — it is supplied separately by the circular transparent subject cutout and must not be duplicated in the background itself."
+      },
+      "text_layer_count": 5,
+      "reference_note": "Golden reference exemplar for the 'diagonal split background + circular transparent subject cutout + logo + 5 text layers' composition family. When generating a new template in this style, keep the exact layer count and role structure below — do not add, remove, or merge layers. Per new brief, only these should change: the ROOT background image (regenerated from `meta.background.prompt`, restyled to the new brief's palette/subject), the subject cutout image (regenerated from the `photo` slot's `image.prompt`), and the text copy in the five text slots (rewritten within each slot's `max_chars`/`max_lines`). The logo slot (`locked: true`) is swapped only by substituting the brand's own logo asset — it is never AI-regenerated, recolored, or reframed. See lidojs_templates/TEMPLATE_METADATA_RULES.md for the full rules this exemplar follows.",
       "slots": [
         {
           "layer_id": "14819dc3-ee3c-410d-ae88-ef2d6de07b2e",
@@ -530,6 +541,8 @@
           "editable": true,
           "default_text": "Healthy but Tasty Diet?",
           "max_chars": 40,
+          "max_lines": 2,
+          "locked": false,
           "font_size": 20.0,
           "position": {
             "x": 40.0,
@@ -538,7 +551,9 @@
           "box_size": {
             "width": 160.0,
             "height": 50.0
-          }
+          },
+          "image": null,
+          "notes": "Kicker line above the script accent — a short rhetorical question or teaser framing the offer (e.g. 'Healthy but Tasty Diet?'). Keep it to one short sentence, at most 2 lines at this font size; do not let it grow into a paragraph."
         },
         {
           "layer_id": "210b6d7e-ed4c-46d8-b8df-672575c5d107",
@@ -547,6 +562,8 @@
           "editable": false,
           "default_text": null,
           "max_chars": null,
+          "max_lines": null,
+          "locked": true,
           "font_size": null,
           "position": {
             "x": 40.0,
@@ -555,7 +572,16 @@
           "box_size": {
             "width": 78.854369,
             "height": 63.952755960629936
-          }
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": "White/light logo variant, chosen because this corner of the background is the saturated color panel, not the light surface."
         },
         {
           "layer_id": "86279fff-8f09-48bd-94eb-c0e981c4a67d",
@@ -563,7 +589,9 @@
           "role": "label",
           "editable": true,
           "default_text": "Get Yours!",
-          "max_chars": 22,
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
           "font_size": 40.0,
           "position": {
             "x": 40.0,
@@ -572,7 +600,9 @@
           "box_size": {
             "width": 300.0,
             "height": 48.0
-          }
+          },
+          "image": null,
+          "notes": "Script-font accent phrase, single line only — a short high-energy call-in (e.g. 'Get Yours!', 'Try Now!'). 1-3 words; never wraps."
         },
         {
           "layer_id": "bab7c3c8-d0ce-468c-8faa-311e0d0563ee",
@@ -580,7 +610,9 @@
           "role": "website",
           "editable": true,
           "default_text": "www.yourwebsite.com",
-          "max_chars": 34,
+          "max_chars": 30,
+          "max_lines": 1,
+          "locked": false,
           "font_size": 16.0,
           "position": {
             "x": 40.0,
@@ -589,7 +621,9 @@
           "box_size": {
             "width": 300.0,
             "height": 50.0
-          }
+          },
+          "image": null,
+          "notes": "Website or contact line, always a single line, never wraps."
         },
         {
           "layer_id": "d151f974-b143-47fd-9b56-d64625400d89",
@@ -598,6 +632,8 @@
           "editable": true,
           "default_text": "Healthy Food",
           "max_chars": 24,
+          "max_lines": 2,
+          "locked": false,
           "font_size": 50.0,
           "position": {
             "x": 40.0,
@@ -606,7 +642,9 @@
           "box_size": {
             "width": 200.0,
             "height": 50.0
-          }
+          },
+          "image": null,
+          "notes": "Primary headline — the product/category name, bold and short (e.g. 'Healthy Food'). 1-2 words per line, at most 2 lines."
         },
         {
           "layer_id": "d73f71ae-32c9-4e72-ae99-94d780750314",
@@ -615,6 +653,8 @@
           "editable": false,
           "default_text": null,
           "max_chars": null,
+          "max_lines": null,
+          "locked": false,
           "font_size": null,
           "position": {
             "x": 197.0559791609799,
@@ -625,7 +665,16 @@
             "y": 249.7105730730528,
             "width": 371.35623964873116,
             "height": 371.35623964873116
-          }
+          },
+          "image": {
+            "kind": "subject_cutout",
+            "generate": true,
+            "transparent": true,
+            "prompt": "Top-down (flat-lay) food photography, subject only, isolated on a transparent background: an alpha-channel PNG with no backdrop, table surface, or baked-in drop shadow. Shot from directly above under soft natural light, styled with visible ingredients/garnish, and framed so the subject fills a circular mask edge-to-edge with no empty corners once cropped. Only the food + vessel silhouette should have pixels; everything else must be true alpha transparency, not white or a solid color.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1787137665_30b3d004-0807-41d5-ab17-cbcdb2f63527.png",
+            "notes": "This subject floats over the seam between the two background panels, cropped by a circular mask. It must be a genuine alpha-transparent cutout — only the subject and its vessel have pixels, never a rectangular photo backdrop, or that backdrop would show inside the circle wherever the subject doesn't reach the edge. Keep it a single round-ish subject seen from directly above so it reads well inside a circle."
+          },
+          "notes": "The clipPath on this layer crops the source image into a circle at render time — the source PNG itself should stay a full rectangular transparent cutout (not pre-cropped to a circle), so the mask can be repositioned or resized later without exposing hard PNG edges."
         },
         {
           "layer_id": "d835c471-0cb3-418d-901c-33f64b5c7140",
@@ -633,7 +682,9 @@
           "role": "subhead",
           "editable": true,
           "default_text": "Limited Happy Hours Promo",
-          "max_chars": 43,
+          "max_chars": 30,
+          "max_lines": 4,
+          "locked": false,
           "font_size": 35.0,
           "position": {
             "x": 40.0,
@@ -642,7 +693,9 @@
           "box_size": {
             "width": 150.0,
             "height": 140.0
-          }
+          },
+          "image": null,
+          "notes": "Uppercase tracked promo/CTA block — the concrete offer (e.g. 'Limited Happy Hours Promo', which sets as LIMITED / HAPPY / HOURS / PROMO). Narrow box: up to 4 short lines, roughly one short word per line, so prefer short punchy words."
         }
       ]
     }

@@ -1,9 +1,9 @@
 """Lido corpus generation endpoint — simpler, prompt-driven alternative to /v1/generate.
 
-    POST /v1/lido/generate        brief (as a prompt) → filled Lido document
-    POST /v1/lido/scratch         brief → a design composed from scratch, saved to disk
+    POST /v1/lido/generate        prompt → filled Lido template, saved to disk
+    POST /v1/lido/scratch        brief → a design composed from scratch, saved to disk
     GET  /v1/lido/scratch         everything generated so far, newest first
-    GET  /v1/lido/scratch/{id}    one saved design
+    GET  /v1/lido/scratch/{id}    one saved design (scratch or template)
 
 Unlike `/v1/generate` (which produces a complex DesignDoc with a full job graph), this
 endpoint runs synchronously and returns the complete filled Lido JSON in one call, ready
@@ -15,10 +15,12 @@ from __future__ import annotations
 import structlog
 from fastapi import APIRouter, HTTPException, status
 
+from app.adapters.base import AdapterError
 from app.api.schemas import (
     LidoAssetInfo,
     LidoGenerateRequest,
     LidoGenerateResponse,
+    LidoImagePromptInfo,
     LidoScratchElement,
     LidoScratchRequest,
     LidoScratchResponse,
@@ -26,6 +28,7 @@ from app.api.schemas import (
     LidoSlotFillInfo,
 )
 from app.lido_corpus.pipeline import generate_lido_design
+from app.lido_corpus.retrieval import NoReadyTemplateError
 from app.lido_scratch import generate_scratch_design
 from app.lido_scratch.store import listing, load
 from app.pipelines.part_one.brief import parse_brief
@@ -38,51 +41,55 @@ router = APIRouter(prefix="/v1/lido", tags=["lido"])
 
 @router.post("/generate", response_model=LidoGenerateResponse)
 async def lido_generate(body: LidoGenerateRequest) -> LidoGenerateResponse:
-    """Generate a Lido design from a text prompt.
+    """Fill a ready Lido template from a text prompt.
 
-    Returns a filled [{"layers": {...}}] document ready to open in the Lido editor.
-    No background jobs, no DB writes — the full pipeline runs synchronously and
-    returns the final result in one call.
+    One LLM call writes every text layer and every image prompt from the template's own
+    per-layer metadata; images are generated per layer spec (transparent cutout or
+    opaque) and uploaded to the object store under a permanent public URL. The filled
+    `[{"layers", "meta"}]` document is saved under `lido_generated/` and returned in
+    full — no background jobs, no DB writes.
     """
     verdict = screen_prompt(body.prompt)
     if not verdict.allowed:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=verdict.reason)
 
-    # Add kind as a hint to the prompt if provided
-    prompt = body.prompt
-    if body.kind:
-        prompt = f"{prompt}\n(design kind: {body.kind})"
-
     try:
-        brief, _cost = await parse_brief(prompt)
-    except Exception as exc:
-        log.error("lido.brief_parse_failed", error=str(exc), prompt=body.prompt[:100])
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Could not parse design brief: {exc!s}"
-        ) from exc
-
-    try:
-        result = await generate_lido_design(brief, generate_assets=True)
+        result = await generate_lido_design(
+            body.prompt, kind=body.kind, generate_images=body.generate_images
+        )
+    except NoReadyTemplateError as exc:
+        log.error("lido.no_ready_template", error=str(exc))
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail=str(exc)) from exc
+    except AdapterError as exc:
+        log.error("lido.llm_unavailable", error=str(exc))
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                            detail=f"The language model is unavailable: {exc}") from exc
     except Exception as exc:
         log.error("lido.generation_failed", error=str(exc))
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Design generation failed: {exc!s}"
-        ) from exc
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail=f"Design generation failed: {exc}") from exc
 
+    roles = {slot.layer_id: slot.role for slot in result.template.meta.slots}
     return LidoGenerateResponse(
         document=result.document,
-        template_id=result.template_id,
+        template_id=result.template.meta.id,
         template_score=result.template_score,
+        design_id=result.design_id,
+        path=result.path,
         text_fills=[
-            LidoSlotFillInfo(layer_id=lid, role="text", text=text)
+            LidoSlotFillInfo(layer_id=lid, role=roles.get(lid, "text"), text=text)
             for lid, text in result.text_fills.items()
         ],
         image_fills=[
             LidoAssetInfo(layer_id=lid, url=url)
             for lid, url in result.image_fills.items()
         ],
+        image_prompts=[
+            LidoImagePromptInfo(layer_id=lid, prompt=prompt)
+            for lid, prompt in result.image_prompts.items()
+        ],
+        image_failures=result.image_failures,
     )
 
 

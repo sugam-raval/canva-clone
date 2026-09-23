@@ -186,7 +186,8 @@ class StubLLM:
     name = "stub:llm-unavailable"
 
     async def complete_json(self, *, system: str, user, schema, temperature: float = 0.2,
-                            model: str | None = None, max_tokens: int = 4096):
+                            model: str | None = None, max_tokens: int = 4096,
+                            reasoning_effort: str | None = None):
         raise AdapterError(
             "no LLM configured (set OPENAI_API_KEY); using the heuristic fallback",
             recoverable=False,

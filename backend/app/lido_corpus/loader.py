@@ -13,7 +13,15 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from .model import LidoDocument, LidoLayer, LidoTemplateFile, LidoTemplateMeta, SlotInfo, SlotRole
+from .model import (
+    ImageSpec,
+    LidoDocument,
+    LidoLayer,
+    LidoTemplateFile,
+    LidoTemplateMeta,
+    SlotInfo,
+    SlotRole,
+)
 
 DEFAULT_CORPUS_DIR = Path(__file__).resolve().parents[3] / "lidojs_templates"
 
@@ -88,7 +96,17 @@ def _role_for(layer_id: str, layer: LidoLayer, headline_id: str | None,
     return "decoration"
 
 
-def _extract_slots(layers: dict[str, LidoLayer]) -> list[SlotInfo]:
+def _extract_slots(
+    layers: dict[str, LidoLayer], existing_slots: dict[str, dict] | None = None
+) -> list[SlotInfo]:
+    """Recompute every slot's geometry-derived fields (`role`, `editable`,
+    `default_text`, `font_size`, `position`, `box_size`) fresh from the layers, every
+    call — those can never drift from the actual document. But `max_chars`, `max_lines`,
+    `locked`, `image` and `notes` are human-authored judgment calls that geometry can't
+    reconstruct, so when a previous `meta.slots` entry for the same `layer_id` set one,
+    it's carried forward instead of being silently wiped by the auto-computed default.
+    """
+    existing_slots = existing_slots or {}
     body_text_ids = [
         lid for lid, layer in layers.items()
         if lid != "ROOT" and layer.type.type == "bodyText"
@@ -105,6 +123,8 @@ def _extract_slots(layers: dict[str, LidoLayer]) -> list[SlotInfo]:
             continue
         role = _role_for(lid, layer, headline_id, subhead_id)
         default_text = layer.type.replacableText or _default_text(layer)
+        prior = existing_slots.get(lid) or {}
+        image = prior.get("image")
         slots.append(SlotInfo(
             layer_id=lid,
             resolved_name=layer.type.resolvedName,
@@ -114,10 +134,16 @@ def _extract_slots(layers: dict[str, LidoLayer]) -> list[SlotInfo]:
             # this text has no placeholder-style default; it does not lock the layer.
             editable=layer.type.resolvedName == "TextLayer" and default_text is not None,
             default_text=default_text,
-            max_chars=int(len(default_text) * 1.4) + 8 if default_text else None,
+            max_chars=prior.get("max_chars") or (
+                int(len(default_text) * 1.4) + 8 if default_text else None
+            ),
+            max_lines=prior.get("max_lines"),
+            locked=bool(prior.get("locked", False)),
             font_size=_font_size(layer),
             position=layer.props.get("position"),
             box_size=layer.props.get("boxSize"),
+            image=ImageSpec.model_validate(image) if image else None,
+            notes=prior.get("notes"),
         ))
     return slots
 
@@ -154,8 +180,12 @@ def derive_meta(template_id: str, layers: dict[str, LidoLayer],
     root = layers["ROOT"]
     box = root.props.get("boxSize", {"width": 0, "height": 0})
     w, h = box.get("width", 0), box.get("height", 0)
-    slots = _extract_slots(layers)
     existing = existing or {}
+    existing_slots_by_id = {
+        s["layer_id"]: s for s in existing.get("slots", []) if s.get("layer_id")
+    }
+    slots = _extract_slots(layers, existing_slots_by_id)
+    existing_background = existing.get("background")
     return LidoTemplateMeta(
         id=template_id,
         name=existing.get("name", ""),
@@ -165,6 +195,9 @@ def derive_meta(template_id: str, layers: dict[str, LidoLayer],
         description=existing.get("description") or _describe(slots),
         canvas_size={"width": w, "height": h},
         background_image_url=(root.props.get("image") or {}).get("url"),
+        background=ImageSpec.model_validate(existing_background) if existing_background else None,
+        text_layer_count=sum(1 for s in slots if s.resolved_name == "TextLayer"),
+        reference_note=existing.get("reference_note"),
         slots=slots,
     )
 

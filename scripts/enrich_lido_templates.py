@@ -39,13 +39,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "backend"))
 from app.adapters.registry import llm as get_llm
 from app.lido_corpus.loader import (
     DEFAULT_CORPUS_DIR,
-    _describe,
-    _read_root_object,
-    _extract_slots,
     _aspect,
+    _describe,
+    _extract_slots,
+    _read_root_object,
+    derive_meta,
     discover_templates,
 )
-from app.lido_corpus.model import LidoDocument, LidoTemplateMeta
+from app.lido_corpus.model import ImageSpec, LidoDocument, LidoTemplateMeta
 
 
 class TemplateMetadataSchema(BaseModel):
@@ -81,7 +82,11 @@ async def _enrich_with_llm(template_id: str, layers: dict, existing: dict | None
     root = layers["ROOT"]
     box = root.props.get("boxSize", {"width": 0, "height": 0})
     w, h = box.get("width", 0), box.get("height", 0)
-    slots = _extract_slots(layers)
+    existing_slots_by_id = {
+        s["layer_id"]: s for s in existing.get("slots", []) if s.get("layer_id")
+    }
+    slots = _extract_slots(layers, existing_slots_by_id)
+    existing_background = existing.get("background")
 
     # If human already set these, keep them
     existing_name = existing.get("name", "").strip()
@@ -137,6 +142,9 @@ Generate appropriate metadata:
         description=description,
         canvas_size={"width": w, "height": h},
         background_image_url=(root.props.get("image") or {}).get("url"),
+        background=ImageSpec.model_validate(existing_background) if existing_background else None,
+        text_layer_count=sum(1 for s in slots if s.resolved_name == "TextLayer"),
+        reference_note=existing.get("reference_note"),
         slots=slots,
     )
 
@@ -149,23 +157,8 @@ def _enrich_file_in_place(path: Path, use_llm: bool = True) -> LidoTemplateMeta:
     if use_llm:
         meta = asyncio.run(_enrich_with_llm(path.stem, doc.layers, existing=obj.get("meta")))
     else:
-        # Fallback: rule-based
-        root = doc.layers["ROOT"]
-        box = root.props.get("boxSize", {"width": 0, "height": 0})
-        w, h = box.get("width", 0), box.get("height", 0)
-        slots = _extract_slots(doc.layers)
-        existing = obj.get("meta") or {}
-        meta = LidoTemplateMeta(
-            id=path.stem,
-            name=existing.get("name", ""),
-            kind=existing.get("kind", "post"),
-            aspect=_aspect(w, h) if w and h else "1:1",
-            tags=existing.get("tags", []),
-            description=existing.get("description") or _describe(slots),
-            canvas_size={"width": w, "height": h},
-            background_image_url=(root.props.get("image") or {}).get("url"),
-            slots=slots,
-        )
+        # Fallback: rule-based (same merge behavior as the API's own loader)
+        meta = derive_meta(path.stem, doc.layers, existing=obj.get("meta"))
 
     out = [{
         "layers": json.loads(json.dumps(

@@ -133,7 +133,7 @@ class LLM(Protocol):
 
     async def complete_json(
         self, *, system: str, user: str, schema: type[TModel], temperature: float = 0.2,
-        model: str | None = None, max_tokens: int = 4096,
+        model: str | None = None, max_tokens: int = 4096, reasoning_effort: str | None = None,
     ) -> LLMResult:
         """Return a `schema` instance. Implementations MUST constrain generation to the
         schema (§1.1, §1.3) rather than parsing free text and hoping."""

@@ -456,12 +456,16 @@ class OpenAILLM:
 
     async def complete_json(self, *, system: str, user: str, schema: type[TModel],
                             temperature: float = 0.2, model: str | None = None,
-                            max_tokens: int = 4096) -> LLMResult:
+                            max_tokens: int = 4096,
+                            reasoning_effort: str | None = None) -> LLMResult:
         settings = get_settings()
         # An explicit `model=` (e.g. the glyph detector's llm_model_fast) always means
         # "use this exact non-reasoning model" and skips the Responses/reasoning path,
         # even when LLM_REASONING_EFFORT is set for the default llm_model.
-        effort = settings.llm_reasoning_effort if model is None else None
+        # `reasoning_effort` only raises/lowers effort for a model already configured as
+        # a reasoning model; it never pushes a non-reasoning llm_model onto that path.
+        global_effort = (settings.llm_reasoning_effort or "").strip() or None
+        effort = (reasoning_effort or global_effort) if model is None and global_effort else None
         model = model or settings.llm_model
         if effort:
             return await self._complete_json_reasoning(
