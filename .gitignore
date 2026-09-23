@@ -22,3 +22,4 @@ backend/.cache/
 
 # Generated output
 artifacts/
+lido_generated/

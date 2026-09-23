@@ -86,6 +86,67 @@ class LidoGenerateResponse(Base):
     image_fills: list[LidoAssetInfo] = Field(default_factory=list)
 
 
+# Lido scratch generation — designed from the brief, no template retrieval
+
+class LidoScratchRequest(Base):
+    """Design a Lido document from scratch. `size` overrides the size inferred from
+    `kind`; `generateImages` off returns the layout on a flat palette ground, which is
+    the fast path when you are iterating on composition rather than art."""
+
+    prompt: str = Field(min_length=1, max_length=2000)
+    kind: Literal["story", "post", "poster", "banner", "thumbnail", "ad", "flyer"] | None = None
+    size: dict[str, int] | None = None
+    generate_images: bool = True
+
+
+class LidoScratchElement(Base):
+    """One element of the spec the model designed, for showing its reasoning."""
+
+    kind: str
+    role: str | None = None
+    text: str | None = None
+    size: str
+    x: float
+    y: float
+    w: float
+    color: str | None = None
+    image_prompt: str | None = None
+    cutout: bool = False
+    behind: bool = False
+    font: str = "auto"
+    tracking: str | None = None
+
+
+class LidoScratchResponse(Base):
+    design_id: str
+    document: list[dict[str, Any]]
+    name: str
+    kind: str
+    width: int
+    height: int
+    vibe: str
+    layout_style: str = "hero-stack"
+    background_style: str = "flat"
+    decor: list[str] = Field(default_factory=list)
+    palette: list[str] = Field(default_factory=list)
+    elements: list[LidoScratchElement] = Field(default_factory=list)
+    llm_designed: bool = True
+    font_scale: float = 1.0
+    background_url: str | None = None
+    path: str = ""
+
+
+class LidoScratchSummary(Base):
+    id: str
+    name: str = ""
+    kind: str = "post"
+    aspect: str = "1:1"
+    description: str = ""
+    prompt: str = ""
+    generated_at: str = ""
+    canvas_size: dict[str, float] = Field(default_factory=dict)
+
+
 class ExportRequest(Base):
     format: Literal["png", "jpeg", "webp", "pdf", "svg"] = "png"
     scale: float = Field(default=1.0, gt=0, le=4)

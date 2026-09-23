@@ -40,14 +40,19 @@ class Settings(BaseSettings):
     # -- OpenAI (the only provider configured; everything sits behind an adapter) ------
     openai_api_key: str | None = None
     openai_base_url: str | None = None
-    llm_model: str = "gpt-4o-2024-11-20"
+    llm_model: str = "gpt-6-astra"
+    # Reasoning effort for `llm_model`, passed to the Responses API's `reasoning.effort`
+    # (none | minimal | low | medium | high | xhigh | max). Empty/None keeps `llm_model`
+    # on the plain chat-completions path — set both this and llm_model together to swap
+    # between a reasoning model (e.g. gpt-6-astra) and a non-reasoning one (gpt-4o*).
+    llm_reasoning_effort: str | None = "low"
     llm_model_fast: str = "gpt-4o-mini"
     embedding_model: str = "text-embedding-3-small"
     # Local embedder used for template retrieval (§1.2). Dimension follows the model;
     # `scripts/seed_templates.py` reconciles the `templates.embedding` column to match.
     sentence_transformer_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     embedding_dim: int = 384
-    image_model: str = "gpt-image-1"
+    image_model: str = "gpt-image-2.5-sunburst"
 
     # -- adapter selection (§0.3) -----------------------------------------------------
     # "auto" means best available, degrading silently when a key or dependency is

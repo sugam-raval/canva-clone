@@ -12,8 +12,9 @@ import { useNavigate } from 'react-router-dom'
 import { api, subscribeProgress } from '../lib/api'
 import type { DocSummary, ProgressEvent } from '../lib/types'
 import { LidoFlow } from './LidoTest'
+import { LidoScratchFlow } from './LidoScratch'
 
-type Flow = 'custom' | 'lido'
+type Flow = 'custom' | 'lido' | 'scratch'
 
 const EXAMPLES = [
   'Instagram story for a new running shoe, minimal and premium, headline "Run Lighter"',
@@ -145,7 +146,13 @@ export function HomePage() {
             className={flow === 'lido' ? 'active' : ''}
             onClick={() => setFlow('lido')}
           >
-            Lido.js
+            Lido.js (template)
+          </button>
+          <button
+            className={flow === 'scratch' ? 'active' : ''}
+            onClick={() => setFlow('scratch')}
+          >
+            Lido.js (scratch)
           </button>
         </div>
         <span className="spacer" />
@@ -158,6 +165,8 @@ export function HomePage() {
 
       {flow === 'lido' ? (
         <LidoFlow />
+      ) : flow === 'scratch' ? (
+        <LidoScratchFlow />
       ) : (
         <div className="home">
           <div className="hero">

@@ -1,6 +1,8 @@
 /** Typed client for the §0.10 API surface. */
 
-import type { LidoGenerateResponse } from './lidoTypes'
+import type {
+  LidoDocumentEntry, LidoGenerateResponse, LidoScratchResponse, LidoScratchSummary,
+} from './lidoTypes'
 import type {
   DesignDoc, DocSummary, DrawList, Layer, ProgressEvent, Violation,
 } from './types'
@@ -131,6 +133,26 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ prompt, kind: kind || null }),
     }),
+
+  /** Design a document from scratch — no template is retrieved or referenced. */
+  lidoScratch: (
+    prompt: string,
+    options: { kind?: string; size?: { width: number; height: number }; generateImages?: boolean } = {},
+  ) =>
+    request<LidoScratchResponse>('/lido/scratch', {
+      method: 'POST',
+      body: JSON.stringify({
+        prompt,
+        kind: options.kind || null,
+        size: options.size ?? null,
+        generateImages: options.generateImages ?? true,
+      }),
+    }),
+
+  lidoScratchList: () => request<LidoScratchSummary[]>('/lido/scratch'),
+
+  lidoScratchGet: (designId: string) =>
+    request<{ designId: string; document: LidoDocumentEntry[] }>(`/lido/scratch/${designId}`),
 }
 
 /** Subscribes to the §0.9 progress stream. Returns an unsubscribe function. */
