@@ -8,9 +8,8 @@ import react from '@vitejs/plugin-react'
 const usePolling = process.env.VITE_USE_POLLING === '1'
 
 const proxy = {
-  // Keeps the browser same-origin, so signed asset URLs and the WebSocket work in
-  // development without CORS gymnastics.
-  '/v1': { target: 'http://127.0.0.1:8000', changeOrigin: true, ws: true },
+  // Keeps the browser same-origin in development, without CORS gymnastics.
+  '/v1': { target: 'http://127.0.0.1:8000', changeOrigin: true },
 }
 
 export default defineConfig({
@@ -21,12 +20,4 @@ export default defineConfig({
     watch: usePolling ? { usePolling: true, interval: 300 } : undefined,
   },
   preview: { port: 4173, proxy },
-  build: {
-    rollupOptions: {
-      output: {
-        // Konva is large and stable; splitting it keeps app rebuilds small.
-        manualChunks: { konva: ['konva', 'react-konva'] },
-      },
-    },
-  },
 })

@@ -1,5 +1,5 @@
-"""Runtime configuration. Every model and service is selected by env var so adapters
-stay swappable (IMPLEMENTATION_PLAN §0.3, Appendix B)."""
+"""Runtime configuration for the Lido.js (template) flow. Every model and service is
+selected by env var, so adapters stay swappable."""
 
 from __future__ import annotations
 
@@ -24,9 +24,8 @@ class Settings(BaseSettings):
 
     # -- infrastructure ---------------------------------------------------------------
     database_url: str = "postgresql+asyncpg://design:design@localhost:5442/design"
-    redis_url: str = "redis://localhost:6380/0"
 
-    # -- object storage (§0.8) --------------------------------------------------------
+    # -- object storage (generated images) --------------------------------------------------------
     storage_backend: str = Field(default="s3", description="'s3' or 'local'")
     s3_endpoint_url: str | None = "http://localhost:9010"
     s3_region: str = "us-east-1"
@@ -47,57 +46,36 @@ class Settings(BaseSettings):
     # between a reasoning model (e.g. gpt-6-astra) and a non-reasoning one (gpt-4o*).
     llm_reasoning_effort: str | None = "low"
     llm_model_fast: str = "gpt-4o-mini"
-    embedding_model: str = "text-embedding-3-small"
-    # Local embedder used for template retrieval (§1.2). Dimension follows the model;
-    # `scripts/seed_templates.py` reconciles the `templates.embedding` column to match.
+    # Vision model for `scripts/enrich_lido_templates.py --draft-slots` (reading a
+    # template's background/photo). Must be a chat-completions vision model; falls back
+    # to llm_model_fast if the call fails.
+    lido_enrich_vision_model: str = "gpt-4o"
+    # Local embedding model for template matching (lido_templates.embedding). The column
+    # is vector(384): changing to a model with another dimension needs the column altered.
     sentence_transformer_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     embedding_dim: int = 384
+    # Where the template catalog lives: "db" (lido_templates in Postgres, synced from
+    # lidojs_templates/*.json) or "files" (in-memory only, no database — tests use it).
+    lido_template_store: str = Field(default="db", description="db | files")
+    # How often a request re-checks the files for changes (a changed template is
+    # re-embedded on the next request after this many seconds).
+    lido_template_sync_seconds: float = 10.0
     image_model: str = "gpt-image-2.5-sunburst"
-    # The Lido.js (template) flow makes a single LLM call per design that writes every
-    # layer's copy and both image prompts at once, so it gets more thinking than the
-    # global default. Only applies when llm_reasoning_effort is set (a reasoning model).
-    lido_template_reasoning_effort: str = "high"
+    # The Lido.js (template) flow's main fill call uses the global llm_reasoning_effort,
+    # same as everywhere else; its repair call always uses llm_model_fast instead.
     lido_template_image_quality: str = Field(default="high", description="low | medium | high")
 
-    # -- adapter selection (§0.3) -----------------------------------------------------
-    # "auto" means best available, degrading silently when a key or dependency is
-    # missing; naming a provider explicitly means "I insist", and the registry warns
-    # loudly if it cannot honour that. /v1/health always reports what resolved.
+    # -- adapter selection ------------------------------------------------------------
+    # "auto" means best available, degrading to the stub when no key is set.
+    # /v1/health always reports what resolved.
     adapter_text_to_image: str = Field(default="auto", description="auto | openai | stub")
-    adapter_transparent_image: str = Field(
-        default="auto", description="auto | openai | matte | stub")
-    adapter_inpainter: str = Field(default="auto", description="auto | openai | opencv | stub")
-    adapter_matting: str = Field(default="auto", description="auto | rembg | opencv | stub")
-    adapter_glyph_detector: str = Field(default="auto", description="auto | opencv | stub")
-    adapter_embedder: str = Field(
-        default="sentence-transformers",
-        description="sentence-transformers | openai | hash")
+    adapter_transparent_image: str = Field(default="auto", description="auto | openai | stub")
     adapter_llm: str = Field(default="auto", description="auto | openai | stub")
-
-    # -- pipeline behaviour -----------------------------------------------------------
-    default_image_steps: int = 28
-    glyph_gate_max_coverage: float = 0.004      # §1.4.6
-    glyph_gate_max_boxes: int = 2
-    glyph_gate_retries: int = 2
-    job_retry_attempts: int = 3
-    job_backoff_seconds: tuple[int, ...] = (2, 8, 30)
-    skeleton_deadline_seconds: float = 3.0      # §0.9 hard requirement
-    request_deadline_seconds: float = 120.0
-
-    # -- cost controls (§6.7) ---------------------------------------------------------
-    max_cost_cents_per_request: int = 200
-    max_cost_cents_per_user_per_day: int = 2000
-    rate_limit_generations_per_hour: int = 60
-
-    # -- safety (§7) ------------------------------------------------------------------
-    enable_content_filter: bool = True
-    asset_retention_days: int = 30
 
     # -- server -----------------------------------------------------------------------
     host: str = "0.0.0.0"
     port: int = 8000
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
-    dev_user_email: str = "dev@localhost"
 
     @property
     def cors_origin_list(self) -> list[str]:

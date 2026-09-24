@@ -1,0 +1,743 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "92494108-3d11-4e78-847a-fafe34a3bca1",
+          "46e8e2f0-3ab7-4568-b22b-6db209c71a22",
+          "dc27a7a0-ff4b-4ad3-98dd-2cc4cf8d0aa6",
+          "151dfa08-2066-4dd0-a4e2-85e650ab00c5",
+          "1179757f-e01a-4fda-b83b-d0a858cdb0e1",
+          "e8e4014a-feb8-48d7-a439-4161d4f8faa3",
+          "d76ec05d-a702-473c-8ffc-baa680b56b1d",
+          "ecf38563-29e0-4e41-8991-cd7b9f320594"
+        ],
+        "props": {
+          "color": "rgb(255,255,255)",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/education_training_19.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/education_training_19.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "transparency": 1
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "1179757f-e01a-4fda-b83b-d0a858cdb0e1": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Counseling can help you find your way"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(81, 7, 116)",
+                  "indent": 0,
+                  "fontSize": "38px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Counseling can help you find your way",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v25/JTUQjIg1_i6t8kCHKm45xW4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(81, 7, 116)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 467,
+            "height": 84
+          },
+          "position": {
+            "x": 85.5,
+            "y": 121
+          },
+          "fontSizes": [
+            38
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "151dfa08-2066-4dd0-a4e2-85e650ab00c5": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Feeling lost, anxious, and depressed?"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "22px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Feeling lost, anxious, and depressed?",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v25/JTUQjIg1_i6t8kCHKm45xW4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 443,
+            "height": 22
+          },
+          "position": {
+            "x": 145,
+            "y": 99
+          },
+          "fontSizes": [
+            22
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "46e8e2f0-3ab7-4568-b22b-6db209c71a22": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "color": "rgb(255, 222, 89)",
+          "scale": 11.789441862001967,
+          "shape": "rectangle",
+          "rotate": 0,
+          "boxSize": {
+            "x": -41.76213958406294,
+            "y": 599,
+            "width": 754.5242791681259,
+            "height": 65.82915811059749
+          },
+          "position": {
+            "x": -41.76213958406294,
+            "y": 566.0854209447012
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "92494108-3d11-4e78-847a-fafe34a3bca1": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1787225328_32c5b691-0328-466e-a251-cbf099b81f0b.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1787225328_32c5b691-0328-466e-a251-cbf099b81f0b.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 500,
+              "height": 500
+            },
+            "position": {
+              "x": -75,
+              "y": 0
+            }
+          },
+          "scale": 0.990442445238929,
+          "rotate": 0,
+          "boxSize": {
+            "x": 144.99999999999997,
+            "y": 205,
+            "width": 346.65485583362516,
+            "height": 495.22122261946447
+          },
+          "clipPath": "M 0 0 L 350 0 L 350 500 L 0 500 Z",
+          "position": {
+            "x": 180.99999999999997,
+            "y": 205
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d76ec05d-a702-473c-8ffc-baa680b56b1d": {
+        "type": {
+          "type": "website",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "www.yourwebsite.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "14px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "www.yourwebsite.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v25/JTUQjIg1_i6t8kCHKm45xW4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 165,
+            "height": 18
+          },
+          "position": {
+            "x": 16,
+            "y": 590
+          },
+          "fontSizes": [
+            14
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "dc27a7a0-ff4b-4ad3-98dd-2cc4cf8d0aa6": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 78.854368,
+              "height": 63.95275514960629
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "80px",
+            "height": "75px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 78.854368,
+            "height": 63.95275514960629
+          },
+          "position": {
+            "x": 295.5,
+            "y": 5
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e8e4014a-feb8-48d7-a439-4161d4f8faa3": {
+        "type": {
+          "type": "phoneNumber",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "+123-456-7890"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "14px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "+123-456-7890",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v25/JTUQjIg1_i6t8kCHKm45xW4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 165,
+            "height": 18
+          },
+          "position": {
+            "x": 470,
+            "y": 590
+          },
+          "fontSizes": [
+            14
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ecf38563-29e0-4e41-8991-cd7b9f320594": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "contact us now",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "14px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Contact Us Now",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v25/JTUQjIg1_i6t8kCHKm45xW4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 165,
+            "height": 18
+          },
+          "position": {
+            "x": 253,
+            "y": 590
+          },
+          "fontSizes": [
+            14
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_1635",
+      "name": "Counseling Services",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "counseling",
+        "mental health",
+        "wellness"
+      ],
+      "description": "A square social media template promoting counseling services with space for a supportive message, photo, logo, and contact details.",
+      "canvas_size": {
+        "width": 675.0,
+        "height": 675.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/education_training_19.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Flat graphic background on a square canvas. A soft vertical gradient from warm golden yellow (this template: #F3C152) at the top edge fading to near-white by about 55% down. A large white dome/arch rises from the bottom center, almost as wide as the canvas; outside the arch, the two lower corners from about 60% down are filled with deep purple (this template: #6F079D). A full-width golden-yellow horizontal band at about 85–92% down, and a purple strip below it to the bottom edge. Three small dark-purple dots in a row near each top corner. Clean vector edges, soft even light. IMPORTANT: leave the lower-center of the frame (about 27–78% across, 30–100% down) empty of any person or other subject — that area is reserved for a separate transparent cutout composited on top; keep only background surface there. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-templates-2/education_training_19.png",
+        "notes": "The headline (purple) and the kicker question (black) sit in the top band, about 13–87% across and 15–30% down, so the top of the gradient must stay light enough for dark text — never dark or busy, even for a moody brief. The footer contact line sits on a separate yellow band shape layer, not on this image. The reference photo has the person baked in; a fresh background must leave that area empty, because the cutout layer supplies the person and it must not be duplicated."
+      },
+      "text_layer_count": 5,
+      "reference_note": "Reference exemplar for the 'supportive service + person cutout + contact footer' composition: kicker question, two-line headline, a transparent person cutout over an arch, and a footer with website, call to action and phone. Keep the exact layer count and roles. Per brief, the background (restyled from its prompt), the person cutout (from its prompt) and the copy change; contact details only change when the request gives them. The logo is locked and only swapped for the brand's own dark logo file.",
+      "slots": [
+        {
+          "layer_id": "1179757f-e01a-4fda-b83b-d0a858cdb0e1",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Counseling can help you find your way",
+          "max_chars": 42,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 38.0,
+          "position": {
+            "x": 85.5,
+            "y": 121.0
+          },
+          "box_size": {
+            "width": 467.0,
+            "height": 84.0
+          },
+          "image": null,
+          "notes": "Main reassurance headline describing how counseling can help, about 7–9 words. Keep the message warm and direct, with a balanced two-line wrap."
+        },
+        {
+          "layer_id": "151dfa08-2066-4dd0-a4e2-85e650ab00c5",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Feeling lost, anxious, and depressed?",
+          "max_chars": 40,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 22.0,
+          "position": {
+            "x": 145.0,
+            "y": 99.0
+          },
+          "box_size": {
+            "width": 443.0,
+            "height": 22.0
+          },
+          "image": null,
+          "notes": "Opening question that names the reader’s emotional concerns, about 5–7 words. This is a one-line kicker above the main headline, not a supporting subhead."
+        },
+        {
+          "layer_id": "46e8e2f0-3ab7-4568-b22b-6db209c71a22",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": -41.76213958406294,
+            "y": 566.0854209447012
+          },
+          "box_size": {
+            "x": -41.76213958406294,
+            "y": 599.0,
+            "width": 754.5242791681259,
+            "height": 65.82915811059749
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "92494108-3d11-4e78-847a-fafe34a3bca1",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 180.99999999999997,
+            "y": 205.0
+          },
+          "box_size": {
+            "x": 144.99999999999997,
+            "y": 205.0,
+            "width": 346.65485583362516,
+            "height": 495.22122261946447
+          },
+          "image": {
+            "kind": "subject_cutout",
+            "generate": true,
+            "transparent": true,
+            "prompt": "A single person expressing the feeling the service helps with (this template: a young woman in a simple white dress, sitting with her head in her hands, looking down, stressed), front view from slightly above, seen from the head down to the knees, soft even studio light, realistic photography. Subject only, isolated on a fully transparent background: an alpha-channel PNG with no backdrop, floor or baked-in shadow. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1787225328_32c5b691-0328-466e-a251-cbf099b81f0b.png",
+            "notes": "The person stands in the lower center, over the white arch, and runs off the bottom edge of the canvas; the headline is directly above, so keep the head in the upper part of the image and the figure centered. It must be a genuine alpha-transparent cutout — only the person has pixels."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "d76ec05d-a702-473c-8ffc-baa680b56b1d",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.yourwebsite.com",
+          "max_chars": 22,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 14.0,
+          "position": {
+            "x": 16.0,
+            "y": 590.0
+          },
+          "box_size": {
+            "width": 165.0,
+            "height": 18.0
+          },
+          "image": null,
+          "notes": "Website address in the left footer, one short URL on a single line. A contact detail paired with the phone number, not a headline."
+        },
+        {
+          "layer_id": "dc27a7a0-ff4b-4ad3-98dd-2cc4cf8d0aa6",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "font_size": null,
+          "position": {
+            "x": 295.5,
+            "y": 5.0
+          },
+          "box_size": {
+            "width": 78.854368,
+            "height": 63.95275514960629
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": "Dark logo variant, chosen because it sits on the light yellow top."
+        },
+        {
+          "layer_id": "e8e4014a-feb8-48d7-a439-4161d4f8faa3",
+          "resolved_name": "TextLayer",
+          "role": "phone",
+          "editable": true,
+          "default_text": "+123-456-7890",
+          "max_chars": 18,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 14.0,
+          "position": {
+            "x": 470.0,
+            "y": 590.0
+          },
+          "box_size": {
+            "width": 165.0,
+            "height": 18.0
+          },
+          "image": null,
+          "notes": "Phone number in the right footer, on a single line with any needed dialing prefix. A contact detail paired with the website address."
+        },
+        {
+          "layer_id": "ecf38563-29e0-4e41-8991-cd7b9f320594",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Contact Us Now",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 14.0,
+          "position": {
+            "x": 253.0,
+            "y": 590.0
+          },
+          "box_size": {
+            "width": 165.0,
+            "height": 18.0
+          },
+          "image": null,
+          "notes": "Brief contact call to action centered between the footer contact details, about 2–4 words. This is an action prompt rather than a generic label; keep it on one line."
+        }
+      ]
+    }
+  }
+]

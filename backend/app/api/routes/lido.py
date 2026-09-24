@@ -1,53 +1,64 @@
-"""Lido corpus generation endpoint — simpler, prompt-driven alternative to /v1/generate.
+"""Lido.js (template) API.
 
-    POST /v1/lido/generate        prompt → filled Lido template, saved to disk
-    POST /v1/lido/scratch        brief → a design composed from scratch, saved to disk
-    GET  /v1/lido/scratch         everything generated so far, newest first
-    GET  /v1/lido/scratch/{id}    one saved design (scratch or template)
+    POST /v1/lido/generate            prompt → best template, filled; saved to lido_generations
+    GET  /v1/lido/templates           every template in the catalog (lido_templates)
+    POST /v1/lido/templates/sync      mirror lidojs_templates/*.json into lido_templates now
+    GET  /v1/lido/generations         generation history, newest first
+    GET  /v1/lido/generations/{id}    one saved design, to reopen it
 
-Unlike `/v1/generate` (which produces a complex DesignDoc with a full job graph), this
-endpoint runs synchronously and returns the complete filled Lido JSON in one call, ready
-to hand to the editor. No DB writes, no background tasks, just the pipeline.
+Generation runs synchronously and returns the complete filled Lido JSON in one call.
 """
 
 from __future__ import annotations
 
 import structlog
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.adapters.base import AdapterError
+from app.api.deps import db_session
 from app.api.schemas import (
     LidoAssetInfo,
     LidoGenerateRequest,
     LidoGenerateResponse,
+    LidoGenerationSummary,
     LidoImagePromptInfo,
-    LidoScratchElement,
-    LidoScratchRequest,
-    LidoScratchResponse,
-    LidoScratchSummary,
+    LidoMatchInfo,
     LidoSlotFillInfo,
+    LidoTemplateSummary,
 )
+from app.db import repo
 from app.lido_corpus.pipeline import generate_lido_design
-from app.lido_corpus.retrieval import NoReadyTemplateError
-from app.lido_scratch import generate_scratch_design
-from app.lido_scratch.store import listing, load
-from app.pipelines.part_one.brief import parse_brief
-from app.schema.brief import KIND_DEFAULT_SIZE
+from app.lido_corpus.retrieval import NoReadyTemplateError, TemplateNotFoundError
+from app.lido_corpus.store import load_catalog, sync_templates
 from app.util.safety import screen_prompt
 
 log = structlog.get_logger(__name__)
 router = APIRouter(prefix="/v1/lido", tags=["lido"])
 
 
+async def _record_generation(session: AsyncSession, *, design_id: str,
+                             document: list[dict], meta: dict) -> None:
+    """The DB write IS the persistence for this design — unlike the old file-backed
+    version, a failure here is not survivable by falling back to a file that was never
+    written, so it is raised rather than swallowed."""
+    await repo.upsert_lido_generation(session, design_id=design_id, document=document, meta=meta)
+
+
 @router.post("/generate", response_model=LidoGenerateResponse)
-async def lido_generate(body: LidoGenerateRequest) -> LidoGenerateResponse:
-    """Fill a ready Lido template from a text prompt.
+async def lido_generate(body: LidoGenerateRequest,
+                        session: AsyncSession = Depends(db_session)) -> LidoGenerateResponse:
+    """Fill a Lido template from a text prompt.
 
     One LLM call writes every text layer and every image prompt from the template's own
     per-layer metadata; images are generated per layer spec (transparent cutout or
     opaque) and uploaded to the object store under a permanent public URL. The filled
-    `[{"layers", "meta"}]` document is saved under `lido_generated/` and returned in
-    full — no background jobs, no DB writes.
+    `[{"layers", "meta"}]` document is saved into `lido_generations` (reopen it with
+    GET /v1/lido/generations/{id}) and returned in full.
+
+    Which template gets filled: `template_id` picks one exactly; else `random_template`
+    picks uniformly from the whole corpus; else the automatic match over every template
+    (`app/lido_corpus/matcher.py`), reported back in `match`.
     """
     verdict = screen_prompt(body.prompt)
     if not verdict.allowed:
@@ -55,10 +66,13 @@ async def lido_generate(body: LidoGenerateRequest) -> LidoGenerateResponse:
 
     try:
         result = await generate_lido_design(
-            body.prompt, kind=body.kind, generate_images=body.generate_images
+            body.prompt, kind=body.kind, generate_images=body.generate_images,
+            template_id=body.template_id, random_template=body.random_template,
         )
+    except TemplateNotFoundError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
     except NoReadyTemplateError as exc:
-        log.error("lido.no_ready_template", error=str(exc))
+        log.error("lido.no_template", error=str(exc))
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail=str(exc)) from exc
     except AdapterError as exc:
@@ -70,13 +84,22 @@ async def lido_generate(body: LidoGenerateRequest) -> LidoGenerateResponse:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail=f"Design generation failed: {exc}") from exc
 
+    try:
+        await _record_generation(session, design_id=result.design_id,
+                                 document=result.document, meta=result.document[0]["meta"])
+    except Exception as exc:
+        log.error("lido.generation_index_failed", design_id=result.design_id, error=str(exc))
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Design was generated but could not be saved; please retry",
+        ) from exc
+
     roles = {slot.layer_id: slot.role for slot in result.template.meta.slots}
     return LidoGenerateResponse(
         document=result.document,
         template_id=result.template.meta.id,
         template_score=result.template_score,
         design_id=result.design_id,
-        path=result.path,
         text_fills=[
             LidoSlotFillInfo(layer_id=lid, role=roles.get(lid, "text"), text=text)
             for lid, text in result.text_fills.items()
@@ -90,105 +113,53 @@ async def lido_generate(body: LidoGenerateRequest) -> LidoGenerateResponse:
             for lid, prompt in result.image_prompts.items()
         ],
         image_failures=result.image_failures,
+        match=LidoMatchInfo.model_validate(result.match) if result.match else None,
     )
 
 
-@router.post("/scratch", response_model=LidoScratchResponse)
-async def lido_scratch(body: LidoScratchRequest) -> LidoScratchResponse:
-    """Design a Lido document from scratch — no template is retrieved or referenced.
-
-    The model composes the whole page (canvas, palette, type scale, placement, copy),
-    the layout engine repairs its geometry, images are generated for whatever the design
-    asked for, and the result is saved under `lido_generated/`.
-    """
-    verdict = screen_prompt(body.prompt)
-    if not verdict.allowed:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=verdict.reason)
-
-    prompt = body.prompt
-    if body.kind:
-        prompt = f"{prompt}\n(design kind: {body.kind})"
-
-    try:
-        brief, _cost = await parse_brief(prompt)
-    except Exception as exc:
-        log.error("lido.scratch.brief_parse_failed", error=str(exc), prompt=body.prompt[:100])
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Could not parse design brief: {exc}",
-        ) from exc
-
-    # An explicit size wins over the brief; an explicit kind only sets the size when the
-    # caller did not give one, so "make it a story" still resizes the canvas.
-    if body.size and body.size.get("width") and body.size.get("height"):
-        brief.canvas.width = max(64, min(8000, int(body.size["width"])))
-        brief.canvas.height = max(64, min(8000, int(body.size["height"])))
-    elif body.kind and body.kind in KIND_DEFAULT_SIZE:
-        width, height, _dpi = KIND_DEFAULT_SIZE[body.kind]
-        brief.canvas.width, brief.canvas.height = width, height
-
-    try:
-        result = await generate_scratch_design(
-            brief, body.prompt, generate_images=body.generate_images
-        )
-    except Exception as exc:
-        log.error("lido.scratch.failed", error=str(exc))
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Scratch generation failed: {exc}",
-        ) from exc
-
-    spec = result.spec
-    return LidoScratchResponse(
-        design_id=result.design_id,
-        document=result.document,
-        name=spec.name,
-        kind=spec.kind,
-        width=spec.width,
-        height=spec.height,
-        vibe=spec.vibe,
-        layout_style=spec.layout_style,
-        background_style=spec.background.style,
-        decor=list(spec.decor),
-        palette=spec.palette,
-        elements=[
-            LidoScratchElement(
-                kind=e.kind, role=e.role, text=e.text, size=e.size,
-                x=round(e.x, 4), y=round(e.y, 4), w=round(e.w, 4),
-                color=e.color, image_prompt=e.image_prompt,
-                cutout=e.cutout, behind=e.behind,
-                font=e.font, tracking=e.tracking,
-            )
-            for e in spec.elements
-        ],
-        llm_designed=result.llm_designed,
-        font_scale=round(result.font_scale, 3),
-        background_url=result.background_url,
-        path=result.path,
-    )
-
-
-@router.get("/scratch", response_model=list[LidoScratchSummary])
-async def lido_scratch_list() -> list[LidoScratchSummary]:
-    """Every design saved under `lido_generated/`, newest first."""
+@router.get("/templates", response_model=list[LidoTemplateSummary])
+async def lido_templates_list() -> list[LidoTemplateSummary]:
+    """Every template in the catalog (`lido_templates`, synced from the files). `ready`
+    means a human reviewed it (`meta.reference_note`); every template is a candidate for
+    the automatic match either way."""
+    catalog = await load_catalog()
     return [
-        LidoScratchSummary(
-            id=meta.get("id", ""),
-            name=meta.get("name", ""),
-            kind=meta.get("kind", "post"),
-            aspect=meta.get("aspect", "1:1"),
-            description=meta.get("description", ""),
-            prompt=meta.get("prompt", ""),
-            generated_at=meta.get("generated_at", ""),
-            canvas_size=meta.get("canvas_size", {}),
+        LidoTemplateSummary(
+            id=t.meta.id, name=t.meta.name or t.meta.id, kind=t.meta.kind,
+            aspect=t.meta.aspect, tags=t.meta.tags, description=t.meta.description,
+            ready=bool(t.meta.reference_note),
         )
-        for meta in listing()
+        for t in catalog.templates
     ]
 
 
-@router.get("/scratch/{design_id}")
-async def lido_scratch_get(design_id: str) -> dict:
-    document = load(design_id)
-    if document is None:
+@router.post("/templates/sync")
+async def lido_templates_sync(force: bool = False) -> dict:
+    """Mirror `lidojs_templates/*.json` into `lido_templates` right now, re-embedding
+    only templates whose metadata changed (`force=true` re-embeds all). The API also
+    does this by itself at startup and every LIDO_TEMPLATE_SYNC_SECONDS."""
+    try:
+        report = await sync_templates(force=force)
+    except Exception as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                            detail=f"template sync failed: {exc}") from exc
+    return {"added": report.added, "reembedded": report.updated,
+            "unchanged": report.unchanged, "deleted": report.deleted,
+            "model": report.model}
+
+
+@router.get("/generations", response_model=list[LidoGenerationSummary])
+async def lido_generations_list(limit: int = 50, offset: int = 0,
+                                session: AsyncSession = Depends(db_session)) -> list[dict]:
+    """The generation history (`lido_generations`), newest first."""
+    return await repo.list_lido_generations(
+        session, limit=max(1, min(limit, 200)), offset=max(0, offset))
+
+
+@router.get("/generations/{design_id}")
+async def lido_generation_get(design_id: str,
+                              session: AsyncSession = Depends(db_session)) -> dict:
+    row = await repo.get_lido_generation(session, design_id)
+    if row is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="design not found")
-    return {"designId": design_id, "document": document}
+    return {"designId": design_id, "document": row["document"]}

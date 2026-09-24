@@ -1,0 +1,1227 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "293ed2b2-6f3e-4e1d-9e0f-f56df098329a",
+          "348cadc0-a948-49a2-83eb-f7920146b6ec",
+          "d32bb329-aa9f-4820-8a4c-d7b89a86a84e",
+          "9cf52ca6-1a90-4302-a88a-10510ff220e6",
+          "dffef640-f765-4e9b-9fa9-2ebee29c8083",
+          "f88f2968-3416-42d5-8520-574684f94dad",
+          "c1d407a0-851a-4772-8ead-7676af75d2cd",
+          "3d2074ab-1183-4b5e-8162-120c33e65587",
+          "31affc60-12f1-449b-8575-4217958bd774",
+          "2554cfba-018f-404a-a8f7-a2e70bfeb164",
+          "6063ece5-a2d9-4446-a382-c7352e66bbf2",
+          "ac5b7f65-25b0-4101-ad3a-b9db5ec69d5a"
+        ],
+        "props": {
+          "color": "rgb(255,255,255)",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/templates_images/PersonalServices1.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/templates_images/PersonalServices1.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "transparency": 1
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "2554cfba-018f-404a-a8f7-a2e70bfeb164": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "color": "rgb(67, 51, 41)",
+          "scale": 3.1640625,
+          "shape": "rectangle",
+          "rotate": 0,
+          "boxSize": {
+            "x": 60,
+            "y": 548.25,
+            "width": 179.5,
+            "height": 43.5
+          },
+          "position": {
+            "x": 60,
+            "y": 548.25
+          },
+          "roundedCorners": 100
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "293ed2b2-6f3e-4e1d-9e0f-f56df098329a": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 78.854368,
+              "height": 63.95275514960629
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "95px",
+            "height": "75px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 78.854368,
+            "height": 63.95275514960629
+          },
+          "position": {
+            "x": 65,
+            "y": 76
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "31affc60-12f1-449b-8575-4217958bd774": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "●\n              Colouring Hair"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(97, 76, 62)",
+                  "indent": 0,
+                  "fontSize": "17px",
+                  "listType": "bullet",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "●\n              Colouring Hair",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(97, 76, 62)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(97, 76, 62)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 17
+          },
+          "position": {
+            "x": 60,
+            "y": 480
+          },
+          "fontSizes": [
+            17
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "bold",
+          "lineHeight": "1",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "348cadc0-a948-49a2-83eb-f7920146b6ec": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "hair"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(67, 51, 41)",
+                  "indent": 0,
+                  "fontSize": "106px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Forum",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "hair",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(67, 51, 41)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Forum",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/forum/v19/6aey4Ky-Vb8Ew_IWMJMa3mnT.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(67, 51, 41)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 300,
+            "height": 106
+          },
+          "position": {
+            "x": 60,
+            "y": 165
+          },
+          "fontSizes": [
+            106
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3d2074ab-1183-4b5e-8162-120c33e65587": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "●\n              Hair Washing"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(97, 76, 62)",
+                  "indent": 0,
+                  "fontSize": "17px",
+                  "listType": "bullet",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "●\n              Hair Washing",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(97, 76, 62)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(97, 76, 62)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 17
+          },
+          "position": {
+            "x": 60,
+            "y": 453
+          },
+          "fontSizes": [
+            17
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "bold",
+          "lineHeight": "1",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "6063ece5-a2d9-4446-a382-c7352e66bbf2": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "BOOK NOW",
+          "replacableText": "BOOK NOW"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "26px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Roboto",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "BOOK NOW",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 36
+          },
+          "position": {
+            "x": -116.6504997787178,
+            "y": 550.5
+          },
+          "fontSizes": [
+            26
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "9cf52ca6-1a90-4302-a88a-10510ff220e6": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Our Services:",
+          "replacableText": "Our Services:"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "20px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": 0.093,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Our Services:",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 60,
+            "y": 360,
+            "width": 170,
+            "height": 20
+          },
+          "position": {
+            "x": 60,
+            "y": 360
+          },
+          "fontSizes": [
+            20
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ac5b7f65-25b0-4101-ad3a-b9db5ec69d5a": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/user-image/user-image/1786100538_86.png",
+            "thumb": "https://assets.quickhub.ai/user-image/user-image/1786100538_86.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 640.2831402831401,
+              "height": 499.9999999999999
+            },
+            "position": {
+              "x": -70.14157014157013,
+              "y": 0
+            }
+          },
+          "scale": 0.4527272906054379,
+          "rotate": 0,
+          "boxSize": {
+            "x": 430.7142646435911,
+            "y": 324.2719106359949,
+            "width": 226.3636453027189,
+            "height": 226.3636453027189
+          },
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 434.68342016849397,
+            "y": 324.13635469728115
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c1d407a0-851a-4772-8ead-7676af75d2cd": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "●\n              Hair Mask"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(97, 76, 62)",
+                  "indent": 0,
+                  "fontSize": "17px",
+                  "listType": "bullet",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "●\n              Hair Mask",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(97, 76, 62)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(97, 76, 62)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 17
+          },
+          "position": {
+            "x": 60,
+            "y": 423
+          },
+          "fontSizes": [
+            17
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "bold",
+          "lineHeight": "1",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d32bb329-aa9f-4820-8a4c-d7b89a86a84e": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "salon"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(97, 76, 62)",
+                  "indent": 0,
+                  "fontSize": "106px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Forum",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "salon",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(97, 76, 62)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Forum",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/forum/v19/6aey4Ky-Vb8Ew_IWMJMa3mnT.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(97, 76, 62)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 60,
+            "y": 240,
+            "width": 330,
+            "height": 106
+          },
+          "position": {
+            "x": 60,
+            "y": 242
+          },
+          "fontSizes": [
+            106
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "dffef640-f765-4e9b-9fa9-2ebee29c8083": {
+        "type": {
+          "type": "website",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "www.reallygreatsite.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "17px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "textTransform": "lowercase"
+                },
+                "content": [
+                  {
+                    "text": "www.reallygreatsite.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 300,
+            "height": 50
+          },
+          "position": {
+            "x": 60,
+            "y": 615
+          },
+          "fontSizes": [
+            17
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f88f2968-3416-42d5-8520-574684f94dad": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "●\n             Haircut"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(97, 76, 62)",
+                  "indent": 0,
+                  "fontSize": "17px",
+                  "listType": "bullet",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "●\n             Haircut",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(97, 76, 62)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(97, 76, 62)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 17
+          },
+          "position": {
+            "x": 60,
+            "y": 395
+          },
+          "fontSizes": [
+            17
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "bold",
+          "lineHeight": "1",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_831",
+      "name": "Salon Services List",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "salon",
+        "beauty",
+        "hair",
+        "services",
+        "personal-care"
+      ],
+      "description": "Personal-services post: a huge two-word serif title, a small list heading, four bulleted service items, a booking button and a website on a light curved panel, with a large service photo top-right in the background and a small circular photo lower-right.",
+      "canvas_size": {
+        "width": 675.0,
+        "height": 675.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/templates_images/PersonalServices1.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Elegant graphic layout on a square canvas. A large light panel (this template: warm off-white, #F1EEEA) fills most of the left and center, with soft flowing S-curve edges. Around it, a deep brand-color frame (this template: dark chocolate brown, #433329, with a slightly lighter brown inner edge) forms smooth waves along the top-left corner and across the bottom. In the top-right corner, a large photo panel with a curved lower-left edge, set inside the brown frame (this template: a stylist's hand lifting a client's long wavy balayage hair, salon mirror lights softly blurred behind), realistic, warm light. The lower-right area around 64–98% across, 48–81% down is plain brown frame — a separate circular photo layer sits there, so draw no circle or photo in it. The whole light panel on the left stays plain and empty. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-templates-2/templates_images/PersonalServices1.png",
+        "notes": "All text is dark brown or black and sits on the left light panel, about 9–55% across and 11–95% down, so that panel must stay a light, calm, plain tone — never dark, patterned or busy, even for a moody brief (put darker tones in the frame instead). The white button text sits on its own brown button shape. The reference image has a photo baked into the small circle in the lower right; a regenerated background must not contain it, because the circular photo is a separate layer. The small circle's brown ring currently comes only from this reference image, so a regenerated background may show that photo without a ring."
+      },
+      "text_layer_count": 9,
+      "reference_note": "Reference exemplar for the 'service menu' composition: two-word title, list heading, four parallel bullet items, booking button, website, one circular photo plus a large photo inside the background. Keep the exact layer count and roles. Per brief, the background (restyled from its prompt, including its big photo), the circular photo and the copy change; the website only changes when the request gives one. The logo is locked and only swapped for the brand's own dark logo file.",
+      "slots": [
+        {
+          "layer_id": "2554cfba-018f-404a-a8f7-a2e70bfeb164",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 60.0,
+            "y": 548.25
+          },
+          "box_size": {
+            "x": 60.0,
+            "y": 548.25,
+            "width": 179.5,
+            "height": 43.5
+          },
+          "image": null,
+          "notes": "Rounded dark-brown button behind the booking call to action. Fixed design element — keep its color matched to the brown frame in the background."
+        },
+        {
+          "layer_id": "293ed2b2-6f3e-4e1d-9e0f-f56df098329a",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "font_size": null,
+          "position": {
+            "x": 65.0,
+            "y": 76.0
+          },
+          "box_size": {
+            "width": 78.854368,
+            "height": 63.95275514960629
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": "Dark logo variant, chosen because it sits on the light panel."
+        },
+        {
+          "layer_id": "31affc60-12f1-449b-8575-4217958bd774",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "● Colouring Hair",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 17.0,
+          "position": {
+            "x": 60.0,
+            "y": 480.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 17.0
+          },
+          "image": null,
+          "notes": "Fourth of four parallel list items. Starts with the '● ' bullet, then a 1–2 word item name (e.g. '● Colouring Hair'). One line; match the other three items."
+        },
+        {
+          "layer_id": "348cadc0-a948-49a2-83eb-f7920146b6ec",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "hair",
+          "max_chars": 5,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 106.0,
+          "position": {
+            "x": 60.0,
+            "y": 165.0
+          },
+          "box_size": {
+            "width": 300.0,
+            "height": 106.0
+          },
+          "image": null,
+          "notes": "First word of the big two-word title, set in huge uppercase serif (e.g. 'HAIR' + 'SALON'). One short word of at most 5 letters — longer words do not fit the line at this size. Reads together with the word below as one name for the business or service."
+        },
+        {
+          "layer_id": "3d2074ab-1183-4b5e-8162-120c33e65587",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "● Hair Washing",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 17.0,
+          "position": {
+            "x": 60.0,
+            "y": 453.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 17.0
+          },
+          "image": null,
+          "notes": "Third of four parallel list items. Starts with the '● ' bullet, then a 1–2 word item name (e.g. '● Hair Washing'). One line; match the other three items."
+        },
+        {
+          "layer_id": "6063ece5-a2d9-4446-a382-c7352e66bbf2",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "BOOK NOW",
+          "max_chars": 10,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 26.0,
+          "position": {
+            "x": -116.6504997787178,
+            "y": 550.5
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 36.0
+          },
+          "image": null,
+          "notes": "White button text on the rounded brown button: a 1–2 word booking call to action (e.g. 'BOOK NOW', 'CALL NOW'). At most about 10 letters so it stays inside the button."
+        },
+        {
+          "layer_id": "9cf52ca6-1a90-4302-a88a-10510ff220e6",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Our Services:",
+          "max_chars": 14,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 20.0,
+          "position": {
+            "x": 60.0,
+            "y": 360.0
+          },
+          "box_size": {
+            "x": 60.0,
+            "y": 360.0,
+            "width": 170.0,
+            "height": 20.0
+          },
+          "image": null,
+          "notes": "Small uppercase heading that introduces the list below, ending with a colon (e.g. 'Our Services:', 'Menu:', 'We Offer:'). One line, 1–2 words."
+        },
+        {
+          "layer_id": "ac5b7f65-25b0-4101-ad3a-b9db5ec69d5a",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 434.68342016849397,
+            "y": 324.13635469728115
+          },
+          "box_size": {
+            "x": 430.7142646435911,
+            "y": 324.2719106359949,
+            "width": 226.3636453027189,
+            "height": 226.3636453027189
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "Close, candid photograph of the service being done (this template: a stylist's hands styling a client's long wavy honey-blonde hair in a salon, seen from behind, with a mirror, salon chair and warm lights softly blurred behind). Warm soft light, realistic editorial photography. Keep the key action — hands and hair — in the center of the frame, filling it with no empty corners. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/user-image/user-image/1786100538_86.png",
+            "notes": "Small opaque photo cropped to a circle in the lower right, next to the big photo in the background's top-right panel. It must fill the circle completely. Show a different moment or angle of the same service than the big photo, so the two read as a pair."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later."
+        },
+        {
+          "layer_id": "c1d407a0-851a-4772-8ead-7676af75d2cd",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "● Hair Mask",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 17.0,
+          "position": {
+            "x": 60.0,
+            "y": 423.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 17.0
+          },
+          "image": null,
+          "notes": "Second of four parallel list items. Starts with the '● ' bullet, then a 1–2 word item name (e.g. '● Hair Mask'). One line; match the other three items."
+        },
+        {
+          "layer_id": "d32bb329-aa9f-4820-8a4c-d7b89a86a84e",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "salon",
+          "max_chars": 6,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 106.0,
+          "position": {
+            "x": 60.0,
+            "y": 242.0
+          },
+          "box_size": {
+            "x": 60.0,
+            "y": 240.0,
+            "width": 330.0,
+            "height": 106.0
+          },
+          "image": null,
+          "notes": "Second word of the big two-word title, directly under the first (e.g. 'SALON'). One short word of at most 5–6 letters; completes the title, not a separate subheading."
+        },
+        {
+          "layer_id": "dffef640-f765-4e9b-9fa9-2ebee29c8083",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.reallygreatsite.com",
+          "max_chars": 28,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 17.0,
+          "position": {
+            "x": 60.0,
+            "y": 615.0
+          },
+          "box_size": {
+            "width": 300.0,
+            "height": 50.0
+          },
+          "image": null,
+          "notes": "Website line at the bottom of the light panel, the address only, one line. Stays as the template's placeholder unless the request gives a website."
+        },
+        {
+          "layer_id": "f88f2968-3416-42d5-8520-574684f94dad",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "● Haircut",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 17.0,
+          "position": {
+            "x": 60.0,
+            "y": 395.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 17.0
+          },
+          "image": null,
+          "notes": "First of four parallel list items (services, treatments or products). Starts with the '● ' bullet, then a 1–2 word item name (e.g. '● Haircut'). One line; match the other three items."
+        }
+      ]
+    }
+  }
+]

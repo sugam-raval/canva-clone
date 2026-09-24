@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import io
 import json
-import shutil
 
 import pytest
 from botocore.exceptions import EndpointConnectionError
@@ -19,7 +18,7 @@ from PIL import Image
 from app.adapters.base import AdapterError, ImageResult, LLMResult
 from app.adapters.stub_adapters import StubLLM
 from app.config import get_settings
-from app.lido_corpus import assets_ai, generate_ai, generated, textfit
+from app.lido_corpus import assets_ai, generate_ai, generated, match_index, matcher, textfit
 from app.lido_corpus.generate_ai import (
     LidoLayerImagePrompt,
     LidoLayerTextFill,
@@ -34,7 +33,14 @@ from app.lido_corpus.generated import public_url
 from app.lido_corpus.loader import DEFAULT_CORPUS_DIR, load_corpus, load_enriched
 from app.lido_corpus.model import LidoDocument
 from app.lido_corpus.pipeline import generate_lido_design
-from app.lido_corpus.retrieval import NoReadyTemplateError, select_ready_template
+from app.lido_corpus.retrieval import (
+    NoReadyTemplateError,
+    TemplateNotFoundError,
+    choose_template,
+    get_template,
+    random_template,
+    select_best_template,
+)
 from app.storage.assets import S3Backend
 
 TEMPLATE = DEFAULT_CORPUS_DIR / "template_227.json"
@@ -147,6 +153,15 @@ def store(monkeypatch):
 
 
 @pytest.fixture(autouse=True)
+def offline_matcher(monkeypatch):
+    """Template matching never calls the real LLM or loads the embedding model in these
+    tests: the request profile falls back to patterns and topic to word overlap."""
+    monkeypatch.setattr(matcher, "get_llm", lambda: StubLLM())
+    monkeypatch.setattr(match_index, "_embedder", lambda: None)
+    monkeypatch.setattr(match_index, "_MEMORY", {})
+
+
+@pytest.fixture(autouse=True)
 def offline_fonts(monkeypatch):
     """Measure with whatever fonts are already cached; never download in a test."""
     monkeypatch.setattr(textfit, "_download", lambda url, dest: False)
@@ -206,12 +221,72 @@ def test_css_text_transform_is_applied_before_measuring():
     assert textfit.family_name("Poppins, serif") == "Poppins"
 
 
-def test_only_ready_templates_are_candidates(tmp_path):
-    assert select_ready_template(load_corpus(), PROMPT).template.meta.id == "template_227"
+async def test_every_template_is_a_candidate_even_without_reference_note(tmp_path):
+    """The old reference_note gate is gone: a raw export with no meta is still picked
+    when it is the only template, and an empty corpus is the only error."""
+    raw = json.loads(TEMPLATE.read_text())
+    raw[0].pop("meta", None)
+    (tmp_path / "unreviewed.json").write_text(json.dumps(raw))
+    picked = await select_best_template(load_corpus(tmp_path), PROMPT, corpus_dir=tmp_path)
+    assert picked.template.meta.id == "unreviewed"
+    assert picked.match is not None
 
-    shutil.copy(DEFAULT_CORPUS_DIR / "template_1.json", tmp_path / "template_1.json")
+    empty = tmp_path / "empty"
+    empty.mkdir()
     with pytest.raises(NoReadyTemplateError):
-        select_ready_template(load_corpus(tmp_path), PROMPT)
+        await select_best_template(load_corpus(empty), PROMPT, corpus_dir=empty)
+
+
+def _renamed(template, new_id, *, ready=True):
+    """A distinct template object sharing template_227's layers, for exercising
+    selection across >1 template without depending on which corpus files happen to
+    exist on disk."""
+    meta = template.meta.model_copy(update={
+        "id": new_id, "reference_note": template.meta.reference_note if ready else None,
+    })
+    return template.model_copy(update={"meta": meta})
+
+
+def test_get_template_picks_by_id_regardless_of_readiness(template):
+    not_ready = _renamed(template, "template_999", ready=False)
+    corpus = [template, not_ready]
+
+    assert get_template(corpus, "template_227").template is template
+    # An explicit pick isn't gated on meta.reference_note the way auto-scoring is.
+    assert get_template(corpus, "template_999").template is not_ready
+
+    with pytest.raises(TemplateNotFoundError):
+        get_template(corpus, "does-not-exist")
+
+
+def test_random_template_picks_from_the_whole_corpus_not_just_ready_ones(template):
+    not_ready = _renamed(template, "template_999", ready=False)
+    corpus = [template, not_ready]
+
+    seen = {random_template(corpus).template.meta.id for _ in range(30)}
+    assert seen == {"template_227", "template_999"}
+
+
+async def test_choose_template_precedence(template, tmp_path):
+    """template_id wins outright; then random; only then the automatic match."""
+    other = _renamed(template, "template_other")
+    corpus = [template, other]
+
+    chosen = await choose_template(corpus, PROMPT, template_id="template_other",
+                                   corpus_dir=tmp_path)
+    assert chosen.template is other and chosen.match is None
+    chosen = await choose_template(corpus, PROMPT, template_id="template_other",
+                                   random_pick=True, corpus_dir=tmp_path)
+    assert chosen.template is other
+    auto = await choose_template(corpus, PROMPT, corpus_dir=tmp_path)
+    assert auto.match is not None   # identical cards tie; corpus order decides
+    assert auto.template.meta.id == "template_227"
+
+    picks = set()
+    for _ in range(30):
+        picks.add((await choose_template(corpus, PROMPT, random_pick=True,
+                                         corpus_dir=tmp_path)).template.meta.id)
+    assert picks == {"template_227", "template_other"}
 
 
 def test_locked_logo_is_never_a_target(template):
@@ -230,10 +305,13 @@ async def test_one_call_fills_every_layer_and_saves(fakes, store, tmp_path):
     install, opaque, transparent = fakes
     llm = install(_output())
 
-    result = await generate_lido_design(PROMPT, directory=tmp_path)
+    result = await generate_lido_design(PROMPT)
 
     assert len(llm.calls) == 1
-    assert llm.calls[0]["reasoning_effort"] == "high"
+    # No reasoning_effort/model override — the primary fill call uses whatever
+    # LLM_REASONING_EFFORT/LLM_MODEL are globally configured, same as any other call.
+    assert "reasoning_effort" not in llm.calls[0]
+    assert "model" not in llm.calls[0]
     assert llm.calls[0]["schema"] is LidoTemplateFillOutput
     assert PROMPT in llm.calls[0]["user"]
 
@@ -261,15 +339,54 @@ async def test_one_call_fills_every_layer_and_saves(fakes, store, tmp_path):
         assert url.startswith("http") and url.endswith(f"/design-assets/{key}")
         assert store.puts[key][1] == "image/png"
     assert "X-Amz-Signature" not in url
-    assert [p.name for p in tmp_path.iterdir()] == [f"{result.design_id}.json"]
 
-    saved = json.loads((tmp_path / f"{result.design_id}.json").read_text())
-    meta = saved[0]["meta"]
-    assert meta["source"] == "template" and meta["template_id"] == "template_227"
+    # Nothing is written to disk — the returned document is what the route persists to
+    # `lido_generations` (see app.db.repo.upsert_lido_generation).
+    assert list(tmp_path.iterdir()) == []
+
+    meta = result.document[0]["meta"]
+    assert meta["template_id"] == "template_227"
     assert meta["prompt"] == PROMPT and meta["name"] == "Vegan Sips"
     assert meta["reference_note"] is None
     assert meta["generation"]["image_prompts"] == GOOD_PROMPTS
-    LidoDocument.model_validate({"layers": saved[0]["layers"]})
+    LidoDocument.model_validate({"layers": result.document[0]["layers"]})
+
+
+async def test_generate_accepts_an_explicit_template_id(fakes, tmp_path):
+    install, _, _ = fakes
+    install(_output())
+
+    result = await generate_lido_design(PROMPT, generate_images=False,
+                                        template_id="template_227")
+
+    assert result.template.meta.id == "template_227"
+
+
+async def test_generate_rejects_an_unknown_template_id(fakes, tmp_path):
+    install, _, _ = fakes
+    install(_output())
+
+    with pytest.raises(TemplateNotFoundError):
+        await generate_lido_design(PROMPT, generate_images=False,
+                                   template_id="does-not-exist")
+
+
+async def test_generate_accepts_random_template(fakes, tmp_path):
+    install, _, _ = fakes
+    install(_output())
+
+    # A single-template corpus copy, independent of whatever else the real corpus
+    # happens to contain — this pins that random_template reaches choose_template, not
+    # that the real corpus has exactly one entry (it doesn't, and that's fine: this
+    # test just isn't the place to depend on it).
+    corpus_dir = tmp_path / "corpus"
+    corpus_dir.mkdir()
+    (corpus_dir / "template_227.json").write_text(TEMPLATE.read_text())
+
+    result = await generate_lido_design(PROMPT, generate_images=False,
+                                        random_template=True, corpus_dir=corpus_dir)
+
+    assert result.template.meta.id == "template_227"
 
 
 async def test_over_limit_copy_gets_one_repair_call(fakes, tmp_path):
@@ -280,11 +397,15 @@ async def test_over_limit_copy_gets_one_repair_call(fakes, tmp_path):
         LidoTextRepairOutput(text_fills=[LidoLayerTextFill(layer_id=HEADLINE, text="Fresh Sips")]),
     )
 
-    result = await generate_lido_design(PROMPT, generate_images=False, directory=tmp_path)
+    result = await generate_lido_design(PROMPT, generate_images=False)
 
     assert len(llm.calls) == 2
     assert llm.calls[1]["schema"] is LidoTextRepairOutput
     assert HEADLINE in llm.calls[1]["user"] and "Deliciously" in llm.calls[1]["user"]
+    # The repair call is scoped to LLM_MODEL_FAST, not the primary model/effort — a
+    # small, well-identified fix doesn't need the main reasoning budget.
+    assert llm.calls[1]["model"] == get_settings().llm_model_fast
+    assert "reasoning_effort" not in llm.calls[1]
     assert result.text_fills[HEADLINE] == "Fresh Sips"
     assert result.repaired == [HEADLINE] and result.clamped == []
 
@@ -294,7 +415,7 @@ async def test_failed_repair_falls_back_to_clamping(fakes, tmp_path, template):
     too_long = {**GOOD_TEXT, PROMO: "Limited Time Only Buy One Get One Free Today"}
     install(_output(text=too_long), AdapterError("boom", recoverable=False))
 
-    result = await generate_lido_design(PROMPT, generate_images=False, directory=tmp_path)
+    result = await generate_lido_design(PROMPT, generate_images=False)
 
     promo = next(t for t in text_targets(template) if t.layer_id == PROMO)
     assert result.clamped == [PROMO]
@@ -307,12 +428,12 @@ async def test_invented_website_is_reverted_but_a_given_one_is_kept(fakes, tmp_p
     invented = {**GOOD_TEXT, WEBSITE: "www.freshsips.com"}
 
     install(_output(text=invented))
-    result = await generate_lido_design(PROMPT, generate_images=False, directory=tmp_path)
+    result = await generate_lido_design(PROMPT, generate_images=False)
     assert result.text_fills[WEBSITE] == "www.yourwebsite.com"
 
     install(_output(text=invented))
     result = await generate_lido_design(f"{PROMPT}. Our site is freshsips.com",
-                                        generate_images=False, directory=tmp_path)
+                                        generate_images=False)
     assert result.text_fills[WEBSITE] == "www.freshsips.com"
 
 
@@ -320,7 +441,7 @@ async def test_missing_answers_fall_back_to_template_defaults(fakes, tmp_path, t
     install, _, transparent = fakes
     install(_output(text={HEADLINE: "Vegan Sips"}, prompts={"ROOT": GOOD_PROMPTS["ROOT"]}))
 
-    result = await generate_lido_design(PROMPT, directory=tmp_path)
+    result = await generate_lido_design(PROMPT)
 
     assert result.text_fills[KICKER] == "Healthy but Tasty Diet?"
     reference = template.meta.slots[[s.layer_id for s in template.meta.slots].index(SUBJECT)]
@@ -332,7 +453,7 @@ async def test_recoverable_llm_failure_is_retried_once(fakes, tmp_path):
     install, _, _ = fakes
     llm = install(AdapterError("truncated", recoverable=True), _output())
 
-    result = await generate_lido_design(PROMPT, generate_images=False, directory=tmp_path)
+    result = await generate_lido_design(PROMPT, generate_images=False)
 
     assert len(llm.calls) == 2
     assert result.text_fills[HEADLINE] == "Vegan Sips"
@@ -341,7 +462,7 @@ async def test_recoverable_llm_failure_is_retried_once(fakes, tmp_path):
 async def test_no_llm_is_an_error_not_an_unchanged_template(monkeypatch, tmp_path):
     monkeypatch.setattr(generate_ai, "get_llm", lambda: StubLLM())
     with pytest.raises(AdapterError):
-        await generate_lido_design(PROMPT, directory=tmp_path)
+        await generate_lido_design(PROMPT)
     assert not list(tmp_path.glob("*.json"))
 
 
@@ -352,7 +473,7 @@ async def test_generate_images_false_leaves_template_images(fakes, tmp_path, tem
     install, opaque, transparent = fakes
     install(_output())
 
-    result = await generate_lido_design(PROMPT, generate_images=False, directory=tmp_path)
+    result = await generate_lido_design(PROMPT, generate_images=False)
 
     assert opaque.calls == [] and transparent.calls == []
     assert result.image_fills == {} and result.image_failures == []
@@ -366,7 +487,7 @@ async def test_one_failed_image_keeps_its_original_and_is_reported(fakes, monkey
     monkeypatch.setattr(assets_ai, "get_transparent_image", lambda: FakeImages(True, fail=True))
     install(_output())
 
-    result = await generate_lido_design(PROMPT, directory=tmp_path)
+    result = await generate_lido_design(PROMPT)
 
     assert result.image_failures == [SUBJECT]
     assert set(result.image_fills) == {"ROOT"}
@@ -380,7 +501,7 @@ async def test_failed_upload_keeps_template_images_and_is_reported(fakes, store,
     store.fail = True
     install(_output())
 
-    result = await generate_lido_design(PROMPT, directory=tmp_path)
+    result = await generate_lido_design(PROMPT)
 
     assert sorted(result.image_failures) == sorted(["ROOT", SUBJECT])
     assert result.image_fills == {}

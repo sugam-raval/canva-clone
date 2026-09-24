@@ -1,11 +1,12 @@
-"""End-to-end Lido.js (template) generation (plan.md §2.2):
+"""End-to-end Lido.js (template) generation (docs/plan.md §2.2):
 
-    request -> ready template -> ONE LLM call (all copy + image prompts, per layer)
+    request -> best template (store.load_catalog + matcher: lido_templates / pgvector)
+            -> ONE LLM call (all copy + image prompts, per layer)
             -> mechanical limit checks -> images (opaque / transparent per layer spec)
-            -> fill -> save to lido_generated/
+            -> fill -> returned to the route, which saves it into `lido_generations`
 
-Nothing here touches the DesignDoc engine or a DB session. The finished
-`[{"layers": ..., "meta": ...}]` document is returned and written to disk in one call.
+The finished `[{"layers": ..., "meta": ...}]` document is only persisted once the route
+calls `app.db.repo.upsert_lido_generation`; nothing is written to disk.
 """
 
 from __future__ import annotations
@@ -21,10 +22,11 @@ from botocore.exceptions import BotoCoreError, ClientError
 from .assets_ai import generate_template_images
 from .compose import fill_template
 from .generate_ai import BACKGROUND_LAYER_ID, TemplateFill, generate_template_fill, image_targets
-from .generated import new_design_id, save_design, upload_asset
-from .loader import DEFAULT_CORPUS_DIR, derive_meta, load_corpus
+from .generated import new_design_id, upload_asset
+from .loader import DEFAULT_CORPUS_DIR, derive_meta
 from .model import LidoDocument, LidoTemplateFile
-from .retrieval import select_ready_template
+from .retrieval import choose_template
+from .store import load_catalog
 
 log = structlog.get_logger(__name__)
 
@@ -32,10 +34,11 @@ log = structlog.get_logger(__name__)
 @dataclass
 class LidoGenerationResult:
     design_id: str
-    path: str
     document: list[dict]
     template: LidoTemplateFile
     template_score: float
+    match: dict | None = None
+    """Top-3 candidates and how the automatic match decided (None for explicit/random)."""
     text_fills: dict[str, str] = field(default_factory=dict)
     image_prompts: dict[str, str] = field(default_factory=dict)
     image_fills: dict[str, str] = field(default_factory=dict)
@@ -80,7 +83,6 @@ def _build_meta(design_id: str, template: LidoTemplateFile, layers: dict, *, nam
     document = LidoDocument.model_validate({"layers": layers})
     meta = derive_meta(design_id, document.layers, existing=existing).model_dump(mode="json")
     meta.update(
-        source="template",
         template_id=template.meta.id,
         prompt=prompt,
         generated_at=datetime.now(UTC).isoformat(),
@@ -104,11 +106,15 @@ async def generate_lido_design(
     *,
     kind: str | None = None,
     generate_images: bool = True,
+    template_id: str | None = None,
+    random_template: bool = False,
     corpus_dir: Path | str = DEFAULT_CORPUS_DIR,
-    directory: Path | None = None,
 ) -> LidoGenerationResult:
-    templates = load_corpus(corpus_dir)
-    chosen = select_ready_template(templates, prompt)
+    catalog = await load_catalog(corpus_dir)      # lido_templates (DB), files as fallback
+    templates = catalog.templates
+    chosen = await choose_template(templates, prompt, template_id=template_id,
+                                   random_pick=random_template, corpus_dir=corpus_dir,
+                                   catalog=catalog)
     template = chosen.template
 
     fill = await generate_template_fill(prompt, template, kind=kind)
@@ -129,14 +135,13 @@ async def generate_lido_design(
         prompt=prompt, kind=kind, fill=fill, image_fills=image_fills,
         image_failures=image_failures,
     )
-    path = save_design(design_id, document, directory)
 
     return LidoGenerationResult(
         design_id=design_id,
-        path=str(path),
         document=document,
         template=template,
         template_score=chosen.score,
+        match=chosen.match.to_json() if chosen.match else None,
         text_fills=fill.text,
         image_prompts=fill.image_prompts,
         image_fills=image_fills,

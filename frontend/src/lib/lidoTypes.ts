@@ -30,60 +30,70 @@ export interface LidoAssetInfo {
   url: string
 }
 
+export interface LidoImagePromptInfo {
+  layerId: string
+  prompt: string
+}
+
+/** One candidate from the automatic template match (see docs/new_match_plan.md). */
+export interface LidoMatchCandidate {
+  templateId: string
+  score: number
+  topic: number
+  details: number
+  held: string[]
+  missing: string[]
+  emptyContactSlots: string[]
+}
+
+/** How the automatic match picked the template. `holds_all`: at least one template had
+ * a slot for every detail the user gave, and the pick came from those. */
+export interface LidoMatchInfo {
+  path: 'holds_all' | 'best_match'
+  topicLine: string
+  requestDetails: string[]
+  usedLlm: boolean
+  embedder: string
+  candidates: LidoMatchCandidate[]
+}
+
 export interface LidoGenerateResponse {
   document: LidoDocumentEntry[]
   templateId: string
   templateScore: number
+  designId: string
   textFills: LidoSlotFillInfo[]
   imageFills: LidoAssetInfo[]
+  imagePrompts: LidoImagePromptInfo[]
+  imageFailures: string[]
+  /** null for an explicit or random template pick. */
+  match?: LidoMatchInfo | null
 }
 
-/** `/v1/lido/scratch` — a design composed from the brief, with no template involved. */
-
-export interface LidoScratchElement {
-  kind: string
-  role: string | null
-  text: string | null
-  size: string
-  x: number
-  y: number
-  w: number
-  color: string | null
-  imagePrompt: string | null
-  cutout: boolean
-  behind: boolean
-  font: string
-  tracking: string | null
-}
-
-export interface LidoScratchResponse {
-  designId: string
-  document: LidoDocumentEntry[]
-  name: string
-  kind: string
-  width: number
-  height: number
-  vibe: string
-  layoutStyle: string
-  /** The graphic treatment chosen for the ground — see `lido_scratch/background.py`. */
-  backgroundStyle: string
-  /** The ornament the page wears, after the archetype's defaults were filled in. */
-  decor: string[]
-  palette: string[]
-  elements: LidoScratchElement[]
-  llmDesigned: boolean
-  fontScale: number
-  backgroundUrl: string | null
-  path: string
-}
-
-export interface LidoScratchSummary {
+/** `/v1/lido/templates` — one entry per template in the corpus, for a template picker. */
+export interface LidoTemplateSummary {
   id: string
   name: string
   kind: string
   aspect: string
+  tags: string[]
   description: string
+  /** Whether the auto-scored default (no explicit templateId/randomTemplate) would
+   * ever pick this one — see meta.reference_note on the backend. */
+  ready: boolean
+}
+
+/** `/v1/lido/generations` — the DB-backed gallery index for both flows. */
+export interface LidoGenerationSummary {
+  id: string
+  templateId: string | null
+  name: string
+  kind: string
+  aspect: string
   prompt: string
-  generatedAt: string
   canvasSize: Record<string, number>
+  thumbnailUrl: string | null
+  /** Legacy: only set on a design promoted in from the old file-based storage. */
+  path: string | null
+  createdAt: string
 }

@@ -15,19 +15,19 @@ Notes that matter for the invariants:
 
 from __future__ import annotations
 
-import asyncio
 import base64
 import io
 import math
+import re
 from typing import Any
 
 import structlog
 from openai import APIError, APIStatusError, AsyncOpenAI, RateLimitError
 from PIL import Image
 
-from app.adapters.base import AdapterError, ImageResult, LLMResult, TextBox, TModel
+from app.adapters.base import AdapterError, ImageResult, LLMResult, TModel
+from app.adapters.openai_schema import response_format
 from app.config import get_settings
-from app.schema.openai_schema import response_format
 
 log = structlog.get_logger(__name__)
 
@@ -183,6 +183,47 @@ async def _call_images(client: AsyncOpenAI, **kwargs) -> Any:
         raise AdapterError(f"image API error: {exc}", recoverable=True) from exc
 
 
+_MAX_COMPLETION_TOKENS_RE = re.compile(r"at most (\d+) completion tokens")
+
+
+def _completion_token_ceiling(exc: APIStatusError) -> int | None:
+    """The model's real completion-token limit, parsed from "this model supports at
+    most N completion tokens, whereas you provided ...", or None if that is not why
+    the request was rejected."""
+    if exc.status_code != 400:
+        return None
+    match = _MAX_COMPLETION_TOKENS_RE.search(str(exc))
+    return int(match.group(1)) if match else None
+
+
+def _clamp_max_tokens(kwargs: dict, ceiling: int) -> None:
+    for key in ("max_tokens", "max_completion_tokens"):
+        if key in kwargs and kwargs[key] > ceiling:
+            kwargs[key] = ceiling
+
+
+_REQUIRED_REASONING_EFFORT_RE = re.compile(r"Supported values are: '(\w+)'")
+
+
+def _required_reasoning_effort(exc: APIStatusError) -> str | None:
+    """The one `reasoning.effort` value a model insists on (gpt-5-pro accepts only
+    'high' and rejects the global LLM_REASONING_EFFORT default of 'low' with
+    "Unsupported value: 'low' ... Supported values are: 'high'."), or None if that is
+    not why the request was rejected."""
+    if exc.status_code != 400 or exc.param != "reasoning.effort":
+        return None
+    match = _REQUIRED_REASONING_EFFORT_RE.search(str(exc))
+    return match.group(1) if match else None
+
+
+def _responses_only_model(exc: APIStatusError) -> bool:
+    """True when a model was rejected by chat.completions because it only exists on
+    the Responses API (gpt-5-pro: "This model is only supported in v1/responses and
+    not in v1/chat/completions") — i.e. it needs the reasoning path regardless of
+    whether LLM_REASONING_EFFORT happens to be set."""
+    return exc.status_code == 404 and "v1/responses" in str(exc)
+
+
 def _as_adapter_error(exc: APIError) -> AdapterError:
     status = getattr(exc, "status_code", None)
     if status is None:
@@ -303,125 +344,33 @@ def trim_and_fit_alpha(data: bytes, width: int, height: int) -> bytes:
         return buf.getvalue()
 
 
-class OpenAIInpainter:
-    @property
-    def name(self) -> str:
-        return f"openai:{get_settings().image_model}/edit"
-
-    async def fill(self, image: bytes, mask: bytes, *, prompt: str = "",
-                   negative_prompt: str = "") -> ImageResult:
-        settings = get_settings()
-        client = _client()
-        # The edits endpoint regenerates where the mask is TRANSPARENT, which is the
-        # inverse of our convention (white = regenerate). Convert here.
-        api_mask = _to_api_mask(mask, image)
-        try:
-            result = await client.images.edit(
-                model=settings.image_model,
-                image=("image.png", image, "image/png"),
-                mask=("mask.png", api_mask, "image/png"),
-                prompt=compose_prompt(prompt or "seamlessly continue the surrounding "
-                                      "scene with consistent lighting", negative_prompt),
-                n=1,
-            )
-        except RateLimitError as exc:
-            raise AdapterError(f"rate limited: {exc}", recoverable=True) from exc
-        except APIStatusError as exc:
-            raise AdapterError(f"edit API {exc.status_code}: {exc}",
-                               recoverable=exc.status_code >= 500) from exc
-        data = _decode_first(result)
-        with Image.open(io.BytesIO(data)) as img:
-            w, h = img.width, img.height
-        return ImageResult(data=data, mime="image/png", width=w, height=h,
-                           model=settings.image_model, has_alpha=True,
-                           cost_cents=_IMAGE_COST_CENTS["medium"])
-
-
-def _to_api_mask(mask: bytes, reference: bytes) -> bytes:
-    """Our masks are white-where-regenerate; the API wants alpha-zero-where-regenerate."""
-    with Image.open(io.BytesIO(mask)) as m, Image.open(io.BytesIO(reference)) as ref:
-        m = m.convert("L").resize((ref.width, ref.height), Image.NEAREST)
-        rgba = Image.new("RGBA", m.size, (0, 0, 0, 255))
-        # alpha = 255 - mask: opaque where we keep, transparent where we regenerate.
-        rgba.putalpha(Image.eval(m, lambda v: 255 - v))
-        buf = io.BytesIO()
-        rgba.save(buf, format="PNG")
-        return buf.getvalue()
-
-
-class OpenAIEmbedder:
-    name = "openai:text-embedding-3-small"
-
-    def __init__(self) -> None:
-        self.dim = get_settings().embedding_dim
-
-    async def embed(self, texts: list[str]) -> list[list[float]]:
-        if not texts:
-            return []
-        settings = get_settings()
-        try:
-            result = await _client().embeddings.create(
-                model=settings.embedding_model, input=texts,
-            )
-        except APIError as exc:
-            raise AdapterError(f"embedding API error: {exc}") from exc
-        return [item.embedding for item in result.data]
-
-
-class OpenAIVisionGlyphDetector:
-    """Vision-model text detection for the §1.4.6 glyph gate.
-
-    Used as the escalation path when the cheap local detector is uncertain: a vision
-    call per generated image would dominate the §6 latency budget.
-    """
-
-    name = "openai:vision-glyph"
-
-    async def detect(self, image: bytes) -> list[TextBox]:
-        from pydantic import BaseModel, Field
-
-        class _Box(BaseModel):
-            x: float = Field(ge=0, le=1)
-            y: float = Field(ge=0, le=1)
-            w: float = Field(ge=0, le=1)
-            h: float = Field(ge=0, le=1)
-
-        class _Boxes(BaseModel):
-            has_text: bool
-            boxes: list[_Box]
-
-        b64 = base64.b64encode(image).decode()
-        llm = OpenAILLM()
-        result = await llm.complete_json(
-            system=(
-                "You detect rendered text in images. Report every region containing "
-                "letters, numerals or wordmarks as a normalised bounding box (0..1). "
-                "Ignore textures that merely resemble writing. Report nothing else."
-            ),
-            user=[  # type: ignore[arg-type]
-                {"type": "text", "text": "List all text regions in this image."},
-                {"type": "image_url",
-                 "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "low"}},
-            ],
-            schema=_Boxes,
-            model=get_settings().llm_model_fast,
-            temperature=0.0,
-        )
-        parsed: Any = result.parsed
-        if not parsed.has_text:
-            return []
-        return [TextBox(x=b.x, y=b.y, w=b.w, h=b.h, score=1.0) for b in parsed.boxes]
-
-
 class OpenAILLM:
     """Structured-output LLM. Generation is constrained to the Pydantic schema, so an
     invalid `DesignBrief` or `ComposerOutput` is not merely unlikely — it is unpresentable
     (§1.1, §1.3)."""
 
-    name = "openai:llm"
+    @property
+    def name(self) -> str:
+        """Surfaced at /v1/health and in warmup.complete — states the actual configured
+        model (LLM_MODEL), not just "openai:llm", so a model swap in .env is visible
+        without having to trigger a real generation to confirm it took effect."""
+        settings = get_settings()
+        effort = (settings.llm_reasoning_effort or "").strip()
+        suffix = f" (thinking:{effort})" if effort else ""
+        return f"openai:{settings.llm_model}{suffix}"
 
     # model -> params that model rejected, learned from its 400s so we pay them once.
     _rejected_params: dict[str, set[str]] = {}
+    # model -> its real completion-token ceiling, learned the same way. A caller like
+    # generate_ai.py sizes max_tokens for a reasoning model's hidden thinking tokens;
+    # a plain chat model (gpt-4o and friends: 16384) rejects that outright.
+    _max_completion_tokens: dict[str, int] = {}
+    # model -> the only `reasoning.effort` value it accepts (e.g. gpt-5-pro: "high"),
+    # learned from its 400s the same way.
+    _required_reasoning_effort: dict[str, str] = {}
+    # Models that exist only on the Responses API, learned from a chat.completions
+    # 404 — so LLM_REASONING_EFFORT does not need to be set just to reach them.
+    _responses_only_models: set[str] = set()
 
     @classmethod
     async def _create_completion(cls, kwargs: dict[str, Any]):
@@ -429,7 +378,11 @@ class OpenAILLM:
         and `max_tokens`, wanting `max_completion_tokens` and their fixed temperature
         instead. Rather than hardcode a model list that goes stale as OpenAI ships new
         ones, adapt to whichever parameter the API actually rejects."""
-        rejected = cls._rejected_params.setdefault(kwargs["model"], set())
+        model = kwargs["model"]
+        rejected = cls._rejected_params.setdefault(model, set())
+        ceiling = cls._max_completion_tokens.get(model)
+        if ceiling is not None:
+            _clamp_max_tokens(kwargs, ceiling)
 
         def adapt(param: str) -> bool:
             if param == "max_tokens" and "max_tokens" in kwargs:
@@ -443,11 +396,16 @@ class OpenAILLM:
         for param in rejected:
             adapt(param)
         client = _client()
-        for attempt in range(3):
+        for attempt in range(4):
             try:
                 return await client.chat.completions.create(**kwargs)
             except APIStatusError as exc:
-                if (attempt == 2 or exc.status_code != 400
+                new_ceiling = _completion_token_ceiling(exc)
+                if new_ceiling is not None:
+                    cls._max_completion_tokens[model] = new_ceiling
+                    _clamp_max_tokens(kwargs, new_ceiling)
+                    continue
+                if (attempt == 3 or exc.status_code != 400
                         or exc.code not in ("unsupported_parameter", "unsupported_value")
                         or not adapt(exc.param or "")):
                     raise
@@ -467,7 +425,10 @@ class OpenAILLM:
         global_effort = (settings.llm_reasoning_effort or "").strip() or None
         effort = (reasoning_effort or global_effort) if model is None and global_effort else None
         model = model or settings.llm_model
-        if effort:
+        # A model that only exists on the Responses API (gpt-5-pro) needs that path
+        # even with no effort configured — otherwise every call 404s on chat.completions
+        # first. Once learned (below), skip straight there.
+        if effort or model in self._responses_only_models:
             return await self._complete_json_reasoning(
                 system=system, user=user, schema=schema, model=model,
                 effort=effort, max_tokens=max_tokens)
@@ -492,6 +453,11 @@ class OpenAILLM:
         except RateLimitError as exc:
             raise AdapterError(f"rate limited: {exc}", recoverable=True) from exc
         except APIStatusError as exc:
+            if _responses_only_model(exc):
+                self._responses_only_models.add(model)
+                return await self._complete_json_reasoning(
+                    system=system, user=user, schema=schema, model=model,
+                    effort=None, max_tokens=max_tokens)
             raise AdapterError(f"LLM API {exc.status_code}: {exc}",
                                recoverable=exc.status_code >= 500) from exc
         except APIError as exc:
@@ -516,23 +482,50 @@ class OpenAILLM:
                          cost_cents=_llm_cost(model, p_tok, c_tok),
                          prompt_tokens=p_tok, completion_tokens=c_tok)
 
+    @classmethod
+    async def _create_response(cls, kwargs: dict[str, Any]):
+        """Mirrors `_create_completion`'s self-healing: some reasoning models accept
+        only one `reasoning.effort` value (gpt-5-pro: 'high' only) and reject any
+        other the caller happens to be configured with. Learn it from the API's own
+        400 and pin it for this model, the same way a completion-token ceiling is."""
+        model = kwargs["model"]
+        required = cls._required_reasoning_effort.get(model)
+        if required is not None:
+            kwargs = {**kwargs, "reasoning": {"effort": required}}
+        client = _client()
+        for attempt in range(2):
+            try:
+                return await client.responses.parse(**kwargs)
+            except APIStatusError as exc:
+                value = _required_reasoning_effort(exc)
+                if attempt == 1 or value is None:
+                    raise
+                cls._required_reasoning_effort[model] = value
+                kwargs = {**kwargs, "reasoning": {"effort": value}}
+        raise AssertionError("unreachable")
+
     async def _complete_json_reasoning(self, *, system: str, user: str, schema: type[TModel],
-                                       model: str, effort: str, max_tokens: int) -> LLMResult:
-        """Reasoning models (gpt-6-astra and friends) are called through the Responses
-        API with `reasoning.effort` rather than chat.completions' `temperature`, which
-        they reject outright. `max_output_tokens` also has to cover the model's hidden
+                                       model: str, effort: str | None,
+                                       max_tokens: int) -> LLMResult:
+        """Reasoning models (gpt-6-astra, the gpt-5 family, and friends) are called
+        through the Responses API with `reasoning.effort` rather than chat.completions'
+        `temperature`, which they reject outright. `effort` may be None (no
+        LLM_REASONING_EFFORT configured, or a model reached only because it turned out
+        to be Responses-only) — the API then applies its own default rather than
+        rejecting the call. `max_output_tokens` also has to cover the model's hidden
         reasoning tokens, not just the visible answer, so give it more headroom than the
         chat path's `max_tokens` needs."""
-        client = _client()
+        kwargs: dict[str, Any] = {
+            "model": model,
+            "instructions": system,
+            "input": user,
+            "text_format": schema,
+            "max_output_tokens": max(max_tokens, 16000),
+        }
+        if effort:
+            kwargs["reasoning"] = {"effort": effort}
         try:
-            response = await client.responses.parse(
-                model=model,
-                instructions=system,
-                input=user,
-                text_format=schema,
-                reasoning={"effort": effort},
-                max_output_tokens=max(max_tokens, 16000),
-            )
+            response = await self._create_response(kwargs)
         except RateLimitError as exc:
             raise AdapterError(f"rate limited: {exc}", recoverable=True) from exc
         except APIStatusError as exc:
@@ -557,13 +550,3 @@ class OpenAILLM:
         return LLMResult(parsed=parsed, raw=response.output_text, model=model,
                          cost_cents=_llm_cost(model, p_tok, c_tok),
                          prompt_tokens=p_tok, completion_tokens=c_tok)
-
-
-async def _gather_limited(coros: list, limit: int = 4) -> list:
-    sem = asyncio.Semaphore(limit)
-
-    async def run(c):
-        async with sem:
-            return await c
-
-    return await asyncio.gather(*(run(c) for c in coros), return_exceptions=True)

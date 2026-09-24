@@ -1,4 +1,4 @@
-# AI Layered Design Generator — developer entry points.
+# Lido.js template designer — developer entry points.
 # Everything assumes the repo root as the working directory.
 
 BACKEND := backend
@@ -7,15 +7,15 @@ PY      := $(VENV)/bin/python
 UV      := VIRTUAL_ENV=$(PWD)/$(VENV) uv pip install --python $(PWD)/$(VENV)/bin/python
 
 .DEFAULT_GOAL := help
-.PHONY: help setup install fonts infra infra-down db-reset seed api web dev \
-        test lint fmt eval evals-quick clean check lido-enrich lido-check
+.PHONY: help setup install infra infra-down db-reset db-upgrade api web dev \
+        test lint fmt clean check lido-meta lido-sync lido-add
 
 help: ## Show this help
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | \
 	  awk 'BEGIN{FS=":.*?## "}{printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
 
-setup: install fonts infra seed ## One-shot: deps, fonts, containers, template corpus
-	@echo "Ready. Run 'make dev' to start the API and the editor."
+setup: install infra lido-sync ## One-shot: deps, containers, templates into the database
+	@echo "Ready. Run 'make dev' to start the API and the web app."
 
 install: ## Create the venv and install Python + Node dependencies
 	@test -d $(VENV) || python3 -m venv $(VENV)
@@ -25,10 +25,7 @@ install: ## Create the venv and install Python + Node dependencies
 	      --index-strategy unsafe-best-match -e "$(BACKEND)[embed]"
 	cd frontend && npm install
 
-fonts: ## Download and instance the variable fonts into static faces
-	$(PY) scripts/fetch_fonts.py
-
-infra: ## Start Postgres (pgvector), Redis and MinIO
+infra: ## Start Postgres (pgvector) and MinIO
 	docker compose -f infra/docker-compose.yml up -d
 	@echo "waiting for Postgres..."
 	@until docker compose -f infra/docker-compose.yml exec -T postgres \
@@ -38,36 +35,47 @@ infra: ## Start Postgres (pgvector), Redis and MinIO
 infra-down: ## Stop the containers (data is preserved)
 	docker compose -f infra/docker-compose.yml down
 
-db-reset: ## Drop and recreate the database. Destroys all documents and assets.
+db-reset: ## Drop and recreate the database. Destroys all generations and stored templates.
 	docker compose -f infra/docker-compose.yml down -v
 	$(MAKE) infra
-	$(MAKE) seed
+	$(MAKE) lido-sync
 
-seed: ## Validate and load the template corpus
-	$(PY) scripts/seed_templates.py --rebuild-index
+db-upgrade: ## Apply infra/initdb/*.sql to the running database (all idempotent)
+	@for f in infra/initdb/*.sql; do echo "applying $$f"; \
+	  docker compose -f infra/docker-compose.yml exec -T postgres \
+	    psql -v ON_ERROR_STOP=1 -q -U design -d design < $$f || exit 1; done
 
-lido-enrich: ## Enrich templates with LLM-generated metadata (default: uses LLM if available)
-	$(PY) scripts/enrich_lido_templates.py
+# -- Lido.js templates --------------------------------------------------------------
+# Every command works on ALL templates, or on one with TEMPLATE=template_300.
+#   make lido-meta [TEMPLATE=x]   complete metadata (draft + automatic verification)
+#   make lido-sync [TEMPLATE=x]   verify, then copy into lido_templates + embed
+#   make lido-add  [TEMPLATE=x]   both: new template end to end
+# FORCE=1: lido-meta re-drafts every template (fills only empty fields, keeps what you
+# wrote); lido-sync re-embeds even unchanged templates.
 
-lido-enrich-llm: ## Enrich templates using OpenAI LLM (generates smart names, kinds, tags)
-	$(PY) scripts/enrich_lido_templates.py
+_TPL   = $(if $(TEMPLATE),--template $(TEMPLATE))
+_DRAFT = $(PY) scripts/enrich_lido_templates.py --draft-slots \
+           $(if $(TEMPLATE),--template $(TEMPLATE) --force,$(if $(FORCE),--force))
 
-lido-enrich-rule: ## Enrich templates using rule-based generation (no LLM, offline only)
-	$(PY) scripts/enrich_lido_templates.py --no-llm
+lido-meta: ## Complete metadata for all templates without it, or TEMPLATE=x (then verify)
+	$(_DRAFT)
+	$(PY) scripts/enrich_lido_templates.py --verify $(_TPL)
 
-lido-compare: ## Show comparison of LLM vs rule-based enrichment
-	$(PY) scripts/compare_enrichment.py
+lido-sync: ## Verify, then sync + embed into the database: all changed templates, or TEMPLATE=x
+	$(PY) scripts/enrich_lido_templates.py --verify $(_TPL)
+	$(PY) scripts/lido_match.py index $(_TPL) $(if $(FORCE),--force)
 
-lido-check: ## Exit non-zero if any lidojs_templates/*.json is missing meta
-	$(PY) scripts/enrich_lido_templates.py --check
+lido-add: ## New template end to end: metadata + verify + database + embedding (all new, or TEMPLATE=x)
+	$(_DRAFT)
+	$(MAKE) --no-print-directory lido-sync TEMPLATE="$(TEMPLATE)" FORCE=
 
 api: ## Run the backend on :8000
 	cd $(BACKEND) && .venv/bin/uvicorn app.api.main:app --host 127.0.0.1 --port 8000 --reload
 
-web: ## Run the editor on :5173
+web: ## Run the web app on :5173
 	cd frontend && npm run dev
 
-dev: ## Run API and editor together
+dev: ## Run the API and the web app together
 	@$(MAKE) -j2 api web
 
 test: ## Run the test suite
@@ -82,12 +90,6 @@ fmt: ## Auto-fix lint
 
 check: lint test ## Lint plus tests
 
-eval: ## Run the full §5.3 evaluation suite (exits non-zero if a gate fails)
-	$(PY) scripts/run_evals.py
-
-evals-quick: ## Run five prompts as a smoke test
-	$(PY) scripts/run_evals.py --limit 5
-
 clean: ## Remove caches and build output
 	find . -name __pycache__ -type d -prune -exec rm -rf {} + 2>/dev/null || true
-	rm -rf $(BACKEND)/.pytest_cache .ruff_cache frontend/dist
+	rm -rf $(BACKEND)/.pytest_cache $(BACKEND)/.ruff_cache .ruff_cache frontend/dist

@@ -23,7 +23,7 @@ import math
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
-from app.adapters.base import AdapterError, ImageResult, TextBox
+from app.adapters.base import AdapterError, ImageResult
 
 
 def _seed_from(prompt: str, seed: int) -> int:
@@ -123,55 +123,6 @@ class StubTransparentImage:
         return ImageResult(data=_png_bytes(img), mime="image/png", width=width,
                            height=height, model=self.name, has_alpha=True,
                            cost_cents=0, params={"seedSupported": True, "seed": seed})
-
-
-class StubInpainter:
-    name = "stub:inpaint"
-
-    async def fill(self, image: bytes, mask: bytes, *, prompt: str = "",
-                   negative_prompt: str = "") -> ImageResult:
-        from app.adapters.local_adapters import OpenCVInpainter
-
-        return await OpenCVInpainter().fill(image, mask, prompt=prompt,
-                                            negative_prompt=negative_prompt)
-
-
-class StubGlyphDetector:
-    """Reports nothing. Only correct alongside stub image generation, which draws no
-    glyphs; never select this when a real image model is in use."""
-
-    name = "stub:no-glyphs"
-
-    async def detect(self, image: bytes) -> list[TextBox]:
-        return []
-
-
-class HashEmbedder:
-    """Deterministic hashed bag-of-words embedding.
-
-    Good enough to make template retrieval *work* offline — similar descriptions land
-    near each other — but it has no semantics, so retrieval quality with this embedder
-    is not representative. Swap in the real embedder before judging layout choice.
-    """
-
-    name = "stub:hash-embedder"
-
-    def __init__(self, dim: int = 1536):
-        self.dim = dim
-
-    async def embed(self, texts: list[str]) -> list[list[float]]:
-        out = []
-        for text in texts:
-            vector = np.zeros(self.dim, dtype=np.float32)
-            tokens = [t for t in text.lower().replace(",", " ").split() if len(t) > 2]
-            for token in tokens:
-                digest = hashlib.sha1(token.encode()).digest()
-                for k in range(4):
-                    index = int.from_bytes(digest[k * 4:(k + 1) * 4], "big") % self.dim
-                    vector[index] += 1.0
-            norm = float(np.linalg.norm(vector))
-            out.append((vector / norm).tolist() if norm else vector.tolist())
-        return out
 
 
 class StubLLM:

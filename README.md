@@ -1,243 +1,291 @@
-# AI Layered Design Generator
+# Lido.js Template Designer
 
-A prompt becomes a **real multi-layer design document** — live text, transparent
-subjects, shapes, effects — every layer independently editable. Nothing is ever
-flattened into a picture of a design.
+Type a request ("Diwali sale, 30% off, call 98765 43210") and get a finished,
+editable Lido.js design: the app picks the best template from `lidojs_templates/`,
+writes every text layer, generates every image, and saves the result.
 
-Implements **Part One** of [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md)
-(prompt → editable composition). Part Two (decomposing a flat image back into layers)
-is deliberately out of scope for this build.
-
----
-
-## The three invariants
-
-Everything here exists to hold these. They are enforced mechanically, not by convention.
-
-| | Invariant | How it is enforced |
-|---|---|---|
-| **INV-1** | Text is text, never pixels | The schema validator rejects any text layer carrying a raster adapter; the §1.4.6 **glyph gate** re-rolls and then inpaints any generated image containing detectable lettering |
-| **INV-2** | Every generated asset is reproducible | Each image layer stores its full `GenerationParams`; assets are content-addressed by `gen_hash`, so identical parameters return identical bytes |
-| **INV-3** | Canvas and export are the same picture | One `toDrawList()` on the server. The browser does not compute geometry or shape text — it replays the server's `DrawCommand[]`, glyph ids and all (see [ADR 0001](docs/adr/0001-python-backend.md)) |
+One flow only: **Lido.js (template)**. (The earlier Custom/DesignDoc engine and the
+Lido.js scratch flow were removed on 2026-09-24, with their code, tables and stored
+files.)
 
 ---
 
 ## Quick start
 
-Requires Python 3.11+, Node 20+, and Docker.
+Requires Python 3.11+, Node 20+ and Docker.
 
 ```bash
-make setup     # deps, fonts, containers, template corpus  (~5 min, downloads ~1 GB)
-make dev       # API on :8000, editor on :5173
+make setup     # Python + Node deps, Postgres (pgvector) + MinIO, templates into the database
+make dev       # API on :8000, web app on :5173
 ```
 
-Open <http://localhost:5173>, type a prompt, press **Generate**.
-
-It works with **no API key** — stub adapters produce procedural images and the
-heuristic brief parser takes over — so you can exercise the whole pipeline offline.
-For real designs, add a key:
+Open <http://localhost:5173>, type a request, press **Generate**. Add your key for real
+output (without it the model adapters fall back to stubs):
 
 ```bash
 echo "OPENAI_API_KEY=sk-..." >> backend/.env
 ```
 
-`GET /v1/health` reports which implementation each capability resolved to.
+`GET /v1/health` reports which model each capability resolved to.
 
-### If `make setup` fails
+**Upgrading an existing database** (created before this version): `make db-upgrade`
+applies every file in `infra/initdb/` — all idempotent. It creates `lido_templates` and
+drops the old Custom/scratch tables.
 
-| Symptom | Cause and fix |
+---
+
+## How a request becomes a design
+
+```
+ request ──► 1. pick the best template     app/lido_corpus/matcher.py  (lido_templates, pgvector)
+          ──► 2. ONE LLM call              every text layer + every image prompt, from the
+                                           template's own per-layer metadata
+          ──► 3. check the copy            real-font measurement; one repair call if needed
+          ──► 4. generate images           transparent cutout or opaque, per layer spec
+          ──► 5. fill + save               lido_generations (Postgres), images in MinIO
+```
+
+API (`backend/app/api/routes/lido.py`):
+
+| Endpoint | What it does |
 |---|---|
-| `ENOSPC ... watch` on `make web` | inotify instances exhausted. `sudo sysctl -w fs.inotify.max_user_instances=512`, or run `VITE_USE_POLLING=1 npm run dev` |
-| Port 5442 in use | Another Postgres. Change the host port in `infra/docker-compose.yml` and `DATABASE_URL` |
-| `uv` installs into the wrong environment | An active conda env takes precedence. The Makefile pins `VIRTUAL_ENV` and `--python` to avoid this |
+| `POST /v1/lido/generate` | request → filled design. `templateId` picks one exactly, `randomTemplate` picks at random, neither = automatic match (explained in `match`) |
+| `GET /v1/lido/templates` | every template in the catalog |
+| `POST /v1/lido/templates/sync` | mirror `lidojs_templates/*.json` into the database now (`?force=true` re-embeds all) |
+| `GET /v1/lido/generations` | generation history, newest first |
+| `GET /v1/lido/generations/{id}` | one saved design, to reopen it |
 
 ---
 
-## How a prompt becomes a document
+## Where things are stored
 
-```
- prompt
-   │
-   ├─ 1.1  brief.parse        LLM (schema-constrained) → heuristic fallback
-   ├─ 1.2  art.direct         what the imagery is OF  ─┐ both need only the brief,
-   ├─ 1.2  template.retrieve  hard filters + pgvector  ┘ so they run concurrently
-   ├─ 1.3  compose.layout     LLM picks skeleton + writes copy; expand() does all geometry
-   │
-   ├───────► doc.skeleton emitted  ◄── p95 0.3s. The user sees the layout immediately.
-   │
-   ├─ 1.4  assets             background first, then subjects in parallel
-   │                          every generated raster passes the glyph gate
-   ├─ 1.5  harmonise          palette · contrast · shadow · colour-match  (all CPU)
-   ├─ 1.6  layout.solve       measure → autofit → margins → collisions → optical → snap
-   └─ 1.7  assemble           validate, persist, thumbnail
-```
+| What | Where |
+|---|---|
+| Template files (authoring source) | `lidojs_templates/*.json` — edited by hand and by the enrich script |
+| Template catalog + embeddings | Postgres table **`lido_templates`** (pgvector `vector(384)`, HNSW cosine index) |
+| Generated designs | Postgres table `lido_generations` |
+| Generated images | MinIO bucket `design-assets`, under `public/lido-generated/<design_id>/` |
 
-**The LLM never invents coordinates.** It chooses a hand-designed skeleton and fills
-slots; `expand()` turns normalised slots into pixels deterministically. That is where
-layout quality comes from — a curated corpus beats a smarter model.
+**Files → database.** The JSON files stay the source you edit and review. The API mirrors
+them into `lido_templates` at startup and then at most every `LIDO_TEMPLATE_SYNC_SECONDS`
+(default 10) on the next request. A new file is added (once it has a `meta` block), a
+changed one updated, a deleted one removed. `make lido-sync` does it on demand. If the database is down (or
+`LIDO_TEMPLATE_STORE=files`), everything runs from the files in memory.
 
-**The layout does not decide the picture.** A skeleton owns *composition* — which region
-stays empty, which angle a subject is seen from, whether a slot is a cutout. It used to
-own *subject matter* too: every background prompt in the corpus read "studio backdrop,
-soft directional light", so a barber shop, a dental clinic and a sneaker drop were
-photographed on the same grey sweep. `art.direct` splits the two. Once per request it
-decides the scene, the light, how the subject is rendered and which motif each ornament
-family contributes, and the corpus's prompts are now composition with `{{scene}}`,
-`{{lighting}}` and `{{treatment}}` holes in them.
-
-So a Diwali greeting is shot on gold leaf over a deep ground under warm lamplight with a
-garland across the top; a gym promo on scuffed concrete under hard light with chevrons
-and a starburst — **through the same skeleton**. Variety is bounded by the trade rather
-than random: a family the trade has one right answer for (a ceremony's garland) gets it
-every time, and only the families it has no view on vary between requests. It works with
-no API key — a domain table keyed off the words in the brief directs it offline.
-
-**Everything in the request reaches the canvas.** A real business request is rarely one
-headline: it carries an offer, a price, a list of services, a phone number and a
-website, and often several different things to photograph. Each of those is a field on
-the brief and a slot role in the corpus, so "flat 50% off on facial, manicure and spa,
-call 98765 43210" produces a discount seal, three distinct generated cutouts, three
-feature lines and a contact strip — rather than a headline over one photograph.
-
-Contact details are the one thing never written, only transcribed. Phone numbers,
-emails and URLs are pulled out of the prompt by pattern, restored after the model runs
-if it dropped them, discarded if the model invented digits that were not in the prompt,
-and dropped rather than truncated when they do not fit. A design whose number does not
-ring is worse than one with no number on it — it ships looking finished.
+**Why Postgres + pgvector and not ChromaDB.** Postgres is already running for the
+generation history and already has pgvector. Keeping templates, their vectors and the
+history in one database means one service, one backup, transactional updates, and
+plain SQL joins. At this size (tens to a few thousand templates) pgvector's search is
+instant. ChromaDB would add a second store to run and keep in sync, with no gain here.
 
 ---
 
-## Architecture
+## How a template is picked
+
+Full explanation with worked examples: [`docs/new_match_plan.md`](docs/new_match_plan.md).
+
+1. **Details the user gave** — phone, email, website, address, offer, price, date — found
+   with simple patterns and double-checked by one small `LLM_MODEL_FAST` call. A detail
+   the model adds only counts if it quotes the exact words from the request.
+2. **English topic line** — the same call writes one short English line about the request,
+   in any input language (the local embedding model only understands English).
+3. **Topic score** — pgvector's cosine similarity between the topic line's embedding and
+   each template's stored embedding.
+4. **Priority rule** — if any template has a slot for **every** detail the user gave, the
+   pick comes from those only, by topic. Otherwise the best
+   `0.6 × topic + 0.4 × details held` wins. Both subtract 0.05 per contact slot the user
+   left empty (its placeholder would ship on the design).
+
+### What gets embedded, and when it is re-embedded
+
+Each template's embedding is made from its **card** — a few English sentences built from:
+
+| Source | Fields |
+|---|---|
+| `meta` | `name`, `kind`, `description`, `tags` |
+| text slots | the sample text of every text layer, grouped by role (headline, subhead, body, label) |
+| detected | detail slots (phone, email, website, address, offer, price, date), buttons, list size, photo count |
+
+A template is re-embedded automatically whenever its **fingerprint** changes. The
+fingerprint hashes the **whole `meta` block** (as recomputed from the layers on every
+load), the embedding model name and the card format version. So **any** edit to a
+template's metadata or to the text in its layers triggers a re-embed on the next sync —
+you never need to re-index by hand. Changing `SENTENCE_TRANSFORMER_MODEL` re-embeds
+everything (the column is `vector(384)`: a model with another size also needs the column
+altered).
+
+```bash
+make lido-sync                  # sync changed templates now and print every template's card
+make lido-sync FORCE=1          # re-embed every template
+backend/.venv/bin/python scripts/lido_match.py show "Diwali sale, 30% off, call 98765 43210"  # explain one pick
+backend/.venv/bin/python scripts/lido_match.py test   # run backend/app/lido_corpus/match_cases.jsonl
+```
+
+`lido_match.py test` prints every miss with its scores and exits non-zero below 85 %
+first-pick accuracy. Add a line to the cases file for each new template.
+
+The embedding model runs locally (`SENTENCE_TRANSFORMER_MODEL`, default
+`all-MiniLM-L6-v2`). It is an optional extra that `make install` already installs:
+
+```bash
+cd backend && uv pip install --extra-index-url https://download.pytorch.org/whl/cpu -e ".[embed]"
+```
+
+Without it, matching still works, with topic falling back to word overlap.
+
+---
+
+## Adding a new template — start to end
+
+All template JSON files live in **`lidojs_templates/`** (one file per template, named
+`template_<id>.json`; the file name without `.json` is the template id). The database
+table `lido_templates` is filled from this folder — you never edit the table directly.
+
+### The three commands
+
+Each works on **all** templates, or on **one** with `TEMPLATE=template_300`:
+
+| Command | All templates | One template |
+|---|---|---|
+| **`make lido-meta`** — complete metadata, then verify | drafts metadata for every file that has none yet | `make lido-meta TEMPLATE=template_300` — drafts every **empty** field of that template (keeps what you wrote) |
+| **`make lido-sync`** — verify, then database + embedding | adds new templates, re-embeds changed ones, removes deleted ones | `make lido-sync TEMPLATE=template_300` — only that template's row |
+| **`make lido-add`** — both, end to end | `make lido-add` | `make lido-add TEMPLATE=template_300` |
+
+`FORCE=1`: with `lido-meta` it re-drafts **every** template (still only empty fields);
+with `lido-sync` it re-embeds even unchanged templates.
+
+**Verification** runs inside `lido-meta` and `lido-sync`. It checks every rule of the
+metadata rules that can be checked in code, and **an error stops the sync**, so a broken
+template never reaches the database:
+
+| Error (blocks the sync) | Warning (for your review) |
+|---|---|
+| no `meta` block yet | `tags` empty |
+| `name` or `description` empty | a text slot has no `notes` |
+| background image but no background prompt | background prompt doesn't forbid text |
+| a photo frame with no image spec, or a spec with no prompt | no `reference_note` yet |
+| logo not locked / would be regenerated | |
+| a text slot with no `max_chars` | |
+| the template's own text breaks its own limits (real font) | |
+
+### Step by step
+
+**1. Drop the file in.** Save the raw Lido.js export as
+`lidojs_templates/template_300.json` (format `[{"layers": {...}}]`, no `meta` needed).
+Until it has metadata it is ignored by matching and never copied to the database.
+
+**2. Run one command.**
+
+```bash
+make lido-add TEMPLATE=template_300      # or just `make lido-add` for every new file
+```
+
+It drafts the complete metadata with the LLM and the vision model (name, kind, tags,
+description, slot roles, background and photo prompts, logo lock, text notes and
+limits), verifies it, then adds the template to `lido_templates` with its embedding.
+If verification finds an error, it stops before the database and tells you what to fix.
+
+**3. Review the draft by hand.** An automatic draft is a strong start, not a guarantee.
+Open the file and check the `meta` block against
+[`docs/TEMPLATE_METADATA_RULES.md`](docs/TEMPLATE_METADATA_RULES.md) and the
+reference example `template_227.json`. The draft gets these wrong most often:
+- the **background prompt** — compare it with the actual background picture (the image
+  model can miss elements, e.g. a photo panel that is part of the background);
+- **name / tags / description** — they must say what the template is *for*
+  ("interior design", not only "sale"); matching reads them;
+- **photo frames** — transparent cutout vs. an ordinary photo that fills its frame.
+
+**4. Mark it reviewed** by adding `meta.reference_note` (see the rules file). It shows as
+`ready` in `GET /v1/lido/templates`.
+
+**5. Push your edits.**
+
+```bash
+make lido-sync TEMPLATE=template_300     # verify + re-embed (only if the meta changed)
+```
+
+If the API is running you can skip this: it re-checks the folder every
+`LIDO_TEMPLATE_SYNC_SECONDS` (default 10) and at startup. The API does **not** verify, so
+run `make lido-sync` after hand edits to catch mistakes.
+
+**6. (Recommended) test matching.** Add one or two example requests for it to
+`backend/app/lido_corpus/match_cases.jsonl`, then:
+
+```bash
+backend/.venv/bin/python scripts/lido_match.py show "a request this template should win"
+backend/.venv/bin/python scripts/lido_match.py test
+```
+
+**Later edits:** edit the JSON file, then `make lido-sync TEMPLATE=...`. To re-draft a
+field the script filled, empty it and run `make lido-meta TEMPLATE=...` (it only fills
+empty fields). **Removing a template:** delete its file, then `make lido-sync`.
+
+### What the enrich script drafts
+
+| Field | How |
+|---|---|
+| name, kind, tags, description | one LLM call over the template's text slots |
+| slot roles | computed on every load from type tags and sample text: the largest text is the headline; websites, phones and emails are recognised from their text; logos from their type or logo image file; text is never "decoration" |
+| background prompt + notes | vision model reads the background, plus layout facts computed from the layers (text colour and position, photo frames that must stay empty) |
+| photo frames | vision-drafted prompt; a transparent cutout only if the template's own sample image is transparent, otherwise an opaque photo that fills its frame |
+| logo | locked, never regenerated (no LLM) |
+| text notes, max_chars, max_lines | one batched LLM call, floored so the template's own copy always fits (measured with the real font and the layer's scale) |
+
+Image reading uses `LIDO_ENRICH_VISION_MODEL` (default `gpt-4o`), falling back to
+`LLM_MODEL_FAST`. Other enrich flags: `--force` (recompute, keeping hand-authored fields),
+`--no-llm`, `--dir path/`, `--check` (exit 1 if any template has no `meta`).
+
+---
+
+## Project layout
 
 ```
 backend/app/
-  schema/          DesignDoc, DrawList, brief, template, events  — the contract
-  layout/          HarfBuzz shaping, measurement cache, the layout solver
-  renderer/        toDrawList (pure) + Skia backend → PNG/JPEG/WebP/PDF/SVG
-  adapters/        every model behind a swappable interface (§0.3)
-  pipelines/       the Part One orchestrator and per-layer AI operations
-  templates_corpus/ the skeleton corpus, its DSL and its validator
-  eval/            the §5.3 harness and release gates
-  api/             FastAPI routes + WebSocket progress
-frontend/src/
-  editor/          Konva renderer that replays the server's draw list
-  components/      layer panel, inspector
+  api/            FastAPI app, the /v1/lido routes, request/response models
+  lido_corpus/    loader, matcher (details, match_index, store), fill (generate_ai),
+                  images (assets_ai), compose, text measurement (textfit)
+  adapters/       OpenAI image + LLM adapters, stubs, local embedding model
+  db/             SQL for lido_templates and lido_generations
+  storage/        MinIO/S3 (or local folder) uploads
+  util/           prompt safety screen
+backend/tests/    offline test suite (no database, no model calls)
+frontend/src/     one page: request → design, match explanation, history
+infra/            docker-compose (Postgres + pgvector, MinIO) and initdb SQL
+lidojs_templates/ the template JSON files
+scripts/          enrich_lido_templates.py (metadata), lido_match.py (sync, match tests)
+docs/             TEMPLATE_METADATA_RULES.md, new_match_plan.md, plan.md
+test/             your personal scratch files — git-ignored, never committed
 ```
 
-### Choices worth knowing about
-
-- **Python everywhere.** The plan specifies Node for the API and orchestrator;
-  this is one FastAPI process, with module boundaries that mirror the original
-  service split so they can be pulled apart unchanged. See
-  [ADR 0001](docs/adr/0001-python-backend.md), which also explains how INV-3 is
-  preserved — and in fact strengthened — by that change.
-- **Local embeddings.** Template retrieval runs on every request, so it uses
-  `sentence-transformers/all-MiniLM-L6-v2` on CPU rather than a hosted embedding
-  API: no network hop in the latency budget, no per-request cost. The vector column
-  follows the model's dimension and `seed_templates.py` reconciles it if you swap models.
-- **Model weights are warmed at startup.** The first sentence-transformer load takes
-  ~18 s; paying it on a user's first request would blow the 3 s skeleton budget.
-
 ---
 
-## Editing
-
-The editor knows nothing about which pipeline produced a document — it only knows
-`DesignDoc`. Select on canvas or in the layer panel, then:
-
-- drag, resize and rotate; arrow keys nudge (shift = 10px)
-- double-click text to edit; the solver re-runs on commit, never per keystroke
-- **Regenerate** an image layer with a new seed, or **Remove background** to matte it
-- **Rewrite** copy with an instruction — selected layers are rewritten together so
-  headline and subhead stay one voice
-- **Resize** to another format; constraints reflow the layout into a new document
-- **Export** PNG/JPEG/WebP/SVG, or **PDF with live text and embedded fonts** — not a
-  rasterised page
-
----
-
-## Testing and evaluation
+## Testing
 
 ```bash
-make check   # ruff + tsc + 108 tests
-make eval    # the §5.3 suite; exits non-zero if any release gate fails
+make test      # backend tests — offline: no database, no model calls
+make lint      # ruff + TypeScript
 ```
 
-The eval runs 24 prompts across all seven design kinds — subject and text-only,
-three copy lengths, brand-kit and non-Latin — through the real pipeline and measures
-what the user actually receives:
-
-```
-  PASS  schema_validity              1.000   (>= 1.0)
-  PASS  text_overflow_rate           0.000   (<= 0.0)
-  PASS  collision_rate               0.000   (<= 0.02)
-  PASS  contrast_pass_rate           1.000   (>= 0.98)
-  PASS  safe_margin_pass_rate        1.000   (>= 0.98)
-  PASS  glyph_leakage_rate           0.000   (<= 0.01)
-  PASS  copy_length_pass_rate        1.000   (>= 0.98)
-  PASS  editable_text_rate           1.000   (>= 1.0)
-  PASS  p95_skeleton_seconds         0.29s   (<= 3.0)
-  PASS  p95_complete_seconds         1.68s   (<= 25.0)
-```
-
-Timings above are with stub adapters; real image generation dominates
-`p95_complete_seconds` (the 25 s gate is sized for that).
-
----
-
-## Status against the plan
-
-**Built and verified**
-
-- §0.5–0.6 schema, migrations, coordinate system · §1.1–1.3 brief, retrieval, composer
-- §1.4 asset workers incl. the glyph gate · §1.5 harmonisation · §1.6 layout solver
-- §0.11 / §4.1 draw list and Skia export (PNG/JPEG/WebP/PDF/SVG) · §4.2 resize
-- §0.10 HTTP + WebSocket API · §3 editor · §5 tests and eval harness · §7 first-line safety
-
-**Deliberately not built**
-
-- **§2 decomposition** (image → layers) — out of scope for this build, by request.
-- **§3.1 Yjs multiplayer.** The schema and the CRDT dependency are in place; the
-  sync server is not. Single-user editing works; concurrent editing would last-write-win.
-- **§0.9 durable job queue.** Generation runs as an in-process asyncio task that
-  publishes to the same Redis progress bus a worker would. The orchestrator is a plain
-  `async` function taking a session and an emitter, so moving it onto `arq` is a
-  call-site change plus that dependency — but today a server restart loses in-flight
-  requests.
-
-**Known limits**
-
-- The template corpus has **42 skeletons (85 with variants)**; §1.2 asks for 150–300
-  for v1. This is the single highest-leverage place to improve output quality, and it
-  is design work rather than engineering work — see
-  `backend/app/templates_corpus/skeletons.py` and its validator. Every `(kind, aspect)`
-  family now carries both a subject-bearing and a text-only layout, which is the
-  coverage retrieval actually depends on: `template.retrieve` filters hard on the pair,
-  so a hole in that grid returns a layout authored for a different canvas shape rather
-  than degrading gracefully. A test asserts the grid stays full. Density is the second
-  axis: three of the skeletons are information-dense layouts with slots for an offer, a
-  price, a feature list and a contact block, and retrieval prefers them for a brief that
-  carries that much. Three is thin — a dense layout per `(kind, aspect)` is the next
-  gap worth closing.
-- Safety screening (`app/util/safety.py`) is pattern-based and blocks the categories
-  §7 names outright. **A production deployment needs a real moderation provider** on
-  both prompts and generated images; pattern matching cannot do that job.
-- `gpt-image-1` exposes no seed, so INV-2 holds there by content-addressed cache
-  rather than by seeded reproduction. Stub adapters are exactly reproducible.
-- Upscaling is Lanczos + unsharp; §1.4.4's Real-ESRGAN needs a GPU.
+Tests run with `LIDO_TEMPLATE_STORE=files`, so they never touch the real
+`lido_templates` table.
 
 ---
 
 ## Configuration
 
-All of `backend/.env` (see `.env.example`). Every model is selected by env var, so
-swapping a provider never touches pipeline code:
+All in `backend/.env` (see `backend/.env.example`).
 
 | Variable | Default | Notes |
 |---|---|---|
-| `ADAPTER_TEXT_TO_IMAGE` | `auto` | `openai` · `stub` |
-| `ADAPTER_TRANSPARENT_IMAGE` | `auto` | `openai` · `matte` (generate then cut out) · `stub` |
-| `ADAPTER_MATTING` | `auto` | `rembg` (needs `.[localml]`) · `grabcut` |
-| `ADAPTER_GLYPH_DETECTOR` | `auto` | `opencv` · `vision`. Never resolves to a no-op while a real image model is active |
-| `ADAPTER_EMBEDDER` | `sentence-transformers` | `openai` · `hash` |
-| `MAX_COST_CENTS_PER_REQUEST` | `200` | §6.7 budget ceiling |
+| `OPENAI_API_KEY` | — | required for real output |
+| `LLM_MODEL` / `LLM_REASONING_EFFORT` | `gpt-6-astra` / `low` | the main fill call |
+| `LLM_MODEL_FAST` | `gpt-4o-mini` | repair call and the request profile for matching |
+| `IMAGE_MODEL` | `gpt-image-2.5-sunburst` | image generation |
+| `LIDO_TEMPLATE_IMAGE_QUALITY` | `high` | `low` · `medium` · `high` |
+| `LIDO_ENRICH_VISION_MODEL` | `gpt-4o` | reads backgrounds/photos in `make lido-meta` / `make lido-add` |
+| `SENTENCE_TRANSFORMER_MODEL` | `sentence-transformers/all-MiniLM-L6-v2` | template embeddings (384 numbers) |
+| `LIDO_TEMPLATE_STORE` | `db` | `db` (Postgres) · `files` (in memory) |
+| `LIDO_TEMPLATE_SYNC_SECONDS` | `10` | how often a request re-checks the files |
+| `DATABASE_URL` | local Postgres on :5442 | |
+| `S3_*`, `S3_PUBLIC_BASE_URL` | local MinIO on :9010 | where generated images go |
+| `ADAPTER_TEXT_TO_IMAGE` / `ADAPTER_TRANSPARENT_IMAGE` / `ADAPTER_LLM` | `auto` | `openai` · `stub` |

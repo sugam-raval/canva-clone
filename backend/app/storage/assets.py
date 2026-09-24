@@ -1,88 +1,19 @@
-"""Asset service — IMPLEMENTATION_PLAN §0.8 and §6.1.
+"""Object storage for generated images (MinIO/S3, or a local folder fallback).
 
-Layout on the object store:
-
-    assets/{userId}/{assetId}/original.{ext}
-    assets/{userId}/{assetId}/w{512|1024|2048}.webp
-    assets/{userId}/{assetId}/mask.png
-    docs/{docId}/thumb.webp
-
-Rules enforced here:
-  * layers reference an assetId, never a URL — resolution happens in `url_for`
-  * alpha assets are never JPEG-encoded; that destroys the matte edge
-  * derivatives are produced lazily on first request and cached
-  * every generated asset carries `gen_hash`, and the unique index on it makes an
-    identical generation request free (§6.1)
+The Lido.js (template) flow uploads each generated image to
+`public/lido-generated/<design_id>/` (see `app/lido_corpus/generated.py`).
 """
 
 from __future__ import annotations
 
-import hashlib
-import io
-import json
-import threading
-from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import Any
 
 import boto3
 from botocore.client import Config as BotoConfig
 from botocore.exceptions import ClientError
-from PIL import Image
 
 from app.config import get_settings
-
-DERIVATIVE_WIDTHS = (512, 1024, 2048)
-
-_EXT_FOR_MIME = {
-    "image/png": "png",
-    "image/jpeg": "jpg",
-    "image/webp": "webp",
-    "image/svg+xml": "svg",
-    "application/pdf": "pdf",
-}
-
-
-@dataclass
-class StoredBlob:
-    storage_key: str
-    mime: str
-    width: int | None
-    height: int | None
-    has_alpha: bool
-    size_bytes: int
-
-
-def canonical_gen_hash(params: dict[str, Any]) -> str:
-    """sha256 of canonicalised GenerationParams (§6.1).
-
-    Key order is sorted and prompt whitespace collapsed — §6.1 warns that skipping this
-    misses most cache hits, since two callers rarely build the dict the same way.
-    """
-    normalised: dict[str, Any] = {}
-    for key in sorted(params):
-        value = params[key]
-        if isinstance(value, str):
-            value = " ".join(value.split())
-        elif isinstance(value, dict):
-            value = {k: value[k] for k in sorted(value)}
-        normalised[key] = value
-    blob = json.dumps(normalised, sort_keys=True, separators=(",", ":"), default=str)
-    return hashlib.sha256(blob.encode("utf-8")).hexdigest()
-
-
-def probe_image(data: bytes) -> tuple[str, int | None, int | None, bool]:
-    """(mime, width, height, has_alpha) without trusting the caller."""
-    if data[:5] == b"<?xml" or data[:4] == b"<svg":
-        return "image/svg+xml", None, None, True
-    try:
-        with Image.open(io.BytesIO(data)) as img:
-            mime = Image.MIME.get(img.format or "", "application/octet-stream")
-            has_alpha = img.mode in ("RGBA", "LA", "PA") or "transparency" in img.info
-            return mime, img.width, img.height, has_alpha
-    except Exception:  # noqa: BLE001
-        return "application/octet-stream", None, None, False
 
 
 class StorageBackend:
@@ -210,86 +141,3 @@ def get_backend() -> StorageBackend:
 # --------------------------------------------------------------------------------------
 # Keys and derivatives
 # --------------------------------------------------------------------------------------
-
-
-def original_key(user_id: str | None, asset_id: str, mime: str) -> str:
-    ext = _EXT_FOR_MIME.get(mime, "bin")
-    return f"assets/{user_id or 'anon'}/{asset_id}/original.{ext}"
-
-
-def derivative_key(user_id: str | None, asset_id: str, width: int) -> str:
-    return f"assets/{user_id or 'anon'}/{asset_id}/w{width}.webp"
-
-
-def mask_key(user_id: str | None, asset_id: str) -> str:
-    return f"assets/{user_id or 'anon'}/{asset_id}/mask.png"
-
-
-def doc_thumb_key(doc_id: str) -> str:
-    return f"docs/{doc_id}/thumb.webp"
-
-
-_derivative_locks: dict[str, threading.Lock] = {}
-_locks_guard = threading.Lock()
-
-
-def ensure_derivative(user_id: str | None, asset_id: str, storage_key: str,
-                      width: int) -> str | None:
-    """Produce and cache a width-limited WebP. Returns the derivative key, or None if
-    the source is not a raster (SVG needs no ladder)."""
-    if width not in DERIVATIVE_WIDTHS:
-        width = min(DERIVATIVE_WIDTHS, key=lambda w: abs(w - width))
-    backend = get_backend()
-    key = derivative_key(user_id, asset_id, width)
-    if backend.exists(key):
-        return key
-
-    with _locks_guard:
-        lock = _derivative_locks.setdefault(key, threading.Lock())
-    with lock:
-        if backend.exists(key):
-            return key
-        data = backend.get(storage_key)
-        if not data:
-            return None
-        try:
-            with Image.open(io.BytesIO(data)) as img:
-                if img.width <= width:
-                    return storage_key  # already small enough; do not upscale
-                has_alpha = img.mode in ("RGBA", "LA", "PA") or "transparency" in img.info
-                img = img.convert("RGBA" if has_alpha else "RGB")
-                height = max(1, round(img.height * width / img.width))
-                img = img.resize((width, height), Image.LANCZOS)
-                buf = io.BytesIO()
-                # Lossless for alpha: §0.8 forbids lossy-compressing a matte edge.
-                img.save(buf, format="WEBP", quality=90, lossless=has_alpha, method=4)
-                backend.put(key, buf.getvalue(), "image/webp")
-                return key
-        except Exception:  # noqa: BLE001
-            return None
-
-
-def store_bytes(user_id: str | None, asset_id: str, data: bytes,
-                mime: str | None = None) -> StoredBlob:
-    detected_mime, width, height, has_alpha = probe_image(data)
-    mime = mime or detected_mime
-    if has_alpha and mime == "image/jpeg":
-        raise ValueError("refusing to store an alpha asset as JPEG (§0.8)")
-    key = original_key(user_id, asset_id, mime)
-    get_backend().put(key, data, mime)
-    return StoredBlob(storage_key=key, mime=mime, width=width, height=height,
-                      has_alpha=has_alpha, size_bytes=len(data))
-
-
-def read_bytes(storage_key: str) -> bytes | None:
-    return get_backend().get(storage_key)
-
-
-def url_for(storage_key: str, ttl: int | None = None) -> str:
-    settings = get_settings()
-    return get_backend().url(storage_key, ttl or settings.signed_url_ttl_seconds)
-
-
-def purge_asset(user_id: str | None, asset_id: str) -> int:
-    """§7 data retention: delete every derivative of an asset, not just the original."""
-    return get_backend().delete_prefix(f"assets/{user_id or 'anon'}/{asset_id}/")

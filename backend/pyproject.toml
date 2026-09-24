@@ -1,40 +1,26 @@
 [project]
 name = "layered-design-backend"
 version = "0.1.0"
-description = "AI Layered Design Generator — Part One (prompt to editable composition)"
+description = "Lido.js template designer — prompt to the best-matching template, filled"
 requires-python = ">=3.11,<3.13"
 dependencies = [
   "fastapi>=0.115",
   "uvicorn[standard]>=0.32",
   "pydantic>=2.9",
   "pydantic-settings>=2.6",
-  "python-multipart>=0.0.12",
   "httpx>=0.27",
   "sqlalchemy[asyncio]>=2.0.36",
   "asyncpg>=0.30",
-  "aiosqlite>=0.20",
-  "pgvector>=0.3.6",
   "greenlet>=3.1",
-  "redis>=5.2",
   "boto3>=1.35",
   "openai>=1.55",
   "pillow>=11.0",
   "numpy>=1.26,<2.2",
-  "opencv-python-headless>=4.10",
-  "scipy>=1.14",
-  "uharfbuzz>=0.42",
-  "fonttools>=4.55",
-  "skia-python>=87.6",
   "structlog>=24.4",
-  "tenacity>=9.0",
 ]
 
 [project.optional-dependencies]
-# CPU-only local ML. Optional so the core stack installs small and fast.
-localml = [
-  "rembg>=2.0.59",
-  "onnxruntime>=1.19",
-]
+# Local embedding model for template matching (lido_templates.embedding).
 embed = [
   # CPU-only torch: install with
   #   uv pip install --extra-index-url https://download.pytorch.org/whl/cpu -e ".[embed]"

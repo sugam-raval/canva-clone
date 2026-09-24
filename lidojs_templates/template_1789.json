@@ -1,0 +1,1349 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "b037f997-c23c-4e46-aa08-7ae90f8cc03f",
+          "0f81eaa8-d7f3-4e3e-8a1e-3d8fd53e5bf1",
+          "1f7807ed-c5d5-41e0-bf6b-04025e9c2eb9",
+          "946a0d05-231f-4de8-ae08-2ca75828ea96",
+          "8bc1d6ff-b115-4919-8c05-5a8d4269a464",
+          "fde033bc-cb39-4b54-9434-5ba5cb0a4c22",
+          "21b49285-7460-4e1a-8ea7-1f912b8e2246",
+          "d4c7496e-0dc4-4f22-b06c-34a090298ef3",
+          "39285fd9-e470-4f38-bade-edd0eee209f0",
+          "679d9d03-12f9-44a3-bc96-ca43458d2a8f",
+          "35067749-d805-4d75-9a60-83ede1826d3f",
+          "9eb77370-9a51-43c2-9551-29ab1c3385cb",
+          "3f23869c-834a-43ca-a015-e8943857aa90"
+        ],
+        "props": {
+          "color": "rgb(255,255,255)",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/job_opening_12.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/job_opening_12.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "transparency": 1
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "0f81eaa8-d7f3-4e3e-8a1e-3d8fd53e5bf1": {
+        "type": {
+          "type": "title",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "We Are"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "70px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "AR One Sans",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "We Are",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "AR One Sans",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWqH6DW03no5mBF4.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWn_9DW03no5mBF4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 300,
+            "height": 73
+          },
+          "position": {
+            "x": 45,
+            "y": 109
+          },
+          "fontSizes": [
+            70
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1f7807ed-c5d5-41e0-bf6b-04025e9c2eb9": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Hiring!",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(164, 35, 53)",
+                  "indent": 0,
+                  "fontSize": "110px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Actor",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Hiring!",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(164, 35, 53)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Actor",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/actor/v18/wEOzEBbCkc5cO3ekXygtUMIO.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(164, 35, 53)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 70,
+            "y": 190,
+            "width": 464,
+            "height": 110
+          },
+          "position": {
+            "x": 45,
+            "y": 174
+          },
+          "fontSizes": [
+            110
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "21b49285-7460-4e1a-8ea7-1f912b8e2246": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Data Analyst"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 1,
+                  "fontSize": "18px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Afacad Flux",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Data Analyst",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Afacad Flux",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacadflux/v4/9oRgNYYQryMlneUPykRmTuH4ET0fri4I5rJVT_CWHKDZnskVK5edsZIQZaRqQsJr67E.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacadflux/v4/9oRgNYYQryMlneUPykRmTuH4ET0fri4I5rJVT_CWHKDZnskVK5edsUwXZaRqQsJr67E.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 22
+          },
+          "position": {
+            "x": 58.5,
+            "y": 445
+          },
+          "fontSizes": [
+            18
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "normal",
+          "lineHeight": "1.2",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "35067749-d805-4d75-9a60-83ede1826d3f": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Apply Now",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "20px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Roboto",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Apply Now",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)",
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 28
+          },
+          "position": {
+            "x": -147.9004997787178,
+            "y": 536
+          },
+          "fontSizes": [
+            20
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "39285fd9-e470-4f38-bade-edd0eee209f0": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Web Developer"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 1,
+                  "fontSize": "18px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Afacad Flux",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Web Developer",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Afacad Flux",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacadflux/v4/9oRgNYYQryMlneUPykRmTuH4ET0fri4I5rJVT_CWHKDZnskVK5edsZIQZaRqQsJr67E.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacadflux/v4/9oRgNYYQryMlneUPykRmTuH4ET0fri4I5rJVT_CWHKDZnskVK5edsUwXZaRqQsJr67E.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 22
+          },
+          "position": {
+            "x": 58.5,
+            "y": 489
+          },
+          "fontSizes": [
+            18
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "normal",
+          "lineHeight": "1.2",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3f23869c-834a-43ca-a015-e8943857aa90": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "We Need",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "21px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Poppins, serif",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "We Need",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins, serif",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 326.301,
+            "height": 29
+          },
+          "position": {
+            "x": -34.9005,
+            "y": 376.247839
+          },
+          "fontSizes": [
+            21
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "679d9d03-12f9-44a3-bc96-ca43458d2a8f": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "color": "rgb(164, 35, 53)",
+          "scale": 3.1640625,
+          "shape": "rectangle",
+          "rotate": 0,
+          "boxSize": {
+            "x": 236.25,
+            "y": 236.25,
+            "width": 145.5,
+            "height": 37.5
+          },
+          "position": {
+            "x": 49.5,
+            "y": 531.25
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "8bc1d6ff-b115-4919-8c05-5a8d4269a464": {
+        "type": {
+          "type": "email",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "reallygreatsite123@gmail.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "16px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins, serif",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "textTransform": "lowercase"
+                },
+                "content": [
+                  {
+                    "text": "reallygreatsite123@gmail.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins, serif",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 70,
+            "y": 610,
+            "width": 269,
+            "height": 21
+          },
+          "position": {
+            "x": 56,
+            "y": 585
+          },
+          "fontSizes": [
+            16
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "946a0d05-231f-4de8-ae08-2ca75828ea96": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "We are looking for talented individuals to join our team"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "17px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Afacad",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "We are looking for talented individuals to join our team",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Afacad",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacad/v3/6NUK8FKMIQOGaw6wjYT7ZHG_zsBBfsvqWmA08mCgdfM.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacad/v3/6NUK8FKMIQOGaw6wjYT7ZHG_zsBBfsvqWmA08mCgdfM.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacad/v3/6NUK8FKMIQOGaw6wjYT7ZHG_zsBBfhXtWmA08mCgdfM.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacad/v3/6NUK8FKMIQOGaw6wjYT7ZHG_zsBBfhXtWmA08mCgdfM.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 56,
+            "y": 284,
+            "width": 314,
+            "height": 44
+          },
+          "position": {
+            "x": 56,
+            "y": 284
+          },
+          "fontSizes": [
+            17
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "9eb77370-9a51-43c2-9551-29ab1c3385cb": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "color": "rgb(164, 35, 53)",
+          "scale": 3.054642471181556,
+          "shape": "rectangle",
+          "rotate": 0,
+          "boxSize": {
+            "width": 144.5,
+            "height": 36.995677
+          },
+          "position": {
+            "x": 56,
+            "y": 372.25
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b037f997-c23c-4e46-aa08-7ae90f8cc03f": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black_horizontal.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black_horizontal.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 135,
+              "height": 37.829912
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "transparency": 1
+          },
+          "scale": 1,
+          "rotate": 0,
+          "boxSize": {
+            "width": 135,
+            "height": 37.829912
+          },
+          "position": {
+            "x": 5,
+            "y": 8
+          },
+          "transparency": 1
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d4c7496e-0dc4-4f22-b06c-34a090298ef3": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Content Writer"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 1,
+                  "fontSize": "18px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Afacad Flux",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Content Writer",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Afacad Flux",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacadflux/v4/9oRgNYYQryMlneUPykRmTuH4ET0fri4I5rJVT_CWHKDZnskVK5edsZIQZaRqQsJr67E.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacadflux/v4/9oRgNYYQryMlneUPykRmTuH4ET0fri4I5rJVT_CWHKDZnskVK5edsUwXZaRqQsJr67E.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 22
+          },
+          "position": {
+            "x": 58.5,
+            "y": 467
+          },
+          "fontSizes": [
+            18
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "normal",
+          "lineHeight": "1.2",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fde033bc-cb39-4b54-9434-5ba5cb0a4c22": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Marketing Specialist"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 1,
+                  "fontSize": "18px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Afacad Flux",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Marketing Specialist",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Afacad Flux",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacadflux/v4/9oRgNYYQryMlneUPykRmTuH4ET0fri4I5rJVT_CWHKDZnskVK5edsZIQZaRqQsJr67E.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/afacadflux/v4/9oRgNYYQryMlneUPykRmTuH4ET0fri4I5rJVT_CWHKDZnskVK5edsUwXZaRqQsJr67E.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 22
+          },
+          "position": {
+            "x": 58.5,
+            "y": 423
+          },
+          "fontSizes": [
+            18
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "normal",
+          "lineHeight": "1.2",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_1789",
+      "name": "Job Openings Post",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "hiring",
+        "careers",
+        "professional"
+      ],
+      "description": "Square social post template for announcing multiple job openings and recruiting candidates.",
+      "canvas_size": {
+        "width": 675.0,
+        "height": 675.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/job_opening_12.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Square background, modern corporate style. Base: very light neutral gray canvas (near #efefef) with a subtle paper texture and a faint, soft vignette toward edges. Right-side folded ribbon wedge: two overlapping diagonal panels intruding from the right edge at a shallow inward angle (~20° from vertical). The back panel is solid black, slightly wider; the front panel is a deep burgundy (rich desaturated red) about 30% of canvas width. Add a narrow inner crease/highlight along the front panel edge and a soft, blurred drop shadow cast leftwards onto the gray background to sell the fold. At the very bottom-right corner create a small triangular fold accent where the panels meet, with a subtle bevel and shadow. Upper middle: a thin, solid black horizontal rule at about 26% down, spanning about 47–71% across (just right of where the lead-in text ends), ~3–6 px equivalent thickness. Lower-right icon cluster: a simple flat silhouette group of three people in solid black (center figure slightly forward), sized so the group occupies roughly the lower-right quadrant (about 25–30% of canvas height). Above the central silhouette place a small burgundy question mark matching the ribbon color. Keep all shapes crisply cut with minimal gradients except for soft shadows and the subtle ribbon bevel. Overall lighting: flat with delicate ambient shadows for depth, clean vector-style edges, minimal noise. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-templates-2/job_opening_12.png",
+        "notes": "All free text is black (the hero word is burgundy) and sits in the left ~60% of the canvas, top to bottom, so that area must stay a very light, calm neutral with no dark shapes — never dark or busy, even for a moody brief. Keep the dark ribbon panels on the right edge only. The people-silhouette icon with the question mark is part of this background (there is no separate photo layer), so it stays in the lower-right quadrant, clear of the job list on the left. The two small burgundy button shapes behind 'We Need' and 'Apply Now' are separate layers."
+      },
+      "text_layer_count": 10,
+      "reference_note": "Reference exemplar for the 'job openings list' composition: light background with a dark ribbon on the right, a lead-in + big hero word, a one-sentence pitch, a labelled list of four job titles, an Apply button and a contact email. Keep the exact layer count and roles. Per brief, only the background (restyled from its prompt) and the text copy change; the logo is locked and only swapped for the brand's own dark logo file.",
+      "slots": [
+        {
+          "layer_id": "0f81eaa8-d7f3-4e3e-8a1e-3d8fd53e5bf1",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "We Are",
+          "max_chars": 16,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 70.0,
+          "position": {
+            "x": 45.0,
+            "y": 109.0
+          },
+          "box_size": {
+            "width": 300.0,
+            "height": 73.0
+          },
+          "image": null,
+          "notes": "Lead-in phrase set above the big hero word and read together with it (e.g. 'We Are' + 'Hiring!'). One or two short words on one line."
+        },
+        {
+          "layer_id": "1f7807ed-c5d5-41e0-bf6b-04025e9c2eb9",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Hiring!",
+          "max_chars": 17,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 110.0,
+          "position": {
+            "x": 45.0,
+            "y": 174.0
+          },
+          "box_size": {
+            "x": 70.0,
+            "y": 190.0,
+            "width": 464.0,
+            "height": 110.0
+          },
+          "image": null,
+          "notes": "Primary attention-grabber / hero label — an emphatic, very short headline (1–3 words) such as “Hiring!” or “Join Us”. Visually dominant; pairs with the decorative lead-in (“We Are”) and the CTA (“Apply Now”)."
+        },
+        {
+          "layer_id": "21b49285-7460-4e1a-8ea7-1f912b8e2246",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Data Analyst",
+          "max_chars": 24,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 18.0,
+          "position": {
+            "x": 58.5,
+            "y": 445.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 22.0
+          },
+          "image": null,
+          "notes": "One of four parallel job-title list items (with Marketing Specialist, Content Writer, Web Developer). A job title only, 1–3 words, one line."
+        },
+        {
+          "layer_id": "35067749-d805-4d75-9a60-83ede1826d3f",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Apply Now",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 20.0,
+          "position": {
+            "x": -147.9004997787178,
+            "y": 536.0
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 28.0
+          },
+          "image": null,
+          "notes": "CTA/button label — short imperative copy (e.g., “Apply Now”, “Submit Resume”). Must be concise and remain on a single line; should clearly invite the action tied to the job list and hero label."
+        },
+        {
+          "layer_id": "39285fd9-e470-4f38-bade-edd0eee209f0",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Web Developer",
+          "max_chars": 26,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 18.0,
+          "position": {
+            "x": 58.5,
+            "y": 489.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 22.0
+          },
+          "image": null,
+          "notes": "One of four parallel job-title list items (with Marketing Specialist, Data Analyst, Content Writer). A job title only, 1–3 words, one line."
+        },
+        {
+          "layer_id": "3f23869c-834a-43ca-a015-e8943857aa90",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "We Need",
+          "max_chars": 17,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 21.0,
+          "position": {
+            "x": -34.9005,
+            "y": 376.247839
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 326.301,
+            "height": 29.0
+          },
+          "image": null,
+          "notes": "White label on the small burgundy button above the job list — a 1–2 word lead-in to the list (e.g. 'We Need', 'Open Roles')."
+        },
+        {
+          "layer_id": "679d9d03-12f9-44a3-bc96-ca43458d2a8f",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 49.5,
+            "y": 531.25
+          },
+          "box_size": {
+            "x": 236.25,
+            "y": 236.25,
+            "width": 145.5,
+            "height": 37.5
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "8bc1d6ff-b115-4919-8c05-5a8d4269a464",
+          "resolved_name": "TextLayer",
+          "role": "email",
+          "editable": true,
+          "default_text": "reallygreatsite123@gmail.com",
+          "max_chars": 47,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 16.0,
+          "position": {
+            "x": 56.0,
+            "y": 585.0
+          },
+          "box_size": {
+            "x": 70.0,
+            "y": 610.0,
+            "width": 269.0,
+            "height": 21.0
+          },
+          "image": null,
+          "notes": "Contact email for applicants, one line, the address only — no extra words. Stays as the template's placeholder unless the request gives an email."
+        },
+        {
+          "layer_id": "946a0d05-231f-4de8-ae08-2ca75828ea96",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "We are looking for talented individuals to join our team",
+          "max_chars": 86,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 17.0,
+          "position": {
+            "x": 56.0,
+            "y": 284.0
+          },
+          "box_size": {
+            "x": 56.0,
+            "y": 284.0,
+            "width": 314.0,
+            "height": 44.0
+          },
+          "image": null,
+          "notes": "Short descriptive body copy under the hero — one concise sentence (invite/summary). Aim for 8–15 words; can wrap to a second line if needed but keep it tight and supportive of the headline."
+        },
+        {
+          "layer_id": "9eb77370-9a51-43c2-9551-29ab1c3385cb",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 56.0,
+            "y": 372.25
+          },
+          "box_size": {
+            "width": 144.5,
+            "height": 36.995677
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "b037f997-c23c-4e46-aa08-7ae90f8cc03f",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "font_size": null,
+          "position": {
+            "x": 5.0,
+            "y": 8.0
+          },
+          "box_size": {
+            "width": 135.0,
+            "height": 37.829912
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_black_horizontal.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": "Dark horizontal logo variant, chosen because it sits on the light grey area."
+        },
+        {
+          "layer_id": "d4c7496e-0dc4-4f22-b06c-34a090298ef3",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Content Writer",
+          "max_chars": 27,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 18.0,
+          "position": {
+            "x": 58.5,
+            "y": 467.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 22.0
+          },
+          "image": null,
+          "notes": "One of four parallel job-title list items (with Marketing Specialist, Data Analyst, Web Developer). A job title only, 1–3 words, one line."
+        },
+        {
+          "layer_id": "fde033bc-cb39-4b54-9434-5ba5cb0a4c22",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Marketing Specialist",
+          "max_chars": 36,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 18.0,
+          "position": {
+            "x": 58.5,
+            "y": 423.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 22.0
+          },
+          "image": null,
+          "notes": "First of four parallel job-title list items (with Data Analyst, Content Writer, Web Developer). A job title only, 1–3 words, one line."
+        }
+      ]
+    }
+  }
+]

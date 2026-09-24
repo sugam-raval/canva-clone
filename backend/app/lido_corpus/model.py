@@ -64,7 +64,7 @@ class LidoDocument(LidoBase):
 
 SlotRole = Literal[
     "background", "logo", "headline", "subhead", "body", "label",
-    "phone", "address", "website", "photo", "decoration",
+    "phone", "email", "address", "website", "photo", "decoration",
 ]
 
 ImageKind = Literal[
@@ -75,7 +75,7 @@ ImageKind = Literal[
 class ImageSpec(BaseModel):
     """How to source the image for an image-bearing layer (ROOT background, or a
     `photo`/`logo` slot). Human-authored — never recomputed from geometry, so it survives
-    `enrich_file_in_place` the same way `name`/`kind`/`description` do.
+    re-enrichment (`scripts/enrich_lido_templates.py`) the same way `name`/`kind`/`description` do.
 
     - `kind` distinguishes a full-bleed background photo from a foreground subject
       cutout from a static, never-regenerated logo from a decorative shape.

@@ -1,4 +1,4 @@
-"""One structured LLM call that fills a Lido template (plan.md §2.2).
+"""One structured LLM call that fills a Lido template (docs/plan.md §2.2).
 
 The model receives the user's raw request plus the template's own per-layer metadata
 (text limits, role notes, reference image prompts) and returns, keyed by `layer_id`,
@@ -29,10 +29,18 @@ from .textfit import TextMeasure, family_name, font_file, too_wide_words, wrap
 log = structlog.get_logger(__name__)
 
 BACKGROUND_LAYER_ID = "ROOT"
-CONTACT_ROLES = frozenset({"website", "phone", "address"})
+CONTACT_ROLES = frozenset({"website", "phone", "email", "address"})
 
-# High effort spends hidden reasoning tokens out of the same output budget.
-_MAX_OUTPUT_TOKENS = 32000
+# Sized for the actual visible payload, not defensively oversized: a reasoning model's
+# hidden thinking tokens don't count against this (the Responses path floors
+# max_output_tokens at 16000 regardless of what's passed here — see
+# OpenAILLM._complete_json_reasoning), and a plain chat model's completion-token ceiling
+# is real (16384 on every gpt-4o-family model seen so far). Oversizing this needlessly
+# means every *new* model hits one self-healing 400-then-retry round trip before the
+# adapter learns its real ceiling (see OpenAILLM._max_completion_tokens) — avoidable
+# latency for a value neither call ever legitimately needs.
+_MAX_OUTPUT_TOKENS = 8000            # full per-layer fill: ~10-15 short text fields + 2 image prompts
+_REPAIR_MAX_OUTPUT_TOKENS = 2000     # only the handful of already-identified broken layers
 
 
 class LidoLayerTextFill(BaseModel):
@@ -121,7 +129,11 @@ def _text_target(slot: SlotInfo, props: dict) -> TextTarget:
         css_family = attrs.get("fontFamily") or ""
         path = font_file(family_name(css_family), _font_urls(props, css_family)) \
             if css_family else None
-        measure = TextMeasure(path, slot.font_size, transform,
+        # Lido renders a scaled TextLayer at its font size and then shrinks the whole
+        # layer by `scale`; `boxSize` is the on-canvas (already scaled) size. Measuring
+        # at font_size × scale against boxSize is the same wrap, in canvas pixels.
+        scale = float(props.get("scale") or 1) or 1.0
+        measure = TextMeasure(path, slot.font_size * scale, transform,
                               float(attrs.get("letterSpacing") or 0))
     return TextTarget(slot=slot, text_transform=transform, paragraphs=len(content),
                       measure=measure)
@@ -217,6 +229,8 @@ def _contact_is_supported(text: str, role: str, user_prompt: str) -> bool:
     if role == "website":
         core = _URL_PREFIX_RE.sub("", text.strip().lower()).rstrip("/")
         return bool(core) and core in prompt
+    if role == "email":
+        return text.strip().lower() in prompt
     if role == "phone":
         digits = re.sub(r"\D", "", text)
         return len(digits) >= 5 and digits in re.sub(r"\D", "", user_prompt)
@@ -249,7 +263,7 @@ TEXT LAYERS
   normally cased text and let the layer transform it.
 - Follow each layer's "notes": they describe what kind of phrase belongs there (kicker,
   script accent, headline, offer, label), not just a length.
-- CONTACT LAYERS (role website, phone or address): only replace the text if the user's
+- CONTACT LAYERS (role website, phone, email or address): only replace the text if the user's
   request explicitly contains that exact detail. Otherwise return current_text
   unchanged, verbatim. Never invent a website, phone number or address.
 - All text layers must read as one coherent piece of marketing copy for the same
@@ -360,13 +374,21 @@ def _repair_message(user_prompt: str, texts: list[TextTarget], current: dict[str
 # --------------------------------------------------------------------------------------
 
 
-async def _complete(system: str, user: str, schema: type[BaseModel]):
+async def _complete(system: str, user: str, schema: type[BaseModel], *,
+                    model: str | None = None,
+                    max_tokens: int = _MAX_OUTPUT_TOKENS):
     """One schema-constrained call; a recoverable failure (truncation, 5xx, rate
-    limit) gets exactly one retry, anything else propagates to the caller."""
-    kwargs = {
-        "system": system, "user": user, "schema": schema, "max_tokens": _MAX_OUTPUT_TOKENS,
-        "reasoning_effort": get_settings().lido_template_reasoning_effort,
-    }
+    limit) gets exactly one retry, anything else propagates to the caller.
+
+    No `reasoning_effort` is passed here — leaving it unset makes `complete_json` fall
+    back to the global `LLM_REASONING_EFFORT`, same as everywhere else in the app,
+    rather than this flow silently spending more effort than the rest is configured
+    for. `model`, when given (the repair call passes `LLM_MODEL_FAST`), always routes
+    through the plain chat path regardless of that setting — see `complete_json`."""
+    kwargs: dict = {"system": system, "user": user, "schema": schema,
+                    "max_tokens": max_tokens}
+    if model is not None:
+        kwargs["model"] = model
     llm = get_llm()
     try:
         return await llm.complete_json(**kwargs), 1
@@ -431,9 +453,13 @@ async def generate_template_fill(user_prompt: str, template: LidoTemplateFile,
     if problems:
         log.info("lido.template_fill.repairing", problems=problems)
         try:
+            # A repair call only rewrites the handful of already-identified broken
+            # layers to fit — a small, well-scoped edit that doesn't need the primary
+            # model's reasoning budget. LLM_MODEL_FAST is plenty and much quicker.
             fix, fix_calls = await _complete(
                 REPAIR_SYSTEM_PROMPT, _repair_message(user_prompt, texts, text, problems),
-                LidoTextRepairOutput,
+                LidoTextRepairOutput, model=get_settings().llm_model_fast,
+                max_tokens=_REPAIR_MAX_OUTPUT_TOKENS,
             )
             calls += fix_calls
             cost += fix.cost_cents

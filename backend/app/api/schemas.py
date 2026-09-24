@@ -1,70 +1,35 @@
-"""Request and response bodies for §0.10. Validated with the same models the LLM is
-constrained against, so the API and the pipeline can never disagree about shape."""
+"""Request and response bodies for the Lido.js (template) API."""
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any, Literal
 
-from pydantic import Field
-
-from app.schema.doc import Base
-
-
-class GenerateRequest(Base):
-    prompt: str = Field(min_length=1, max_length=4000)
-    kind: str | None = None
-    size: dict[str, int] | None = None
-    brand_kit_id: str | None = None
-    count: int = Field(default=1, ge=1, le=4)
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic.alias_generators import to_camel
 
 
-class GenerateResponse(Base):
-    request_id: str
-    doc_ids: list[str] = Field(default_factory=list)
+class Base(BaseModel):
+    """Wire format is camelCase; Python is snake_case; both are accepted on input."""
 
+    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True,
+                              extra="forbid")
 
-class RegenerateRequest(Base):
-    prompt_override: str | None = None
-    seed: int | None = None
-    strength: float | None = Field(default=None, ge=0, le=1)
-
-
-class ReshapeRequest(Base):
-    """Rebuild a vector motif. Every field is optional; omitting `seed` re-rolls."""
-
-    motif: str | None = None
-    seed: int | None = Field(default=None, ge=0)
-    density: int | None = Field(default=None, ge=1, le=5)
-
-
-class ExpandRequest(Base):
-    edges: dict[str, float] = Field(default_factory=dict, description="l, r, t, b in px")
-    prompt: str | None = None
-
-
-class EraseRequest(Base):
-    mask_asset_id: str | None = None
-    brush_path: list[list[float]] | None = None
-    brush_width: float = 40.0
-
-
-class RewriteRequest(Base):
-    layer_ids: list[str] = Field(min_length=1)
-    instruction: str = Field(min_length=1, max_length=1000)
-
-
-class ResizeRequest(Base):
-    width: int = Field(gt=0, le=20000)
-    height: int = Field(gt=0, le=20000)
-
-
-# Lido corpus endpoints
 
 class LidoGenerateRequest(Base):
-    """Generate a design from a Lido template — simpler prompt interface than DesignBrief."""
+    """Generate a design from a Lido template — simpler prompt interface than DesignBrief.
+
+    `template_id` picks an exact template from the corpus (by file stem), overriding
+    retrieval entirely; `random_template` picks uniformly across the whole corpus
+    instead. Giving both is treated as `template_id` winning; giving neither uses the
+    automatic match (docs/new_match_plan.md): templates that can hold every detail the user
+    gave come first, then the best topic + details match. The response's `match` says
+    how it decided."""
     prompt: str = Field(min_length=1, max_length=2000)
     kind: Literal["story", "post", "poster", "banner", "thumbnail", "ad", "flyer"] | None = None
     generate_images: bool = True
+    template_id: str | None = None
+    random_template: bool = False
 
 
 class LidoSlotFillInfo(Base):
@@ -83,95 +48,65 @@ class LidoImagePromptInfo(Base):
     prompt: str
 
 
+class LidoTemplateSummary(Base):
+    """One entry in the corpus, for a template-picker UI. `ready` is true when a human
+    has reviewed the template's metadata (`meta.reference_note`). It no longer limits
+    the automatic match — every template is a candidate — it is shown for information."""
+    id: str
+    name: str
+    kind: str
+    aspect: str
+    tags: list[str] = Field(default_factory=list)
+    description: str = ""
+    ready: bool
+
+
+class LidoMatchCandidate(Base):
+    template_id: str
+    score: float
+    topic: float
+    details: float
+    held: list[str] = Field(default_factory=list)
+    missing: list[str] = Field(default_factory=list)
+    empty_contact_slots: list[str] = Field(default_factory=list)
+
+
+class LidoMatchInfo(Base):
+    """`path` is "holds_all" when at least one template can hold every detail the user
+    gave (the pick came from those), else "best_match"."""
+    path: Literal["holds_all", "best_match"]
+    topic_line: str
+    request_details: list[str] = Field(default_factory=list)
+    used_llm: bool
+    embedder: str
+    candidates: list[LidoMatchCandidate] = Field(default_factory=list)
+
+
 class LidoGenerateResponse(Base):
-    """A filled Lido document ready to open in the editor, also saved to disk."""
+    """A filled Lido document ready to open in the editor, also saved to `lido_generations`."""
     document: list[dict[str, Any]]
     template_id: str
     template_score: float
     design_id: str
-    path: str
     text_fills: list[LidoSlotFillInfo] = Field(default_factory=list)
     image_fills: list[LidoAssetInfo] = Field(default_factory=list)
     image_prompts: list[LidoImagePromptInfo] = Field(default_factory=list)
     image_failures: list[str] = Field(default_factory=list)
+    match: LidoMatchInfo | None = None
+    """How the automatic match picked the template; None for an explicit or random pick."""
 
 
-# Lido scratch generation — designed from the brief, no template retrieval
-
-class LidoScratchRequest(Base):
-    """Design a Lido document from scratch. `size` overrides the size inferred from
-    `kind`; `generateImages` off returns the layout on a flat palette ground, which is
-    the fast path when you are iterating on composition rather than art."""
-
-    prompt: str = Field(min_length=1, max_length=2000)
-    kind: Literal["story", "post", "poster", "banner", "thumbnail", "ad", "flyer"] | None = None
-    size: dict[str, int] | None = None
-    generate_images: bool = True
-
-
-class LidoScratchElement(Base):
-    """One element of the spec the model designed, for showing its reasoning."""
-
-    kind: str
-    role: str | None = None
-    text: str | None = None
-    size: str
-    x: float
-    y: float
-    w: float
-    color: str | None = None
-    image_prompt: str | None = None
-    cutout: bool = False
-    behind: bool = False
-    font: str = "auto"
-    tracking: str | None = None
-
-
-class LidoScratchResponse(Base):
-    design_id: str
-    document: list[dict[str, Any]]
-    name: str
-    kind: str
-    width: int
-    height: int
-    vibe: str
-    layout_style: str = "hero-stack"
-    background_style: str = "flat"
-    decor: list[str] = Field(default_factory=list)
-    palette: list[str] = Field(default_factory=list)
-    elements: list[LidoScratchElement] = Field(default_factory=list)
-    llm_designed: bool = True
-    font_scale: float = 1.0
-    background_url: str | None = None
-    path: str = ""
-
-
-class LidoScratchSummary(Base):
+class LidoGenerationSummary(Base):
+    """One row of `lido_generations` (infra/initdb/002_lido_generations.sql). Reopen
+    the full document via `GET /v1/lido/generations/{id}`. `path` is legacy: only set on
+    a design promoted in from the old file-based storage; new rows leave it null."""
     id: str
+    template_id: str | None = None
     name: str = ""
     kind: str = "post"
     aspect: str = "1:1"
-    description: str = ""
     prompt: str = ""
-    generated_at: str = ""
-    canvas_size: dict[str, float] = Field(default_factory=dict)
-
-
-class ExportRequest(Base):
-    format: Literal["png", "jpeg", "webp", "pdf", "svg"] = "png"
-    scale: float = Field(default=1.0, gt=0, le=4)
-
-
-class ExportResponse(Base):
-    export_id: str
-    state: str
-    url: str | None = None
-
-
-class PatchRequest(Base):
-    """JSON-merge patch for non-CRDT clients and server-side ops (§0.10)."""
-
-    layers: list[dict[str, Any]] | None = None
-    canvas: dict[str, Any] | None = None
-    palette: list[str] | None = None
-    title: str | None = None
+    canvas_size: dict[str, Any] = Field(default_factory=dict)
+    thumbnail_url: str | None = None
+    path: str | None = None
+    created_at: datetime

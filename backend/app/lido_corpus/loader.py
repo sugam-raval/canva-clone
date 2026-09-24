@@ -11,6 +11,7 @@ because those can't be derived from geometry alone.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from .model import (
@@ -67,33 +68,107 @@ def _default_text(layer: LidoLayer) -> str | None:
     return " ".join(parts) or None
 
 
+_EMAIL_RE = re.compile(r"^[\w.+-]+@[\w-]+(\.[\w-]+)+$")
+_URL_RE = re.compile(r"^(https?://)?(www\.)?[\w-]+(\.[\w-]+)*\.[a-z]{2,}(/\S*)?$", re.IGNORECASE)
+_PHONE_RE = re.compile(r"^\+?[\d\s().-]{7,}$")
+
+# Lido `type.type` values that carry free copy (not contact details, not a logo). An
+# untyped TextLayer (`None`) is free copy too — many exports leave the type empty.
+_FREE_TEXT_TYPES = {"bodyText", "title", "static", None}
+
+
+def _contact_role_from_text(text: str | None) -> SlotRole | None:
+    """An untyped or mistyped layer whose sample text *is* a contact detail — the
+    export's type tag is often missing, and treating a website as free copy lets the
+    fill model invent one."""
+    t = (text or "").strip()
+    if not t:
+        return None
+    if _EMAIL_RE.match(t):
+        return "email"
+    if _URL_RE.match(t) and " " not in t:
+        return "website"
+    if _PHONE_RE.match(t) and sum(c.isdigit() for c in t) >= 7:
+        return "phone"
+    return None
+
+
+def _is_logo_frame(layer: LidoLayer) -> bool:
+    """A FrameLayer is the brand logo when tagged so, or — for untyped exports — when
+    its image is a logo asset. Treating a logo as a photo gets it regenerated."""
+    if layer.type.type == "logo":
+        return True
+    url = ((layer.props.get("image") or {}).get("url") or "").lower()
+    name = url.rsplit("/", 1)[-1]
+    return "logo" in name
+
+
+def _box_center(layer: LidoLayer) -> tuple[float, float] | None:
+    pos, box = layer.props.get("position") or {}, layer.props.get("boxSize") or {}
+    if not box.get("width") or not box.get("height"):
+        return None
+    return (float(pos.get("x", 0)) + float(box["width"]) / 2,
+            float(pos.get("y", 0)) + float(box["height"]) / 2)
+
+
+def _on_shape(layer: LidoLayer, layers: dict[str, LidoLayer]) -> bool:
+    """True when the text's center sits on a ShapeLayer — a button or ribbon label."""
+    c = _box_center(layer)
+    if c is None:
+        return False
+    for other in layers.values():
+        if other.type.resolvedName != "ShapeLayer":
+            continue
+        pos, box = other.props.get("position") or {}, other.props.get("boxSize") or {}
+        x, y = float(pos.get("x", 0)), float(pos.get("y", 0))
+        w, h = float(box.get("width") or 0), float(box.get("height") or 0)
+        if x <= c[0] <= x + w and y <= c[1] <= y + h:
+            return True
+    return False
+
+
 def _role_for(layer_id: str, layer: LidoLayer, headline_id: str | None,
-              subhead_id: str | None) -> SlotRole:
+              subhead_id: str | None, layers: dict[str, LidoLayer] | None = None) -> SlotRole:
     t = layer.type.type
     rn = layer.type.resolvedName
     if rn == "RootLayer":
         return "background"
+    if rn == "FrameLayer" or rn == "ImageLayer":
+        return "logo" if _is_logo_frame(layer) else "photo"
     if t == "logo":
         return "logo"
-    if t == "static":
-        return "label"
-    if t == "phoneNumber":
+    if rn == "ShapeLayer":
+        return "decoration"
+    if rn != "TextLayer":
+        return "decoration"
+    # -- text: never "decoration"; every text layer is copy someone has to write --
+    if t in ("phoneNumber", "phone"):
         return "phone"
+    if t == "email":
+        return "email"
     if t == "address":
         return "address"
     if t == "website":
         return "website"
-    if t == "bodyText":
-        if layer_id == headline_id:
-            return "headline"
-        if layer_id == subhead_id:
-            return "subhead"
-        return "body"
-    if rn == "FrameLayer":
-        return "photo"
-    if rn == "ShapeLayer":
-        return "decoration"
-    return "decoration"
+    contact = _contact_role_from_text(layer.type.replacableText or _default_text(layer))
+    if contact:
+        return contact
+    if layer_id == headline_id:
+        return "headline"
+    if layer_id == subhead_id:
+        return "subhead"
+    if t == "static" or (layers is not None and _on_shape(layer, layers)):
+        return "label"
+    return "body"
+
+
+def _free_text_ids(layers: dict[str, LidoLayer]) -> list[str]:
+    return [
+        lid for lid, layer in layers.items()
+        if lid != "ROOT" and layer.type.resolvedName == "TextLayer"
+        and layer.type.type in _FREE_TEXT_TYPES
+        and not _contact_role_from_text(layer.type.replacableText or _default_text(layer))
+    ]
 
 
 def _extract_slots(
@@ -107,22 +182,25 @@ def _extract_slots(
     it's carried forward instead of being silently wiped by the auto-computed default.
     """
     existing_slots = existing_slots or {}
-    body_text_ids = [
-        lid for lid, layer in layers.items()
-        if lid != "ROOT" and layer.type.type == "bodyText"
-    ]
-    # Rank bodyText layers by font size (largest first) so a template with several
-    # untagged text blocks still gets a sane headline/subhead/body split.
-    ranked = sorted(body_text_ids, key=lambda lid: _font_size(layers[lid]) or 0, reverse=True)
+    # The headline is the largest free-copy text of any type — a big "static" title
+    # (template_1825's "Corporate Event Planning") or an untyped one (template_831's
+    # गणेश) is the headline, not a label or decoration. The subhead is the next largest
+    # that isn't a fixed "static" label, so a small script accent or button text never
+    # outranks real supporting copy. Stable sort: equal sizes keep layer order.
+    free = _free_text_ids(layers)
+    ranked = sorted(free, key=lambda lid: _font_size(layers[lid]) or 0, reverse=True)
     headline_id = ranked[0] if ranked else None
-    subhead_id = ranked[1] if len(ranked) > 1 else None
+    subhead_id = next((lid for lid in ranked[1:] if layers[lid].type.type != "static"), None)
 
     slots: list[SlotInfo] = []
     for lid, layer in layers.items():
         if lid == "ROOT":
             continue
-        role = _role_for(lid, layer, headline_id, subhead_id)
-        default_text = layer.type.replacableText or _default_text(layer)
+        role = _role_for(lid, layer, headline_id, subhead_id, layers)
+        # Exports sometimes carry layout whitespace inside the text ("●\n      Haircut");
+        # it renders as single spaces, so the default copy and its limits should too.
+        raw_text = layer.type.replacableText or _default_text(layer)
+        default_text = " ".join(raw_text.split()) if raw_text else None
         prior = existing_slots.get(lid) or {}
         image = prior.get("image")
         slots.append(SlotInfo(
@@ -213,20 +291,21 @@ def load_corpus(directory: Path | str = DEFAULT_CORPUS_DIR) -> list[LidoTemplate
     return [load_enriched(p) for p in discover_templates(directory)]
 
 
-def enrich_file_in_place(path: Path) -> LidoTemplateFile:
-    """Recompute `meta` from the current layers and write it back into the file,
-    preserving `name`/`kind`/`tags`/`description` if a human already set them."""
-    template = load_enriched(path)
-    out = [{
-        "layers": json.loads(json.dumps(
-            {lid: layer.model_dump(mode="json", by_alias=False) for lid, layer in template.layers.items()}
-        )),
-        "meta": template.meta.model_dump(mode="json"),
-    }]
-    with path.open("w", encoding="utf-8") as f:
-        json.dump(out, f, indent=2, ensure_ascii=False)
-    return template
+def load_authored_corpus(directory: Path | str = DEFAULT_CORPUS_DIR
+                         ) -> tuple[list[LidoTemplateFile], list[str]]:
+    """Templates whose file has a `meta` block, plus the names of raw files that don't.
 
-
-def enrich_corpus_in_place(directory: Path | str = DEFAULT_CORPUS_DIR) -> list[LidoTemplateFile]:
-    return [enrich_file_in_place(p) for p in discover_templates(directory)]
+    A raw export dropped into the folder has no metadata yet (no name, tags, limits,
+    image specs), so it is never a match candidate until the enrich script has drafted
+    its `meta` — see `make lido-meta` / `make lido-add`."""
+    ready, raw = [], []
+    for path in discover_templates(directory):
+        try:
+            has_meta = bool(_read_root_object(path).get("meta"))
+        except (OSError, ValueError):
+            has_meta = False
+        if has_meta:
+            ready.append(load_enriched(path))
+        else:
+            raw.append(path.name)
+    return ready, raw

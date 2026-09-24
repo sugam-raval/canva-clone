@@ -1,0 +1,1070 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "d28eec10-9e54-410e-8bae-a97d6387563f",
+          "b307dd90-32c1-453a-b866-e03123b1ea3e",
+          "c351aff5-dec9-462c-9add-cc6e2d2d5c50",
+          "35c3116f-cf99-40d0-9133-ca52ef8b6b21",
+          "147fb1a0-8f46-49cd-af6f-990182118a65",
+          "1dd24696-f5a2-4980-bf7c-852144fab474",
+          "c73bebc3-76a2-43f1-a150-2236e8c3076b",
+          "e7a3c2f1-a112-45c3-9e40-0197134d19c3",
+          "666e76b5-6ae5-4d50-a69b-766d0d90c3ea",
+          "44feed14-b388-4d77-8c91-b9d58351807c",
+          "c837f08c-5f14-4bda-a432-a55e45668314",
+          "60310997-130a-418d-94de-b52de899255c"
+        ],
+        "props": {
+          "color": "rgb(255,255,255)",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/personaservices40.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/personaservices40.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "transparency": 1
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "147fb1a0-8f46-49cd-af6f-990182118a65": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Tailored Planning"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "18px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Tailored Planning",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 85,
+            "y": 485,
+            "width": 93,
+            "height": 36
+          },
+          "position": {
+            "x": 100,
+            "y": 485
+          },
+          "fontSizes": [
+            18
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1dd24696-f5a2-4980-bf7c-852144fab474": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Innovative Solutions"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "18px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Innovative Solutions",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 275,
+            "y": 485,
+            "width": 108,
+            "height": 36
+          },
+          "position": {
+            "x": 283,
+            "y": 485
+          },
+          "fontSizes": [
+            18
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "35c3116f-cf99-40d0-9133-ca52ef8b6b21": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "We bring creativity, precision, and expertise to every detail, so you can focus on your goals."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "19px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "textTransform": "lowercase"
+                },
+                "content": [
+                  {
+                    "text": "We bring creativity, precision, and expertise to every detail, so you can focus on your goals.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 455,
+            "height": 50
+          },
+          "position": {
+            "x": 55,
+            "y": 395
+          },
+          "fontSizes": [
+            19
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "44feed14-b388-4d77-8c91-b9d58351807c": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/user-image/user-image/1786165189_88.png",
+            "thumb": "https://assets.quickhub.ai/user-image/user-image/1786165189_88.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 750.0000000000002,
+              "height": 500.0000000000001
+            },
+            "position": {
+              "x": -125.00000000000006,
+              "y": 0
+            }
+          },
+          "scale": 0.3016955378079537,
+          "rotate": 0,
+          "boxSize": {
+            "x": 225.0688067666688,
+            "y": 71.03291244872483,
+            "width": 150.84776890397688,
+            "height": 150.84776890397688
+          },
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 225.0688067666688,
+            "y": 71.03291244872483
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "60310997-130a-418d-94de-b52de899255c": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/user-image/user-image/1786165311_80.png",
+            "thumb": "https://assets.quickhub.ai/user-image/user-image/1786165311_80.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 737.7717391304349,
+              "height": 500.00000000000006
+            },
+            "position": {
+              "x": -118.8858695652174,
+              "y": 0
+            }
+          },
+          "scale": 0.41997021889850294,
+          "rotate": 0,
+          "boxSize": {
+            "x": 534.662294623887,
+            "y": 250,
+            "width": 209.9851094492515,
+            "height": 209.9851094492515
+          },
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 527.880031763932,
+            "y": 238.42011649996812
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "666e76b5-6ae5-4d50-a69b-766d0d90c3ea": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "color": "rgb(22, 38, 60)",
+          "scale": 2.586549408737552,
+          "shape": "circle",
+          "rotate": 0,
+          "boxSize": {
+            "x": 214.073497295522,
+            "y": 26.726377980314965,
+            "width": 165.53916215920333,
+            "height": 165.53916215920333
+          },
+          "position": {
+            "x": 217.76958107960166,
+            "y": 63.68721582111163
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b307dd90-32c1-453a-b866-e03123b1ea3e": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Expert",
+          "replacableText": "Expert"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "51px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Expert",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 300,
+            "height": 50
+          },
+          "position": {
+            "x": 55,
+            "y": 195
+          },
+          "fontSizes": [
+            51
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c351aff5-dec9-462c-9add-cc6e2d2d5c50": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Corporate Event Planning",
+          "replacableText": "Corporate Event Planning"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "61px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Corporate Event Planning",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 55,
+            "y": 250,
+            "width": 456,
+            "height": 122
+          },
+          "position": {
+            "x": 55,
+            "y": 250
+          },
+          "fontSizes": [
+            61
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c73bebc3-76a2-43f1-a150-2236e8c3076b": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Seamless Execution"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "18px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Seamless Execution",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 115,
+            "height": 36
+          },
+          "position": {
+            "x": 455,
+            "y": 485
+          },
+          "fontSizes": [
+            18
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c837f08c-5f14-4bda-a432-a55e45668314": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "color": "rgb(22, 38, 60)",
+          "scale": 3.568321663883714,
+          "shape": "circle",
+          "rotate": 0,
+          "boxSize": {
+            "x": 518.6862932442789,
+            "y": 229.226377980315,
+            "width": 228.37258648855766,
+            "height": 228.37258648855766
+          },
+          "position": {
+            "x": 518.6862932442789,
+            "y": 229.226377980315
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d28eec10-9e54-410e-8bae-a97d6387563f": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 78.854369,
+              "height": 63.952755960629936
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "100px",
+            "height": "75px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 78.854369,
+            "height": 63.952755960629936
+          },
+          "position": {
+            "x": 57.5,
+            "y": 96
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e7a3c2f1-a112-45c3-9e40-0197134d19c3": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/user-image/user-image/1786165054_36.png",
+            "thumb": "https://assets.quickhub.ai/user-image/user-image/1786165054_36.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 799.0867579908675,
+              "height": 499.99999999999994
+            },
+            "position": {
+              "x": -149.54337899543376,
+              "y": 0
+            }
+          },
+          "scale": 0.7563138432497528,
+          "rotate": 0,
+          "boxSize": {
+            "x": 327.75979053980086,
+            "y": -78.88761353333764,
+            "width": 378.15692162487636,
+            "height": 378.15692162487636
+          },
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 329.6078324318407,
+            "y": -82.5836973174173
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_1825",
+      "name": "Corporate Services Showcase",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "corporate",
+        "events",
+        "services",
+        "business",
+        "photo-collage"
+      ],
+      "description": "Service promo post on a solid color field: a logo, a two-part title (kicker + main title), a supporting sentence, three circular photos clustered top-right (one large hero, two smaller), and a row of three parallel feature labels beside navy arrow tabs.",
+      "canvas_size": {
+        "width": 675.0,
+        "height": 675.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/personaservices40.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Flat graphic-design background on a square canvas, clean vector-style shapes with crisp edges, no photography. A solid deep brand-color field (this template: crimson red, #9B1F1F) covers almost the whole canvas. Accent colors: a very dark navy (this template: #023649), a muted dusty pink (this template: #CD8E8E) and white. Bottom-left corner: a cluster of long, thin diagonal stripes in navy, dusty pink and light grey-blue fanning in from the left and bottom edges, covering roughly the lowest 20% of the left edge. Bottom-right corner: two parallel white diagonal bands running from the right edge at about two-thirds of the way down to the bottom edge, with a small white triangle in the very corner. Top-right corner: a small navy and dusty-pink diagonal stripe accent tucked into the corner. Across the lower middle, at about 74–79% of the way down, a row of three identical small navy tab badges evenly spaced (starting about 8%, 35% and 62% across): each is a small rounded navy tab with a thin white diagonal arrow pointing up-right inside it, and a thin navy underline extending from the tab's bottom edge to the right for about three times the tab's width. Everything else — the whole upper and middle area — is plain, even red with no shapes. IMPORTANT: no circles, rings, photos, people or pictures anywhere in the image; the circular photos are separate layers. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-templates-2/personaservices40.png",
+        "notes": "All of the design's text (kicker, title, supporting sentence, the three feature labels) and the logo are WHITE and sit on the left 8–75% of the canvas, so the main field must stay a saturated, medium-to-dark color that white reads clearly on — never pastel, pale, cream or near-white, even if a brief asks for light or soft tones (put those in the accent stripes instead). The three navy arrow tabs with their underlines are load-bearing: each feature label sits just right of its tab, above its underline, so keep them in the lower-middle row at the positions described. The reference photo currently on this layer has three photos in circles baked in by mistake — a regenerated background must not contain any circle, ring or photo; the three circular photos are separate layers on top. Note that the large top-right photo's navy ring currently comes only from this reference image, so a regenerated background will show that photo without a ring."
+      },
+      "text_layer_count": 6,
+      "reference_note": "Reference exemplar for the 'solid field + three circular photo collage + stacked title + three-feature row' composition family. Keep the exact layer count and roles — do not add, remove, or merge layers. Per brief, only these change: the background (regenerated from its prompt, restyled to the brief's palette, never containing circles or photos), the three circular photos (regenerated from their prompts as one coherent story: planning, venue, result), and the copy in the six text layers within their limits. The logo is locked and only swapped for the brand's own light logo file. The two navy ring shapes are fixed.",
+      "slots": [
+        {
+          "layer_id": "147fb1a0-8f46-49cd-af6f-990182118a65",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Tailored Planning",
+          "max_chars": 18,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 18.0,
+          "position": {
+            "x": 100.0,
+            "y": 485.0
+          },
+          "box_size": {
+            "x": 85.0,
+            "y": 485.0,
+            "width": 93.0,
+            "height": 36.0
+          },
+          "image": null,
+          "notes": "First of three parallel feature labels in the bottom row (with the middle and right labels — they are peers, not a hierarchy). Each sits next to a navy arrow tab: a two-word benefit or feature, one word per line (e.g. 'Tailored' / 'Planning'). Keep all three labels the same shape — two short words each — and each word at most about 9 letters; this box is the narrowest of the three."
+        },
+        {
+          "layer_id": "1dd24696-f5a2-4980-bf7c-852144fab474",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Innovative Solutions",
+          "max_chars": 20,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 18.0,
+          "position": {
+            "x": 283.0,
+            "y": 485.0
+          },
+          "box_size": {
+            "x": 275.0,
+            "y": 485.0,
+            "width": 108.0,
+            "height": 36.0
+          },
+          "image": null,
+          "notes": "Middle of three parallel feature labels in the bottom row (peers of the left and right labels). A two-word benefit or feature, one word per line (e.g. 'Innovative' / 'Solutions'), matching the other two labels in shape and tone; each word at most about 10 letters."
+        },
+        {
+          "layer_id": "35c3116f-cf99-40d0-9133-ca52ef8b6b21",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "We bring creativity, precision, and expertise to every detail, so you can focus on your goals.",
+          "max_chars": 100,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 19.0,
+          "position": {
+            "x": 55.0,
+            "y": 395.0
+          },
+          "box_size": {
+            "width": 455.0,
+            "height": 50.0
+          },
+          "image": null,
+          "notes": "Supporting sentence under the title: one sentence on the benefit or promise of the service, about 14–18 words over 2 lines. Renders all lowercase. Must stay 2 lines — a third line collides with the feature row below."
+        },
+        {
+          "layer_id": "44feed14-b388-4d77-8c91-b9d58351807c",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 225.0688067666688,
+            "y": 71.03291244872483
+          },
+          "box_size": {
+            "x": 225.0688067666688,
+            "y": 71.03291244872483,
+            "width": 150.84776890397688,
+            "height": 150.84776890397688
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "Straight top-down overhead photograph of a team collaborating around a table during the planning stage of the service (this template: six colleagues at a rustic wooden table with laptops, tablets, notebooks and tea cups, two of them shaking hands across the middle). Soft even daylight, natural colors, candid modern-office style, real photography. Keep the key gesture (the handshake) dead center and the table filling the frame, with no large empty floor areas. No text, lettering, logos or watermarks; screens show no legible text.",
+            "reference_url": "https://assets.quickhub.ai/user-image/user-image/1786165189_88.png",
+            "notes": "Smallest of the three circular photos (about a fifth of the canvas wide), overlapping the lower-left edge of the large hero circle. At this size only a bold, simple, centered composition reads — the circle crops the edges of the photo away. Opaque photo cropped to a circle, filling it completely. Its dark navy ring is a separate shape layer behind it. Story role: the planning / collaboration moment of the same brief as the other two circles."
+          },
+          "notes": "The circular mask on this layer crops the image at render time — keep the source a full rectangular photo (not pre-cropped to a circle) so the mask can be moved or resized later."
+        },
+        {
+          "layer_id": "60310997-130a-418d-94de-b52de899255c",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 527.880031763932,
+            "y": 238.42011649996812
+          },
+          "box_size": {
+            "x": 534.662294623887,
+            "y": 250.0,
+            "width": 209.9851094492515,
+            "height": 209.9851094492515
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "Wide-angle interior photograph of the venue or setting where the service is delivered, prepared and empty just before people arrive (this template: a hotel conference hall with long tables in a U-shape, white tablecloths, blue chairs, microphones, headsets and water bottles at each seat, a projection screen at the far end). Even warm ceiling lighting, crisp professional architectural style, real photography. Central one-point perspective with the focal point (the screen) in the middle of the frame and the setting filling every corner. No text, lettering, logos or watermarks; screens are blank.",
+            "reference_url": "https://assets.quickhub.ai/user-image/user-image/1786165311_80.png",
+            "notes": "Medium circular photo bleeding off the right edge of the canvas, below the large hero circle — the right part of the circle is cut off, so keep the focal point center-to-left. Opaque photo cropped to a circle, filling it completely. Its dark navy ring is a separate shape layer behind it. Story role: the venue / setting of the same brief as the other two circles."
+          },
+          "notes": "The circular mask on this layer crops the image at render time — keep the source a full rectangular photo (not pre-cropped to a circle) so the mask can be moved or resized later."
+        },
+        {
+          "layer_id": "666e76b5-6ae5-4d50-a69b-766d0d90c3ea",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 217.76958107960166,
+            "y": 63.68721582111163
+          },
+          "box_size": {
+            "x": 214.073497295522,
+            "y": 26.726377980314965,
+            "width": 165.53916215920333,
+            "height": 165.53916215920333
+          },
+          "image": null,
+          "notes": "Dark navy disc slightly larger than the small circular photo, sitting behind it so it shows as a thin ring. Fixed design element — keep its color matched to the navy accents in the background."
+        },
+        {
+          "layer_id": "b307dd90-32c1-453a-b866-e03123b1ea3e",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Expert",
+          "max_chars": 10,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 51.0,
+          "position": {
+            "x": 55.0,
+            "y": 195.0
+          },
+          "box_size": {
+            "width": 300.0,
+            "height": 50.0
+          },
+          "image": null,
+          "notes": "Kicker word that sits directly above the main title and reads as its first word (e.g. 'Expert' + 'Corporate Event Planning'). One short adjective or qualifier (Expert, Premium, Trusted) — a single word, never wraps. The inferred 'label' role understates it: it is the lighter-weight first line of the title."
+        },
+        {
+          "layer_id": "c351aff5-dec9-462c-9add-cc6e2d2d5c50",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Corporate Event Planning",
+          "max_chars": 26,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 61.0,
+          "position": {
+            "x": 55.0,
+            "y": 250.0
+          },
+          "box_size": {
+            "x": 55.0,
+            "y": 250.0,
+            "width": 456.0,
+            "height": 122.0
+          },
+          "image": null,
+          "notes": "Main title — the service or offer name, the largest text in the design (e.g. 'Corporate Event Planning', which sets as 'Corporate' / 'Event Planning'). 2–3 words over at most 2 lines; every word must be short enough to fit the line at this size (about 9–10 letters max). Continues the kicker above it as one phrase."
+        },
+        {
+          "layer_id": "c73bebc3-76a2-43f1-a150-2236e8c3076b",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Seamless Execution",
+          "max_chars": 20,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 18.0,
+          "position": {
+            "x": 455.0,
+            "y": 485.0
+          },
+          "box_size": {
+            "width": 115.0,
+            "height": 36.0
+          },
+          "image": null,
+          "notes": "Right-hand of three parallel feature labels in the bottom row (peers of the left and middle labels). A two-word benefit or feature, one word per line (e.g. 'Seamless' / 'Execution'), matching the other two labels in shape and tone; each word at most about 10 letters."
+        },
+        {
+          "layer_id": "c837f08c-5f14-4bda-a432-a55e45668314",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 518.6862932442789,
+            "y": 229.226377980315
+          },
+          "box_size": {
+            "x": 518.6862932442789,
+            "y": 229.226377980315,
+            "width": 228.37258648855766,
+            "height": 228.37258648855766
+          },
+          "image": null,
+          "notes": "Dark navy disc slightly larger than the right-hand circular photo, sitting behind it so it shows as a thin ring. Fixed design element — keep its color matched to the navy accents in the background."
+        },
+        {
+          "layer_id": "d28eec10-9e54-410e-8bae-a97d6387563f",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "font_size": null,
+          "position": {
+            "x": 57.5,
+            "y": 96.0
+          },
+          "box_size": {
+            "width": 78.854369,
+            "height": 63.952755960629936
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": "White/light logo variant, chosen because it sits on the dark red field; a replacement logo must also be the light variant."
+        },
+        {
+          "layer_id": "e7a3c2f1-a112-45c3-9e40-0197134d19c3",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 329.6078324318407,
+            "y": -82.5836973174173
+          },
+          "box_size": {
+            "x": 327.75979053980086,
+            "y": -78.88761353333764,
+            "width": 378.15692162487636,
+            "height": 378.15692162487636
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "High-angle editorial photograph looking down at a group of people sharing the payoff moment of the service (this template: business professionals in dark suits and smart dresses raising wine glasses in a toast around a dinner table set with plates, bottles and a small plant). Warm natural daylight, genuine smiles, candid corporate-lifestyle style, real photography, not illustration. Keep the action — the raised glasses and hands meeting — in the center of the frame with people filling the image right to the edges, no empty corners or plain wall. No text, lettering, logos or watermarks.",
+            "reference_url": "https://assets.quickhub.ai/user-image/user-image/1786165054_36.png",
+            "notes": "Hero photo of the design: the largest of three circular photos, bleeding off the top-right edge of the canvas, so only its lower-left part is fully visible — put the key action in the center-to-lower-left of the frame, never at the top or right edge. An ordinary opaque photo cropped to a circle; it must fill the circle completely. The three circles tell one story for the same brief — here the celebration/result moment; keep the same people style, palette and mood as the other two."
+          },
+          "notes": "The circular mask on this layer crops the image at render time — keep the source a full rectangular photo (not pre-cropped to a circle) so the mask can be moved or resized later."
+        }
+      ]
+    }
+  }
+]

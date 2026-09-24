@@ -1,25 +1,21 @@
 """Persist Lido.js (template) generations.
 
-The design JSON goes to `lido_generated/`, same directory and `[{"layers", "meta"}]`
-shape as scratch designs, so both appear in one gallery and `GET /v1/lido/scratch/{id}`
-loads either. Generated images go to the object store (MinIO) under `public/`, which
-the bucket policy makes anonymously readable: a saved design must keep working long
-after it was made, and the store's default presigned URLs expire within the hour.
+The design document itself is stored in the `lido_generations` DB table (see
+`app.db.repo.upsert_lido_generation`, called from the route once generation succeeds) —
+nothing is written to disk here. Generated images still go to the object store (MinIO)
+under `public/`, which the bucket policy makes anonymously readable: a saved design must
+keep working long after it was made, and the store's default presigned URLs expire
+within the hour.
 """
 
 from __future__ import annotations
 
-import json
 import re
 import uuid
-from pathlib import Path
 
 from app.config import get_settings
 from app.storage.assets import S3Backend, get_backend
 
-from .loader import DEFAULT_CORPUS_DIR
-
-GENERATED_DIR = DEFAULT_CORPUS_DIR.parent / "lido_generated"
 ASSET_PREFIX = "public/lido-generated"
 
 _SLUG_RE = re.compile(r"[^a-z0-9]+")
@@ -52,12 +48,3 @@ def upload_asset(design_id: str, name: str, data: bytes) -> str:
     key = asset_key(design_id, name)
     backend.put(key, data, "image/png")
     return public_url(backend, key)
-
-
-def save_design(design_id: str, document: list[dict], directory: Path | None = None) -> Path:
-    directory = directory or GENERATED_DIR
-    directory.mkdir(parents=True, exist_ok=True)
-    path = directory / f"{design_id}.json"
-    with path.open("w", encoding="utf-8") as f:
-        json.dump(document, f, indent=2, ensure_ascii=False)
-    return path

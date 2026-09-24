@@ -1,5 +1,5 @@
 {
-  "name": "layered-design-web",
+  "name": "lido-template-web",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -10,12 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "konva": "^9.3.16",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-konva": "^18.2.10",
-    "react-router-dom": "^6.28.0",
-    "yjs": "^13.6.20"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

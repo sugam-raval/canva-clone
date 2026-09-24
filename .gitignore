@@ -16,11 +16,14 @@ node_modules/
 dist/
 .vite/
 
-# Local model and asset caches
-backend/assets_local/fonts/*.ttf
+# Local caches and generated output
 lidojs_templates/fonts/
-backend/.cache/
+backend/assets_local/
+*.tsbuildinfo
 
-# Generated output
-artifacts/
-lido_generated/
+# Personal scratch/testing files (e.g. test/test.json) — never committed.
+# Not backend/tests/, which holds the real test suite.
+/test/
+
+# Local editor/agent settings
+.claude/settings.local.json

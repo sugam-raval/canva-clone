@@ -40,21 +40,6 @@ class ImageResult:
 
 
 @dataclass
-class TextBox:
-    """Axis-aligned text region, normalised 0..1 of the image."""
-
-    x: float
-    y: float
-    w: float
-    h: float
-    score: float = 1.0
-
-    @property
-    def area(self) -> float:
-        return max(0.0, self.w) * max(0.0, self.h)
-
-
-@dataclass
 class LLMResult:
     parsed: Any
     raw: str
@@ -84,48 +69,6 @@ class TransparentImage(Protocol):
         height: int = 1024, seed: int = 0, steps: int = 30, cfg: float = 5.0,
         quality: str = "medium",
     ) -> ImageResult: ...
-
-
-class Matting(Protocol):
-    """Background removal producing a soft alpha — §1.4.2 Path B, §3.3 remove-bg."""
-
-    name: str
-
-    async def infer(self, image: bytes) -> bytes:
-        """Return an 8-bit single-channel PNG alpha matte the size of the input."""
-        ...
-
-
-class Inpainter(Protocol):
-    """Fill a masked region — §3.3 expand (outpaint) and erase."""
-
-    name: str
-
-    async def fill(self, image: bytes, mask: bytes, *, prompt: str = "",
-                   negative_prompt: str = "") -> ImageResult:
-        """`mask` is 8-bit; white (255) marks the pixels to regenerate."""
-        ...
-
-
-class GlyphDetector(Protocol):
-    """Detection only, no recognition — enforces INV-1 via the §1.4.6 glyph gate."""
-
-    name: str
-
-    async def detect(self, image: bytes) -> list[TextBox]: ...
-
-
-class Upscaler(Protocol):
-    name: str
-
-    async def upscale(self, image: bytes, scale: int = 2) -> ImageResult: ...
-
-
-class Embedder(Protocol):
-    name: str
-    dim: int
-
-    async def embed(self, texts: list[str]) -> list[list[float]]: ...
 
 
 class LLM(Protocol):
