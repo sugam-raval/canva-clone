@@ -10,7 +10,10 @@ create extension if not exists vector;
 -- metadata changed (see app/lido_corpus/store.py). `source_file` is set for rows that
 -- came from a file, so a row added any other way is never deleted by a sync.
 create table if not exists lido_templates (
-  id text primary key,
+  -- The template's own numeric id, taken from its file name (template_300.json -> 300)
+  -- — not a surrogate key. app/lido_corpus/store.py rejects a file whose name doesn't
+  -- match template_<number>.json, since there's nowhere else for this to come from.
+  id integer primary key,
   name text not null default '',
   kind text not null default 'post',
   aspect text not null default '1:1',

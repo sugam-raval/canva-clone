@@ -189,10 +189,13 @@ end"). In short:
 1. Drop the raw Lido export (`[{"layers": {...}}]`, no `meta`) into `lidojs_templates/` as
    `template_<id>.json`. A file with no `meta` block is ignored by matching and is not
    copied to the database until step 2.
-2. `make lido-add TEMPLATE=template_<id>` (or `make lido-add` for every new file) —
-   drafts the complete `meta` (LLM + vision; only empty fields are filled), verifies
+2. `make lido-add TEMPLATE=template_<id>` (or `make lido-add` for every template not
+   yet in `lido_templates`) — drafts the complete `meta` (LLM + vision; only empty
+   fields are filled; skipped entirely if the file already verifies cleanly), verifies
    every mechanical rule in this file, and adds the template to `lido_templates` with
-   its embedding. A verification error stops it before the database.
+   its embedding. A verification error skips just that template (others in the same
+   batch still go through) and tells you what to fix. A template already in the
+   database is left untouched — see `make lido-sync` for pushing later edits.
 3. Review and hand-edit the draft against the rules above, with `template_227.json` as
    the reference. Always compare the background prompt with the actual picture, and make
    sure `name`, `description` and `tags` say what the template is for — matching reads

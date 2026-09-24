@@ -1,0 +1,839 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "2850756c-f965-4bd6-81c1-d6df99d720ac",
+          "1332e9e1-e286-4246-b6ce-d810f3f78cdf",
+          "fac46718-bc1b-4eb4-a4ac-1ef050be95c1",
+          "4065e1de-1d6d-4a08-b4bf-4405111d31cf",
+          "c06b3bdc-4053-48e8-b451-d85c925bc4ef",
+          "fa64ebe4-18b5-4cb4-b825-2354f1f87cd3",
+          "4acefe19-d2bf-4b5a-b82c-d34edf113595",
+          "c185c196-70f4-4081-95a4-88124cf6bbf7"
+        ],
+        "props": {
+          "color": "rgb(255,255,255)",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/personaservices47.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/personaservices47.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "transparency": 1
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "1332e9e1-e286-4246-b6ce-d810f3f78cdf": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Packer & Movers"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(63, 55, 52)",
+                  "indent": 0,
+                  "fontSize": "55px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Packer & Movers",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(63, 55, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(63, 55, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 55,
+            "y": 155,
+            "width": 279,
+            "height": 121
+          },
+          "position": {
+            "x": 55,
+            "y": 155
+          },
+          "fontSizes": [
+            55
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "2850756c-f965-4bd6-81c1-d6df99d720ac": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 78.854369,
+              "height": 63.952755960629936
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "95px",
+            "height": "75px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 78.854369,
+            "height": 63.952755960629936
+          },
+          "position": {
+            "x": 24,
+            "y": 13
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "4065e1de-1d6d-4a08-b4bf-4405111d31cf": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Household Relocation"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(63, 55, 52)",
+                  "indent": 0,
+                  "fontSize": "15px",
+                  "listType": "bullet",
+                  "fontStyle": "normal",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "fontWeight": "normal",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Household Relocation",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(63, 55, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(63, 55, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 20
+          },
+          "position": {
+            "x": 55,
+            "y": 333
+          },
+          "fontSizes": [
+            15
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "normal",
+          "lineHeight": "1",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "4acefe19-d2bf-4b5a-b82c-d34edf113595": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Vehicle Transportation"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(63, 55, 52)",
+                  "indent": 0,
+                  "fontSize": "15px",
+                  "listType": "bullet",
+                  "fontStyle": "normal",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "fontWeight": "normal",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Vehicle Transportation",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(63, 55, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(63, 55, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 20
+          },
+          "position": {
+            "x": 55,
+            "y": 415
+          },
+          "fontSizes": [
+            15
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "normal",
+          "lineHeight": "1",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c06b3bdc-4053-48e8-b451-d85c925bc4ef": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Office Relocation"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(63, 55, 52)",
+                  "indent": 0,
+                  "fontSize": "15px",
+                  "listType": "bullet",
+                  "fontStyle": "normal",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "fontWeight": "normal",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Office Relocation",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(63, 55, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(63, 55, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 20
+          },
+          "position": {
+            "x": 55,
+            "y": 359
+          },
+          "fontSizes": [
+            15
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "normal",
+          "lineHeight": "1",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c185c196-70f4-4081-95a4-88124cf6bbf7": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/user-image/user-image/1786166308_93.png",
+            "thumb": "https://assets.quickhub.ai/user-image/user-image/1786166308_93.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 500,
+              "height": 500
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1.091812808908399,
+          "rotate": 0,
+          "boxSize": {
+            "x": 292.9922795784651,
+            "y": 63.05265937560503,
+            "width": 545.9064044541994,
+            "height": 545.9064044541994
+          },
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 299.0040027838747,
+            "y": 64.05461324317334
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fa64ebe4-18b5-4cb4-b825-2354f1f87cd3": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Storage Solutions"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(63, 55, 52)",
+                  "indent": 0,
+                  "fontSize": "15px",
+                  "listType": "bullet",
+                  "fontStyle": "normal",
+                  "textAlign": "start",
+                  "fontFamily": "Poppins",
+                  "fontWeight": "normal",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "textTransform": "capitalize"
+                },
+                "content": [
+                  {
+                    "text": "Storage Solutions",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(63, 55, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(63, 55, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 200,
+            "height": 20
+          },
+          "position": {
+            "x": 55,
+            "y": 386
+          },
+          "fontSizes": [
+            15
+          ],
+          "fontStyle": "normal",
+          "textAlign": "start",
+          "fontWeight": "normal",
+          "lineHeight": "1",
+          "textTransform": "capitalize"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fac46718-bc1b-4eb4-a4ac-1ef050be95c1": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Our Services"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(63, 55, 52)",
+                  "indent": 0,
+                  "fontSize": "16px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Our Services",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(63, 55, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfedw.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(63, 55, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 55,
+            "y": 300,
+            "width": 113,
+            "height": 16
+          },
+          "position": {
+            "x": 55,
+            "y": 300
+          },
+          "fontSizes": [
+            16
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_1832",
+      "name": "Moving Services Promotion",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "moving services",
+        "business",
+        "promotion"
+      ],
+      "description": "A square promotional template showcasing packing and moving services, including household and office relocation, vehicle transportation, and storage solutions.",
+      "canvas_size": {
+        "width": 675.0,
+        "height": 675.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/personaservices47.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Create a background with a soft, crumpled paper texture covering the entire canvas. In the top-left corner (0-20% across, 0-20% down), place a large solid circle (this template: dark blue) occupying about 15% of the canvas width. Add a subtle, semi-transparent circular overlay in the top-right quadrant (50-100% across, 0-50% down), blending softly with the background. Ensure the lighting is soft and diffused, creating a gentle and calm atmosphere. Leave the middle-right area (44-100% across, 9-90% down) empty for a foreground element. A separate round photo layer covers the middle-right of the frame (about 44–100% across, 9–90% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-templates-2/personaservices47.png",
+        "notes": "Ensure high contrast between the background and the dark text area (8-49% across, 23-64% down) for readability. Keep the middle-right area clear for the round photo layer. Text fixed in dark (rgb(63, 55, 52)) sits in the area about 8–49% across, 23–64% down, so that part of the background must stay a light, calm tone that it reads clearly on — never dark or busy, even when a brief asks for a moody palette. The photo frames are separate layers; a regenerated background must not contain its own circles, rings or photos under them."
+      },
+      "text_layer_count": 6,
+      "reference_note": null,
+      "slots": [
+        {
+          "layer_id": "1332e9e1-e286-4246-b6ce-d810f3f78cdf",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Packer & Movers",
+          "max_chars": 18,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 55.0,
+          "position": {
+            "x": 55.0,
+            "y": 155.0
+          },
+          "box_size": {
+            "x": 55.0,
+            "y": 155.0,
+            "width": 279.0,
+            "height": 121.0
+          },
+          "image": null,
+          "notes": "Primary uppercase headline naming the business category. Aim for two or three short words, stacked across two lines; this is a headline, not an offer or CTA."
+        },
+        {
+          "layer_id": "2850756c-f965-4bd6-81c1-d6df99d720ac",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "font_size": null,
+          "position": {
+            "x": 24.0,
+            "y": 13.0
+          },
+          "box_size": {
+            "width": 78.854369,
+            "height": 63.952755960629936
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "4065e1de-1d6d-4a08-b4bf-4405111d31cf",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Household Relocation",
+          "max_chars": 22,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 15.0,
+          "position": {
+            "x": 55.0,
+            "y": 333.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 20.0
+          },
+          "image": null,
+          "notes": "Single-line service name, about two or three words. An equal peer in the four-item service list, not body prose; keep wording and capitalization parallel with the other entries."
+        },
+        {
+          "layer_id": "4acefe19-d2bf-4b5a-b82c-d34edf113595",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Vehicle Transportation",
+          "max_chars": 22,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 15.0,
+          "position": {
+            "x": 55.0,
+            "y": 415.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 20.0
+          },
+          "image": null,
+          "notes": "Single-line service name, about two or three words. An equal peer in the four-item service list, not body prose; keep wording and capitalization parallel with the other entries."
+        },
+        {
+          "layer_id": "c06b3bdc-4053-48e8-b451-d85c925bc4ef",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Office Relocation",
+          "max_chars": 22,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 15.0,
+          "position": {
+            "x": 55.0,
+            "y": 359.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 20.0
+          },
+          "image": null,
+          "notes": "Single-line service name, about two or three words. An equal peer in the four-item service list, not body prose; keep wording and capitalization parallel with the other entries."
+        },
+        {
+          "layer_id": "c185c196-70f4-4081-95a4-88124cf6bbf7",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 299.0040027838747,
+            "y": 64.05461324317334
+          },
+          "box_size": {
+            "x": 292.9922795784651,
+            "y": 63.05265937560503,
+            "width": 545.9064044541994,
+            "height": 545.9064044541994
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a person carrying a piece of furniture (this template: a white couch) from a high angle, with natural lighting, casual styling, and framed to fit within a circular crop. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/user-image/user-image/1786166308_93.png",
+            "notes": "The subject is positioned towards the middle-right of the frame, requiring the image to be composed so that the main action is centered within a circular mask, ensuring the focus remains on the person and the furniture. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later without exposing hard edges."
+        },
+        {
+          "layer_id": "fa64ebe4-18b5-4cb4-b825-2354f1f87cd3",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Storage Solutions",
+          "max_chars": 22,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 15.0,
+          "position": {
+            "x": 55.0,
+            "y": 386.0
+          },
+          "box_size": {
+            "width": 200.0,
+            "height": 20.0
+          },
+          "image": null,
+          "notes": "Single-line service name, about two or three words. An equal peer in the four-item service list, not body prose; keep wording and capitalization parallel with the other entries."
+        },
+        {
+          "layer_id": "fac46718-bc1b-4eb4-a4ac-1ef050be95c1",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Our Services",
+          "max_chars": 12,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 16.0,
+          "position": {
+            "x": 55.0,
+            "y": 300.0
+          },
+          "box_size": {
+            "x": 55.0,
+            "y": 300.0,
+            "width": 113.0,
+            "height": 16.0
+          },
+          "image": null,
+          "notes": "Compact uppercase section label introducing the service list below. Use about two short words on one line, not a descriptive subheading."
+        }
+      ]
+    }
+  }
+]

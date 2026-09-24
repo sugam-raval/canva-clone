@@ -46,6 +46,12 @@ class SyncReport:
     deleted: list[str] = field(default_factory=list)
     skipped: list[str] = field(default_factory=list)
     """Raw files with no `meta` block yet — not synced until enriched."""
+    invalid_id: list[str] = field(default_factory=list)
+    """Files with meta but not named `template_<number>.json` — `lido_templates.id` is
+    a genuine integer (see `app.db.repo.template_db_id`), so there is nowhere else for
+    it to come from. Never reaches `repo.upsert_template`; caught here instead, so one
+    misnamed file can't take down every other template's sync (this runs on the API's
+    hot path via `load_catalog`, not only after a CLI `--verify`)."""
     model: str = ""
 
     def summary(self) -> str:
@@ -55,6 +61,9 @@ class SyncReport:
         if self.skipped:
             text += (f"; skipped {len(self.skipped)} file(s) with no metadata yet: "
                      + ", ".join(self.skipped) + " — run `make lido-add`")
+        if self.invalid_id:
+            text += (f"; skipped {len(self.invalid_id)} file(s) not named "
+                     "template_<number>.json: " + ", ".join(self.invalid_id))
         return text
 
 
@@ -62,12 +71,38 @@ def _source_files(corpus_dir: Path | str) -> dict[str, str]:
     return {p.stem: p.name for p in discover_templates(corpus_dir)}
 
 
+async def new_template_ids(corpus_dir: Path | str = DEFAULT_CORPUS_DIR) -> list[str]:
+    """Template ids (file stems) that exist in `corpus_dir` but have no row yet in
+    `lido_templates` — what `make lido-add` onboards. A file's id is always its file
+    stem (see `loader.derive_meta`), whether or not it has a `meta` block yet, so this
+    never needs to parse/validate the files themselves.
+
+    With `LIDO_TEMPLATE_STORE=files` (no database), every file counts as new."""
+    file_ids = {p.stem for p in discover_templates(corpus_dir)}
+    if not use_database():
+        return sorted(file_ids)
+    async with session_scope() as session:
+        stored = await repo.list_template_index(session)
+    stored_app_ids = {repo.template_app_id(tid) for tid in stored}
+    return sorted(file_ids - stored_app_ids)
+
+
 async def _sync(session: AsyncSession, templates: list[LidoTemplateFile],
                 files: dict[str, str], *, force: bool,
                 only: set[str] | None = None) -> SyncReport:
     model = embedder_name()
     report = SyncReport(model=model)
-    stored = await repo.list_template_index(session)
+    valid_templates: list[LidoTemplateFile] = []
+    for t in templates:
+        try:
+            repo.template_db_id(t.meta.id)
+        except ValueError:
+            report.invalid_id.append(t.meta.id)
+        else:
+            valid_templates.append(t)
+    templates = valid_templates
+    stored = {repo.template_app_id(tid): row
+             for tid, row in (await repo.list_template_index(session)).items()}
     if only is not None:
         # One template: touch only its row; never delete other templates' rows.
         templates = [t for t in templates if t.meta.id in only]
@@ -90,7 +125,8 @@ async def _sync(session: AsyncSession, templates: list[LidoTemplateFile],
     for i, (t, fp, d, card) in enumerate(changed):
         m = t.meta
         await repo.upsert_template(
-            session, template_id=m.id, name=m.name, kind=m.kind, aspect=m.aspect,
+            session, template_id=repo.template_db_id(m.id), name=m.name, kind=m.kind,
+            aspect=m.aspect,
             tags=list(m.tags), description=m.description,
             document=[{"layers": {lid: layer.model_dump(mode="json", by_alias=False)
                                   for lid, layer in t.layers.items()},
@@ -102,7 +138,8 @@ async def _sync(session: AsyncSession, templates: list[LidoTemplateFile],
 
     ids = {t.meta.id for t in templates}
     gone = [tid for tid, row in stored.items() if tid not in ids and row["source_file"]]
-    await repo.delete_templates(session, gone)
+    if gone:
+        await repo.delete_templates(session, [repo.template_db_id(tid) for tid in gone])
     report.deleted = gone
     return report
 
@@ -134,14 +171,15 @@ def _row_to_template(row: dict) -> LidoTemplateFile:
     obj = (json.loads(doc) if isinstance(doc, str) else doc)
     obj = obj[0] if isinstance(obj, list) else obj
     layers = LidoDocument.model_validate({"layers": obj["layers"]}).layers
+    app_id = repo.template_app_id(row["id"])
     return LidoTemplateFile(layers=layers,
-                            meta=derive_meta(row["id"], layers, existing=obj.get("meta")))
+                            meta=derive_meta(app_id, layers, existing=obj.get("meta")))
 
 
 def _row_to_entry(row: dict) -> IndexEntry:
     details = row["details"]
     details = json.loads(details) if isinstance(details, str) else details
-    return IndexEntry(template_id=row["id"], fingerprint=row["fingerprint"],
+    return IndexEntry(template_id=repo.template_app_id(row["id"]), fingerprint=row["fingerprint"],
                       card=row["card"], details=TemplateDetails.from_json(details or {}),
                       embedding=row["embedding"])
 
@@ -180,11 +218,13 @@ async def load_catalog(corpus_dir: Path | str = DEFAULT_CORPUS_DIR) -> Catalog:
         # Only rows for templates that exist in this corpus folder (a test or a second
         # folder must not see another folder's templates).
         files = _source_files(corpus_dir)
-        rows = [r for r in rows if r["id"] in files or not r["source_file"]]
+        rows = [r for r in rows
+                if repo.template_app_id(r["id"]) in files or not r["source_file"]]
         order = {tid: i for i, tid in enumerate(files)}
-        rows.sort(key=lambda r: order.get(r["id"], len(order)))
+        rows.sort(key=lambda r: order.get(repo.template_app_id(r["id"]), len(order)))
         return Catalog([_row_to_template(r) for r in rows],
-                       {r["id"]: _row_to_entry(r) for r in rows}, from_db=True)
+                       {repo.template_app_id(r["id"]): _row_to_entry(r) for r in rows},
+                       from_db=True)
     except Exception as exc:  # noqa: BLE001 — DB down: fall back to the files
         log.warning("lido.templates.db_unavailable", error=str(exc))
         from .match_index import get_index
@@ -203,8 +243,9 @@ async def topic_similarities(entries: dict[str, IndexEntry], vector: list[float]
         try:
             async with session_scope() as session:
                 sims = await repo.template_similarities(session, vector)
-            if all(tid in sims for tid in entries):
-                return {tid: sims[tid] for tid in entries}
+            sims_app = {repo.template_app_id(tid): sim for tid, sim in sims.items()}
+            if all(tid in sims_app for tid in entries):
+                return {tid: sims_app[tid] for tid in entries}
         except Exception as exc:  # noqa: BLE001
             log.warning("lido.templates.similarity_failed", error=str(exc))
     return {tid: sum(x * y for x, y in zip(vector, e.embedding, strict=False))

@@ -713,23 +713,23 @@ Generate appropriate metadata:
     )
 
 
-def _enrich_file_in_place(path: Path, use_llm: bool = True,
-                          draft_slots: bool = False) -> LidoTemplateMeta:
-    """Recompute metadata and write it back, preserving human-authored fields."""
+async def _enrich_file_in_place_async(path: Path, use_llm: bool = True,
+                                      draft_slots: bool = False) -> LidoTemplateMeta:
+    """The async core of `_enrich_file_in_place` — awaitable directly from a caller
+    that already has an event loop running (e.g. `lido_match.py add`, which is itself
+    async). `_enrich_file_in_place` is the sync wrapper for everything else (this
+    script's own CLI, tests) — it does its own `asyncio.run` and cannot be called from
+    inside a running loop."""
     obj = _read_root_object(path)
     doc = LidoDocument.model_validate({"layers": obj["layers"]})
 
-    async def _run() -> LidoTemplateMeta:
-        if use_llm:
-            meta = await _enrich_with_llm(path.stem, doc.layers, existing=obj.get("meta"))
-        else:
-            # Fallback: rule-based (same merge behavior as the API's own loader)
-            meta = derive_meta(path.stem, doc.layers, existing=obj.get("meta"))
-        if draft_slots and use_llm:
-            await _draft_slot_metadata(meta, doc.layers)
-        return meta
-
-    meta = asyncio.run(_run())
+    if use_llm:
+        meta = await _enrich_with_llm(path.stem, doc.layers, existing=obj.get("meta"))
+    else:
+        # Fallback: rule-based (same merge behavior as the API's own loader)
+        meta = derive_meta(path.stem, doc.layers, existing=obj.get("meta"))
+    if draft_slots and use_llm:
+        await _draft_slot_metadata(meta, doc.layers)
 
     out = [{
         "layers": json.loads(json.dumps(
@@ -740,6 +740,14 @@ def _enrich_file_in_place(path: Path, use_llm: bool = True,
     with path.open("w", encoding="utf-8") as f:
         json.dump(out, f, indent=2, ensure_ascii=False)
     return meta
+
+
+def _enrich_file_in_place(path: Path, use_llm: bool = True,
+                          draft_slots: bool = False) -> LidoTemplateMeta:
+    """Recompute metadata and write it back, preserving human-authored fields. Sync
+    wrapper around `_enrich_file_in_place_async` — only call this where no event loop
+    is already running."""
+    return asyncio.run(_enrich_file_in_place_async(path, use_llm, draft_slots))
 
 
 def _has_meta(path: Path) -> bool:
@@ -766,6 +774,14 @@ def _verify(path: Path) -> tuple[list[str], list[str]]:
     except (ValueError, OSError, KeyError) as exc:
         return [f"cannot read: {exc}"], []
     m = t.meta
+
+    from app.db.repo import template_db_id
+    try:
+        template_db_id(path.stem)
+    except ValueError:
+        msg = (f"file name {path.name!r} is not of the form 'template_<number>.json' "
+              "— lido_templates.id is a genuine integer, so rename the file")
+        return [msg], []
 
     if not m.name.strip():
         errors.append("meta.name is empty")

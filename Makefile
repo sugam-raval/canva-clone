@@ -14,7 +14,7 @@ help: ## Show this help
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | \
 	  awk 'BEGIN{FS=":.*?## "}{printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
 
-setup: install infra lido-sync ## One-shot: deps, containers, templates into the database
+setup: install infra lido-add ## One-shot: deps, containers, templates into the database
 	@echo "Ready. Run 'make dev' to start the API and the web app."
 
 install: ## Create the venv and install Python + Node dependencies
@@ -38,7 +38,7 @@ infra-down: ## Stop the containers (data is preserved)
 db-reset: ## Drop and recreate the database. Destroys all generations and stored templates.
 	docker compose -f infra/docker-compose.yml down -v
 	$(MAKE) infra
-	$(MAKE) lido-sync
+	$(MAKE) lido-add
 
 db-upgrade: ## Apply infra/initdb/*.sql to the running database (all idempotent)
 	@for f in infra/initdb/*.sql; do echo "applying $$f"; \
@@ -47,9 +47,14 @@ db-upgrade: ## Apply infra/initdb/*.sql to the running database (all idempotent)
 
 # -- Lido.js templates --------------------------------------------------------------
 # Every command works on ALL templates, or on one with TEMPLATE=template_300.
-#   make lido-meta [TEMPLATE=x]   complete metadata (draft + automatic verification)
-#   make lido-sync [TEMPLATE=x]   verify, then copy into lido_templates + embed
-#   make lido-add  [TEMPLATE=x]   both: new template end to end
+#   make lido-add   [TEMPLATE=x]   ONE new template's whole onboarding: draft metadata
+#                                  (only if it needs it) + verify + add to the database
+#                                  + embed. Every template not yet in lido_templates,
+#                                  or just TEMPLATE=x. A template already in the
+#                                  database is left untouched — nothing to redo.
+#   make lido-meta  [TEMPLATE=x]   metadata only (draft + verify), no database write
+#   make lido-sync  [TEMPLATE=x]   push edits: verify, then re-sync + re-embed a
+#                                  template that's already in the database
 # FORCE=1: lido-meta re-drafts every template (fills only empty fields, keeps what you
 # wrote); lido-sync re-embeds even unchanged templates.
 
@@ -57,17 +62,16 @@ _TPL   = $(if $(TEMPLATE),--template $(TEMPLATE))
 _DRAFT = $(PY) scripts/enrich_lido_templates.py --draft-slots \
            $(if $(TEMPLATE),--template $(TEMPLATE) --force,$(if $(FORCE),--force))
 
-lido-meta: ## Complete metadata for all templates without it, or TEMPLATE=x (then verify)
+lido-add: ## New template(s) not yet in the database, end to end: metadata + verify + embed + sync
+	$(PY) scripts/lido_match.py add $(_TPL)
+
+lido-meta: ## Metadata only, no database write: all templates without it, or TEMPLATE=x (then verify)
 	$(_DRAFT)
 	$(PY) scripts/enrich_lido_templates.py --verify $(_TPL)
 
-lido-sync: ## Verify, then sync + embed into the database: all changed templates, or TEMPLATE=x
+lido-sync: ## Push edits to already-tracked template(s): verify, then sync + embed (TEMPLATE=x or all changed)
 	$(PY) scripts/enrich_lido_templates.py --verify $(_TPL)
 	$(PY) scripts/lido_match.py index $(_TPL) $(if $(FORCE),--force)
-
-lido-add: ## New template end to end: metadata + verify + database + embedding (all new, or TEMPLATE=x)
-	$(_DRAFT)
-	$(MAKE) --no-print-directory lido-sync TEMPLATE="$(TEMPLATE)" FORCE=
 
 api: ## Run the backend on :8000
 	cd $(BACKEND) && .venv/bin/uvicorn app.api.main:app --host 127.0.0.1 --port 8000 --reload

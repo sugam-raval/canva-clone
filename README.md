@@ -62,9 +62,9 @@ API (`backend/app/api/routes/lido.py`):
 | What | Where |
 |---|---|
 | Template files (authoring source) | `lidojs_templates/*.json` — edited by hand and by the enrich script |
-| Template catalog + embeddings | Postgres table **`lido_templates`** (pgvector `vector(384)`, HNSW cosine index) |
-| Generated designs | Postgres table `lido_generations` |
-| Generated images | MinIO bucket `design-assets`, under `public/lido-generated/<design_id>/` |
+| Template catalog + embeddings | Postgres table **`lido_templates`** (pgvector `vector(384)`, HNSW cosine index). `id` is the template's own numeric id, taken from its file name (`template_300.json` -> `300`) — a genuine integer, not a surrogate. |
+| Generated designs | Postgres table `lido_generations`. `id` is a plain auto-increment integer (not exposed); `design_key` is the public slug (`tpl-glow-7073edfd`) used in `GET /v1/lido/generations/<id>` and in uploaded images' object-store path. `template_id` is an integer foreign key to `lido_templates.id` (`on delete set null`, so deleting a template keeps the generation record). |
+| Generated images | MinIO bucket `design-assets`, under `public/lido-generated/<design_key>/` |
 
 **Files → database.** The JSON files stay the source you edit and review. The API mirrors
 them into `lido_templates` at startup and then at most every `LIDO_TEMPLATE_SYNC_SECONDS`
@@ -145,18 +145,27 @@ table `lido_templates` is filled from this folder — you never edit the table d
 
 Each works on **all** templates, or on **one** with `TEMPLATE=template_300`:
 
-| Command | All templates | One template |
+| Command | Scope | What it does |
 |---|---|---|
-| **`make lido-meta`** — complete metadata, then verify | drafts metadata for every file that has none yet | `make lido-meta TEMPLATE=template_300` — drafts every **empty** field of that template (keeps what you wrote) |
-| **`make lido-sync`** — verify, then database + embedding | adds new templates, re-embeds changed ones, removes deleted ones | `make lido-sync TEMPLATE=template_300` — only that template's row |
-| **`make lido-add`** — both, end to end | `make lido-add` | `make lido-add TEMPLATE=template_300` |
+| **`make lido-add`** | templates **not yet in the database** — all of them, or `TEMPLATE=x` | draft metadata (only if the template needs it) → verify → add to `lido_templates` with its embedding, in one step. A template already in the database is left completely untouched. |
+| **`make lido-meta`** | templates with no metadata yet — all of them, or `TEMPLATE=x` | draft metadata → verify. No database write. |
+| **`make lido-sync`** | templates already tracked — all changed ones, or `TEMPLATE=x` | verify → push to `lido_templates` + re-embed. For pushing hand-edits to a template that's already in the database. |
+
+`lido-add` is what you run for a new template — it figures out on its own whether it
+needs drafting. Reach for `lido-meta` or `lido-sync` only when you want just one half
+(e.g. draft metadata without touching the database yet, or re-sync after a hand-edit).
 
 `FORCE=1`: with `lido-meta` it re-drafts **every** template (still only empty fields);
-with `lido-sync` it re-embeds even unchanged templates.
+with `lido-sync` it re-embeds even unchanged templates. `lido-add` never needs `FORCE=1`
+— by definition it only ever touches templates the database doesn't have yet.
 
-**Verification** runs inside `lido-meta` and `lido-sync`. It checks every rule of the
-metadata rules that can be checked in code, and **an error stops the sync**, so a broken
-template never reaches the database:
+**Batch behaviour of `lido-add`:** every new template is checked independently. One that
+fails verification is skipped and reported — it does **not** stop the others in the same
+run from being added.
+
+**Verification** (`lido-add`, `lido-meta`, `lido-sync` all run it). It checks every rule
+of the metadata rules that can be checked in code, and **an error blocks that template
+from the database**:
 
 | Error (blocks the sync) | Warning (for your review) |
 |---|---|
@@ -171,21 +180,29 @@ template never reaches the database:
 ### Step by step
 
 **1. Drop the file in.** Save the raw Lido.js export as
-`lidojs_templates/template_300.json` (format `[{"layers": {...}}]`, no `meta` needed).
-Until it has metadata it is ignored by matching and never copied to the database.
+`lidojs_templates/template_300.json` (format `[{"layers": {...}}]`, no `meta` needed —
+but a file with full hand-written `meta` already works too, e.g. one promoted from
+elsewhere). Until its id is in the database it's ignored by matching.
 
 **2. Run one command.**
 
 ```bash
-make lido-add TEMPLATE=template_300      # or just `make lido-add` for every new file
+make lido-add TEMPLATE=template_300      # or just `make lido-add` for every template
+                                         # not yet in the database
 ```
 
-It drafts the complete metadata with the LLM and the vision model (name, kind, tags,
-description, slot roles, background and photo prompts, logo lock, text notes and
-limits), verifies it, then adds the template to `lido_templates` with its embedding.
-If verification finds an error, it stops before the database and tells you what to fix.
+For each template it's given, `lido-add` first checks whether it already verifies
+cleanly. If it does (e.g. a file that already has complete, hand-written metadata), it's
+added to `lido_templates` with its embedding straight away — no model calls. If it
+doesn't (usually because it has no `meta` yet), the LLM and vision model draft the
+missing fields first (name, kind, tags, description, slot roles, background and photo
+prompts, logo lock, text notes and limits), it's verified again, and only then added.
+A template whose id is already in the database is reported and left alone; in batch
+mode, one that still fails verification is skipped and reported — it doesn't stop the
+rest of the batch.
 
-**3. Review the draft by hand.** An automatic draft is a strong start, not a guarantee.
+**3. Review the draft by hand.** An automatic draft is a strong start, not a guarantee —
+being in the database only means it passed the *mechanical* checks, not a human review.
 Open the file and check the `meta` block against
 [`docs/TEMPLATE_METADATA_RULES.md`](docs/TEMPLATE_METADATA_RULES.md) and the
 reference example `template_227.json`. The draft gets these wrong most often:
@@ -198,7 +215,8 @@ reference example `template_227.json`. The draft gets these wrong most often:
 **4. Mark it reviewed** by adding `meta.reference_note` (see the rules file). It shows as
 `ready` in `GET /v1/lido/templates`.
 
-**5. Push your edits.**
+**5. Push your edits.** The template is already in the database after step 2, so from
+here on it's an *existing* template — use `lido-sync`, not `lido-add`:
 
 ```bash
 make lido-sync TEMPLATE=template_300     # verify + re-embed (only if the meta changed)
@@ -216,9 +234,14 @@ backend/.venv/bin/python scripts/lido_match.py show "a request this template sho
 backend/.venv/bin/python scripts/lido_match.py test
 ```
 
-**Later edits:** edit the JSON file, then `make lido-sync TEMPLATE=...`. To re-draft a
-field the script filled, empty it and run `make lido-meta TEMPLATE=...` (it only fills
-empty fields). **Removing a template:** delete its file, then `make lido-sync`.
+**Later edits** (to a template already in the database): edit the JSON file, then
+`make lido-sync TEMPLATE=...`. To re-draft a field the script filled, empty it and run
+`make lido-meta TEMPLATE=...` (it only fills empty fields) — or just run
+`make lido-add TEMPLATE=...` again, which does nothing since the id is already tracked
+(fix the field by hand instead, or drop it from the database first with
+`docker exec ... psql ... -c "delete from lido_templates where id=300"` if
+you really want it redrafted from scratch). **Removing a template:** delete its file,
+then `make lido-sync`.
 
 ### What the enrich script drafts
 

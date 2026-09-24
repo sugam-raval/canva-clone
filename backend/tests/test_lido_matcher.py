@@ -250,7 +250,7 @@ def test_verify_passes_a_complete_template_and_blocks_broken_ones(tmp_path):
 
     raw = json.loads(TEMPLATE_227.read_text())
     raw[0].pop("meta")
-    no_meta = tmp_path / "template_raw.json"
+    no_meta = tmp_path / "template_1.json"
     no_meta.write_text(json.dumps(raw))
     assert enrich._verify(no_meta)[0] == ["no meta block yet — run `make lido-meta`"]
 
@@ -260,8 +260,204 @@ def test_verify_passes_a_complete_template_and_blocks_broken_ones(tmp_path):
             slot["image"] = None                 # sample photo would never be replaced
         if slot["role"] == "logo":
             slot["locked"] = False
-    bad = tmp_path / "template_bad.json"
+    bad = tmp_path / "template_2.json"
     bad.write_text(json.dumps(broken))
     errors, _ = enrich._verify(bad)
     assert any("no image spec" in e for e in errors)
     assert any("logo must be locked" in e for e in errors)
+
+
+def test_verify_rejects_a_filename_that_is_not_template_number(tmp_path):
+    """lido_templates.id is a genuine integer, taken from the file name."""
+    enrich = _enrich_script()
+    misnamed = tmp_path / "template_my-design.json"
+    misnamed.write_text(TEMPLATE_227.read_text())
+    errors, _warnings = enrich._verify(misnamed)
+    expected = ("file name 'template_my-design.json' is not of the form "
+               "'template_<number>.json' — lido_templates.id is a genuine "
+               "integer, so rename the file")
+    assert errors == [expected]
+
+
+# -- new_template_ids / `make lido-add` -----------------------------------------------
+
+
+def _lido_match_script():
+    import importlib.util
+    from pathlib import Path as _Path
+
+    path = _Path(__file__).resolve().parents[2] / "scripts" / "lido_match.py"
+    spec = importlib.util.spec_from_file_location("lido_match", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+async def test_new_template_ids_in_files_mode_is_every_file(tmp_path):
+    """No database (the default in tests, via the autouse fixture): everything on disk
+    counts as new, since nothing is ever persisted."""
+    from app.lido_corpus.store import new_template_ids
+
+    (tmp_path / "template_a.json").write_text(TEMPLATE_227.read_text())
+    (tmp_path / "template_b.json").write_text(TEMPLATE_227.read_text())
+    assert await new_template_ids(tmp_path) == ["template_a", "template_b"]
+
+
+async def test_new_template_ids_in_db_mode_excludes_stored_rows(tmp_path, monkeypatch):
+    """`lido_templates.id` is a genuine integer (see app.db.repo.template_db_id) — a
+    stored row's id, e.g. 1, means the file `template_1.json`."""
+    from app.config import get_settings
+    from app.lido_corpus import store
+
+    monkeypatch.setattr(get_settings(), "lido_template_store", "db")
+    (tmp_path / "template_1.json").write_text(TEMPLATE_227.read_text())
+    (tmp_path / "template_2.json").write_text(TEMPLATE_227.read_text())
+
+    class FakeScope:
+        async def __aenter__(self):
+            return object()
+
+        async def __aexit__(self, *exc):
+            return False
+
+    monkeypatch.setattr(store, "session_scope", FakeScope)
+
+    async def fake_list_template_index(_session):
+        return {1: {}}                            # template_1 is already stored
+
+    monkeypatch.setattr(store.repo, "list_template_index", fake_list_template_index)
+    assert await store.new_template_ids(tmp_path) == ["template_2"]
+
+
+class _FakeSyncReport:
+    def __init__(self, ids):
+        self.ids = ids
+
+    def summary(self):
+        return f"synced: {', '.join(self.ids)}"
+
+
+async def test_cmd_add_rejects_an_unknown_template(tmp_path, capsys):
+    lm = _lido_match_script()
+    (tmp_path / "template_a.json").write_text(TEMPLATE_227.read_text())
+    args = lm.argparse.Namespace(dir=tmp_path, template=["template_nope"])
+    assert await lm.cmd_add(args) == 1
+    assert "no such file" in capsys.readouterr().out
+
+
+async def test_cmd_add_leaves_an_already_tracked_template_untouched(tmp_path, monkeypatch, capsys):
+    lm = _lido_match_script()
+    (tmp_path / "template_a.json").write_text(TEMPLATE_227.read_text())
+
+    monkeypatch.setattr(lm, "new_template_ids", lambda _dir: _async([]))
+    calls = []
+    monkeypatch.setattr(lm, "sync_templates",
+                        lambda *a, **k: calls.append((a, k)) or _async(_FakeSyncReport([])))
+
+    args = lm.argparse.Namespace(dir=tmp_path, template=["template_a"])
+    assert await lm.cmd_add(args) == 0
+    out = capsys.readouterr().out
+    assert "already in the database, nothing to do: template_a" in out
+    assert calls == []                       # sync_templates was never called
+
+
+async def test_cmd_add_batch_skips_a_broken_file_but_still_adds_the_good_one(
+        tmp_path, monkeypatch, capsys):
+    """A file that fails to parse (or fails verification) must not stop the rest of the
+    batch, and must not be counted in what gets synced."""
+    lm = _lido_match_script()
+    good = tmp_path / "template_1.json"
+    good.write_text(TEMPLATE_227.read_text())
+    bad = tmp_path / "template_2.json"
+    bad.write_text("")                        # unreadable — used to crash the whole batch
+
+    monkeypatch.setattr(lm, "new_template_ids",
+                        lambda _dir: _async(["template_2", "template_1"]))
+    calls = []
+    monkeypatch.setattr(lm, "sync_templates",
+                        lambda _dir, only: calls.append(only) or _async(_FakeSyncReport(only)))
+
+    args = lm.argparse.Namespace(dir=tmp_path, template=None)
+    assert await lm.cmd_add(args) == 1        # non-zero: something was skipped
+    out = capsys.readouterr().out
+    assert "FAIL  template_2.json" in out
+    assert "OK    template_1.json" in out
+    assert calls == [["template_1"]]          # only the good one was synced
+
+
+async def test_cmd_add_drafts_only_when_verification_first_fails(tmp_path, monkeypatch):
+    """A template that already verifies cleanly is synced as-is — no model call. `lm`'s
+    own `import enrich_lido_templates as enrich` (inside `cmd_add`) resolves to the same
+    cached `sys.modules` entry as this import, once either has run once in the process,
+    so patching this module object is enough to observe (or forbid) `cmd_add`'s calls
+    into it."""
+    import sys
+    from pathlib import Path
+
+    lm = _lido_match_script()
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+    import enrich_lido_templates as enrich
+
+    complete = tmp_path / "template_1.json"
+    complete.write_text(TEMPLATE_227.read_text())
+
+    monkeypatch.setattr(lm, "new_template_ids", lambda _dir: _async(["template_1"]))
+    monkeypatch.setattr(lm, "sync_templates",
+                        lambda _dir, only: _async(_FakeSyncReport(only)))
+
+    async def _fail_if_called(*_a, **_k):
+        raise AssertionError("draft should not run for an already-complete template")
+
+    monkeypatch.setattr(enrich, "_enrich_file_in_place_async", _fail_if_called)
+
+    args = lm.argparse.Namespace(dir=tmp_path, template=None)
+    assert await lm.cmd_add(args) == 0
+
+
+def _async(value):
+    async def _coro(*_a, **_k):
+        return value
+    return _coro()
+
+
+async def test_sync_skips_a_misnamed_template_instead_of_crashing(tmp_path, monkeypatch):
+    """`lido_templates.id` is a genuine integer, so a template not named
+    template_<number>.json can never reach the database — but it must be skipped and
+    reported, not raise. `_sync` runs on the API's hot path (`load_catalog`), so a
+    misnamed file must never be able to break every other template's sync."""
+    from app.config import get_settings
+    from app.lido_corpus import store
+
+    monkeypatch.setattr(get_settings(), "lido_template_store", "db")
+    (tmp_path / "template_227.json").write_text(TEMPLATE_227.read_text())
+    raw = json.loads(TEMPLATE_227.read_text())
+    raw[0]["meta"]["id"] = "not_a_number"
+    (tmp_path / "template_not_a_number.json").write_text(json.dumps(raw))
+
+    class FakeScope:
+        async def __aenter__(self):
+            return object()
+
+        async def __aexit__(self, *exc):
+            return False
+
+    monkeypatch.setattr(store, "session_scope", FakeScope)
+
+    async def fake_list_template_index(_session):
+        return {}
+
+    upserted = []
+
+    async def fake_upsert_template(_session, **kwargs):
+        upserted.append(kwargs["template_id"])
+
+    monkeypatch.setattr(store.repo, "list_template_index", fake_list_template_index)
+    monkeypatch.setattr(store.repo, "upsert_template", fake_upsert_template)
+    monkeypatch.setattr(store, "embed", lambda texts: _async([[0.0] * 384 for _ in texts]))
+
+    templates = load_corpus(tmp_path)
+    async with FakeScope() as session:
+        report = await store._sync(session, templates, store._source_files(tmp_path), force=False)
+
+    assert report.invalid_id == ["template_not_a_number"]
+    assert upserted == [227]                  # the well-named template still synced
