@@ -38,22 +38,28 @@ print(d[0]['layers']['ROOT']['type'].get('type'))"
 
 If that prints anything other than `bgImage` and the visible background is on a
 *different* layer (look for `"type": "bgImage"` elsewhere in the file, usually a child
-of `ROOT`), the export is the odd shape `template_11134` had:
+of `ROOT`), the export is the shape `template_11134` and `template_7347` had (it seems
+common in the `without_<category>_<n>.png` exports). The pipeline now handles it:
 
-- `meta.background` will never get auto-drafted (`_draft_background` in
-  `scripts/enrich_lido_templates.py` bails out when `ROOT.props.image` is empty, `_verify`
-  never flags it because it checks the same field) — you have to notice this yourself;
-  an empty `meta.background` with a template that clearly has a photo background is the
-  tell.
-- Even after fixing `meta.background` by hand, a design generated from that template
-  needs the new background URL copied onto that other layer too, or the generated
-  design keeps showing the old photo. `background_mirror_ids()`
-  (`backend/app/lido_corpus/generate_ai.py`) now does this automatically for any
-  `bgImage`-typed child of `ROOT` — but it only mirrors, it doesn't fix `meta.background`
-  itself. If a new template needs this, first put a real background image URL onto
-  `ROOT.props.image` (matching the picture on the child layer) so the normal drafting
-  path picks it up, then let `background_mirror_ids` handle keeping the child in sync at
-  generation time.
+- Detection falls back to that child (`root_background_url()` in
+  `backend/app/lido_corpus/loader.py`), so `meta.background` gets drafted, and `_verify`
+  fails a template whose background image has no `meta.background` prompt. Before this,
+  both passed silently with no background prompt.
+- At generation time the new background URL is copied onto that child too
+  (`background_mirror_ids()` in `backend/app/lido_corpus/generate_ai.py`), or the design
+  would keep showing the template's own photo.
+- Still copy the background URL onto `ROOT.props.image` as well: the app's own preview
+  (`frontend/src/lib/lidoRender.tsx`) only draws `ROOT`'s image, so without it the
+  template shows a blank background there.
+
+**Text boxes must be about as wide as the space the text visibly has.** Some exports
+keep a leftover default width (536px in `template_7347`) on every text box, even text
+inside a 70px badge. The fit check measures against the box, so with a 536px box it
+lets "ORDER NOW" through on one line, 94px wide, overflowing the badge in every
+generated design. Look for boxes that run past the canvas edge
+(`position.x + boxSize.width > canvas width`) or are far wider than their text, and
+narrow them to the visible space; the template's own copy looks the same, and the
+checks then enforce the real limit.
 
 **The template's own default text must fit its own box, in its own font, at its own
 size — always check with the real renderer, never by eye.** A box that looks "roughly

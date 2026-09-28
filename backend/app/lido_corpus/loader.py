@@ -253,6 +253,27 @@ def _describe(slots: list[SlotInfo]) -> str:
     return f"Template with {body}." if body else "Template."
 
 
+def root_background_url(layers: dict[str, LidoLayer]) -> str | None:
+    """The background picture's URL. Normally `ROOT.props.image.url` itself, but some
+    raw exports leave `ROOT` untyped with no image of its own and put the actual
+    `bgImage`-typed layer on a nested child of ROOT instead (see
+    docs/TEMPLATE_EXPORT_RULES.md) — fall back to that child so background detection
+    doesn't silently treat the template as having no photo to describe."""
+    root = layers.get("ROOT")
+    if root is None:
+        return None
+    url = (root.props.get("image") or {}).get("url")
+    if url:
+        return url
+    for cid in root.child:
+        child = layers.get(cid)
+        if child is not None and child.type.type == "bgImage":
+            child_url = (child.props.get("image") or {}).get("url")
+            if child_url:
+                return child_url
+    return None
+
+
 def derive_meta(template_id: str, layers: dict[str, LidoLayer],
                  existing: dict | None = None) -> LidoTemplateMeta:
     root = layers["ROOT"]
@@ -272,7 +293,7 @@ def derive_meta(template_id: str, layers: dict[str, LidoLayer],
         tags=existing.get("tags", []),
         description=existing.get("description") or _describe(slots),
         canvas_size={"width": w, "height": h},
-        background_image_url=(root.props.get("image") or {}).get("url"),
+        background_image_url=root_background_url(layers),
         background=ImageSpec.model_validate(existing_background) if existing_background else None,
         text_layer_count=sum(1 for s in slots if s.resolved_name == "TextLayer"),
         slots=slots,

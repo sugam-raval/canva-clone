@@ -44,6 +44,9 @@ from app.lido_corpus.retrieval import (
 from app.storage.assets import S3Backend
 
 TEMPLATE = DEFAULT_CORPUS_DIR / "template_227.json"
+# Pinned: the automatic match over the live corpus picks whichever template best fits
+# PROMPT, which changes as templates are added, and these tests are about filling 227.
+TEMPLATE_ID = "template_227"
 LOGO = "210b6d7e-ed4c-46d8-b8df-672575c5d107"
 KICKER = "14819dc3-ee3c-410d-ae88-ef2d6de07b2e"
 ACCENT = "86279fff-8f09-48bd-94eb-c0e981c4a67d"
@@ -302,7 +305,7 @@ async def test_one_call_fills_every_layer_and_saves(fakes, store, tmp_path):
     install, opaque, transparent = fakes
     llm = install(_output())
 
-    result = await generate_lido_design(PROMPT)
+    result = await generate_lido_design(PROMPT, template_id=TEMPLATE_ID)
 
     assert len(llm.calls) == 1
     # No reasoning_effort/model override — the primary fill call uses whatever
@@ -393,7 +396,7 @@ async def test_over_limit_copy_gets_one_repair_call(fakes, tmp_path):
         LidoTextRepairOutput(text_fills=[LidoLayerTextFill(layer_id=HEADLINE, text="Fresh Sips")]),
     )
 
-    result = await generate_lido_design(PROMPT, generate_images=False)
+    result = await generate_lido_design(PROMPT, generate_images=False, template_id=TEMPLATE_ID)
 
     assert len(llm.calls) == 2
     assert llm.calls[1]["schema"] is LidoTextRepairOutput
@@ -411,7 +414,7 @@ async def test_failed_repair_falls_back_to_clamping(fakes, tmp_path, template):
     too_long = {**GOOD_TEXT, PROMO: "Limited Time Only Buy One Get One Free Today"}
     install(_output(text=too_long), AdapterError("boom", recoverable=False))
 
-    result = await generate_lido_design(PROMPT, generate_images=False)
+    result = await generate_lido_design(PROMPT, generate_images=False, template_id=TEMPLATE_ID)
 
     promo = next(t for t in text_targets(template) if t.layer_id == PROMO)
     assert result.clamped == [PROMO]
@@ -424,12 +427,12 @@ async def test_invented_website_is_reverted_but_a_given_one_is_kept(fakes, tmp_p
     invented = {**GOOD_TEXT, WEBSITE: "www.freshsips.com"}
 
     install(_output(text=invented))
-    result = await generate_lido_design(PROMPT, generate_images=False)
+    result = await generate_lido_design(PROMPT, generate_images=False, template_id=TEMPLATE_ID)
     assert result.text_fills[WEBSITE] == "www.yourwebsite.com"
 
     install(_output(text=invented))
     result = await generate_lido_design(f"{PROMPT}. Our site is freshsips.com",
-                                        generate_images=False)
+                                        generate_images=False, template_id=TEMPLATE_ID)
     assert result.text_fills[WEBSITE] == "www.freshsips.com"
 
 
@@ -437,7 +440,7 @@ async def test_missing_answers_fall_back_to_template_defaults(fakes, tmp_path, t
     install, _, transparent = fakes
     install(_output(text={HEADLINE: "Vegan Sips"}, prompts={"ROOT": GOOD_PROMPTS["ROOT"]}))
 
-    result = await generate_lido_design(PROMPT)
+    result = await generate_lido_design(PROMPT, template_id=TEMPLATE_ID)
 
     assert result.text_fills[KICKER] == "Healthy but Tasty Diet?"
     reference = template.meta.slots[[s.layer_id for s in template.meta.slots].index(SUBJECT)]
@@ -449,7 +452,7 @@ async def test_recoverable_llm_failure_is_retried_once(fakes, tmp_path):
     install, _, _ = fakes
     llm = install(AdapterError("truncated", recoverable=True), _output())
 
-    result = await generate_lido_design(PROMPT, generate_images=False)
+    result = await generate_lido_design(PROMPT, generate_images=False, template_id=TEMPLATE_ID)
 
     assert len(llm.calls) == 2
     assert result.text_fills[HEADLINE] == "Vegan Sips"
@@ -458,7 +461,7 @@ async def test_recoverable_llm_failure_is_retried_once(fakes, tmp_path):
 async def test_no_llm_is_an_error_not_an_unchanged_template(monkeypatch, tmp_path):
     monkeypatch.setattr(generate_ai, "get_llm", lambda: StubLLM())
     with pytest.raises(AdapterError):
-        await generate_lido_design(PROMPT)
+        await generate_lido_design(PROMPT, template_id=TEMPLATE_ID)
     assert not list(tmp_path.glob("*.json"))
 
 
@@ -469,7 +472,7 @@ async def test_generate_images_false_leaves_template_images(fakes, tmp_path, tem
     install, opaque, transparent = fakes
     install(_output())
 
-    result = await generate_lido_design(PROMPT, generate_images=False)
+    result = await generate_lido_design(PROMPT, generate_images=False, template_id=TEMPLATE_ID)
 
     assert opaque.calls == [] and transparent.calls == []
     assert result.image_fills == {} and result.image_failures == []
@@ -483,7 +486,7 @@ async def test_one_failed_image_keeps_its_original_and_is_reported(fakes, monkey
     monkeypatch.setattr(assets_ai, "get_transparent_image", lambda: FakeImages(True, fail=True))
     install(_output())
 
-    result = await generate_lido_design(PROMPT)
+    result = await generate_lido_design(PROMPT, template_id=TEMPLATE_ID)
 
     assert result.image_failures == [SUBJECT]
     assert set(result.image_fills) == {"ROOT"}
@@ -497,7 +500,7 @@ async def test_failed_upload_keeps_template_images_and_is_reported(fakes, store,
     store.fail = True
     install(_output())
 
-    result = await generate_lido_design(PROMPT)
+    result = await generate_lido_design(PROMPT, template_id=TEMPLATE_ID)
 
     assert sorted(result.image_failures) == sorted(["ROOT", SUBJECT])
     assert result.image_fills == {}

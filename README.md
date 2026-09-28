@@ -184,6 +184,15 @@ from the database**:
 but a file with full hand-written `meta` already works too, e.g. one promoted from
 elsewhere). Until its id is in the database it's ignored by matching.
 
+**Also save a screenshot of the finished template** (text and logo on the background) as
+`lidojs_templates/previews/template_300.png` (`.jpg`/`.webp` work too). The template file
+itself only stores the text-free background, so without the screenshot the drafting
+models can't see what a blank badge is for or which element is the promoted product —
+the draft gets noticeably worse. `lido-add`/`lido-meta` pick it up automatically and say
+`using preview ...`, or warn that they're drafting blind. The screenshot only matters
+while drafting; the drafts still never overwrite a field that already has a value, so to
+redraft a template with a new screenshot, delete its `meta` block first.
+
 **2. Run one command.**
 
 ```bash

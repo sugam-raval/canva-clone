@@ -1,0 +1,766 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "resolvedName": "RootLayer"
+        },
+        "child": [
+          "c9c45fb7-86be-437c-9959-71edbeadb645",
+          "5d9524f4-b8e9-4cbd-b7d2-4b1b5e1005bf",
+          "a79aad6c-5024-4d10-a47e-4ec24a473cf7",
+          "a333c5c7-56f3-4e09-9f83-fdb4475665b6",
+          "4194bdbc-2cd6-439e-86a0-6242ee74b2e7",
+          "61c26cf3-ef48-4099-8795-a26cd827fc75",
+          "030aebe1-07c4-440f-8419-8a1439d01836"
+        ],
+        "props": {
+          "color": "#fff",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/juice_bars/without_juice_bar_14.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/juice_bars/without_juice_bar_14.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "030aebe1-07c4-440f-8419-8a1439d01836": {
+        "type": {
+          "type": "static",
+          "fixedText": "juice drink",
+          "resolvedName": "TextLayer",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "56px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Juice Drink",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)",
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 447,
+            "height": 78
+          },
+          "position": {
+            "x": 208.3495,
+            "y": 94
+          },
+          "fontSizes": [
+            56
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "4194bdbc-2cd6-439e-86a0-6242ee74b2e7": {
+        "type": {
+          "type": "bodyText",
+          "fixedText": "",
+          "resolvedName": "TextLayer",
+          "replacableText": "35% off"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "22px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "35% ",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(232, 143, 9)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "22px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "off",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(232, 143, 9)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)",
+            "rgb(232, 143, 9)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 72,
+            "height": 62
+          },
+          "position": {
+            "x": 131.3495,
+            "y": 347
+          },
+          "fontSizes": [
+            22
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "5d9524f4-b8e9-4cbd-b7d2-4b1b5e1005bf": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer"
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 87.0000000123463,
+              "height": 70.55905513333335
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 87,
+            "height": 70.559055
+          },
+          "position": {
+            "x": 24.5,
+            "y": 589.523622
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "61c26cf3-ef48-4099-8795-a26cd827fc75": {
+        "type": {
+          "type": "bodyText",
+          "fixedText": "",
+          "resolvedName": "TextLayer",
+          "replacableText": "special promo"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "82px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Special Promo",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "italic"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)",
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 115
+          },
+          "position": {
+            "x": 111.5,
+            "y": 0
+          },
+          "fontSizes": [
+            82
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a333c5c7-56f3-4e09-9f83-fdb4475665b6": {
+        "type": {
+          "type": "static",
+          "fixedText": "order now",
+          "resolvedName": "TextLayer",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "22px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Order ",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(232, 143, 9)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "22px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Now",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(232, 143, 9)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)",
+            "rgb(232, 143, 9)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 72,
+            "height": 62
+          },
+          "position": {
+            "x": 544.3495,
+            "y": 347
+          },
+          "fontSizes": [
+            22
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a79aad6c-5024-4d10-a47e-4ec24a473cf7": {
+        "type": {
+          "type": "email",
+          "fixedText": "",
+          "resolvedName": "TextLayer",
+          "replacableText": "rellygreatsite@gmail.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "21px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "League Spartan",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "rellygreatsite@gmail.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "League Spartan",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/leaguespartan/v15/kJEnBuEW6A0lliaV_m88ja5Twtx8BWhtkDVmjZvMIIPpBMdcFguczA.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/leaguespartan/v15/kJEnBuEW6A0lliaV_m88ja5Twtx8BWhtkDVmjZvM_oTpBMdcFguczA.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)",
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 417,
+            "height": 29
+          },
+          "position": {
+            "x": 238.3495,
+            "y": 605
+          },
+          "fontSizes": [
+            21
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c9c45fb7-86be-437c-9959-71edbeadb645": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer"
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/juice_bars/without_juice_bar_14.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/juice_bars/without_juice_bar_14.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_7347",
+      "name": "Juice Bar Discount Promo",
+      "kind": "ad",
+      "aspect": "1:1",
+      "tags": [
+        "juice bar",
+        "drinks",
+        "discount",
+        "promotion"
+      ],
+      "description": "A square food-and-drink promo ad over a warm sunburst: a big italic headline and a product-name line at the top, a hero product group (juices and fresh fruit) in the center, a discount badge and an order-now badge on either side, and a logo with an email line along the bottom.",
+      "canvas_size": {
+        "width": 675,
+        "height": 675
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/juice_bars/without_juice_bar_14.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Square food-and-drink promo background, bright, fresh and energetic, studio-lit product photography composited on a graphic backdrop. Base: a warm radial sunburst (this template: golden yellow at the center fading to deep orange at the edges) with thin, soft, lighter rays radiating from the center across the whole canvas, and a slightly lighter, smooth floor band along the bottom ~20% with a gentle contact shadow under the products. Hero product, centered (this template: three tall glasses of fresh juice side by side, orange, green and red, a kiwi slice perched on the rim of the middle glass, surrounded at their base by half an orange, two kiwis with one cut open, and two ripe tomatoes with a mint sprig): the group spans about 16-90% across and 26-81% down, the main items in the middle 35-76% across. Replace it with the product the brief promotes (e.g. iced coffees with beans, a burger with fries, a stack of pastries), keeping the same size, centered placement, eye-level angle and realistic studio lighting. Two plain solid-white circular badges with scalloped sticker edges, each about 16% of the canvas wide: one centered at about 23% across, 56% down, the other at about 85% across, 56% down, sitting in front of the product and completely empty inside. Small accents: a red circle with white horizontal stripes at about 33% across, 46% down and another at about 78% across, 74% down; thin white hand-drawn squiggles at about 15-25% across, 30-38% down and 64-71% across, 27-32% down; small white four-point sparkles at about 85% across, 43% down and 16% across, 84% down. Keep the top ~26% free of product and busy detail, only the sunburst rays. IMPORTANT: the two white scalloped badges are load-bearing: text is placed on them later, so keep them at exactly those two spots, at that size, pure white and never covered by the product. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-templates-2/juice_bars/without_juice_bar_14.png",
+        "notes": "The headline and the product line are white text across about 16-86% across, 0-26% down, so that band must stay a saturated golden-to-orange tone with only soft rays: never pale, cream or white, and never product. The discount and call-to-action text is orange (rgb(232, 143, 9)) on the two white scalloped badges (about 15-31% and 76-92% across, 48-64% down), so both badges must stay solid white, full size, in exactly those spots and unobstructed. The black logo sits at about 4-16% across, 87-98% down and white email text at about 35-77% across, 90-94% down, so the bottom floor band must be a medium, saturated yellow: light enough for the black logo, saturated enough for white text, never near-white. Keep the product clear of the badge interiors and of the bottom text band. The brief decides the palette and the product; the sunburst layout, badges and accents are structural and stay."
+      },
+      "text_layer_count": 5,
+      "slots": [
+        {
+          "layer_id": "030aebe1-07c4-440f-8419-8a1439d01836",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Juice Drink",
+          "max_chars": 18,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 56.0,
+          "position": {
+            "x": 208.3495,
+            "y": 94
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 447,
+            "height": 78
+          },
+          "image": null,
+          "notes": "Product-name line right under the headline, white: says what is being promoted (e.g. 'Juice Drink', 'Iced Coffee', 'Fresh Smoothies') and must match the product shown in the background. One line, shorter than the headline."
+        },
+        {
+          "layer_id": "4194bdbc-2cd6-439e-86a0-6242ee74b2e7",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "35% off",
+          "max_chars": 13,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 22.0,
+          "position": {
+            "x": 131.3495,
+            "y": 347
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 72,
+            "height": 62
+          },
+          "image": null,
+          "notes": "Offer text inside the white scalloped badge on the left, orange, wrapping onto two stacked lines. The badge is only about 70px wide, so use two very short words of at most 5-6 letters each (e.g. '35% OFF', 'SAVE 20%', 'BUY ONE'). Use the discount the request gives; if it gives none, use a generic offer such as 'SPECIAL OFFER' rather than inventing a percentage."
+        },
+        {
+          "layer_id": "5d9524f4-b8e9-4cbd-b7d2-4b1b5e1005bf",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "font_size": null,
+          "position": {
+            "x": 24.5,
+            "y": 589.523622
+          },
+          "box_size": {
+            "width": 87,
+            "height": 70.559055
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": "Dark (black) logo variant, sitting on the lighter yellow floor band in the bottom-left corner."
+        },
+        {
+          "layer_id": "61c26cf3-ef48-4099-8795-a26cd827fc75",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "special promo",
+          "max_chars": 14,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 82.0,
+          "position": {
+            "x": 111.5,
+            "y": 0
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 115
+          },
+          "image": null,
+          "notes": "Big italic white headline across the top: the offer or occasion in about two short words (e.g. 'Summer Sale', 'Happy Hour', 'Fresh Deal'). One line, about as long as the sample or shorter, since it already spans most of the width."
+        },
+        {
+          "layer_id": "a333c5c7-56f3-4e09-9f83-fdb4475665b6",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Order Now",
+          "max_chars": 10,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 22.0,
+          "position": {
+            "x": 544.3495,
+            "y": 347
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 72,
+            "height": 62
+          },
+          "image": null,
+          "notes": "Call-to-action inside the white scalloped badge on the right, orange, wrapping onto two stacked lines. The badge is only about 70px wide, so use a two-word action of at most 5-6 letters per word (e.g. 'ORDER NOW', 'SHOP NOW', 'BUY TODAY')."
+        },
+        {
+          "layer_id": "a79aad6c-5024-4d10-a47e-4ec24a473cf7",
+          "resolved_name": "TextLayer",
+          "role": "email",
+          "editable": true,
+          "default_text": "rellygreatsite@gmail.com",
+          "max_chars": 30,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 21.0,
+          "position": {
+            "x": 238.3495,
+            "y": 605
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 417,
+            "height": 29
+          },
+          "image": null,
+          "notes": "Contact email along the bottom, white bold uppercase, one line, to the right of the logo. Only use an email the request actually gives; otherwise keep the sample."
+        },
+        {
+          "layer_id": "c9c45fb7-86be-437c-9959-71edbeadb645",
+          "resolved_name": "RootLayer",
+          "role": "background",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "box_size": {
+            "width": 675,
+            "height": 675
+          },
+          "image": null,
+          "notes": null
+        }
+      ]
+    }
+  }
+]

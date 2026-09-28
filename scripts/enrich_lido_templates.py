@@ -47,7 +47,6 @@ import json
 import re
 import sys
 import urllib.request
-from collections import Counter
 from pathlib import Path
 
 from pydantic import BaseModel, Field
@@ -65,6 +64,7 @@ from app.lido_corpus.loader import (
     _read_root_object,
     derive_meta,
     discover_templates,
+    root_background_url,
 )
 from app.lido_corpus.model import ImageSpec, LidoDocument, LidoTemplateMeta, SlotInfo
 from app.lido_corpus.textfit import wrap
@@ -92,6 +92,11 @@ class BackgroundDraft(BaseModel):
         "Constraints a generator must keep that aren't style: the contrast the region "
         "behind the fixed-color text must keep, and — only if the layout facts say a "
         "foreground cutout exists — the area that must stay empty for it."
+    ))
+    on_background_shapes: list[str] = Field(description=(
+        "Only when a second image (the finished template) is given: the current text of "
+        "every text layer that sits on a shape baked into the background image (a badge, "
+        "sticker, banner, panel) instead of on the open background. Empty list otherwise."
     ))
 
 
@@ -160,10 +165,35 @@ def _has_alpha(data: bytes | None) -> bool:
 
 
 def _data_url(data: bytes) -> str:
-    return "data:image/png;base64," + base64.b64encode(data).decode()
+    if data[:3] == b"\xff\xd8\xff":
+        mime = "image/jpeg"
+    elif data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        mime = "image/webp"
+    else:
+        mime = "image/png"
+    return f"data:{mime};base64," + base64.b64encode(data).decode()
 
 
-async def _vision_json(instruction: str, data: bytes, schema, system: str):
+PREVIEW_DIR_NAME = "previews"
+_PREVIEW_SUFFIXES = (".png", ".jpg", ".jpeg", ".webp")
+
+
+def _load_preview(path: Path) -> bytes | None:
+    """The finished template (text and logo placed on the background), saved by hand as
+    `previews/<template_id>.png|.jpg|.jpeg|.webp` next to the template file. Only the
+    text-free background is stored with a template, and from that alone a model can't
+    tell what a blank badge is for or which element is the promoted product."""
+    for suffix in _PREVIEW_SUFFIXES:
+        candidate = path.parent / PREVIEW_DIR_NAME / f"{path.stem}{suffix}"
+        if candidate.is_file():
+            print(f"    using preview {candidate.relative_to(path.parent)}")
+            return candidate.read_bytes()
+    print(f"    (no preview image at {PREVIEW_DIR_NAME}/{path.stem}.png — drafting blind; "
+          "add one for better metadata)")
+    return None
+
+
+async def _vision_json(instruction: str, data: bytes | list[bytes], schema, system: str):
     """Chat-completions content-part format (`type: "text"/"image_url"`) is not the
     Responses API's `input` shape — an explicit model forces the chat path regardless
     of LLM_REASONING_EFFORT, same as OpenAIVisionGlyphDetector (see
@@ -175,15 +205,16 @@ async def _vision_json(instruction: str, data: bytes, schema, system: str):
     # back to the fast one if that call fails.
     models = [m for m in dict.fromkeys([settings.lido_enrich_vision_model,
                                         settings.llm_model_fast]) if m]
+    images = data if isinstance(data, list) else [data]
+    content = [{"type": "text", "text": instruction}] + [
+        {"type": "image_url", "image_url": {"url": _data_url(img)}} for img in images
+    ]
     last_exc: Exception | None = None
     for model in models:
         try:
             result = await llm.complete_json(
                 system=system,
-                user=[  # type: ignore[arg-type]
-                    {"type": "text", "text": instruction},
-                    {"type": "image_url", "image_url": {"url": _data_url(data)}},
-                ],
+                user=content,  # type: ignore[arg-type]
                 schema=schema,
                 model=model,
             )
@@ -282,37 +313,63 @@ def _box(props: dict) -> tuple[float, float, float, float] | None:
     return float(pos.get("x", 0)), float(pos.get("y", 0)), float(w), float(h)
 
 
-def _text_groups(layers: dict) -> list[tuple[bool, str, str, int]]:
-    """(is_light, color, band, count) for the text that sits directly on the background,
-    one entry per light/dark group. Text whose center falls on a ShapeLayer (a label on
-    a colored ribbon or button) is skipped: its contrast is with that shape, which the
-    template fixes, not with the generated background."""
+def _text_color(layer) -> str | None:
+    """The color the text actually renders in. Lido keeps it in a `color` mark on the
+    text node; the paragraph's `attrs.color` is often a leftover black placeholder, so
+    reading that turned white text into "black" and inverted every contrast note."""
+    doc = layer.props.get("doc") or {}
+    for para in doc.get("content", []) if isinstance(doc, dict) else []:
+        for node in para.get("content", []):
+            for mark in node.get("marks") or []:
+                color = (mark.get("attrs") or {}).get("color")
+                if mark.get("type") == "color" and color:
+                    return color
+    return _text_attrs(layer).get("color")
+
+
+def _visible_box(bx: tuple[float, float, float, float], layer,
+                 slot: SlotInfo | None, layers: dict) -> tuple[float, float, float, float]:
+    """Where the text really is. Exports often keep a default box far wider than the
+    copy (536px across a 70px badge), so the box alone puts left-aligned text across the
+    whole canvas; the widest set line, measured in the real font, gives its true extent."""
+    x, y, w, h = bx
+    lines = _default_lines(slot, layers) if slot else None
+    if not lines:
+        return bx
+    target = _text_target(slot, layer.props)
+    tw = max(target.measure.width(line) for line in lines)
+    if tw >= w:
+        return bx
+    align = _text_attrs(layer).get("textAlign") or "left"
+    offset = {"center": (w - tw) / 2, "right": w - tw}.get(align, 0.0)
+    return x + offset, y, tw, h
+
+
+def _text_placements(layers: dict, slots: list[SlotInfo]) -> list[tuple[bool, str, str, str]]:
+    """(is_light, color, region, text) for each text layer that sits directly on the
+    background. Text whose center falls on a ShapeLayer (a label on a colored ribbon or
+    button) is skipped: its contrast is with that shape, which the template fixes, not
+    with the generated background."""
     cw, ch = _canvas(layers)
     shapes = [bx for l in layers.values()
               if l.type.resolvedName == "ShapeLayer" and (bx := _box(l.props))]
-    groups: dict[bool, list[tuple[str, tuple[float, float, float, float]]]] = {}
+    by_id = {s.layer_id: s for s in slots}
+    out = []
     for lid, layer in layers.items():
         if lid == "ROOT" or layer.type.resolvedName != "TextLayer":
             continue
-        bx, color = _box(layer.props), _text_attrs(layer).get("color")
+        bx, color = _box(layer.props), _text_color(layer)
         light = _is_light(color)
         if bx is None or light is None:
             continue
         cx, cy = bx[0] + bx[2] / 2, bx[1] + bx[3] / 2
         if any(sx <= cx <= sx + sw and sy <= cy <= sy + sh for sx, sy, sw, sh in shapes):
             continue
-        groups.setdefault(light, []).append((color, bx))
-    out = []
-    for light, items in groups.items():
-        pct = lambda v, t: max(0, min(100, round(100 * v / t)))
-        x0 = pct(min(b[0] for _, b in items), cw)
-        x1 = pct(max(b[0] + b[2] for _, b in items), cw)
-        y0 = pct(min(b[1] for _, b in items), ch)
-        y1 = pct(max(b[1] + b[3] for _, b in items), ch)
-        color = Counter(c for c, _ in items).most_common(1)[0][0]
-        out.append((light, color, f"the area about {x0}–{x1}% across, {y0}–{y1}% down",
-                    len(items)))
-    return sorted(out, key=lambda g: -g[3])
+        slot = by_id.get(lid)
+        x, y, w, h = _visible_box(bx, layer, slot, layers)
+        out.append((light, color, _region(x, y, w, h, cw, ch),
+                    (slot.default_text if slot else None) or ""))
+    return out
 
 
 def _is_subject_slot(slot: SlotInfo) -> bool:
@@ -344,13 +401,13 @@ def _append(text: str, sentence: str) -> str:
 
 async def _draft_background(meta: LidoTemplateMeta, layers: dict,
                             cutout_slots: list[SlotInfo],
-                            photo_slots: list[SlotInfo] | None = None) -> ImageSpec | None:
-    root = layers["ROOT"]
-    url = (root.props.get("image") or {}).get("url")
+                            photo_slots: list[SlotInfo] | None = None,
+                            preview: bytes | None = None) -> ImageSpec | None:
+    url = root_background_url(layers)
     if not url:
         return None
     cw, ch = _canvas(layers)
-    text_groups = _text_groups(layers)
+    placements = _text_placements(layers, meta.slots)
     empty_areas = [
         _region(s.position.get("x", 0), s.position.get("y", 0),
                 s.box_size.get("width", 0), s.box_size.get("height", 0), cw, ch)
@@ -366,9 +423,9 @@ async def _draft_background(meta: LidoTemplateMeta, layers: dict,
     ]
 
     facts = [f"Canvas: {int(cw)}x{int(ch)}. Text is added later as separate editable layers."]
-    for _, color, band, n in text_groups:
-        facts.append(f"{n} text layer(s) fixed in {_color_words(color)} sit directly on "
-                     f"the background in {band}.")
+    for _, color, region, text in placements:
+        facts.append(f"Text {text!r} in {_color_words(color)} sits on the background in "
+                     f"{region}.")
     for area in empty_areas:
         facts.append(f"A separate transparent foreground subject is composited over {area}. "
                      "Anything in that area of this photo (a dish, product, person...) "
@@ -381,6 +438,26 @@ async def _draft_background(meta: LidoTemplateMeta, layers: dict,
         facts.append("No foreground subject or photo layer sits on this background: do not "
                      "mention any cutout or reserved area; describe the whole image.")
 
+    subject_rule = (
+        "Do NOT describe the foreground subject that the separate cutout layer supplies: "
+        "say instead that its area must be left empty."
+        if empty_areas else
+        "If this image contains a main subject (a product, dish, person, building...), "
+        "describe it: what it is, where it sits and how much of the frame it fills, marked "
+        "'(this template: ...)' so it changes with the brief. It is often the most "
+        "important element; never leave it out."
+    )
+    preview_rule = (
+        "\n\nThe SECOND image is the finished template: this same background with its "
+        "text and logo placed on it. Use it only to understand the layout: which blank "
+        "shapes (badges, banners, panels) hold text, and what the design promotes. "
+        "Describe only what is in the FIRST image, never the text or logo. In "
+        "on_background_shapes, list the current text of every text layer that sits on a "
+        "shape baked into this background (a badge, sticker, banner, panel) rather than "
+        "on the open background. Contrast rules for the text are added automatically "
+        "from the layer colors, so don't write them in the notes."
+        if preview else ""
+    )
     instruction = (
         "This is a design template's current background image. Draft the reusable "
         "generation prompt that recreates this KIND of background for any brief, plus "
@@ -391,16 +468,16 @@ async def _draft_background(meta: LidoTemplateMeta, layers: dict,
         "photo-layer areas, each with its position (percent across/down) and size: "
         "photographs that are part of the background itself, badges, icons, small "
         "repeated shapes, lines, stripes, dots. Small repeated badges or tabs usually "
-        "hold text, so give their exact positions. Give lighting and style. Mark every brief-specific element (colors, props, subject "
-        "matter) with '(this template: ...)'. Do NOT describe any foreground subject — say "
-        "instead that its area must be left empty. Never ask for text."
+        "hold text, so give their exact positions. Give lighting and style. Mark every "
+        "brief-specific element (colors, props, subject matter) with "
+        "'(this template: ...)'. " + subject_rule + " Never ask for text." + preview_rule
     )
     data = _download_image(url)
     draft = None
     if data is not None:
         try:
             draft = await _vision_json(
-                instruction, data, BackgroundDraft,
+                instruction, [data, preview] if preview else data, BackgroundDraft,
                 system="You are an art director writing reusable image-generation "
                        "prompts for design-template backgrounds.")
         except Exception as exc:  # noqa: BLE001
@@ -424,14 +501,26 @@ async def _draft_background(meta: LidoTemplateMeta, layers: dict,
     if "no text" not in prompt.lower():
         prompt = _append(prompt, _NO_TEXT_CLAUSE)
 
-    for light, color, band, _ in text_groups:
+    # Contrast rules are written here, not by the drafter: given the preview it got the
+    # direction wrong ("keep it light for the white text"). The drafter only says which
+    # text sits on a badge baked into the image, which the layers can't tell.
+    norm = lambda s: " ".join(s.lower().split())
+    on_shapes = {norm(t) for t in (draft.on_background_shapes if draft and preview else [])}
+    by_color: dict[tuple[bool, str], list[str]] = {}
+    for light, color, region, text in placements:
+        if norm(text) in on_shapes:
+            notes = _append(notes, f" Text {text!r} sits on a shape baked into the background "
+                            f"in {region}; that shape must stay there, at its size and color.")
+            continue
+        by_color.setdefault((light, _color_words(color)), []).append(region)
+    for (light, words), regions in by_color.items():
         tone = ("saturated, medium-to-dark tone that it reads clearly on — never pastel, "
                 "pale, cream or near-white, even when a brief asks for soft or light tones "
                 "(put those elsewhere and in the accents instead)") if light else (
                "light, calm tone that it reads clearly on — never dark or busy, even when "
                "a brief asks for a moody palette")
-        notes = _append(notes, f" Text fixed in {_color_words(color)} sits in {band}, so that part of "
-                  f"the background must stay a {tone}.")
+        notes = _append(notes, f" Text fixed in {words} sits in {'; '.join(regions)}, so "
+                        f"there the background must stay a {tone}.")
     if covered_areas:
         notes = _append(notes, " The photo frames are separate layers; a regenerated background must "
                   "not contain its own circles, rings or photos under them.")
@@ -538,7 +627,8 @@ def _auto_max_chars(slot: SlotInfo) -> int | None:
     return int(len(slot.default_text) * 1.4) + 8 if slot.default_text else None
 
 
-async def _draft_text_slots(slots: list[SlotInfo], layers: dict) -> dict[str, SlotDraft]:
+async def _draft_text_slots(slots: list[SlotInfo], layers: dict,
+                            preview: bytes | None = None) -> dict[str, SlotDraft]:
     """One batched call so the model can see every slot at once — the only way it can
     recognize a parallel-list pattern (several slots that are peers, not a hierarchy)
     and write consistent notes across them, per docs/TEMPLATE_METADATA_RULES.md."""
@@ -559,34 +649,44 @@ async def _draft_text_slots(slots: list[SlotInfo], layers: dict) -> dict[str, Sl
             + f" | box width={int(box.get('width', 0))} at x={int(pos.get('x', 0))}, "
               f"y={int(pos.get('y', 0))} | current text sets as: {sets_as}"
         )
+    system = ("You write per-slot authoring notes and length limits for a design "
+              "template's text layers, for the copywriter who will refill them.")
+    preview_fact = (
+        "- The image is the finished template. Find each slot in it by its current "
+        "text: see what it is for (headline, product name, badge, button, contact) and "
+        "how much room it really has. A box can be far wider than the space the text "
+        "visibly has (e.g. text inside a small badge or button); then size max_chars "
+        "and max_lines to the visible space and say so in the notes.\n"
+        if preview else ""
+    )
+    user = ("Draft notes, max_chars and max_lines for each text slot below (listed "
+            "top to bottom). Facts:\n"
+            "- Text boxes grow downward automatically, so box height is NOT a line "
+            "limit. 'sets as' is how the current copy really wraps in its real font.\n"
+            "- The current copy is the template's own design and must pass its own "
+            "limits: max_lines >= its line count, max_chars >= its length. Choose "
+            "limits that fit this slot's role (a script accent stays one line; a "
+            "stacked narrow offer block may take several one-word lines).\n"
+            "- A script font (e.g. Allura, Great Vibes) marks an accent phrase; an "
+            "uppercase narrow box marks a stacked offer/CTA block.\n"
+            "- Consider slots together: if several are peers in a list rather than a "
+            "headline/subhead/body hierarchy, say so consistently. If the inferred "
+            "role looks wrong, say what the slot really is.\n"
+            + preview_fact + "\n" + "\n".join(lines))
     try:
-        llm = get_llm()
-        result = await llm.complete_json(
-            system="You write per-slot authoring notes and length limits for a design "
-                   "template's text layers, for the copywriter who will refill them.",
-            user="Draft notes, max_chars and max_lines for each text slot below (listed "
-                 "top to bottom). Facts:\n"
-                 "- Text boxes grow downward automatically, so box height is NOT a line "
-                 "limit. 'sets as' is how the current copy really wraps in its real font.\n"
-                 "- The current copy is the template's own design and must pass its own "
-                 "limits: max_lines >= its line count, max_chars >= its length. Choose "
-                 "limits that fit this slot's role (a script accent stays one line; a "
-                 "stacked narrow offer block may take several one-word lines).\n"
-                 "- A script font (e.g. Allura, Great Vibes) marks an accent phrase; an "
-                 "uppercase narrow box marks a stacked offer/CTA block.\n"
-                 "- Consider slots together: if several are peers in a list rather than a "
-                 "headline/subhead/body hierarchy, say so consistently. If the inferred "
-                 "role looks wrong, say what the slot really is.\n\n"
-                 + "\n".join(lines),
-            schema=SlotDraftBatch,
-        )
+        if preview:
+            parsed = await _vision_json(user, preview, SlotDraftBatch, system=system)
+        else:
+            parsed = (await get_llm().complete_json(system=system, user=user,
+                                                    schema=SlotDraftBatch)).parsed
     except Exception as exc:  # noqa: BLE001
         print(f"    (text slot draft failed: {exc})")
         return {}
-    return {d.layer_id: d for d in result.parsed.slots}
+    return {d.layer_id: d for d in parsed.slots}
 
 
-async def _draft_slot_metadata(meta: LidoTemplateMeta, layers: dict) -> None:
+async def _draft_slot_metadata(meta: LidoTemplateMeta, layers: dict,
+                               preview: bytes | None = None) -> None:
     """Fills empty `background`/per-slot `image`/`notes`/`max_chars`/`max_lines`/`locked`
     fields in place from AI drafts — never overwrites a field that already has a value,
     so this is safe to re-run after a human has started hand-editing."""
@@ -599,7 +699,8 @@ async def _draft_slot_metadata(meta: LidoTemplateMeta, layers: dict) -> None:
     cutouts = [s for s in subject_slots if s.image and s.image.transparent]
 
     if meta.background is None:
-        meta.background = await _draft_background(meta, layers, cutouts, subject_slots)
+        meta.background = await _draft_background(meta, layers, cutouts, subject_slots,
+                                                  preview=preview)
 
     to_draft: list[SlotInfo] = []
     for slot in meta.slots:
@@ -608,7 +709,7 @@ async def _draft_slot_metadata(meta: LidoTemplateMeta, layers: dict) -> None:
         elif slot.resolved_name == "TextLayer" and not slot.notes:
             to_draft.append(slot)
 
-    drafts = await _draft_text_slots(to_draft, layers)
+    drafts = await _draft_text_slots(to_draft, layers, preview=preview)
     for slot in to_draft:
         draft = drafts.get(slot.layer_id)
         if draft is None:
@@ -633,14 +734,16 @@ def _slot_summary(slots) -> str:
         by_role[role].append(s.default_text[:30] if s.default_text else "(empty)")
 
     parts = []
-    for role in ["headline", "subhead", "body", "phone", "address", "website", "logo", "photo"]:
+    for role in ["headline", "subhead", "body", "label", "phone", "email", "address",
+                 "website", "logo", "photo"]:
         if role in by_role:
             texts = ", ".join(f'"{t}"' for t in by_role[role])
             parts.append(f"- {role}: {texts}")
     return "\n".join(parts) if parts else "(no editable slots)"
 
 
-async def _enrich_with_llm(template_id: str, layers: dict, existing: dict | None = None) -> LidoTemplateMeta:
+async def _enrich_with_llm(template_id: str, layers: dict, existing: dict | None = None,
+                           preview: bytes | None = None) -> LidoTemplateMeta:
     """Use LLM to generate intelligent template metadata."""
     existing = existing or {}
     root = layers["ROOT"]
@@ -673,15 +776,23 @@ Generate appropriate metadata:
 - kind: The most suitable design kind: post, story, poster, banner, thumbnail, ad, or flyer
 - description: A one-sentence description of what this template is for
 - tags: 2-3 relevant tags (e.g. business, contact, modern)"""
+    if preview:
+        user_prompt += """
+
+The image is the finished template. Name and describe it for what it actually promotes
+(the product, service or occasion you can see, e.g. "Juice Bar Discount Promo", not just
+"Discount Promo"), and choose tags someone searching for this kind of design would use."""
 
     try:
-        llm = get_llm()
-        llm_result = await llm.complete_json(
-            system=system_prompt,
-            user=user_prompt,
-            schema=TemplateMetadataSchema,
-        )
-        result = llm_result.parsed
+        if preview:
+            result = await _vision_json(user_prompt, preview, TemplateMetadataSchema,
+                                        system=system_prompt)
+        else:
+            result = (await get_llm().complete_json(
+                system=system_prompt,
+                user=user_prompt,
+                schema=TemplateMetadataSchema,
+            )).parsed
         llm_name = (result.name or "").strip()
         llm_kind = (result.kind or "post").strip()
         llm_desc = (result.description or "").strip()
@@ -705,7 +816,7 @@ Generate appropriate metadata:
         tags=tags,
         description=description,
         canvas_size={"width": w, "height": h},
-        background_image_url=(root.props.get("image") or {}).get("url"),
+        background_image_url=root_background_url(layers),
         background=ImageSpec.model_validate(existing_background) if existing_background else None,
         text_layer_count=sum(1 for s in slots if s.resolved_name == "TextLayer"),
         slots=slots,
@@ -723,12 +834,14 @@ async def _enrich_file_in_place_async(path: Path, use_llm: bool = True,
     doc = LidoDocument.model_validate({"layers": obj["layers"]})
 
     if use_llm:
-        meta = await _enrich_with_llm(path.stem, doc.layers, existing=obj.get("meta"))
+        preview = _load_preview(path)
+        meta = await _enrich_with_llm(path.stem, doc.layers, existing=obj.get("meta"),
+                                      preview=preview)
     else:
         # Fallback: rule-based (same merge behavior as the API's own loader)
         meta = derive_meta(path.stem, doc.layers, existing=obj.get("meta"))
     if draft_slots and use_llm:
-        await _draft_slot_metadata(meta, doc.layers)
+        await _draft_slot_metadata(meta, doc.layers, preview=preview)
 
     out = [{
         "layers": json.loads(json.dumps(
@@ -789,7 +902,7 @@ def _verify(path: Path) -> tuple[list[str], list[str]]:
     if not m.tags:
         warnings.append("meta.tags is empty (matching reads tags)")
 
-    root_image = (t.layers["ROOT"].props.get("image") or {}).get("url")
+    root_image = root_background_url(t.layers)
     if root_image and (m.background is None or not (m.background.prompt or "").strip()):
         errors.append("background has an image but no meta.background prompt")
     elif m.background and m.background.prompt and "no text" not in m.background.prompt.lower():

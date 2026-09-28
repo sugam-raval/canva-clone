@@ -186,7 +186,10 @@ end"). In short:
 
 1. Drop the raw Lido export (`[{"layers": {...}}]`, no `meta`) into `lidojs_templates/` as
    `template_<id>.json`. A file with no `meta` block is ignored by matching and is not
-   copied to the database until step 2.
+   copied to the database until step 2. Save a screenshot of the finished template as
+   `lidojs_templates/previews/template_<id>.png` too: the drafting models see it next to
+   the text-free background, which is what lets them name the promoted product and tell
+   which blank shapes hold text.
 2. `make lido-add TEMPLATE=template_<id>` (or `make lido-add` for every template not
    yet in `lido_templates`) — drafts the complete `meta` (LLM + vision; only empty
    fields are filled; skipped entirely if the file already verifies cleanly), verifies
