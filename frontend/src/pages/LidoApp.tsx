@@ -119,7 +119,7 @@ export function LidoFlow() {
               <option value="random">Random</option>
               {templates.map((t) => (
                 <option key={t.id} value={t.id}>
-                  {t.id}{t.ready ? '' : ' (unreviewed)'}
+                  {t.id}
                 </option>
               ))}
             </select>

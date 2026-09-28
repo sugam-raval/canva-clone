@@ -708,7 +708,6 @@ Generate appropriate metadata:
         background_image_url=(root.props.get("image") or {}).get("url"),
         background=ImageSpec.model_validate(existing_background) if existing_background else None,
         text_layer_count=sum(1 for s in slots if s.resolved_name == "TextLayer"),
-        reference_note=existing.get("reference_note"),
         slots=slots,
     )
 
@@ -818,8 +817,6 @@ def _verify(path: Path) -> tuple[list[str], list[str]]:
             errors.append(f"{target.slot.role} slot {target.slot.layer_id[:8]}: the template's "
                           f"own text breaks its limits — {'; '.join(problems)}")
 
-    if not m.reference_note:
-        warnings.append("no meta.reference_note yet (add it after your review)")
     return errors, warnings
 
 

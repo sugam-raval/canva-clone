@@ -172,7 +172,7 @@ from the database**:
 | no `meta` block yet | `tags` empty |
 | `name` or `description` empty | a text slot has no `notes` |
 | background image but no background prompt | background prompt doesn't forbid text |
-| a photo frame with no image spec, or a spec with no prompt | no `reference_note` yet |
+| a photo frame with no image spec, or a spec with no prompt | |
 | logo not locked / would be regenerated | |
 | a text slot with no `max_chars` | |
 | the template's own text breaks its own limits (real font) | |
@@ -212,10 +212,7 @@ reference example `template_227.json`. The draft gets these wrong most often:
   ("interior design", not only "sale"); matching reads them;
 - **photo frames** — transparent cutout vs. an ordinary photo that fills its frame.
 
-**4. Mark it reviewed** by adding `meta.reference_note` (see the rules file). It shows as
-`ready` in `GET /v1/lido/templates`.
-
-**5. Push your edits.** The template is already in the database after step 2, so from
+**4. Push your edits.** The template is already in the database after step 2, so from
 here on it's an *existing* template — use `lido-sync`, not `lido-add`:
 
 ```bash
@@ -226,7 +223,7 @@ If the API is running you can skip this: it re-checks the folder every
 `LIDO_TEMPLATE_SYNC_SECONDS` (default 10) and at startup. The API does **not** verify, so
 run `make lido-sync` after hand edits to catch mistakes.
 
-**6. (Recommended) test matching.** Add one or two example requests for it to
+**5. (Recommended) test matching.** Add one or two example requests for it to
 `backend/app/lido_corpus/match_cases.jsonl`, then:
 
 ```bash

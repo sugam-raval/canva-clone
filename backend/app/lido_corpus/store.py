@@ -134,7 +134,7 @@ async def _sync(session: AsyncSession, templates: list[LidoTemplateFile],
             card=card, details=d.to_json(), fingerprint=fp,
             embedding=vectors[i] if vectors else None,
             embedding_model=model if vectors else None,
-            ready=bool(m.reference_note), source_file=files.get(m.id))
+            source_file=files.get(m.id))
 
     ids = {t.meta.id for t in templates}
     gone = [tid for tid, row in stored.items() if tid not in ids and row["source_file"]]

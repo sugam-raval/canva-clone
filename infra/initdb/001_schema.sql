@@ -25,7 +25,6 @@ create table if not exists lido_templates (
   fingerprint text not null default '',      -- hash of meta + model + card format
   embedding vector(384),                     -- all-MiniLM-L6-v2 (SENTENCE_TRANSFORMER_MODEL)
   embedding_model text,
-  ready boolean not null default false,      -- has meta.reference_note (human-reviewed)
   source_file text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()

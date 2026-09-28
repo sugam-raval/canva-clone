@@ -119,15 +119,13 @@ async def lido_generate(body: LidoGenerateRequest,
 
 @router.get("/templates", response_model=list[LidoTemplateSummary])
 async def lido_templates_list() -> list[LidoTemplateSummary]:
-    """Every template in the catalog (`lido_templates`, synced from the files). `ready`
-    means a human reviewed it (`meta.reference_note`); every template is a candidate for
-    the automatic match either way."""
+    """Every template in the catalog (`lido_templates`, synced from the files) —
+    every one of them is a candidate for the automatic match."""
     catalog = await load_catalog()
     return [
         LidoTemplateSummary(
             id=t.meta.id, name=t.meta.name or t.meta.id, kind=t.meta.kind,
             aspect=t.meta.aspect, tags=t.meta.tags, description=t.meta.description,
-            ready=bool(t.meta.reference_note),
         )
         for t in catalog.templates
     ]

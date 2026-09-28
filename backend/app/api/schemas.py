@@ -49,16 +49,14 @@ class LidoImagePromptInfo(Base):
 
 
 class LidoTemplateSummary(Base):
-    """One entry in the corpus, for a template-picker UI. `ready` is true when a human
-    has reviewed the template's metadata (`meta.reference_note`). It no longer limits
-    the automatic match — every template is a candidate — it is shown for information."""
+    """One entry in the corpus, for a template-picker UI. Every template is a
+    candidate for the automatic match."""
     id: str
     name: str
     kind: str
     aspect: str
     tags: list[str] = Field(default_factory=list)
     description: str = ""
-    ready: bool
 
 
 class LidoMatchCandidate(Base):

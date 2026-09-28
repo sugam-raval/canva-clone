@@ -275,7 +275,6 @@ def derive_meta(template_id: str, layers: dict[str, LidoLayer],
         background_image_url=(root.props.get("image") or {}).get("url"),
         background=ImageSpec.model_validate(existing_background) if existing_background else None,
         text_layer_count=sum(1 for s in slots if s.resolved_name == "TextLayer"),
-        reference_note=existing.get("reference_note"),
         slots=slots,
     )
 

@@ -3,7 +3,7 @@
 Precedence: an explicit `template_id` wins, then `random_pick`, then the automatic match
 in `matcher.py` (docs/new_match_plan.md): templates that can hold every detail the user gave
 come first, ranked by topic; otherwise the best topic + details match wins. Every
-template in the corpus is a candidate — the old "must have a reference_note" gate is gone.
+template with a `meta` block in the corpus is a candidate.
 """
 
 from __future__ import annotations

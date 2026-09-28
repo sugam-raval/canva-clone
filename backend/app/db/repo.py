@@ -59,16 +59,16 @@ async def upsert_template(session: AsyncSession, *, template_id: int, name: str,
                           kind: str, aspect: str, tags: list[str], description: str,
                           document: list[dict], card: str, details: dict,
                           fingerprint: str, embedding: list[float] | None,
-                          embedding_model: str | None, ready: bool,
+                          embedding_model: str | None,
                           source_file: str | None) -> None:
     await session.execute(
         text("""
             insert into lido_templates
                 (id, name, kind, aspect, tags, description, document, card, details,
-                 fingerprint, embedding, embedding_model, ready, source_file, updated_at)
+                 fingerprint, embedding, embedding_model, source_file, updated_at)
             values (:id, :name, :kind, :aspect, :tags, :description,
                     cast(:document as jsonb), :card, cast(:details as jsonb),
-                    :fingerprint, cast(:embedding as vector), :embedding_model, :ready,
+                    :fingerprint, cast(:embedding as vector), :embedding_model,
                     :source_file, now())
             on conflict (id) do update set
                 name = excluded.name, kind = excluded.kind, aspect = excluded.aspect,
@@ -76,14 +76,14 @@ async def upsert_template(session: AsyncSession, *, template_id: int, name: str,
                 document = excluded.document, card = excluded.card,
                 details = excluded.details, fingerprint = excluded.fingerprint,
                 embedding = excluded.embedding, embedding_model = excluded.embedding_model,
-                ready = excluded.ready, source_file = excluded.source_file,
+                source_file = excluded.source_file,
                 updated_at = now()
         """),
         {"id": template_id, "name": name, "kind": kind, "aspect": aspect, "tags": tags,
          "description": description, "document": json.dumps(document, ensure_ascii=False),
          "card": card, "details": json.dumps(details), "fingerprint": fingerprint,
          "embedding": _vector_literal(embedding), "embedding_model": embedding_model,
-         "ready": ready, "source_file": source_file},
+         "source_file": source_file},
     )
 
 
@@ -99,7 +99,7 @@ async def list_templates(session: AsyncSession) -> list[dict]:
     """Every stored template with its document, card, details and embedding."""
     rows = (await session.execute(text("""
         select id, name, kind, aspect, tags, description, document, card, details,
-               fingerprint, embedding::text as embedding, embedding_model, ready,
+               fingerprint, embedding::text as embedding, embedding_model,
                source_file, updated_at
         from lido_templates order by id
     """))).mappings().all()

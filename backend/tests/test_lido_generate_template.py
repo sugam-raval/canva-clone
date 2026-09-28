@@ -221,9 +221,9 @@ def test_css_text_transform_is_applied_before_measuring():
     assert textfit.family_name("Poppins, serif") == "Poppins"
 
 
-async def test_every_template_is_a_candidate_even_without_reference_note(tmp_path):
-    """The old reference_note gate is gone: a raw export with no meta is still picked
-    when it is the only template, and an empty corpus is the only error."""
+async def test_every_template_is_a_candidate_even_without_meta(tmp_path):
+    """A raw export with no meta is still picked when it is the only template, and an
+    empty corpus is the only error."""
     raw = json.loads(TEMPLATE.read_text())
     raw[0].pop("meta", None)
     (tmp_path / "unreviewed.json").write_text(json.dumps(raw))
@@ -237,31 +237,28 @@ async def test_every_template_is_a_candidate_even_without_reference_note(tmp_pat
         await select_best_template(load_corpus(empty), PROMPT, corpus_dir=empty)
 
 
-def _renamed(template, new_id, *, ready=True):
+def _renamed(template, new_id):
     """A distinct template object sharing template_227's layers, for exercising
     selection across >1 template without depending on which corpus files happen to
     exist on disk."""
-    meta = template.meta.model_copy(update={
-        "id": new_id, "reference_note": template.meta.reference_note if ready else None,
-    })
+    meta = template.meta.model_copy(update={"id": new_id})
     return template.model_copy(update={"meta": meta})
 
 
-def test_get_template_picks_by_id_regardless_of_readiness(template):
-    not_ready = _renamed(template, "template_999", ready=False)
-    corpus = [template, not_ready]
+def test_get_template_picks_by_id(template):
+    other = _renamed(template, "template_999")
+    corpus = [template, other]
 
     assert get_template(corpus, "template_227").template is template
-    # An explicit pick isn't gated on meta.reference_note the way auto-scoring is.
-    assert get_template(corpus, "template_999").template is not_ready
+    assert get_template(corpus, "template_999").template is other
 
     with pytest.raises(TemplateNotFoundError):
         get_template(corpus, "does-not-exist")
 
 
-def test_random_template_picks_from_the_whole_corpus_not_just_ready_ones(template):
-    not_ready = _renamed(template, "template_999", ready=False)
-    corpus = [template, not_ready]
+def test_random_template_picks_from_the_whole_corpus(template):
+    other = _renamed(template, "template_999")
+    corpus = [template, other]
 
     seen = {random_template(corpus).template.meta.id for _ in range(30)}
     assert seen == {"template_227", "template_999"}
@@ -347,7 +344,6 @@ async def test_one_call_fills_every_layer_and_saves(fakes, store, tmp_path):
     meta = result.document[0]["meta"]
     assert meta["template_id"] == "template_227"
     assert meta["prompt"] == PROMPT and meta["name"] == "Vegan Sips"
-    assert meta["reference_note"] is None
     assert meta["generation"]["image_prompts"] == GOOD_PROMPTS
     LidoDocument.model_validate({"layers": result.document[0]["layers"]})
 

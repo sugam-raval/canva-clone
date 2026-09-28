@@ -146,9 +146,6 @@ class LidoTemplateMeta(BaseModel):
     text_layer_count: int | None = None
     """Exact count of text layers this template ships with — a generator referencing
     this template as an exemplar should match this count, not add or drop layers."""
-    reference_note: str | None = None
-    """Freeform human-authored guidance for the template as a whole — preserved across
-    re-enrichment. Use this for exemplar templates meant to guide future generation."""
     slots: list[SlotInfo] = Field(default_factory=list)
 
 

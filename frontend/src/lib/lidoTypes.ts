@@ -78,9 +78,6 @@ export interface LidoTemplateSummary {
   aspect: string
   tags: string[]
   description: string
-  /** Whether the auto-scored default (no explicit templateId/randomTemplate) would
-   * ever pick this one — see meta.reference_note on the backend. */
-  ready: boolean
 }
 
 /** `/v1/lido/generations` — the DB-backed gallery index for both flows. */

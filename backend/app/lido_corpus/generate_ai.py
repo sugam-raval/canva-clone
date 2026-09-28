@@ -170,6 +170,22 @@ def image_targets(template: LidoTemplateFile) -> list[ImageTarget]:
     return targets
 
 
+def background_mirror_ids(template: LidoTemplateFile) -> list[str]:
+    """Some raw exports carry the background picture twice: once on `ROOT.props.image`
+    (what `image_targets` generates for) and again on a same-size `bgImage`-type child
+    layer of ROOT, which is what actually renders in the Lido.js editor. Whoever applies
+    a freshly generated background must copy the same URL onto these too, or the design
+    keeps showing the template's own reference photo."""
+    root = template.layers.get(BACKGROUND_LAYER_ID)
+    if root is None:
+        return []
+    return [
+        cid for cid in root.child
+        if (child := template.layers.get(cid)) is not None
+        and child.type.type == "bgImage"
+    ]
+
+
 # --------------------------------------------------------------------------------------
 # Mechanical checks applied to whatever the model returns
 # --------------------------------------------------------------------------------------

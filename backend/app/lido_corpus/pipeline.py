@@ -21,7 +21,13 @@ from botocore.exceptions import BotoCoreError, ClientError
 
 from .assets_ai import generate_template_images
 from .compose import fill_template
-from .generate_ai import BACKGROUND_LAYER_ID, TemplateFill, generate_template_fill, image_targets
+from .generate_ai import (
+    BACKGROUND_LAYER_ID,
+    TemplateFill,
+    background_mirror_ids,
+    generate_template_fill,
+    image_targets,
+)
 from .generated import new_design_id, upload_asset
 from .loader import DEFAULT_CORPUS_DIR, derive_meta
 from .model import LidoDocument, LidoTemplateFile
@@ -75,11 +81,9 @@ def _build_meta(design_id: str, template: LidoTemplateFile, layers: dict, *, nam
                 prompt: str, kind: str | None, fill: TemplateFill,
                 image_fills: dict[str, str], image_failures: list[str]) -> dict:
     """The template's own metadata (limits, notes, image specs) carried onto the
-    design, plus a record of what this run actually did. `reference_note` is dropped
-    on purpose: a generated design is not a reviewed exemplar, so promoting it into
-    the corpus must not make it selectable until a human says so."""
+    design, plus a record of what this run actually did."""
     existing = template.meta.model_dump(mode="json")
-    existing.update(name=name, reference_note=None)
+    existing.update(name=name)
     document = LidoDocument.model_validate({"layers": layers})
     meta = derive_meta(design_id, document.layers, existing=existing).model_dump(mode="json")
     meta.update(
@@ -128,6 +132,9 @@ async def generate_lido_design(
         rendered = await generate_template_images(targets, fill.image_prompts)
         image_fills = await _upload_all(design_id, rendered)
         image_failures = [t.layer_id for t in targets if t.layer_id not in image_fills]
+        if (bg_url := image_fills.get(BACKGROUND_LAYER_ID)) is not None:
+            for mirror_id in background_mirror_ids(template):
+                image_fills.setdefault(mirror_id, bg_url)
 
     document = fill_template(template, by_layer_id=fill.text, image_by_layer_id=image_fills)
     document[0]["meta"] = _build_meta(

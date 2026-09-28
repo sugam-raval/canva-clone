@@ -9,6 +9,11 @@ ones.
 
 `lidojs_templates/template_227.json` is the canonical example. Read it alongside this file.
 
+This file covers the human-authored `meta` fields. For the structural assumptions the
+*code* makes about the raw `layers` export itself (what silently breaks generation even
+when `make lido-add` passes clean), see
+[`TEMPLATE_EXPORT_RULES.md`](TEMPLATE_EXPORT_RULES.md).
+
 ## How the Lido.js (template) flow uses this metadata
 
 `POST /v1/lido/generate` (`app/lido_corpus/pipeline.py`) picks a template with the
@@ -40,7 +45,7 @@ aren't trusted from the file, only recomputed.
 
 Everything else in `meta` is **human-authored** and is merged back in from the
 existing file on every recompute, keyed by `layer_id` for per-slot fields:
-`name`, `kind`, `tags`, `description`, `reference_note`, `background`, and per-slot
+`name`, `kind`, `tags`, `description`, `background`, and per-slot
 `max_chars`, `max_lines`, `locked`, `image`, `notes`. Set these by hand (or via an LLM
 enrichment pass whose output you review) and they will survive re-enrichment.
 
@@ -132,8 +137,7 @@ recolored, re-cropped, or run through image generation.
 A template ships with an exact number of text layers. When using a template as a
 generation reference, **that count is fixed** — a generator must fill the existing
 slots, not add new ones or drop existing ones. Record the count in
-`meta.text_layer_count` (computed automatically — don't hand-set it) and reinforce the
-rule in `meta.reference_note` if the template is meant as an exemplar.
+`meta.text_layer_count` (computed automatically — don't hand-set it).
 
 For every text slot, set:
 
@@ -171,15 +175,9 @@ so in that slot's `notes` rather than fighting the inference.
 
 - `name` / `kind` / `tags` / `description` — short, human-facing summary. `kind` is one
   of `post`, `story`, `poster`, `banner`, `thumbnail`, `ad`, `flyer`.
-- `reference_note` — records that a human reviewed the template; add it only once every
-  slot's metadata is authored and checked. State the composition family in one sentence,
-  then say explicitly what varies per brief (background subject/palette, cutout subject,
-  text copy) versus what's structurally fixed (layer count, roles, the logo slot). It is
-  for humans, not sent to the model, and it does **not** limit the automatic match:
-  every file in `lidojs_templates/` that has a `meta` block is a candidate (new_match_plan.md). So a generated design
-  (saved to the `lido_generations` DB table, not to disk — see
-  `infra/initdb/002_lido_generations.sql`) must be reviewed *before* it is saved into `lidojs_templates/` as
-  a new file; its note is cleared on purpose to show it has not been reviewed.
+
+Every file in `lidojs_templates/` that has a `meta` block is a match candidate
+(new_match_plan.md) — there's no separate review flag that gates it.
 
 ## Adding a new template
 
@@ -211,9 +209,7 @@ end"). In short:
    for x in text_targets(t): print(x.slot.role, check_text(x.slot.default_text, x) or 'OK')"
    ```
 
-5. Add `meta.reference_note` once reviewed (it records the review; every template with
-   `meta` is a match candidate either way).
-6. Add a test request for it to `backend/app/lido_corpus/match_cases.jsonl`, then
+5. Add a test request for it to `backend/app/lido_corpus/match_cases.jsonl`, then
    `make lido-sync TEMPLATE=...` and `python scripts/lido_match.py test`. Later edits: edit the file, then
    `make lido-sync` (or let the running API pick it up within
    `LIDO_TEMPLATE_SYNC_SECONDS`); only templates whose `meta` changed are re-embedded.
