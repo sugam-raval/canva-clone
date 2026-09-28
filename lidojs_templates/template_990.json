@@ -1,0 +1,1139 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "49455c94-75f9-4f06-be50-36bbf2cb8912",
+          "2ccbd5f7-f9a5-4d6d-97c2-b768933c103d",
+          "d4d0429c-a84c-49ff-bc93-bc40bef3df39",
+          "f15f3e17-2128-488f-aec4-97de9bf8788b",
+          "cd56d37a-6a74-45a3-907d-6ed28cb1428a",
+          "f2472af9-da6c-43f5-973a-e3e8ae3350f2",
+          "b44c844c-e135-4daa-aba5-ff4016deceab",
+          "47351515-d683-401c-90d4-46c6a10cc2a4",
+          "ebfab5f1-46f1-427f-a2cb-a31ec6a36d17",
+          "e29e5716-0c10-434f-844b-e06827f38e59"
+        ],
+        "props": {
+          "color": "rgb(255,255,255)",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/Gyms27.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/Gyms27.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "transparency": 1
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "2ccbd5f7-f9a5-4d6d-97c2-b768933c103d": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "gym strong fitness",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "76px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Abel",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "gym strong fitness",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Abel",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/abel/v18/MwQ5bhbm2POE6VhLPJp6qGI.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 50,
+            "y": 140,
+            "width": 322,
+            "height": 228
+          },
+          "position": {
+            "x": 50,
+            "y": 140
+          },
+          "fontSizes": [
+            76
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "47351515-d683-401c-90d4-46c6a10cc2a4": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Group Fitness"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "16px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Roboto",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Group Fitness",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 50,
+            "y": 410,
+            "width": 331.3009995574356,
+            "height": 22
+          },
+          "position": {
+            "x": 147.8495002212822,
+            "y": 428
+          },
+          "fontSizes": [
+            16
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "49455c94-75f9-4f06-be50-36bbf2cb8912": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 78.854369,
+              "height": 63.952755960629936
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "90px",
+            "height": "75px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 78.854369,
+            "height": 63.952755960629936
+          },
+          "position": {
+            "x": 50,
+            "y": 19
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b44c844c-e135-4daa-aba5-ff4016deceab": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "weight control"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "16px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Roboto",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Weight Control",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 50,
+            "y": 410,
+            "width": 331.3009995574356,
+            "height": 22
+          },
+          "position": {
+            "x": 150.8495002212822,
+            "y": 402
+          },
+          "fontSizes": [
+            16
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "cd56d37a-6a74-45a3-907d-6ed28cb1428a": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "prsonal training"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "16px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Roboto",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Personal Training",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 50,
+            "y": 410,
+            "width": 331.3009995574356,
+            "height": 22
+          },
+          "position": {
+            "x": -49,
+            "y": 402
+          },
+          "fontSizes": [
+            16
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d4d0429c-a84c-49ff-bc93-bc40bef3df39": {
+        "type": {
+          "type": "email",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "reallygreatsite@gmail.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "23px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "AR One Sans",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "letterSpacing": null,
+                  "textTransform": "lowercase"
+                },
+                "content": [
+                  {
+                    "text": "reallygreatsite@gmail.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "AR One Sans",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v5/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWqH6DW03no5mBF4.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v5/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWn_9DW03no5mBF4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 50,
+            "y": 590,
+            "width": 340,
+            "height": 23
+          },
+          "position": {
+            "x": 51,
+            "y": 592
+          },
+          "fontSizes": [
+            23
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e29e5716-0c10-434f-844b-e06827f38e59": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "JOIN NOW",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "25px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Abel",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "JOIN NOW",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Abel",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/abel/v18/MwQ5bhbm2POE6VhLPJp6qGI.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 278.8495002212822,
+            "y": 517,
+            "width": 312.3009995574356,
+            "height": 35
+          },
+          "position": {
+            "x": -19.4004997787178,
+            "y": 519.75
+          },
+          "fontSizes": [
+            25
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ebfab5f1-46f1-427f-a2cb-a31ec6a36d17": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "color": "rgb(229, 64, 64)",
+          "scale": 3.1640625,
+          "shape": "rectangle",
+          "rotate": 0,
+          "boxSize": {
+            "x": 50,
+            "y": 517.5,
+            "width": 173.5,
+            "height": 55.5
+          },
+          "position": {
+            "x": 50,
+            "y": 509.5
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f15f3e17-2128-488f-aec4-97de9bf8788b": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "25% off"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "39px",
+                  "listType": "",
+                  "textAlign": "start",
+                  "fontFamily": "Rubik",
+                  "lineHeight": "1",
+                  "marginLeft": null,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "25% Off",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Rubik",
+              "fonts": []
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 80,
+            "height": 50
+          },
+          "position": {
+            "x": 535,
+            "y": 300
+          },
+          "fontSizes": [
+            39
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f2472af9-da6c-43f5-973a-e3e8ae3350f2": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Cardio Training"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "16px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Roboto",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Cardio Training",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 50,
+            "y": 410,
+            "width": 331.3009995574356,
+            "height": 22
+          },
+          "position": {
+            "x": -59,
+            "y": 428
+          },
+          "fontSizes": [
+            16
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_990",
+      "name": "Fitness Promotion Ad",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "fitness",
+        "promotion",
+        "discount"
+      ],
+      "description": "A promotional template for a gym offering a 25% discount on fitness services.",
+      "canvas_size": {
+        "width": 675.0,
+        "height": 675.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/Gyms27.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Create a dynamic fitness-themed background with a bold, modern style. The left side features a dark gradient background with subtle diagonal patterns. A large, curved orange stripe cuts through the center, creating a dynamic division. On the right, a grayscale photograph of a muscular person exercising fills the area, occupying about 50% of the frame. The orange stripe has a circular cutout near the center-right, adding visual interest. Small dotted patterns accentuate the top-right and bottom-left corners. The overall lighting is dramatic, with high contrast to emphasize the fitness theme. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-templates-2/Gyms27.png",
+        "notes": "Ensure high contrast behind text areas, especially in the upper-left, lower-center, center, middle-left, lower-left, and middle-right regions. Text 'gym strong fitness' sits on a shape baked into the background in the upper-left of the frame (about 7–44% across, 21–55% down); that shape must stay there, at its size and color. Text 'Group Fitness' sits on a shape baked into the background in the lower-center of the frame (about 39–54% across, 63–67% down); that shape must stay there, at its size and color. Text 'weight control' sits on a shape baked into the background in the center of the frame (about 39–54% across, 60–63% down); that shape must stay there, at its size and color. Text 'prsonal training' sits on a shape baked into the background in the middle-left of the frame (about 9–25% across, 60–63% down); that shape must stay there, at its size and color. Text 'reallygreatsite@gmail.com' sits on a shape baked into the background in the lower-left of the frame (about 8–34% across, 88–91% down); that shape must stay there, at its size and color. Text '25% off' sits on a shape baked into the background in the middle-right of the frame (about 79–90% across, 44–52% down); that shape must stay there, at its size and color. Text 'Cardio Training' sits on a shape baked into the background in the lower-left of the frame (about 8–24% across, 63–67% down); that shape must stay there, at its size and color."
+      },
+      "text_layer_count": 8,
+      "slots": [
+        {
+          "layer_id": "2ccbd5f7-f9a5-4d6d-97c2-b768933c103d",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "gym strong fitness",
+          "max_chars": 25,
+          "max_lines": 3,
+          "locked": false,
+          "font_size": 76.0,
+          "position": {
+            "x": 50.0,
+            "y": 140.0
+          },
+          "box_size": {
+            "x": 50.0,
+            "y": 140.0,
+            "width": 322.0,
+            "height": 228.0
+          },
+          "image": null,
+          "notes": "Main headline for the gym promotion. Should be impactful and concise, maintaining a three-line structure. Use strong, motivational words."
+        },
+        {
+          "layer_id": "47351515-d683-401c-90d4-46c6a10cc2a4",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Group Fitness",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 16.0,
+          "position": {
+            "x": 147.8495002212822,
+            "y": 428.0
+          },
+          "box_size": {
+            "x": 50.0,
+            "y": 410.0,
+            "width": 331.3009995574356,
+            "height": 22.0
+          },
+          "image": null,
+          "notes": "Body text listing a service offered. Part of a peer list with other service offerings. Keep to one line."
+        },
+        {
+          "layer_id": "49455c94-75f9-4f06-be50-36bbf2cb8912",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "font_size": null,
+          "position": {
+            "x": 50.0,
+            "y": 19.0
+          },
+          "box_size": {
+            "width": 78.854369,
+            "height": 63.952755960629936
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "b44c844c-e135-4daa-aba5-ff4016deceab",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "weight control",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 16.0,
+          "position": {
+            "x": 150.8495002212822,
+            "y": 402.0
+          },
+          "box_size": {
+            "x": 50.0,
+            "y": 410.0,
+            "width": 331.3009995574356,
+            "height": 22.0
+          },
+          "image": null,
+          "notes": "Body text listing a service offered. Part of a peer list with other service offerings. Keep to one line."
+        },
+        {
+          "layer_id": "cd56d37a-6a74-45a3-907d-6ed28cb1428a",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "prsonal training",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 16.0,
+          "position": {
+            "x": -49.0,
+            "y": 402.0
+          },
+          "box_size": {
+            "x": 50.0,
+            "y": 410.0,
+            "width": 331.3009995574356,
+            "height": 22.0
+          },
+          "image": null,
+          "notes": "Body text listing a service offered. Part of a peer list with other service offerings. Keep to one line."
+        },
+        {
+          "layer_id": "d4d0429c-a84c-49ff-bc93-bc40bef3df39",
+          "resolved_name": "TextLayer",
+          "role": "email",
+          "editable": true,
+          "default_text": "reallygreatsite@gmail.com",
+          "max_chars": 30,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 23.0,
+          "position": {
+            "x": 51.0,
+            "y": 592.0
+          },
+          "box_size": {
+            "x": 50.0,
+            "y": 590.0,
+            "width": 340,
+            "height": 23.0
+          },
+          "image": null,
+          "notes": "Email contact information. Must fit on one line. Ensure it is clear and easy to read."
+        },
+        {
+          "layer_id": "e29e5716-0c10-434f-844b-e06827f38e59",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "JOIN NOW",
+          "max_chars": 10,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 25.0,
+          "position": {
+            "x": -19.4004997787178,
+            "y": 519.75
+          },
+          "box_size": {
+            "x": 278.8495002212822,
+            "y": 517.0,
+            "width": 312.3009995574356,
+            "height": 35.0
+          },
+          "image": null,
+          "notes": "Call to action button. Needs to be short and imperative. Fits one line within the button design."
+        },
+        {
+          "layer_id": "ebfab5f1-46f1-427f-a2cb-a31ec6a36d17",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 50.0,
+            "y": 509.5
+          },
+          "box_size": {
+            "x": 50.0,
+            "y": 517.5,
+            "width": 173.5,
+            "height": 55.5
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "f15f3e17-2128-488f-aec4-97de9bf8788b",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "25% off",
+          "max_chars": 10,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 39.0,
+          "position": {
+            "x": 535.0,
+            "y": 300.0
+          },
+          "box_size": {
+            "width": 80.0,
+            "height": 50.0
+          },
+          "image": null,
+          "notes": "Subhead indicating a discount offer. Must remain two lines due to the circular design element. Keep it brief and attention-grabbing."
+        },
+        {
+          "layer_id": "f2472af9-da6c-43f5-973a-e3e8ae3350f2",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Cardio Training",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 16.0,
+          "position": {
+            "x": -59.0,
+            "y": 428.0
+          },
+          "box_size": {
+            "x": 50.0,
+            "y": 410.0,
+            "width": 331.3009995574356,
+            "height": 22.0
+          },
+          "image": null,
+          "notes": "Body text listing a service offered. Part of a peer list with other service offerings. Keep to one line."
+        }
+      ]
+    }
+  }
+]
