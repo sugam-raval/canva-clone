@@ -33,21 +33,31 @@ from app.lido_corpus.store import load_catalog, new_template_ids, sync_templates
 CASES = Path(__file__).resolve().parent.parent / "backend/app/lido_corpus/match_cases.jsonl"
 
 
+_TIERS = {"A": "fits everything", "B": "keeps the must-keeps", "C": "best effort"}
+
+
 def _print_result(prompt: str, r: MatchResult, top: int = 3) -> None:
-    path = ("holds every detail" if r.path == "holds_all"
-            else "best match (no template holds every detail)")
+    path = ("holds every line and detail" if r.path == "holds_all"
+            else "best match (something has no room)")
     print(f"\nRequest : {prompt}")
     print(f"Topic   : {r.topic_line}   ({'LLM' if r.used_llm else 'no LLM'}, {r.embedder})")
     print(f"Details : {', '.join(r.request_details) or 'none'}")
+    if r.requested_lines:
+        print("Lines   : " + " | ".join(r.requested_lines))
     print(f"Path    : {path}")
     for i, c in enumerate(r.candidates[:top], 1):
         extra = []
         if c.missing:
             extra.append("no slot for " + ", ".join(c.missing))
+        if c.fit.dropped:
+            extra.append("dropped " + " | ".join(c.fit.dropped))
         if c.empty_contact_slots:
             extra.append("placeholder " + ", ".join(c.empty_contact_slots))
-        print(f"  {i}. {c.template_id:<16} score {c.score:5.2f}  topic {c.topic:4.2f}  "
-              f"details {c.details_score:4.2f}  {'; '.join(extra)}")
+        if c.fit.hidden:
+            extra.append(f"{len(c.fit.hidden)} empty contact slot(s) hidden")
+        print(f"  {i}. {c.template_id:<16} tier {c.tier} ({_TIERS[c.tier]})  score "
+              f"{c.score:5.2f}  topic {c.topic:4.2f}  coverage {c.fit.coverage:4.2f}  "
+              f"{'; '.join(extra)}")
 
 
 async def cmd_index(args) -> int:
@@ -82,37 +92,57 @@ async def cmd_show(args) -> int:
 
 
 async def cmd_test(args) -> int:
+    """Each case has `acceptable` (template ids a right first pick is one of) and/or
+    `must_place` (lines the first pick must hold, exactly as written)."""
     catalog = await load_catalog(args.dir)
     templates = catalog.templates
     ids = {t.meta.id for t in templates}
     cases = [json.loads(line) for line in CASES.read_text(encoding="utf-8").splitlines()
              if line.strip()]
     top1 = top3 = counted = 0
+    placed_ok = placed_cases = 0
     misses = []
     for case in cases:
-        ok = [t for t in case["acceptable"] if t in ids]
-        if not ok:
+        ok = [t for t in case.get("acceptable", []) if t in ids]
+        must = case.get("must_place", [])
+        if not ok and not must:
             continue                                   # template not in this corpus
-        counted += 1
         r = await match_templates(templates, case["prompt"], corpus_dir=args.dir,
                                   use_llm=not args.no_llm, catalog=catalog)
         picks = [c.template_id for c in r.candidates]
-        if picks[0] in ok:
-            top1 += 1
-        else:
+        missed = False
+        if ok:
+            counted += 1
+            if picks[0] in ok:
+                top1 += 1
+            else:
+                missed = True
+            if set(picks[:3]) & set(ok):
+                top3 += 1
+        if must:
+            placed_cases += 1
+            if set(must) <= set(r.best.fit.placed.values()):
+                placed_ok += 1
+            else:
+                missed = True
+        if missed:
             misses.append((case, r))
-        if set(picks[:3]) & set(ok):
-            top3 += 1
     for case, r in misses:
-        print(f"\nMISS — expected {case['acceptable']}")
+        expected = case.get("acceptable") or f"all of {case.get('must_place')} placed"
+        print(f"\nMISS — expected {expected}")
         _print_result(case["prompt"], r)
-    if not counted:
+    if not counted and not placed_cases:
         print("no test case matches a template in this corpus")
         return 1
-    print(f"\n{counted} cases · first pick right {top1}/{counted} ({100 * top1 / counted:.0f}%)"
-          f" · right answer in top 3 {top3}/{counted} ({100 * top3 / counted:.0f}%)"
-          f" · embedder {embedder_name()} · {'no LLM' if args.no_llm else 'LLM on'}")
-    return 0 if top1 / counted >= 0.85 else 1
+    if counted:
+        print(f"\n{counted} cases · first pick right {top1}/{counted} "
+              f"({100 * top1 / counted:.0f}%) · right answer in top 3 {top3}/{counted} "
+              f"({100 * top3 / counted:.0f}%)", end="")
+    if placed_cases:
+        print(f" · every quoted line placed {placed_ok}/{placed_cases}", end="")
+    print(f" · embedder {embedder_name()} · {'no LLM' if args.no_llm else 'LLM on'}")
+    good = (not counted or top1 / counted >= 0.85) and placed_ok == placed_cases
+    return 0 if good else 1
 
 
 async def cmd_add(args) -> int:

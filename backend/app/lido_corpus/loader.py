@@ -177,8 +177,8 @@ def _extract_slots(
     """Recompute every slot's geometry-derived fields (`role`, `editable`,
     `default_text`, `font_size`, `position`, `box_size`) fresh from the layers, every
     call — those can never drift from the actual document. But `max_chars`, `max_lines`,
-    `locked`, `image` and `notes` are human-authored judgment calls that geometry can't
-    reconstruct, so when a previous `meta.slots` entry for the same `layer_id` set one,
+    `locked`, `optional`, `image` and `notes` are human-authored judgment calls that
+    geometry can't reconstruct, so when a previous `meta.slots` entry for the same `layer_id` set one,
     it's carried forward instead of being silently wiped by the auto-computed default.
     """
     existing_slots = existing_slots or {}
@@ -217,6 +217,7 @@ def _extract_slots(
             ),
             max_lines=prior.get("max_lines"),
             locked=bool(prior.get("locked", False)),
+            optional=bool(prior.get("optional", False)),
             font_size=_font_size(layer),
             position=layer.props.get("position"),
             box_size=layer.props.get("boxSize"),

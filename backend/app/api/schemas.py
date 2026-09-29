@@ -67,14 +67,22 @@ class LidoMatchCandidate(Base):
     held: list[str] = Field(default_factory=list)
     missing: list[str] = Field(default_factory=list)
     empty_contact_slots: list[str] = Field(default_factory=list)
+    tier: Literal["A", "B", "C"] = "A"
+    """A: places every line and detail; B: keeps every must-keep item (headline, offer,
+    price, contact); C: the rest (docs/slot_fit_match_plan.md §7)."""
+    coverage: float = 1.0
+    placed_lines: list[str] = Field(default_factory=list)
+    dropped_lines: list[str] = Field(default_factory=list)
 
 
 class LidoMatchInfo(Base):
-    """`path` is "holds_all" when at least one template can hold every detail the user
-    gave (the pick came from those), else "best_match"."""
+    """`path` is "holds_all" when the pick places every line and detail the user gave,
+    else "best_match" (its `droppedLines` say what had no room)."""
     path: Literal["holds_all", "best_match"]
+    tier: Literal["A", "B", "C"] = "A"
     topic_line: str
     request_details: list[str] = Field(default_factory=list)
+    requested_lines: list[str] = Field(default_factory=list)
     used_llm: bool
     embedder: str
     candidates: list[LidoMatchCandidate] = Field(default_factory=list)
@@ -90,6 +98,8 @@ class LidoGenerateResponse(Base):
     image_fills: list[LidoAssetInfo] = Field(default_factory=list)
     image_prompts: list[LidoImagePromptInfo] = Field(default_factory=list)
     image_failures: list[str] = Field(default_factory=list)
+    dropped_lines: list[str] = Field(default_factory=list)
+    """Lines the user asked for that had no room in the template — never silently lost."""
     match: LidoMatchInfo | None = None
     """How the automatic match picked the template; None for an explicit or random pick."""
 

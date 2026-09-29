@@ -4,6 +4,9 @@ Precedence: an explicit `template_id` wins, then `random_pick`, then the automat
 in `matcher.py` (docs/new_match_plan.md): templates that can hold every detail the user gave
 come first, ranked by topic; otherwise the best topic + details match wins. Every
 template with a `meta` block in the corpus is a candidate.
+
+Whichever way the template is chosen, `ScoredTemplate.fit` says where each line the user
+quoted goes (docs/slot_fit_match_plan.md), so the fill step never re-decides it.
 """
 
 from __future__ import annotations
@@ -12,6 +15,8 @@ import random
 from dataclasses import dataclass
 from pathlib import Path
 
+from .details import details_in_text
+from .fit import TemplateFit, content_items, fit_template
 from .loader import DEFAULT_CORPUS_DIR
 from .matcher import MatchResult, match_templates
 from .model import LidoTemplateFile
@@ -31,6 +36,15 @@ class ScoredTemplate:
     score: float
     match: MatchResult | None = None
     """How the automatic match decided; None for an explicit or random pick."""
+    fit: TemplateFit | None = None
+    """Where the user's lines go in this template (the plan the fill step follows)."""
+
+
+def _plan_for(template: LidoTemplateFile, query: str) -> TemplateFit:
+    """The placement for a template the user picked themselves. Pattern-only (no LLM
+    call): line kinds are guessed, which only affects which slot a line lands in."""
+    details = details_in_text(query)
+    return fit_template(template, content_items(query, details), details)
 
 
 def get_template(templates: list[LidoTemplateFile], template_id: str) -> ScoredTemplate:
@@ -56,7 +70,8 @@ async def select_best_template(templates: list[LidoTemplateFile], query: str, *,
     result = await match_templates(templates, query, corpus_dir=corpus_dir,
                                    use_llm=use_llm, catalog=catalog)
     by_id = {t.meta.id: t for t in templates}
-    return ScoredTemplate(by_id[result.best.template_id], result.best.score, result)
+    return ScoredTemplate(by_id[result.best.template_id], result.best.score, result,
+                          result.best.fit)
 
 
 async def choose_template(templates: list[LidoTemplateFile], query: str, *,
@@ -65,9 +80,10 @@ async def choose_template(templates: list[LidoTemplateFile], query: str, *,
                           catalog=None) -> ScoredTemplate:
     """The one place `/v1/lido/generate` decides which template to fill: an explicit
     `template_id` wins outright, then `random_pick`, then the automatic match."""
-    if template_id:
-        return get_template(templates, template_id)
-    if random_pick:
-        return random_template(templates)
+    if template_id or random_pick:
+        chosen = (get_template(templates, template_id) if template_id
+                  else random_template(templates))
+        chosen.fit = _plan_for(chosen.template, query)
+        return chosen
     return await select_best_template(templates, query, corpus_dir=corpus_dir,
                                       catalog=catalog)

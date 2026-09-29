@@ -161,8 +161,8 @@ export function LidoFlow() {
                     <div style={{ fontSize: 12, marginTop: 8 }}>
                       <div style={{ color: 'var(--muted)' }}>
                         {result.match.path === 'holds_all'
-                          ? 'Picked from templates that hold every detail you gave'
-                          : 'No template holds every detail — best overall match'}
+                          ? 'Picked from templates that hold every line and detail you gave'
+                          : 'No template holds everything — best overall match'}
                       </div>
                       <div style={{ marginTop: 4 }}>
                         <strong>Topic:</strong> {result.match.topicLine}
@@ -171,16 +171,27 @@ export function LidoFlow() {
                         <strong>Your details:</strong>{' '}
                         {result.match.requestDetails.length ? result.match.requestDetails.join(', ') : 'none'}
                       </div>
+                      {result.match.requestedLines.length > 0 && (
+                        <div>
+                          <strong>Your lines:</strong> {result.match.requestedLines.join(' | ')}
+                        </div>
+                      )}
                       <div className="log" style={{ marginTop: 6 }}>
                         {result.match.candidates.map((c, i) => (
                           <div key={c.templateId}>
                             {i + 1}. <strong>{c.templateId}</strong> · {c.score.toFixed(2)}
-                            {' '}(topic {c.topic.toFixed(2)}, details {c.details.toFixed(2)})
+                            {' '}(tier {c.tier}, topic {c.topic.toFixed(2)}, coverage {c.coverage.toFixed(2)})
                             {c.missing.length > 0 && <> · no slot for {c.missing.join(', ')}</>}
+                            {c.droppedLines.length > 0 && <> · no room for {c.droppedLines.join(' | ')}</>}
                             {c.emptyContactSlots.length > 0 && <> · placeholder {c.emptyContactSlots.join(', ')}</>}
                           </div>
                         ))}
                       </div>
+                    </div>
+                  )}
+                  {result.droppedLines.length > 0 && (
+                    <div style={{ fontSize: 12, marginTop: 8, color: 'var(--danger)' }}>
+                      No room in this template for: {result.droppedLines.join(' | ')}
                     </div>
                   )}
                 </div>

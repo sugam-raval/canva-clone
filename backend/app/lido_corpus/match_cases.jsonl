@@ -26,3 +26,7 @@
 {"prompt": "Barber shop: men's haircut and beard trim", "acceptable": ["template_831"]}
 {"prompt": "Annual tech conference 2026 with keynote speakers and workshops", "acceptable": ["template_1825"]}
 {"prompt": "Internship openings for design and marketing students", "acceptable": ["template_1789"]}
+{"prompt": "Create a vibrant promotional advertisement for a modern Italian restaurant with a cheesy pizza hero. Include the text:\n“WEEKEND PIZZA FEST”\n“BUY 1 GET 1 FREE”\n“Freshly Baked • Extra Cheesy • Made Daily”\n“Order Now”\n“Limited Time Offer”\nPremium, energetic, social media post.", "must_place": ["WEEKEND PIZZA FEST", "BUY 1 GET 1 FREE", "Freshly Baked • Extra Cheesy • Made Daily", "Order Now", "Limited Time Offer"]}
+{"prompt": "Summer juice bar promo with fresh fruit. Include the text: “Fresh Juice” “35% off” “Order Now”", "must_place": ["Fresh Juice", "35% off", "Order Now"]}
+{"prompt": "Hiring post for our startup. Include the text:\n“We Are Hiring”\n“Web Developer”\n“Data Analyst”\n“UI Designer”\n“hr@acme.com”", "must_place": ["We Are Hiring", "Web Developer", "Data Analyst", "UI Designer", "hr@acme.com"]}
+{"prompt": "Salon services post. Include the text: “HAIR SALON” “Haircut • Hair Spa • Colouring • Keratin” “Book Now”", "must_place": ["HAIR SALON", "Book Now"]}

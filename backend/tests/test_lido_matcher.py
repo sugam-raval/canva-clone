@@ -13,9 +13,17 @@ import pytest
 
 from app.adapters.base import AdapterError, LLMResult
 from app.lido_corpus import match_index, matcher
-from app.lido_corpus.details import TemplateDetails, details_in_text, template_details
+from app.lido_corpus.details import details_in_text, template_details
+from app.lido_corpus.fit import (
+    ContentItem,
+    TemplateFit,
+    content_items,
+    fit_template,
+    quoted_lines,
+    text_fits,
+)
 from app.lido_corpus.loader import DEFAULT_CORPUS_DIR, load_corpus, load_enriched
-from app.lido_corpus.match_index import IndexEntry, get_index
+from app.lido_corpus.match_index import get_index
 from app.lido_corpus.matcher import (
     DetailEvidence,
     RequestProfile,
@@ -26,6 +34,11 @@ from app.lido_corpus.matcher import (
 )
 
 TEMPLATE_227 = DEFAULT_CORPUS_DIR / "template_227.json"
+
+
+@pytest.fixture
+def template_227():
+    return load_enriched(TEMPLATE_227)
 
 
 # -- details -----------------------------------------------------------------------------
@@ -54,13 +67,16 @@ def test_template_details_reads_roles_and_sample_text():
     assert d.buttons == ["Get Yours!"]
 
 
-# -- the priority rule -------------------------------------------------------------------
+# -- the priority rule (tiers, docs/slot_fit_match_plan.md §7) ------------------------
 
 
-def _entry(tid, details=(), contact=()):
-    return IndexEntry(tid, "fp", f"card {tid}",
-                      TemplateDetails(details=set(details), contact_slots=list(contact)),
-                      None)
+def _fit(held=(), dropped=(), must_keep_ok=True, coverage=None, contact=(), fit_cost=0.0,
+         lines=0, leftover_other=0):
+    return TemplateFit(dropped=list(dropped), must_keep_ok=must_keep_ok,
+                       coverage=(1.0 if not dropped else 0.5) if coverage is None else coverage,
+                       fit_cost=fit_cost, held_details=set(held),
+                       leftover_contact=list(contact), lines=lines,
+                       leftover_other=leftover_other)
 
 
 def _profile(details=()):
@@ -69,50 +85,166 @@ def _profile(details=()):
 
 
 def test_template_holding_every_detail_beats_a_closer_topic():
-    entries = {
-        "close_topic": _entry("close_topic", {"website"}, ["website"]),
-        "holds_all": _entry("holds_all", {"phone", "website"}, ["phone", "website"]),
+    fits = {
+        "close_topic": _fit({"website"}, ["phone"], must_keep_ok=False, contact=["website"]),
+        "holds_all": _fit({"phone", "website"}),
     }
     topics = {"close_topic": 0.9, "holds_all": 0.1}
-    r = rank(_profile({"phone", "website"}), entries, topics, list(entries))
+    r = rank(_profile({"phone", "website"}), fits, topics, list(fits))
     assert r.path == "holds_all"
     assert r.best.template_id == "holds_all"
+    assert [c.tier for c in r.candidates] == ["A", "C"]      # a dropped must-keep is C
     assert r.candidates[1].missing == ["phone"]
 
 
 def test_best_match_when_no_template_holds_everything():
-    entries = {
-        "sale": _entry("sale", {"offer", "website"}, ["website"]),
-        "food": _entry("food", {"offer", "website"}, ["website"]),
-        "clinic": _entry("clinic", {"phone", "website"}, ["phone", "website"]),
+    fits = {
+        "sale": _fit({"offer", "website"}, ["phone"], False, 2 / 3),
+        "food": _fit({"offer", "website"}, ["phone"], False, 2 / 3),
+        "clinic": _fit({"phone", "website"}, ["offer"], False, 2 / 3),
     }
     topics = {"sale": 0.60, "food": 0.55, "clinic": 0.10}
-    r = rank(_profile({"offer", "phone", "website"}), entries, topics, list(entries))
+    r = rank(_profile({"offer", "phone", "website"}), fits, topics, list(fits))
     assert r.path == "best_match"
     assert [c.template_id for c in r.candidates] == ["sale", "food", "clinic"]
-    # 0.6·0.60 + 0.4·(2/3)
-    assert r.best.score == pytest.approx(0.6 * 0.60 + 0.4 * 2 / 3)
+    assert r.best.tier == "C"
+    assert r.best.score == pytest.approx(0.5 * 0.60 + 0.4 * 2 / 3 + 0.1)
 
 
 def test_no_details_means_closest_topic_minus_empty_contact_slots():
-    entries = {
-        "a": _entry("a", {"phone", "website"}, ["phone", "website"]),
-        "b": _entry("b"),
-    }
+    fits = {"a": _fit(contact=["phone", "website"]), "b": _fit()}
     # a is 0.04 closer, but two unfilled contact slots cost 0.10.
-    r = rank(_profile(), entries, {"a": 0.54, "b": 0.50}, list(entries))
+    r = rank(_profile(), fits, {"a": 0.54, "b": 0.50}, list(fits))
     assert r.path == "holds_all"
     assert r.best.template_id == "b"
     assert r.candidates[1].empty_contact_slots == ["phone", "website"]
 
 
-def test_near_tie_goes_to_more_held_details():
-    entries = {"x": _entry("x", {"offer"}), "y": _entry("y", {"offer", "phone"})}
-    # Neither holds offer+phone+website; x leads by less than the tie margin.
-    topics = {"x": 0.50, "y": 0.34}
-    r = rank(_profile({"offer", "phone", "website"}), entries, topics, list(entries))
-    assert r.path == "best_match"
+def test_fitting_every_line_beats_a_closer_topic_that_drops_one():
+    """The pizza request: the closest template has no room for one line."""
+    fits = {
+        "restaurant": _fit(dropped=["Limited Time Offer"], coverage=0.86, lines=5),
+        "generic": _fit(lines=5, fit_cost=0.2),
+    }
+    r = rank(_profile({"offer"}), fits, {"restaurant": 0.71, "generic": 0.50}, list(fits))
+    assert r.best.template_id == "generic" and r.best.tier == "A"
+    assert r.candidates[1].tier == "B"
+    assert r.to_json()["candidates"][1]["droppedLines"] == ["Limited Time Offer"]
+
+
+def test_spare_slots_count_against_a_template_only_when_the_user_wrote_the_copy():
+    busy, lean = _fit(lines=2, leftover_other=6), _fit(lines=2)
+    r = rank(_profile(), {"busy": busy, "lean": lean}, {"busy": 0.6, "lean": 0.5},
+             ["busy", "lean"])
+    assert r.best.template_id == "lean"          # 0.6 − 6·0.02 − 0.05 < 0.5
+    free = {"busy": _fit(leftover_other=6), "lean": _fit()}
+    r = rank(_profile(), free, {"busy": 0.6, "lean": 0.5}, ["busy", "lean"])
+    assert r.best.template_id == "busy"          # no quoted lines: no spare-slot minus
+
+
+def test_near_tie_goes_to_more_coverage():
+    fits = {"x": _fit(dropped=["a"], coverage=0.70), "y": _fit(dropped=["b"], coverage=0.72)}
+    # Same tier (B); x leads by less than the tie margin.
+    topics = {"x": 0.36, "y": 0.34}
+    r = rank(_profile(), fits, topics, list(fits))
     assert r.best.template_id == "y"
+
+
+# -- the fit ---------------------------------------------------------------------------
+
+PIZZA = """Create a vibrant promotional advertisement for a modern Italian restaurant.
+
+Include the text:
+“WEEKEND PIZZA FEST”
+“BUY 1 GET 1 FREE”
+“Freshly Baked • Extra Cheesy • Made Daily”
+“Order Now”
+“Limited Time Offer”
+
+Make the design premium."""
+
+
+def test_quoted_lines_are_found_in_order_without_duplicates():
+    assert quoted_lines(PIZZA) == ["WEEKEND PIZZA FEST", "BUY 1 GET 1 FREE",
+                                   "Freshly Baked • Extra Cheesy • Made Daily", "Order Now",
+                                   "Limited Time Offer"]
+    unquoted = "Diwali flyer. Include the text:\n- Happy Diwali\n- 20% off sweets\n\nWarm tones"
+    assert quoted_lines(unquoted) == ["Happy Diwali", "20% off sweets"]
+    assert quoted_lines('Say "Hi" and “Hi” again') == ["Hi"]
+    # Prose right after a quoted list is not a requested line.
+    assert quoted_lines("Include the text:\n“Sale”\n“Order Now”\nMake it bold.") == [
+        "Sale", "Order Now"]
+
+
+def test_content_items_guess_kinds_without_the_llm():
+    items = {i.text: i for i in content_items(PIZZA, details_in_text(PIZZA))}
+    assert {t: i.kind for t, i in items.items()} == {
+        "WEEKEND PIZZA FEST": "headline", "BUY 1 GET 1 FREE": "offer",
+        "Freshly Baked • Extra Cheesy • Made Daily": "tagline", "Order Now": "cta",
+        "Limited Time Offer": "badge"}
+    assert items["Freshly Baked • Extra Cheesy • Made Daily"].parts == (
+        "Freshly Baked", "Extra Cheesy", "Made Daily")
+    # The offer detail is carried by a quoted line, so no extra loose "offer" item.
+    assert len(items) == 5
+
+
+def test_a_detail_in_running_text_becomes_a_loose_item():
+    prompt = 'Yoga classes. Call 98220 12345. Include "Stretch Daily"'
+    items = content_items(prompt, details_in_text(prompt))
+    assert [(i.kind, i.text) for i in items] == [("headline", "Stretch Daily"),
+                                                 ("phone", None)]
+
+
+def test_a_line_longer_than_any_slot_is_dropped_never_cut(template_227):
+    long_line = "An unbelievably long headline that cannot possibly fit any box here"
+    prompt = f'Food promo. Include “{long_line}” and “Order Now”'
+    fit = fit_template(template_227, content_items(prompt, set()), set())
+    assert fit.dropped == [long_line]
+    assert long_line not in fit.placed.values()
+    assert "Order Now" in fit.placed.values()
+    assert not fit.must_keep_ok                  # it was the headline
+
+
+def test_short_lines_all_find_a_slot_of_their_kind(template_227):
+    prompt = 'Juice promo. Include “Fresh Juice”, “20% off today” and “Order Now”'
+    fit = fit_template(template_227, content_items(prompt, {"offer"}), {"offer"})
+    assert fit.dropped == [] and fit.coverage == 1.0
+    roles = {s.layer_id: s.role for s in template_227.meta.slots}
+    by_text = {text: roles[lid] for lid, text in fit.placed.items()}
+    assert by_text["Fresh Juice"] == "headline"
+    assert by_text["20% off today"] == "subhead"          # its sample is an offer
+    assert by_text["Order Now"] == "label"                 # its sample is a button
+    assert fit.leftover_contact == ["website"]
+
+
+def test_an_optional_empty_contact_slot_is_hidden_and_can_take_a_short_line(template_227):
+    for slot in template_227.meta.slots:
+        if slot.role == "website":
+            slot.optional = True
+    no_lines = fit_template(template_227, [], set())
+    assert no_lines.leftover_contact == [] and len(no_lines.hidden) == 1
+    # Five short lines, four other slots: the fifth goes to the empty website slot.
+    items = [ContentItem("headline", "Hot Deals", 3.0), ContentItem("badge", "Hurry!", 1.5),
+             ContentItem("cta", "Order Now", 2.0), ContentItem("badge", "Limited", 1.5),
+             ContentItem("badge", "Ends Sunday", 1.5)]
+    fit = fit_template(template_227, items, set())
+    website = next(s.layer_id for s in template_227.meta.slots if s.role == "website")
+    assert website in fit.placed                 # reused rather than dropping a line
+
+
+def test_a_split_line_is_placed_whole_or_not_at_all(template_227):
+    # Three list rows but only one slot takes a feature: no lone fragment is placed.
+    item = ContentItem("tagline", "x" * 60 + " • Hot • Fresh", 1.5,
+                       parts=("x" * 60, "Hot", "Fresh"))
+    fit = fit_template(template_227, [item], set())
+    assert fit.placed == {} and fit.dropped == [item.text]
+
+
+def test_text_fits_checks_the_real_limits(template_227):
+    from app.lido_corpus.generate_ai import text_targets
+    label = next(t for t in text_targets(template_227) if t.slot.role == "label")
+    assert text_fits("Order Now", label)
+    assert not text_fits("x" * (label.slot.max_chars * 2), label)
 
 
 # -- request profile ---------------------------------------------------------------------

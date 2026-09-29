@@ -55,6 +55,8 @@ class LidoGenerationResult:
     """Layers whose image generation failed and kept the template's original image."""
     repaired: list[str] = field(default_factory=list)
     clamped: list[str] = field(default_factory=list)
+    dropped_lines: list[str] = field(default_factory=list)
+    """Lines the user asked for that had no room in the chosen template."""
 
 
 def _design_name(template: LidoTemplateFile, text: dict[str, str]) -> str:
@@ -101,6 +103,9 @@ def _build_meta(design_id: str, template: LidoTemplateFile, layers: dict, *, nam
             "image_failures": image_failures,
             "repaired_layers": fill.repaired,
             "clamped_layers": fill.clamped,
+            "placed_lines": fill.placed,
+            "hidden_layers": fill.hidden,
+            "dropped_lines": fill.dropped,
             "llm_calls": fill.llm_calls,
             "llm_cost_cents": fill.cost_cents,
         },
@@ -124,7 +129,7 @@ async def generate_lido_design(
                                    catalog=catalog)
     template = chosen.template
 
-    fill = await generate_template_fill(prompt, template, kind=kind)
+    fill = await generate_template_fill(prompt, template, kind=kind, plan=chosen.fit)
     name = _design_name(template, fill.text)
     design_id = new_design_id(name)
 
@@ -164,4 +169,5 @@ async def generate_lido_design(
         image_failures=image_failures,
         repaired=fill.repaired,
         clamped=fill.clamped,
+        dropped_lines=fill.dropped,
     )

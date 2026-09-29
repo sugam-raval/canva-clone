@@ -118,6 +118,11 @@ class SlotInfo(BaseModel):
     """True for a slot that must never be swapped, resized, or have its image/text
     regenerated (e.g. a brand logo). Distinct from `editable`, which is about text-fill
     behavior only."""
+    optional: bool = False
+    """Human-authored: the design still looks right with this layer empty. A contact
+    slot marked optional is emptied when the user gives no such detail (instead of
+    shipping its placeholder), and may then hold a short line the user asked for
+    (docs/slot_fit_match_plan.md)."""
     font_size: float | None = None
     position: dict[str, float] | None = None
     box_size: dict[str, float] | None = None

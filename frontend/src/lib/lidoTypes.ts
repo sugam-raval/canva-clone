@@ -44,14 +44,22 @@ export interface LidoMatchCandidate {
   held: string[]
   missing: string[]
   emptyContactSlots: string[]
+  /** A: places every line and detail; B: keeps the must-keeps (headline, offer, price,
+   * contact); C: the rest (docs/slot_fit_match_plan.md). */
+  tier: 'A' | 'B' | 'C'
+  coverage: number
+  placedLines: string[]
+  droppedLines: string[]
 }
 
-/** How the automatic match picked the template. `holds_all`: at least one template had
- * a slot for every detail the user gave, and the pick came from those. */
+/** How the automatic match picked the template. `holds_all`: the pick places every line
+ * and detail the user gave. */
 export interface LidoMatchInfo {
   path: 'holds_all' | 'best_match'
+  tier: 'A' | 'B' | 'C'
   topicLine: string
   requestDetails: string[]
+  requestedLines: string[]
   usedLlm: boolean
   embedder: string
   candidates: LidoMatchCandidate[]
@@ -66,6 +74,8 @@ export interface LidoGenerateResponse {
   imageFills: LidoAssetInfo[]
   imagePrompts: LidoImagePromptInfo[]
   imageFailures: string[]
+  /** Lines the user asked for that had no room in the template. */
+  droppedLines: string[]
   /** null for an explicit or random template pick. */
   match?: LidoMatchInfo | null
 }

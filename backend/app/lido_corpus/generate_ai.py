@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 
 import structlog
 from pydantic import BaseModel
@@ -25,6 +26,9 @@ from app.config import get_settings
 
 from .model import ImageSpec, LidoTemplateFile, SlotInfo
 from .textfit import TextMeasure, family_name, font_file, too_wide_words, wrap
+
+if TYPE_CHECKING:
+    from .fit import TemplateFit
 
 log = structlog.get_logger(__name__)
 
@@ -102,6 +106,12 @@ class TemplateFill:
     """Layers whose first answer broke a limit and were fixed by the repair call."""
     clamped: list[str] = field(default_factory=list)
     """Layers still over a limit after repair, trimmed mechanically."""
+    placed: dict[str, str] = field(default_factory=dict)
+    """Layers that carry one of the user's own lines, exactly as written (the plan's)."""
+    hidden: list[str] = field(default_factory=list)
+    """Optional contact layers emptied because the user gave no such detail."""
+    dropped: list[str] = field(default_factory=list)
+    """Lines the user asked for that had no room in this template."""
     llm_calls: int = 0
     cost_cents: int = 0
 
@@ -312,6 +322,11 @@ TEXT LAYERS
 - CONTACT LAYERS (role website, phone, email or address): only replace the text if the user's
   request explicitly contains that exact detail. Otherwise return current_text
   unchanged, verbatim. Never invent a website, phone number or address.
+- Never invent a discount, price or date the request does not give. If a layer's
+  current_text is an offer (e.g. "25% off") and the request gives none, write a short
+  supporting phrase without numbers instead.
+- Some of the user's own lines may already be placed in layers not listed here; they
+  are shown for context. Do not repeat them in the layers you write.
 - All text layers must read as one coherent piece of marketing copy for the same
   product or offer — not unrelated sentences.
 
@@ -365,7 +380,8 @@ def _text_payload(target: TextTarget) -> dict:
 
 def build_user_message(user_prompt: str, template: LidoTemplateFile,
                        texts: list[TextTarget], images: list[ImageTarget],
-                       kind: str | None = None) -> str:
+                       kind: str | None = None, *, placed: list[str] | None = None,
+                       dropped: list[str] | None = None) -> str:
     meta = template.meta
     width, height = (int(meta.canvas_size.get(k, 0)) for k in ("width", "height"))
     image_payload = [
@@ -393,6 +409,14 @@ def build_user_message(user_prompt: str, template: LidoTemplateFile,
         json.dumps([_text_payload(t) for t in texts], indent=2, ensure_ascii=False),
         "(Locked layers such as the logo are intentionally omitted; they never change.)",
     ]
+    if placed:
+        parts += ["", ("The user's own lines, already placed exactly as written in other "
+                       "layers (context only — do not repeat them):"),
+                  json.dumps(placed, ensure_ascii=False)]
+    if dropped:
+        parts += ["", ("Lines the user asked for that have no room in this template. If a "
+                       "layer above suits one, you may use a shorter version of it there:"),
+                  json.dumps(dropped, ensure_ascii=False)]
     if image_payload:
         parts += [
             "",
@@ -464,21 +488,34 @@ def _accept_text(raw: str, target: TextTarget, user_prompt: str) -> str:
 
 
 async def generate_template_fill(user_prompt: str, template: LidoTemplateFile,
-                                 *, kind: str | None = None) -> TemplateFill:
+                                 *, kind: str | None = None,
+                                 plan: TemplateFit | None = None) -> TemplateFill:
     """Fill every non-locked text layer and write every image prompt in one call.
+
+    `plan` (from the matcher, docs/slot_fit_match_plan.md) pins the user's own lines to
+    their layers — those are never sent to the model, repaired or clamped — and empties
+    optional contact layers the user gave nothing for.
 
     A second, text-only call happens only when the first answer broke a size limit;
     anything still over after that is trimmed by `clamp_text`. Raises `AdapterError`
     when no LLM is available — a template echoed back unchanged would look like a
     successful generation when nothing was generated.
     """
-    texts = text_targets(template)
+    all_texts = text_targets(template)
+    known = {t.layer_id: t for t in all_texts}
+    placed = {lid: normalize_text(text, known[lid])
+              for lid, text in (plan.placed if plan else {}).items() if lid in known}
+    hidden = [lid for lid in (plan.hidden if plan else []) if lid in known]
+    texts = [t for t in all_texts if t.layer_id not in placed and t.layer_id not in hidden]
     images = image_targets(template)
     by_text_id = {t.layer_id: t for t in texts}
     image_ids = {t.layer_id for t in images}
 
     result, calls = await _complete(
-        SYSTEM_PROMPT, build_user_message(user_prompt, template, texts, images, kind),
+        SYSTEM_PROMPT,
+        build_user_message(user_prompt, template, texts, images, kind,
+                           placed=list(placed.values()),
+                           dropped=plan.dropped if plan else None),
         LidoTemplateFillOutput,
     )
     parsed: LidoTemplateFillOutput = result.parsed
@@ -532,5 +569,9 @@ async def generate_template_fill(user_prompt: str, template: LidoTemplateFile,
             text[lid] = clamp_text(text[lid], target)
             clamped.append(lid)
 
+    text.update(placed)
+    text.update({lid: "" for lid in hidden})
     return TemplateFill(text=text, image_prompts=prompts, repaired=repaired,
-                        clamped=clamped, llm_calls=calls, cost_cents=cost)
+                        clamped=clamped, placed=placed, hidden=hidden,
+                        dropped=list(plan.dropped) if plan else [],
+                        llm_calls=calls, cost_cents=cost)

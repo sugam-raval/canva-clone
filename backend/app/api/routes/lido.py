@@ -113,6 +113,7 @@ async def lido_generate(body: LidoGenerateRequest,
             for lid, prompt in result.image_prompts.items()
         ],
         image_failures=result.image_failures,
+        dropped_lines=result.dropped_lines,
         match=LidoMatchInfo.model_validate(result.match) if result.match else None,
     )
 

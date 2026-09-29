@@ -19,6 +19,7 @@ from app.adapters.base import AdapterError, ImageResult, LLMResult
 from app.adapters.stub_adapters import StubLLM
 from app.config import get_settings
 from app.lido_corpus import assets_ai, generate_ai, generated, match_index, matcher, textfit
+from app.lido_corpus.fit import TemplateFit
 from app.lido_corpus.generate_ai import (
     LidoLayerImagePrompt,
     LidoLayerTextFill,
@@ -434,6 +435,48 @@ async def test_invented_website_is_reverted_but_a_given_one_is_kept(fakes, tmp_p
     result = await generate_lido_design(f"{PROMPT}. Our site is freshsips.com",
                                         generate_images=False, template_id=TEMPLATE_ID)
     assert result.text_fills[WEBSITE] == "www.freshsips.com"
+
+
+async def test_quoted_lines_are_locked_to_their_planned_layers(fakes, tmp_path):
+    """docs/slot_fit_match_plan.md §8: the user's exact lines are placed by the matcher's
+    plan, never sent to the model to rewrite, and survive whatever the model returns."""
+    install, _, _ = fakes
+    llm = install(_output(text={**GOOD_TEXT, HEADLINE: "Model Headline"}))
+    prompt = f"{PROMPT}. Include “Fresh Juice” and “Order Now”"
+
+    result = await generate_lido_design(prompt, generate_images=False, template_id=TEMPLATE_ID)
+
+    assert result.text_fills[HEADLINE] == "Fresh Juice"
+    assert result.text_fills[ACCENT] == "Order Now"
+    sent = llm.calls[0]["user"].split("TEXT LAYERS", 1)[1].split("The user's own lines", 1)[0]
+    assert HEADLINE not in sent and ACCENT not in sent
+    assert KICKER in sent                             # free layers are still written
+    assert result.dropped_lines == []
+    assert result.document[0]["meta"]["generation"]["placed_lines"] == {
+        HEADLINE: "Fresh Juice", ACCENT: "Order Now"}
+
+
+async def test_a_line_with_no_room_is_reported_not_silently_lost(fakes, tmp_path):
+    install, _, _ = fakes
+    install(_output())
+    long_line = "An unbelievably long headline that cannot possibly fit any box here"
+
+    result = await generate_lido_design(f"{PROMPT}. Include “{long_line}”",
+                                        generate_images=False, template_id=TEMPLATE_ID)
+
+    assert result.dropped_lines == [long_line]
+    assert long_line not in result.text_fills.values()
+
+
+async def test_hidden_optional_contact_slot_is_emptied_not_sent(fakes, template):
+    install, _, _ = fakes
+    llm = install(_output())
+
+    fill = await generate_ai.generate_template_fill(PROMPT, template,
+                                                    plan=TemplateFit(hidden=[WEBSITE]))
+
+    assert fill.text[WEBSITE] == "" and fill.hidden == [WEBSITE]
+    assert WEBSITE not in llm.calls[0]["user"]
 
 
 async def test_missing_answers_fall_back_to_template_defaults(fakes, tmp_path, template):

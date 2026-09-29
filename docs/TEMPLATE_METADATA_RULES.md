@@ -46,7 +46,7 @@ aren't trusted from the file, only recomputed.
 Everything else in `meta` is **human-authored** and is merged back in from the
 existing file on every recompute, keyed by `layer_id` for per-slot fields:
 `name`, `kind`, `tags`, `description`, `background`, and per-slot
-`max_chars`, `max_lines`, `locked`, `image`, `notes`. Set these by hand (or via an LLM
+`max_chars`, `max_lines`, `locked`, `optional`, `image`, `notes`. Set these by hand (or via an LLM
 enrichment pass whose output you review) and they will survive re-enrichment.
 
 Practical implication: if you add a new layer to a template that already has a `meta`
@@ -141,7 +141,9 @@ slots, not add new ones or drop existing ones. Record the count in
 
 For every text slot, set:
 
-- `max_chars` — a real ceiling for *this* slot's role and font size, not just the
+- `max_chars` — a real ceiling for *this* slot's role and font size (the matcher now
+  uses it to decide whether a line the user quoted fits here, so a limit set too low
+  hides a good template and one set too high lets text overflow), not just the
   auto-computed `len(default_text) * 1.4 + 8` fallback (that formula is only a safety
   net for slots nobody has reviewed yet). A single-line CTA and a three-line promo block
   need very different limits even at similar font sizes.
@@ -151,6 +153,12 @@ For every text slot, set:
   the box actually holds — box height ÷ (font size × line height) — and on how the
   default copy really sets in the reference render: `template_227`'s promo block
   ("Limited Happy Hours Promo") sets as four one-word lines, so its limit is 4, not 3.
+- `optional` (default `false`) — set `true` only when the design still looks right with
+  this layer empty. The matcher (docs/slot_fit_match_plan.md) then empties an optional
+  contact slot (website/phone/email/address) the user gave no value for, instead of
+  shipping its `www.yourwebsite.com` placeholder, and may put a short requested line
+  (a badge or call to action) there when nothing else has room. Check the render with
+  the layer empty before setting it.
 - `notes` — the slot's *function*, not just its current copy: what kind of phrase goes
   here, how many words is reasonable, whether it's a question/CTA/label/offer. This is
   what lets a generator write appropriate new copy instead of just obeying a character
