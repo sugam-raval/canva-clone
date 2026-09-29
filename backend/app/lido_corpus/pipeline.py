@@ -19,6 +19,8 @@ from pathlib import Path
 import structlog
 from botocore.exceptions import BotoCoreError, ClientError
 
+from app.config import get_settings
+
 from .assets_ai import generate_template_images, mask_reserved_areas
 from .compose import fill_template
 from .generate_ai import (
@@ -131,7 +133,7 @@ async def generate_lido_design(
     if generate_images:
         targets = image_targets(template)
         rendered = await generate_template_images(targets, fill.image_prompts)
-        if BACKGROUND_LAYER_ID in rendered:
+        if get_settings().lido_mask_reserved_areas and BACKGROUND_LAYER_ID in rendered:
             canvas = template.meta.canvas_size
             rendered[BACKGROUND_LAYER_ID] = mask_reserved_areas(
                 rendered[BACKGROUND_LAYER_ID], canvas.get("width", 0), canvas.get("height", 0),

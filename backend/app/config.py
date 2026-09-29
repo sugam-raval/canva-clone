@@ -64,6 +64,10 @@ class Settings(BaseSettings):
     # The Lido.js (template) flow's main fill call uses the global llm_reasoning_effort,
     # same as everywhere else; its repair call always uses llm_model_fast instead.
     lido_template_image_quality: str = Field(default="high", description="low | medium | high")
+    # Paint over the areas of a generated background that a separate photo frame covers
+    # (lido_corpus.assets_ai.mask_reserved_areas). Off by default: the flat patch it
+    # leaves shows as soon as a photo layer is moved in the editor.
+    lido_mask_reserved_areas: bool = False
 
     # -- adapter selection ------------------------------------------------------------
     # "auto" means best available, degrading to the stub when no key is set.

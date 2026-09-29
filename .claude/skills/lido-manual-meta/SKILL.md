@@ -148,20 +148,14 @@ order, one per ROOT child.
     boundary; do not let the scene, gradient or lighting reach into it even faded, even
     though the brief is about a visual subject — that subject belongs only in the
     separate photo layer(s), never in this background."**
-  - **This is now backed by code, not just wording — but the wording still matters.**
-    `mask_reserved_areas()` (`backend/app/lido_corpus/assets_ai.py`) runs on every
-    generated background automatically and paints over each photo/logo layer's exact
-    area with a locally color-matched, feathered fill, regardless of what the image
-    model drew there — so a leak can no longer show a photo, but the painted-over patch
-    is still only a flat approximation of whatever was really supposed to be there. It
-    reads noticeably better the less there actually was to paint over, so the prompt
-    prohibition above is still worth getting right; it just isn't the only thing
-    standing between a leak and the user. Verify after writing: generate one test
-    design and look at the actual background image
-    (`result.image_fills['ROOT']`) — confirm no photo content leaked through, and that
-    the painted-over area (if any) doesn't stand out badly against a busy or gradient
-    background — the "plain" area is exactly where a bad prompt fails silently, since
-    `_verify` cannot detect either problem.
+  - **The wording is the main protection.** `mask_reserved_areas()`
+    (`backend/app/lido_corpus/assets_ai.py`) can paint over each photo frame's area of
+    the generated background, but it is off by default (`LIDO_MASK_RESERVED_AREAS=false`)
+    because its flat patch shows as soon as a photo layer is moved in the editor. So
+    unless it has been switched on, whatever the image model draws behind a photo frame
+    stays in the background. Verify after writing: generate one test design and look at
+    the actual background image (`result.image_fills['ROOT']`) — confirm no photo
+    content leaked into the photo frames' areas. `_verify` cannot detect this.
   - **Layout, not decoration.** A template must work for any domain (coffee, gym, fashion,
     real estate...). Don't describe or require the sample's small static decorations:
     thin rules, steam or swoosh lines, splatter, sparkles, doodles, squiggles, confetti,
