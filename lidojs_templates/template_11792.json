@@ -1,0 +1,1063 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "resolvedName": "RootLayer"
+        },
+        "child": [
+          "4e915ef8-c49c-404e-b372-f4c75fb0e58f",
+          "eff1d206-8cfa-46bb-8fbd-2d9e047523dd",
+          "ad1145ed-fcb3-40f5-9fce-1f0845bb6788",
+          "045a1de3-6bfc-4c0b-ac1f-c19ad986d96c",
+          "32902726-cdc1-4420-93f9-4744c916c589",
+          "1588f24a-b6df-4bb9-85d6-ba55ee6d77b7",
+          "277fdc1b-b372-4810-99e6-d371f68c0cd3",
+          "371328d0-66eb-4260-bed8-22193a0c6f0c",
+          "3c7933b1-6e68-4ea8-ab26-f390fe0587d6",
+          "2d398ea7-3e29-4da9-b527-c28c68d414ea"
+        ],
+        "props": {
+          "color": "#fff",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/content_writing_services/without_content_writing_services_9.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/content_writing_services/without_content_writing_services_9.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675.4999999999999,
+              "height": 675.4999999999999
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "045a1de3-6bfc-4c0b-ac1f-c19ad986d96c": {
+        "type": {
+          "type": "static",
+          "fixedText": "WritingService",
+          "resolvedName": "TextLayer",
+          "replacableText": "Writing Service"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "68px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Roboto",
+                  "lineHeight": 1.03,
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Writing",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(45, 51, 145)"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "text": "Service",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1.4504534727961036,
+          "colors": [
+            "rgb(0, 0, 0)",
+            "rgb(45, 51, 145)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 350.801,
+            "height": 203.063486
+          },
+          "position": {
+            "x": 324.699,
+            "y": 76.684389
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1588f24a-b6df-4bb9-85d6-ba55ee6d77b7": {
+        "type": {
+          "type": "bodyText",
+          "fixedText": "",
+          "resolvedName": "TextLayer",
+          "replacableText": "Social Media Content"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "26px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Social Media Content",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.7526173402558191,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 237.301,
+            "height": 27.094224
+          },
+          "position": {
+            "x": 390.199,
+            "y": 394.5
+          },
+          "fontSizes": [
+            26
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "277fdc1b-b372-4810-99e6-d371f68c0cd3": {
+        "type": {
+          "type": "bodyText",
+          "fixedText": "",
+          "resolvedName": "TextLayer",
+          "replacableText": "Copywriting Services"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "26px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Copywriting Services",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.7526173402558191,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 237.301,
+            "height": 27.094224249209486
+          },
+          "position": {
+            "x": 387.199,
+            "y": 439.952888
+          },
+          "fontSizes": [
+            26
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "2d398ea7-3e29-4da9-b527-c28c68d414ea": {
+        "type": {
+          "resolvedName": "FrameLayer"
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1787376040_88483ebf-9b70-48fd-be18-0eb78f6f17a6.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1787376040_88483ebf-9b70-48fd-be18-0eb78f6f17a6.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 749.6251874062967,
+              "height": 499.99999999999994
+            },
+            "position": {
+              "x": -124.8125937031484,
+              "y": 0
+            }
+          },
+          "scale": 0.675,
+          "rotate": 0,
+          "boxSize": {
+            "width": 337.5,
+            "height": 337.5
+          },
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": -36.25,
+            "y": 195.75
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "32902726-cdc1-4420-93f9-4744c916c589": {
+        "type": {
+          "type": "bodyText",
+          "fixedText": "",
+          "resolvedName": "TextLayer",
+          "replacableText": "Our copywriting services are designed to turn browsers into buyers with compelling content that drives conversions."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "26px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Our copywriting services are designed to turn browsers into buyers with compelling content that drives conversions.",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.5356503611882739,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 325.301,
+            "height": 58.385889
+          },
+          "position": {
+            "x": 337.75,
+            "y": 285.114111
+          },
+          "fontSizes": [
+            26
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "371328d0-66eb-4260-bed8-22193a0c6f0c": {
+        "type": {
+          "type": "static",
+          "fixedText": "More Information at",
+          "resolvedName": "TextLayer",
+          "replacableText": "More Information at"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "26px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "More Information at",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.5115778256332838,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 161.301,
+            "height": 18.416801
+          },
+          "position": {
+            "x": 441.199,
+            "y": 544.630311
+          },
+          "fontSizes": [
+            26
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3c7933b1-6e68-4ea8-ab26-f390fe0587d6": {
+        "type": {
+          "type": "website",
+          "fixedText": "",
+          "resolvedName": "TextLayer",
+          "replacableText": "www.reallygreatsite.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "26px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "www.reallygreatsite.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.5115778256332838,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 179.301,
+            "height": 18.9283795484315
+          },
+          "position": {
+            "x": 426.699,
+            "y": 562.047112
+          },
+          "fontSizes": [
+            26
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "4e915ef8-c49c-404e-b372-f4c75fb0e58f": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer"
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/content_writing_services/without_content_writing_services_9.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/content_writing_services/without_content_writing_services_9.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675.4999999999999,
+              "height": 675.4999999999999
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 675.5,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ad1145ed-fcb3-40f5-9fce-1f0845bb6788": {
+        "type": {
+          "type": "static",
+          "fixedText": "Content",
+          "resolvedName": "TextLayer",
+          "replacableText": "Content"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "38px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0.127,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Content",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1.391145696625339,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 270.301,
+            "height": 73.730722
+          },
+          "position": {
+            "x": 390.199,
+            "y": 14.183341
+          },
+          "fontSizes": [
+            38
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "eff1d206-8cfa-46bb-8fbd-2d9e047523dd": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer"
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white_horizontal.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white_horizontal.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 152,
+              "height": 42.552083333333336
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 152,
+            "height": 42.552083
+          },
+          "position": {
+            "x": 32.5,
+            "y": 85.914063
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_11792",
+      "name": "Service Highlights Post",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "service",
+        "business",
+        "checklist",
+        "content writing"
+      ],
+      "description": "A square service promo post: a big two-line service name under a small kicker word, a short description, a two-item checklist on a rounded panel, a circular photo on the left and a website line above a wavy bottom band (the sample is a content-writing service).",
+      "canvas_size": {
+        "width": 675,
+        "height": 675
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/content_writing_services/without_content_writing_services_9.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Square, clean and bright service-promo layout built from flat graphic shapes with soft, rounded forms on a plain base (this template: white). Top-left: a horizontal tab with a pointed right end, about 0-36% across and 9-22% down (this template: light periwinkle blue); the logo sits on it. Left: a thick circular ring about half the canvas wide, centered at about 20% across and 54% down and running off the left edge (about 0-46% across, 28-80% down) (this template: deep navy). Right: a large panel from about 50% across to the right edge, about 55-73% down, with rounded left corners (this template: light periwinkle blue), holding two small round check-mark badges stacked at about 54-58% across, one at 59-62% down and one at 65-69% down (this template: navy with white ticks). Bottom-right: a small square badge with a globe symbol at about 89-96% across, 80-86% down (this template: navy with a white globe). Bottom: a band of three or four layered, flowing wave shapes filling about the bottom quarter (about 75-100% down), sweeping up from the bottom-left where they join the base of the ring (this template: navy, medium periwinkle and light periwinkle). IMPORTANT: keep the tab, the ring, the checklist panel with its two check badges, the globe badge and the wave band at these positions and sizes, because the logo, the photo and text sit on or next to them. A separate circular photo layer covers the inside of the ring (about 0-46% across, 28-80% down): draw no photo, person, circle, shape or pattern there — keep plain flat color matching the ring's own fill, even though the brief is about a visual subject; that subject belongs only in the separate photo layer, never in this background. Keep the upper-right area (about 50-100% across, 0-52% down) and the area at about 60-90% across, 79-88% down plain, since text sits there. Colors and any small accents follow the brief; add accents only if they genuinely suit its theme, keep them few and subtle and out of the text areas, and never copy this template's own decorations such as its small floating dots. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-templates-2/content_writing_services/without_content_writing_services_9.png",
+        "notes": "All text is dark: black, except the headline's first line in navy (rgb(45, 51, 145)). The kicker at about 58-97% across, 2-13% down, the headline at about 50-99% across, 11-41% down and the description at about 50-98% across, 42-51% down sit on the open base, so the upper-right half must stay a light, calm, plain tone. The two checklist items sit on the rounded panel at about 57-93% across, 58-69% down, each next to its check badge, so the panel must stay a light tone. The lead-in and website at about 64-89% across, 81-86% down sit on the base just above the waves and left of the globe badge, so that area stays light and clear of the waves. The white logo sits on the top-left tab at about 5-27% across, 13-19% down, so the tab must be a medium or saturated tone the white logo reads on, never white or very pale. The photo layer covers the inside of the ring. Fixed: the tab, the ring around the photo, the checklist panel with its two check badges, the globe badge, the wave band and the light text areas. The brief decides every color and any accents, as long as each text area keeps this contrast."
+      },
+      "text_layer_count": 7,
+      "slots": [
+        {
+          "layer_id": "045a1de3-6bfc-4c0b-ac1f-c19ad986d96c",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Writing Service",
+          "max_chars": 16,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 324.699,
+            "y": 76.684389
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 350.801,
+            "height": 203.063486
+          },
+          "image": null,
+          "notes": "Big bold headline, centered, with one word per line on two lines: the service name, completing the kicker above it ('Content' + 'Writing Service'). Exactly two words of at most about 7 letters each (e.g. 'Writing Service', 'Web Design', 'Social Media'); a longer word like 'Training' or 'Cleaning' doesn't fit a line at this size."
+        },
+        {
+          "layer_id": "1588f24a-b6df-4bb9-85d6-ba55ee6d77b7",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Social Media Content",
+          "max_chars": 23,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 26.0,
+          "position": {
+            "x": 390.199,
+            "y": 394.5
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 237.301,
+            "height": 27.094224
+          },
+          "image": null,
+          "notes": "Not a subheading: the first of two peer checklist items on the rounded panel, right of its check badge. One service or benefit in 2-3 words, one line (e.g. 'Social Media Content', 'Weekly Deep Cleaning', 'Nutrition Coaching'). The text is centered in its box, so keep it close to the sample's length (about 16-22 characters); a much shorter item drifts away from its check badge."
+        },
+        {
+          "layer_id": "277fdc1b-b372-4810-99e6-d371f68c0cd3",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Copywriting Services",
+          "max_chars": 23,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 26.0,
+          "position": {
+            "x": 387.199,
+            "y": 439.952888
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 237.301,
+            "height": 27.094224249209486
+          },
+          "image": null,
+          "notes": "The second of two peer checklist items on the rounded panel, right of its check badge, written in the same style as the first. One service or benefit in 2-3 words, one line (e.g. 'Copywriting Services', 'SEO Blog Articles', 'Custom Meal Plans'). Centered in its box, so keep it about 16-22 characters long."
+        },
+        {
+          "layer_id": "2d398ea7-3e29-4da9-b527-c28c68d414ea",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": -36.25,
+            "y": 195.75
+          },
+          "box_size": {
+            "width": 337.5,
+            "height": 337.5
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "Candid, bright lifestyle photograph of a person doing the work or enjoying the service the brief promotes (this template: a young woman with long hair in a black top, typing on a laptop at a desk by a sunny window), seen from the side at about desk height, waist-up, soft natural daylight and a softly blurred background. Keep the person in the middle of the landscape frame, since the circle shows only its central square.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1787376040_88483ebf-9b70-48fd-be18-0eb78f6f17a6.png",
+            "notes": "The circular mask on this layer crops the image at render time — keep the source a full rectangular photo (not pre-cropped to a circle) so the mask can be moved or resized later."
+          },
+          "notes": "Circular photo on the left, framed by the ring in the background: the service in action."
+        },
+        {
+          "layer_id": "32902726-cdc1-4420-93f9-4744c916c589",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Our copywriting services are designed to turn browsers into buyers with compelling content that drives conversions.",
+          "max_chars": 120,
+          "max_lines": 3,
+          "locked": false,
+          "font_size": 26.0,
+          "position": {
+            "x": 337.75,
+            "y": 285.114111
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 325.301,
+            "height": 58.385889
+          },
+          "image": null,
+          "notes": "Short description under the headline, right-aligned in three lines: one sentence of about 15-20 words on what the service does for the customer (e.g. 'We design clean, modern websites that turn visitors into loyal customers and help your business grow online.'). Never more than three lines."
+        },
+        {
+          "layer_id": "371328d0-66eb-4260-bed8-22193a0c6f0c",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "More Information at",
+          "max_chars": 22,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 26.0,
+          "position": {
+            "x": 441.199,
+            "y": 544.630311
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 161.301,
+            "height": 18.416801
+          },
+          "image": null,
+          "notes": "Small lead-in line directly above the website, pointing to it: 2-4 words ending in 'at' (e.g. 'More Information at', 'Book your session at', 'Learn more at'). One line."
+        },
+        {
+          "layer_id": "3c7933b1-6e68-4ea8-ab26-f390fe0587d6",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.reallygreatsite.com",
+          "max_chars": 24,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 26.0,
+          "position": {
+            "x": 426.699,
+            "y": 562.047112
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 179.301,
+            "height": 18.9283795484315
+          },
+          "image": null,
+          "notes": "Bold website line under the lead-in, left of the globe badge, one line. Only use a website the request actually gives; otherwise keep the sample. Room for about 23 characters."
+        },
+        {
+          "layer_id": "4e915ef8-c49c-404e-b372-f4c75fb0e58f",
+          "resolved_name": "RootLayer",
+          "role": "background",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "box_size": {
+            "width": 675.5,
+            "height": 675
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "ad1145ed-fcb3-40f5-9fce-1f0845bb6788",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Content",
+          "max_chars": 8,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 38.0,
+          "position": {
+            "x": 390.199,
+            "y": 14.183341
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 270.301,
+            "height": 73.730722
+          },
+          "image": null,
+          "notes": "Kicker word in thin letters, centered above the headline; together they name the service ('Content' + 'Writing Service'). One word of at most about 7 letters (e.g. 'Content', 'Digital', 'Fitness'); 'Creative' or 'Marketing' is already too wide."
+        },
+        {
+          "layer_id": "eff1d206-8cfa-46bb-8fbd-2d9e047523dd",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "font_size": null,
+          "position": {
+            "x": 32.5,
+            "y": 85.914063
+          },
+          "box_size": {
+            "width": 152,
+            "height": 42.552083
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_white_horizontal.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": "White horizontal logo variant, on the tab in the top-left."
+        }
+      ]
+    }
+  }
+]

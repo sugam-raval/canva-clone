@@ -1,0 +1,458 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer"
+        },
+        "child": [
+          "ef8fbeda-cb33-4765-a491-1569c72e66bf",
+          "471a88ea-9d2d-4aac-9ee3-32009444bc23",
+          "d31c9100-5d2a-4c38-8a28-33cd8e4012be"
+        ],
+        "props": {
+          "color": "#fff",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/without_coffee_roasteries_23.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/without_coffee_roasteries_23.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 675,
+              "height": 675
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "video": null,
+          "rotate": 0,
+          "boxSize": {
+            "width": 675,
+            "height": 675
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "471a88ea-9d2d-4aac-9ee3-32009444bc23": {
+        "type": {
+          "type": "bodyText",
+          "fixedText": "",
+          "resolvedName": "TextLayer",
+          "replacableText": "Made from premium coffee"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "32px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Glass Antiqua",
+                  "lineHeight": 1.04,
+                  "marginLeft": null,
+                  "letterSpacing": 0.177,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Made from",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(207, 178, 133)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "32px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Glass Antiqua",
+                  "lineHeight": 1.04,
+                  "marginLeft": null,
+                  "letterSpacing": 0.177,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "premium",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(207, 178, 133)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "32px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Glass Antiqua",
+                  "lineHeight": 1.04,
+                  "marginLeft": null,
+                  "letterSpacing": 0.177,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "coffee",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(207, 178, 133)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Glass Antiqua",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/glassantiqua/v26/xfu30Wr0Wn3NOQM2piC0uXOjnL_wN6fRUkY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)",
+            "rgb(207, 178, 133)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 240,
+            "height": 100
+          },
+          "position": {
+            "x": 393.684089,
+            "y": 311
+          },
+          "fontSizes": [
+            32
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d31c9100-5d2a-4c38-8a28-33cd8e4012be": {
+        "type": {
+          "type": "title",
+          "fixedText": "",
+          "resolvedName": "TextLayer",
+          "replacableText": "new coffee"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(207, 178, 133)",
+                  "indent": 0,
+                  "fontSize": "78px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Roboto",
+                  "lineHeight": 1.1,
+                  "marginLeft": null,
+                  "letterSpacing": 0.102,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "new",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(207, 178, 133)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(207, 178, 133)",
+                  "indent": 0,
+                  "fontSize": "78px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Roboto",
+                  "lineHeight": 1.1,
+                  "marginLeft": null,
+                  "letterSpacing": 0.102,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "coffee",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(207, 178, 133)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(207, 178, 133)"
+          ],
+          "effect": {
+            "name": "hollow",
+            "settings": {
+              "thickness": 28
+            }
+          },
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 340,
+            "height": 172
+          },
+          "position": {
+            "x": 278.255845,
+            "y": 428.520994
+          },
+          "fontSizes": [
+            78
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ef8fbeda-cb33-4765-a491-1569c72e66bf": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer"
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 127.542198,
+              "height": 103.43973538582678
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 127.542198,
+            "height": 103.439735
+          },
+          "position": {
+            "x": 532.520783,
+            "y": 8.141361
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_9483",
+      "name": "New Product Launch Post",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "new product",
+        "product launch",
+        "cafe",
+        "food and drink"
+      ],
+      "description": "A square new-product post: a dimmed lifestyle photo of the product in the lower-left, a plain dark panel on the right with a short three-line tagline, a big outlined two-word title that crosses onto the photo, and the logo (the sample shows a new coffee).",
+      "canvas_size": {
+        "width": 675,
+        "height": 675
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-social/user-image/without_coffee_roasteries_23.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Square two-part composition. LEFT side, about 0-55% across and full height: a lifestyle photo of the product the brief promotes, in a setting that suits it (this template: a red ceramic cup of latte with latte art on a saucer, on a wooden café table, with a blurred plant behind it). The product sits in the lower-left, filling about 0-56% across and 45-85% down, at eye level, with a softly blurred background filling the upper-left above it; shallow depth of field, soft natural light, style and mood that suit the brief. Keep the photo somewhat dimmed and low-key so the light title text that crosses into its lower-right part stays readable. RIGHT side, about 55-100% across and full height: a flat, solid, dark panel (this template: deep olive-charcoal green) with a vertical left edge at about 53-56% across (this template: slightly rough and torn), laid over the photo. Keep the panel plain, with no patterns, lines, dots or ornaments: the logo sits in its top-right and text fills its middle and lower part. Colors and any small accents follow the brief; add accents only if they genuinely suit its theme, keep them few and subtle and out of the panel's text areas, and never copy this template's own decorations. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-social/user-image/without_coffee_roasteries_23.png",
+        "notes": "All template text is a fixed warm gold (rgb(207, 178, 133)): the three-line tagline at about 67-94% across, 46-61% down, and the big outlined title, its first line at about 63-92% across, 63-76% down and its second line running left over the photo at about 43-92% across, 76-89% down. The title is a thin hollow outline, so the panel must stay a solid, dark, muted tone (any hue that suits the brief) and the photo must stay dark and low-detail where the title crosses it (about 43-56% across, 76-89% down): never a light or busy area there. The white logo sits in the panel's top-right, about 79-98% across, 1-17% down, so that corner stays dark and plain. Keep the product in the lower-left of the photo, clear of the panel. The brief decides the product, setting, colors and any accents; only the photo-and-panel split, the product's placement and size, and the dark, plain panel are fixed."
+      },
+      "text_layer_count": 2,
+      "slots": [
+        {
+          "layer_id": "471a88ea-9d2d-4aac-9ee3-32009444bc23",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Made from premium coffee",
+          "max_chars": 28,
+          "max_lines": 3,
+          "locked": false,
+          "font_size": 32.0,
+          "position": {
+            "x": 393.684089,
+            "y": 311
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 240,
+            "height": 100
+          },
+          "image": null,
+          "notes": "Small gold tagline on the dark panel, right-aligned and stacked on up to three short lines above the title: a short claim about what the brief promotes, in about 3-5 words (e.g. 'Made from premium coffee', 'Baked fresh every day', 'Handmade with love'). Keep it on the panel; it must never be longer than three lines."
+        },
+        {
+          "layer_id": "d31c9100-5d2a-4c38-8a28-33cd8e4012be",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "new coffee",
+          "max_chars": 12,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 78.0,
+          "position": {
+            "x": 278.255845,
+            "y": 428.520994
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 340,
+            "height": 172
+          },
+          "image": null,
+          "notes": "Big hollow-outline title in uppercase, right-aligned on two stacked lines; the right edge is fixed and longer words grow left over the photo. Exactly two short words: the first of 3-5 letters (e.g. 'NEW', 'HOT', 'BIG', 'TRY'), the second naming the product or offer in one word of up to 6 letters (e.g. 'COFFEE', 'MENU', 'DEALS', 'PIZZA', 'SHOES'). Longer words grow left and cover the product."
+        },
+        {
+          "layer_id": "ef8fbeda-cb33-4765-a491-1569c72e66bf",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "font_size": null,
+          "position": {
+            "x": 532.520783,
+            "y": 8.141361
+          },
+          "box_size": {
+            "width": 127.542198,
+            "height": 103.439735
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": "White logo variant, in the top-right corner of the dark panel."
+        }
+      ]
+    }
+  }
+]

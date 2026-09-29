@@ -186,6 +186,36 @@ def background_mirror_ids(template: LidoTemplateFile) -> list[str]:
     ]
 
 
+def reserved_overlay_areas(template: LidoTemplateFile) -> list[tuple[float, float, float, float]]:
+    """Every `(x, y, width, height)` a separate, freshly-generated photo frame will sit
+    on top of the background with. A generated background must never show through
+    there — but a text-to-image model routinely ignores a "leave this area blank"
+    instruction in the prompt, especially when the request's own subject is strongly
+    implied elsewhere in it (see docs/TEMPLATE_EXPORT_RULES.md). `mask_reserved_areas`
+    (assets_ai.py) uses this to make the guarantee structural instead of relying on
+    prompt wording.
+
+    A locked layer (the logo) is deliberately excluded: it sits at the exact same
+    position in every design, so it fully covers whatever's behind it in ordinary
+    display either way — masking it protects nothing there, but does leave a flat,
+    visibly fake patch the moment someone moves the logo or inspects the raw
+    background image on its own, which is strictly worse than whatever the model
+    would otherwise have drawn in a spot that never needed protecting."""
+    areas = []
+    for slot in template.meta.slots:
+        if slot.layer_id == BACKGROUND_LAYER_ID or slot.resolved_name not in (
+            "FrameLayer", "ImageLayer"
+        ) or slot.locked:
+            continue
+        if not slot.position or not slot.box_size:
+            continue
+        x, y = slot.position.get("x", 0), slot.position.get("y", 0)
+        w, h = slot.box_size.get("width", 0), slot.box_size.get("height", 0)
+        if w and h:
+            areas.append((x, y, w, h))
+    return areas
+
+
 # --------------------------------------------------------------------------------------
 # Mechanical checks applied to whatever the model returns
 # --------------------------------------------------------------------------------------
@@ -292,6 +322,12 @@ IMAGE PROMPTS
   palette and the mood/style words. Do not restate the reference verbatim, and do not
   drop its structural instructions (panel layout, camera angle, "leave the centre
   empty", "transparent background, no backdrop", and so on) — they are load-bearing.
+- An instruction to leave part of the background blank/plain for a separate photo or
+  logo layer is absolute, however strongly the request's own subject pulls the other
+  way: treat that area as if it were physically outside the canvas — the scene, the
+  gradient, the lighting and the subject itself must not reach into it at all, not even
+  faded or partial. This is checked mechanically after generation; violating it wastes
+  the image.
 - Follow each image's "notes"; they explain how that image is layered in the design.
 - The background and the subject must describe one coherent scene: same product
   category, same palette, same mood — even though they are generated separately.

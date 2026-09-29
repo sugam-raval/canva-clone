@@ -19,7 +19,7 @@ from pathlib import Path
 import structlog
 from botocore.exceptions import BotoCoreError, ClientError
 
-from .assets_ai import generate_template_images
+from .assets_ai import generate_template_images, mask_reserved_areas
 from .compose import fill_template
 from .generate_ai import (
     BACKGROUND_LAYER_ID,
@@ -27,6 +27,7 @@ from .generate_ai import (
     background_mirror_ids,
     generate_template_fill,
     image_targets,
+    reserved_overlay_areas,
 )
 from .generated import new_design_id, upload_asset
 from .loader import DEFAULT_CORPUS_DIR, derive_meta
@@ -130,6 +131,12 @@ async def generate_lido_design(
     if generate_images:
         targets = image_targets(template)
         rendered = await generate_template_images(targets, fill.image_prompts)
+        if BACKGROUND_LAYER_ID in rendered:
+            canvas = template.meta.canvas_size
+            rendered[BACKGROUND_LAYER_ID] = mask_reserved_areas(
+                rendered[BACKGROUND_LAYER_ID], canvas.get("width", 0), canvas.get("height", 0),
+                reserved_overlay_areas(template),
+            )
         image_fills = await _upload_all(design_id, rendered)
         image_failures = [t.layer_id for t in targets if t.layer_id not in image_fills]
         if (bg_url := image_fills.get(BACKGROUND_LAYER_ID)) is not None:

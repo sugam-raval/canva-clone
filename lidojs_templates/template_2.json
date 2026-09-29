@@ -1,0 +1,1327 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": null,
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "d8eabf35-ad99-4b0c-bd6c-d3d6af3e1144",
+          "9cc63db2-cd83-4c6e-85e0-ddb435630e45",
+          "07c009e0-45bc-46ef-93c4-ec4d76d034fd",
+          "c622b8fb-88b4-4e86-9c10-4f0a62dab5fa",
+          "611e185c-6898-434a-bfab-a8129d3da1c5",
+          "5f3fff38-4310-475b-8fb2-c8b314a78b0b",
+          "0479d632-a82b-4f65-8c62-be8b6f856e8a",
+          "e4415280-35fa-4302-a30f-4182d4043ad1",
+          "d5b9d4ac-a1ce-4bbc-93b2-0749f4498397",
+          "31805d17-f293-417e-84e5-18c0fd06964e",
+          "686e7d31-b5c1-4ba6-b0b2-b07f03203dea",
+          "f4b9bf0d-b672-4ff1-b25d-b048df686f57",
+          "8405e4af-43f3-4064-bfdd-f61904a44d28"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "#fff",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790665269_38eedc07-b257-4750-82f1-9d752663ca09.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790665269_38eedc07-b257-4750-82f1-9d752663ca09.png",
+            "boxSize": {
+              "width": 1080,
+              "height": 1080
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "d8eabf35-ad99-4b0c-bd6c-d3d6af3e1144": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(0, 0, 0)",
+                  "fontFamily": "Oswald",
+                  "fontSize": "83.784844px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "COLLEGE"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1y9ogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1.193533285381195,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 55.43090384376067,
+            "y": 175.4924785456023,
+            "width": 418.1709714271873,
+            "height": 139.64339438959982
+          },
+          "position": {
+            "x": 55.43090384376072,
+            "y": 160.25173232183317
+          },
+          "fontSizes": [
+            83.784844
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "9cc63db2-cd83-4c6e-85e0-ddb435630e45": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(5, 100, 120)",
+                  "fontFamily": "Oswald",
+                  "fontSize": "100px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(5, 100, 120)"
+                        }
+                      }
+                    ],
+                    "text": "ADMISSION"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1y9ogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(5, 100, 120)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 140
+          },
+          "position": {
+            "x": 55.43090384376075,
+            "y": 273.03325437772463
+          },
+          "fontSizes": [
+            100
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "07c009e0-45bc-46ef-93c4-ec4d76d034fd": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(0, 0, 0)",
+                  "fontFamily": "Oswald",
+                  "fontSize": "68px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "OPEN FOR 2027"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1y9ogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.9488471152852169,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 55.43090384376069,
+            "y": 428.27400060149375,
+            "width": 508.86765635465116,
+            "height": 90.1404759520956
+          },
+          "position": {
+            "x": 55.43090384376071,
+            "y": 394.7443589092017
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c622b8fb-88b4-4e86-9c10-4f0a62dab5fa": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(0, 0, 0)",
+                  "fontFamily": "Poppins",
+                  "fontSize": "40px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "All you have to do is make a decision about your future."
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 55.43090384376073,
+            "y": 540.2888954685229,
+            "width": 450.95282070432853,
+            "height": 168
+          },
+          "position": {
+            "x": 55.43090384376075,
+            "y": 506.7592537762309
+          },
+          "fontSizes": [
+            40
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "611e185c-6898-434a-bfab-a8129d3da1c5": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 55.43090384376078,
+            "y": 714.3851939580308
+          },
+          "boxSize": {
+            "width": 324,
+            "height": 92.34065739870937,
+            "x": 55.430903843760774,
+            "y": 702.1925969790154
+          },
+          "rotate": 0,
+          "color": "rgb(5, 100, 120)",
+          "scale": 5.0625,
+          "roundedCorners": 100
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "5f3fff38-4310-475b-8fb2-c8b314a78b0b": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Poppins",
+                  "fontSize": "68px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "GET STARTED"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.556674999138547,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 55.430903843760746,
+            "y": 729.6259401817998,
+            "width": 298.54535846663737,
+            "height": 52.884124918161966
+          },
+          "position": {
+            "x": 68.15822461044209,
+            "y": 734.1134601983046
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "0479d632-a82b-4f65-8c62-be8b6f856e8a": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "ImageLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790664810_afe5329b-a42c-4cf4-834c-ae933b78d19b.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790664810_afe5329b-a42c-4cf4-834c-ae933b78d19b.png",
+            "boxSize": {
+              "width": 144.72555928406123,
+              "height": 117.37584729337252
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "position": {
+            "x": 55.43090384376072,
+            "y": 34.18218379314547
+          },
+          "boxSize": {
+            "width": 144.72555928406123,
+            "height": 117.3758472933725,
+            "x": 55.43090384376072,
+            "y": 34.18218379314547
+          },
+          "rotate": 0
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e4415280-35fa-4302-a30f-4182d4043ad1": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": null,
+                  "fontFamily": "Poppins",
+                  "fontSize": "32px",
+                  "lineHeight": null,
+                  "letterSpacing": null,
+                  "textTransform": null,
+                  "marginLeft": null,
+                  "indent": null,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "123-456-7890"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 45
+          },
+          "position": {
+            "x": 124.74553424103749,
+            "y": 851.2001184334131
+          },
+          "fontSizes": [
+            32
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d5b9d4ac-a1ce-4bbc-93b2-0749f4498397": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(0, 0, 0)",
+                  "fontFamily": "Poppins",
+                  "fontSize": "32px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ],
+                    "text": "www.yourwebsite.com"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 45
+          },
+          "position": {
+            "x": 124.74553424103749,
+            "y": 909.1149540837357
+          },
+          "fontSizes": [
+            32
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "31805d17-f293-417e-84e5-18c0fd06964e": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 473.60187527094797,
+            "y": 456.81658277633267
+          },
+          "boxSize": {
+            "width": 607.4778797621057,
+            "height": 607.4778797621057,
+            "x": 454.2037311188456,
+            "y": 343.0332543777246
+          },
+          "rotate": 0,
+          "color": "rgb(5, 100, 120)",
+          "scale": 9.4918418712829
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "686e7d31-b5c1-4ba6-b0b2-b07f03203dea": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 493.6241435506086,
+            "y": 476.83885105599325
+          },
+          "boxSize": {
+            "width": 567.4333432027844,
+            "height": 567.4333432027844,
+            "x": 507.3408151520008,
+            "y": 490.5555226573855
+          },
+          "rotate": 0,
+          "scale": 1.1348666864055688,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790665656_d0667c02-6541-4997-a94d-2e40aa042932.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790665656_d0667c02-6541-4997-a94d-2e40aa042932.png",
+            "boxSize": {
+              "width": 500,
+              "height": 748.641304347826
+            },
+            "position": {
+              "x": 0,
+              "y": -24.941999679406145
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f4b9bf0d-b672-4ff1-b25d-b048df686f57": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 591.7319034011963,
+            "y": 112.44989637076367
+          },
+          "boxSize": {
+            "width": 461.1667160139219,
+            "height": 461.1667160139219,
+            "x": 610.7685912848701,
+            "y": 151.74038712703594
+          },
+          "rotate": 0,
+          "color": "rgb(5, 100, 120)",
+          "scale": 7.205729937717528
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "8405e4af-43f3-4064-bfdd-f61904a44d28": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 608.706022436103,
+            "y": 129.42401540567022
+          },
+          "boxSize": {
+            "width": 427.21847794410866,
+            "height": 427.21847794410866,
+            "x": 608.706022436103,
+            "y": 129.42401540567022
+          },
+          "rotate": 0,
+          "scale": 0.8544369558882172,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790665657_d516a88a-627a-42e3-9909-c45cf834c943.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790665657_d516a88a-627a-42e3-9909-c45cf834c943.png",
+            "boxSize": {
+              "width": 750.1875468867219,
+              "height": 500.00000000000006
+            },
+            "position": {
+              "x": -228.54942045007286,
+              "y": 0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_2",
+      "name": "College Admission Promo",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "education",
+        "admissions",
+        "college"
+      ],
+      "description": "A promotional post for college admissions open for 2027.",
+      "canvas_size": {
+        "width": 1080.0,
+        "height": 1080.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-social/user-image/1790665269_38eedc07-b257-4750-82f1-9d752663ca09.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Create a minimalistic white background with two small teal icons in the lower-left corner. The first icon is a phone symbol, positioned at approximately 5% across and 85% down, and the second icon is a globe symbol, positioned at approximately 5% across and 90% down. Ensure the icons are small and unobtrusive, maintaining a clean and open design. The style should be modern and simple, with no additional elements or textures. A separate round photo layer covers the lower-right of the frame (about 46–98% across, 44–97% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. A separate round photo layer covers the upper-right of the frame (about 56–96% across, 12–52% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790665269_38eedc07-b257-4750-82f1-9d752663ca09.png",
+        "notes": "Leave the upper-right and lower-right areas empty for separate round photo layers. Text fixed in black sits in the upper-left of the frame (about 5–37% across, 15–28% down); the middle-left of the frame (about 5–42% across, 37–45% down); the middle-left of the frame (about 5–42% across, 47–62% down); the lower-left of the frame (about 12–45% across, 84–88% down), so there the background must stay a light, calm tone that it reads clearly on — never dark or busy, even when a brief asks for a moody palette. Text fixed in dark (rgb(5, 100, 120)) sits in the upper-left of the frame (about 5–47% across, 25–38% down), so there the background must stay a light, calm tone that it reads clearly on — never dark or busy, even when a brief asks for a moody palette. The photo frames are separate layers; a regenerated background must not contain its own circles, rings or photos under them."
+      },
+      "text_layer_count": 7,
+      "slots": [
+        {
+          "layer_id": "d8eabf35-ad99-4b0c-bd6c-d3d6af3e1144",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "COLLEGE",
+          "max_chars": 10,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 83.784844,
+          "position": {
+            "x": 55.43090384376072,
+            "y": 160.25173232183317
+          },
+          "box_size": {
+            "x": 55.43090384376067,
+            "y": 175.4924785456023,
+            "width": 418.1709714271873,
+            "height": 139.64339438959982
+          },
+          "image": null,
+          "notes": "Subhead, single word, uppercase. Keep to one line for emphasis."
+        },
+        {
+          "layer_id": "9cc63db2-cd83-4c6e-85e0-ddb435630e45",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "ADMISSION",
+          "max_chars": 12,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 100.0,
+          "position": {
+            "x": 55.43090384376075,
+            "y": 273.03325437772463
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 140.0
+          },
+          "image": null,
+          "notes": "Main headline, single word, uppercase. Must stay on one line for impact."
+        },
+        {
+          "layer_id": "07c009e0-45bc-46ef-93c4-ec4d76d034fd",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "OPEN FOR 2027",
+          "max_chars": 15,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 55.43090384376071,
+            "y": 394.7443589092017
+          },
+          "box_size": {
+            "x": 55.43090384376069,
+            "y": 428.27400060149375,
+            "width": 508.86765635465116,
+            "height": 90.1404759520956
+          },
+          "image": null,
+          "notes": "Secondary headline, short phrase. Keep to one line for clarity."
+        },
+        {
+          "layer_id": "c622b8fb-88b4-4e86-9c10-4f0a62dab5fa",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "All you have to do is make a decision about your future.",
+          "max_chars": 70,
+          "max_lines": 3,
+          "locked": false,
+          "font_size": 40.0,
+          "position": {
+            "x": 55.43090384376075,
+            "y": 506.7592537762309
+          },
+          "box_size": {
+            "x": 55.43090384376073,
+            "y": 540.2888954685229,
+            "width": 450.95282070432853,
+            "height": 168.0
+          },
+          "image": null,
+          "notes": "Body text, informative sentence. Can wrap to three lines as currently set."
+        },
+        {
+          "layer_id": "611e185c-6898-434a-bfab-a8129d3da1c5",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 55.43090384376078,
+            "y": 714.3851939580308
+          },
+          "box_size": {
+            "width": 324.0,
+            "height": 92.34065739870937,
+            "x": 55.430903843760774,
+            "y": 702.1925969790154
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "5f3fff38-4310-475b-8fb2-c8b314a78b0b",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "GET STARTED",
+          "max_chars": 12,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 68.15822461044209,
+            "y": 734.1134601983046
+          },
+          "box_size": {
+            "x": 55.430903843760746,
+            "y": 729.6259401817998,
+            "width": 298.54535846663737,
+            "height": 52.884124918161966
+          },
+          "image": null,
+          "notes": "Call to action button, imperative phrase. Keep to one line for button fit."
+        },
+        {
+          "layer_id": "0479d632-a82b-4f65-8c62-be8b6f856e8a",
+          "resolved_name": "ImageLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "font_size": null,
+          "position": {
+            "x": 55.43090384376072,
+            "y": 34.18218379314547
+          },
+          "box_size": {
+            "width": 144.72555928406123,
+            "height": 117.3758472933725,
+            "x": 55.43090384376072,
+            "y": 34.18218379314547
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790664810_afe5329b-a42c-4cf4-834c-ae933b78d19b.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "e4415280-35fa-4302-a30f-4182d4043ad1",
+          "resolved_name": "TextLayer",
+          "role": "phone",
+          "editable": true,
+          "default_text": "123-456-7890",
+          "max_chars": 15,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 32.0,
+          "position": {
+            "x": 124.74553424103749,
+            "y": 851.2001184334131
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 45.0
+          },
+          "image": null,
+          "notes": "Contact phone number, single line. Must stay on one line for readability."
+        },
+        {
+          "layer_id": "d5b9d4ac-a1ce-4bbc-93b2-0749f4498397",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.yourwebsite.com",
+          "max_chars": 25,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 32.0,
+          "position": {
+            "x": 124.74553424103749,
+            "y": 909.1149540837357
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 45.0
+          },
+          "image": null,
+          "notes": "Website URL, single line. Must stay on one line for clarity."
+        },
+        {
+          "layer_id": "31805d17-f293-417e-84e5-18c0fd06964e",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 473.60187527094797,
+            "y": 456.81658277633267
+          },
+          "box_size": {
+            "width": 607.4778797621057,
+            "height": 607.4778797621057,
+            "x": 454.2037311188456,
+            "y": 343.0332543777246
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "686e7d31-b5c1-4ba6-b0b2-b07f03203dea",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 493.6241435506086,
+            "y": 476.83885105599325
+          },
+          "box_size": {
+            "width": 567.4333432027844,
+            "height": 567.4333432027844,
+            "x": 507.3408151520008,
+            "y": 490.5555226573855
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a student holding books and a pen (this template: a young woman in a plaid shirt), captured from a slightly elevated angle, with soft, even lighting to highlight facial features and details, styled casually with a focus on the upper body, framed to fit well within a circular mask. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790665656_d0667c02-6541-4997-a94d-2e40aa042932.png",
+            "notes": "The subject is positioned in the lower-right corner, cropped by a circular mask, requiring the image to be centered on the upper body and face to ensure it fits well within the mask. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later without exposing hard edges."
+        },
+        {
+          "layer_id": "f4b9bf0d-b672-4ff1-b25d-b048df686f57",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 591.7319034011963,
+            "y": 112.44989637076367
+          },
+          "box_size": {
+            "width": 461.1667160139219,
+            "height": 461.1667160139219,
+            "x": 610.7685912848701,
+            "y": 151.74038712703594
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "8405e4af-43f3-4064-bfdd-f61904a44d28",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 608.706022436103,
+            "y": 129.42401540567022
+          },
+          "box_size": {
+            "width": 427.21847794410866,
+            "height": 427.21847794410866,
+            "x": 608.706022436103,
+            "y": 129.42401540567022
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a person holding a book (this template: a woman holding a brochure), captured from a slightly elevated angle, with soft natural lighting, styled in casual attire, and framed to fill a circular mask in the upper-right corner of the image. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790665657_d516a88a-627a-42e3-9909-c45cf834c943.png",
+            "notes": "The subject is positioned to fit within a circular mask in the upper-right of the frame, requiring careful attention to composition and balance to ensure the subject's face and the book are clearly visible and centered within the mask. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later without exposing hard edges."
+        }
+      ]
+    }
+  }
+]

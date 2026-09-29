@@ -1,0 +1,941 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": null,
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "baa53e6a-b223-4017-8ae4-e16708807267",
+          "e32ab6fe-7cd5-4ed5-847f-02d7b7e8f860",
+          "dfce08ec-c932-4062-9396-7797f67985d2",
+          "5d303771-7027-480f-946d-6d56af14933b",
+          "1b1ccd59-1ca3-43c5-bba5-23920d70ece1",
+          "bdf3dbd3-760c-4aba-8a62-e830ac779c8c",
+          "bd7296e4-c600-4b71-a9e9-9515cae1c9d2",
+          "d9d146f9-63a2-497c-9e53-6b38b1f9df57"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "#fff",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790664717_7f4385c1-6168-4a28-8059-20cf6fa0fca6.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790664717_7f4385c1-6168-4a28-8059-20cf6fa0fca6.png",
+            "boxSize": {
+              "width": 1080,
+              "height": 1080
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "baa53e6a-b223-4017-8ae4-e16708807267": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(58, 38, 27)",
+                  "fontFamily": "Archivo Black",
+                  "fontSize": "68px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(58, 38, 27)"
+                        }
+                      }
+                    ],
+                    "text": "digital marketing agency"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Archivo Black",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYuP_x7yx3A.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(58, 38, 27)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 286
+          },
+          "position": {
+            "x": 82.86424704654506,
+            "y": 233.40731419592495
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e32ab6fe-7cd5-4ed5-847f-02d7b7e8f860": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(58, 38, 27)",
+                  "fontFamily": "Montserrat",
+                  "fontSize": "32px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(58, 38, 27)"
+                        }
+                      }
+                    ],
+                    "text": "The Best Solution For Growing Your Business"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCvC70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCvC70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.9317961537136226,
+          "colors": [
+            "rgb(58, 38, 27)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 88.96054553605275,
+            "y": 577.3221498462476,
+            "width": 499.7232086203897,
+            "height": 83.86165383422603
+          },
+          "position": {
+            "x": 82.86424704654505,
+            "y": 549.8888066434631
+          },
+          "fontSizes": [
+            32
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "dfce08ec-c932-4062-9396-7797f67985d2": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "ImageLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790664810_afe5329b-a42c-4cf4-834c-ae933b78d19b.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790664810_afe5329b-a42c-4cf4-834c-ae933b78d19b.png",
+            "boxSize": {
+              "width": 146.1460560194805,
+              "height": 118.52790370083854
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "position": {
+            "x": 82.86424704654507,
+            "y": 55.519228506422245
+          },
+          "boxSize": {
+            "width": 146.1460560194805,
+            "height": 118.52790370083854,
+            "x": 82.86424704654509,
+            "y": 67.71182548543754
+          },
+          "rotate": 0
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "5d303771-7027-480f-946d-6d56af14933b": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 82.86424704654507,
+            "y": 661.4778797621057
+          },
+          "boxSize": {
+            "width": 324,
+            "height": 80.14806041969405,
+            "x": 378,
+            "y": 621.851939580306
+          },
+          "rotate": 0,
+          "color": "rgb(58, 38, 27)",
+          "scale": 5.0625,
+          "roundedCorners": 68
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1b1ccd59-1ca3-43c5-bba5-23920d70ece1": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Montserrat",
+                  "fontSize": "68px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0.122,
+                  "textTransform": "uppercase",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "join us"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCvC70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCvC70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.5794096145673393,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 49.25613138516873,
+            "y": 669.7103763485335,
+            "width": 310.7379554456526,
+            "height": 55.043913383897234
+          },
+          "position": {
+            "x": 89.49526932371879,
+            "y": 674.0299532800041
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "bdf3dbd3-760c-4aba-8a62-e830ac779c8c": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Montserrat",
+                  "fontSize": "36.37537px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "+1234 5678 910"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCvC70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCvC70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.8522249997128493,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 174.30872438915975,
+            "y": 967.6742374683198,
+            "width": 457.04911919383625,
+            "height": 43.46347498535531
+          },
+          "position": {
+            "x": 171.70866517245327,
+            "y": 968.3424193754955
+          },
+          "fontSizes": [
+            36.37537
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "bd7296e4-c600-4b71-a9e9-9515cae1c9d2": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Montserrat",
+                  "fontSize": "45.789015px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "www.yourwebsite.com"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCvC70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCvC70w-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.6895571389457972,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 689.4459467525561,
+            "y": 967.6742374683198,
+            "width": 369.81018286859654,
+            "height": 44.13165689253102
+          },
+          "position": {
+            "x": 689.4459467525561,
+            "y": 967.6742374683198
+          },
+          "fontSizes": [
+            45.789015
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d9d146f9-63a2-497c-9e53-6b38b1f9df57": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 56 0 L 294 0 Q 350 0 350 56 L 350 444 Q 350 500 294 500 L 56 500 Q 0 500 0 444 L 0 56 Q 0 0 56 0 Z",
+          "position": {
+            "x": 567.3467094431655,
+            "y": 140.66295528672322
+          },
+          "boxSize": {
+            "width": 447.80261770486254,
+            "height": 639.7180252926609,
+            "x": 604.3725904082589,
+            "y": 149.80740302098468
+          },
+          "rotate": 0,
+          "scale": 1.2794360505853215,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790665049_dbddece1-53fc-4188-b32b-f1e6d6daf096.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790665049_dbddece1-53fc-4188-b32b-f1e6d6daf096.png",
+            "boxSize": {
+              "width": 750,
+              "height": 500
+            },
+            "position": {
+              "x": -153.64568447890647,
+              "y": 0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_1",
+      "name": "Digital Marketing Promo",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "business",
+        "marketing",
+        "agency"
+      ],
+      "description": "A social media post template for promoting a digital marketing agency.",
+      "canvas_size": {
+        "width": 1080.0,
+        "height": 1080.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-social/user-image/1790664717_7f4385c1-6168-4a28-8059-20cf6fa0fca6.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Create a background with a clean, white upper section occupying about 70% of the canvas height. Below, a textured brown paper strip runs horizontally, covering the bottom 30% of the canvas. The edge where the white and brown sections meet is irregular and torn, giving a natural, organic feel. Place a small white phone icon at the bottom-left corner (about 5% across, 95% down) and a white globe icon at the bottom-right corner (about 95% across, 95% down). The style is minimalistic and modern, with a focus on clean lines and simple elements. Lighting is soft and even, with no shadows or gradients. A separate round photo layer covers the middle-right of the frame (about 53–94% across, 13–72% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790664717_7f4385c1-6168-4a28-8059-20cf6fa0fca6.png",
+        "notes": "Ensure the middle-right section (about 53–94% across, 13–72% down) remains clear for a round photo layer. Text fixed in dark (rgb(58, 38, 27)) sits in the upper-left of the frame (about 8–51% across, 22–48% down); the middle-left of the frame (about 8–50% across, 51–59% down), so there the background must stay a light, calm tone that it reads clearly on — never dark or busy, even when a brief asks for a moody palette. Text fixed in white sits in the lower-left of the frame (about 16–37% across, 90–94% down); the lower-right of the frame (about 64–98% across, 90–94% down), so there the background must stay a saturated, medium-to-dark tone that it reads clearly on — never pastel, pale, cream or near-white, even when a brief asks for soft or light tones (put those elsewhere and in the accents instead). The photo frames are separate layers; a regenerated background must not contain its own circles, rings or photos under them."
+      },
+      "text_layer_count": 5,
+      "slots": [
+        {
+          "layer_id": "baa53e6a-b223-4017-8ae4-e16708807267",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "digital marketing agency",
+          "max_chars": 30,
+          "max_lines": 3,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 82.86424704654506,
+            "y": 233.40731419592495
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 286.0
+          },
+          "image": null,
+          "notes": "Headline for the agency's main service. Must be impactful and concise. Three lines maximum, each word on a separate line to maintain emphasis."
+        },
+        {
+          "layer_id": "e32ab6fe-7cd5-4ed5-847f-02d7b7e8f860",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "The Best Solution For Growing Your Business",
+          "max_chars": 45,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 32.0,
+          "position": {
+            "x": 82.86424704654505,
+            "y": 549.8888066434631
+          },
+          "box_size": {
+            "x": 88.96054553605275,
+            "y": 577.3221498462476,
+            "width": 499.7232086203897,
+            "height": 83.86165383422603
+          },
+          "image": null,
+          "notes": "Body text explaining the agency's value proposition. Should be clear and persuasive. Two lines maximum, with a natural break for readability."
+        },
+        {
+          "layer_id": "dfce08ec-c932-4062-9396-7797f67985d2",
+          "resolved_name": "ImageLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "font_size": null,
+          "position": {
+            "x": 82.86424704654507,
+            "y": 55.519228506422245
+          },
+          "box_size": {
+            "width": 146.1460560194805,
+            "height": 118.52790370083854,
+            "x": 82.86424704654509,
+            "y": 67.71182548543754
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790664810_afe5329b-a42c-4cf4-834c-ae933b78d19b.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "5d303771-7027-480f-946d-6d56af14933b",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 82.86424704654507,
+            "y": 661.4778797621057
+          },
+          "box_size": {
+            "width": 324.0,
+            "height": 80.14806041969405,
+            "x": 378.0,
+            "y": 621.851939580306
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "1b1ccd59-1ca3-43c5-bba5-23920d70ece1",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "join us",
+          "max_chars": 10,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 89.49526932371879,
+            "y": 674.0299532800041
+          },
+          "box_size": {
+            "x": 49.25613138516873,
+            "y": 669.7103763485335,
+            "width": 310.7379554456526,
+            "height": 55.043913383897234
+          },
+          "image": null,
+          "notes": "Subhead or call to action. Short and direct, encouraging engagement. One line only to maintain focus."
+        },
+        {
+          "layer_id": "bdf3dbd3-760c-4aba-8a62-e830ac779c8c",
+          "resolved_name": "TextLayer",
+          "role": "phone",
+          "editable": true,
+          "default_text": "+1234 5678 910",
+          "max_chars": 16,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 36.37537,
+          "position": {
+            "x": 171.70866517245327,
+            "y": 968.3424193754955
+          },
+          "box_size": {
+            "x": 174.30872438915975,
+            "y": 967.6742374683198,
+            "width": 457.04911919383625,
+            "height": 43.46347498535531
+          },
+          "image": null,
+          "notes": "Phone number for contact. Should be straightforward and easy to dial. One line only to maintain simplicity."
+        },
+        {
+          "layer_id": "bd7296e4-c600-4b71-a9e9-9515cae1c9d2",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.yourwebsite.com",
+          "max_chars": 25,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 45.789015,
+          "position": {
+            "x": 689.4459467525561,
+            "y": 967.6742374683198
+          },
+          "box_size": {
+            "x": 689.4459467525561,
+            "y": 967.6742374683198,
+            "width": 369.81018286859654,
+            "height": 44.13165689253102
+          },
+          "image": null,
+          "notes": "Website URL for contact. Must be clear and easy to read. One line only to ensure clarity."
+        },
+        {
+          "layer_id": "d9d146f9-63a2-497c-9e53-6b38b1f9df57",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 567.3467094431655,
+            "y": 140.66295528672322
+          },
+          "box_size": {
+            "width": 447.80261770486254,
+            "height": 639.7180252926609,
+            "x": 604.3725904082589,
+            "y": 149.80740302098468
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a professional person at a desk (this template: a woman with glasses and a laptop), captured from a slightly elevated angle, with soft, natural lighting. The scene is styled with modern office elements, and the subject is framed to fit well within a shaped mask on the right side of the image. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790665049_dbddece1-53fc-4188-b32b-f1e6d6daf096.png",
+            "notes": "The subject is positioned in the middle-right of the frame, requiring the image to be composed so that the person and desk elements fill the shaped mask effectively. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later without exposing hard edges."
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,694 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": null,
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "000a97f2-0362-4889-b30d-06bcc4359e53",
+          "32830b1f-6fbc-435a-9169-00708f09a04c",
+          "e7aefcdb-ece9-492e-9a0b-cf535451245d",
+          "57dc7939-6320-41b8-a993-9618c794fa43",
+          "01220290-b562-42c5-aa28-e5c16af25fb5",
+          "8925a3df-7188-4178-b4de-996de7d16974"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "#fff",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790678343_ac90fd8d-9e16-48d4-9e1d-a01cf847263f.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790678343_ac90fd8d-9e16-48d4-9e1d-a01cf847263f.png",
+            "boxSize": {
+              "width": 1080,
+              "height": 1080
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "000a97f2-0362-4889-b30d-06bcc4359e53": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 0 0 L 500 0 L 500 500 L 0 500 Z",
+          "position": {
+            "x": 165.9699164907412,
+            "y": 165.9699164907412
+          },
+          "boxSize": {
+            "width": 748.0601670185175,
+            "height": 748.0601670185175,
+            "x": 270,
+            "y": 270
+          },
+          "rotate": 0,
+          "scale": 1.496120334037035,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790678394_034a055f-dc92-4bdd-ac43-074f8a421ee3.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790678394_034a055f-dc92-4bdd-ac43-074f8a421ee3.png",
+            "boxSize": {
+              "width": 504.48601502046944,
+              "height": 504.48601502046944
+            },
+            "position": {
+              "x": 0,
+              "y": -4.486015020469447
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "32830b1f-6fbc-435a-9169-00708f09a04c": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Alex Brush",
+                  "fontSize": "68px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "Coming Soon"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Alex Brush",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/alexbrush/v23/SZc83FzrJKuqFbwMKk6EtUL57DtOmCc.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1.9798651303244341,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 353.8645863452217,
+          "boxSize": {
+            "x": 96.25887106932313,
+            "y": 133.42842143578417,
+            "width": 824.7810138442019,
+            "height": 188.08718738082126
+          },
+          "position": {
+            "x": 127.60949307789906,
+            "y": 62.02858909051286
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e7aefcdb-ece9-492e-9a0b-cf535451245d": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Roboto",
+                  "fontSize": "30px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0.205,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "123 Anywhere St., Any City"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 42
+          },
+          "position": {
+            "x": 271.8495002212822,
+            "y": 961.6109980552549
+          },
+          "fontSizes": [
+            30
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "57dc7939-6320-41b8-a993-9618c794fa43": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Roboto",
+                  "fontSize": "30px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0.205,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "www.yourwebsite.com"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 270,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 42
+          },
+          "position": {
+            "x": -169.23011543069873,
+            "y": 519
+          },
+          "fontSizes": [
+            30
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "01220290-b562-42c5-aa28-e5c16af25fb5": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Roboto",
+                  "fontSize": "30px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0.205,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "youremail@gmail.com"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Roboto",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Bold.woff2"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ],
+                  "style": "Italic"
+                },
+                {
+                  "urls": [
+                    "https://lidojs-fonts.s3.us-east-2.amazonaws.com/Roboto/Roboto-Regular.woff2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 90,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 42
+          },
+          "position": {
+            "x": 712.9291158732631,
+            "y": 519
+          },
+          "fontSizes": [
+            30
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "8925a3df-7188-4178-b4de-996de7d16974": {
+        "type": {
+          "type": null,
+          "resolvedName": "ImageLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790678041_45eb5bdf-c25f-44bd-8fb3-59b355ddce06.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790678041_45eb5bdf-c25f-44bd-8fb3-59b355ddce06.png",
+            "boxSize": {
+              "width": 160.58330630601395,
+              "height": 130.2368547206255
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "position": {
+            "x": 18.628731195012094,
+            "y": 18.491528857132522
+          },
+          "boxSize": {
+            "width": 160.58330630601395,
+            "height": 130.2368547206255,
+            "x": 108,
+            "y": 189.63779527559052
+          },
+          "rotate": 0
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_5",
+      "name": "Restaurant Opening Announcement",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "restaurant",
+        "announcement",
+        "opening"
+      ],
+      "description": "A social media post template for announcing the opening of a new restaurant.",
+      "canvas_size": {
+        "width": 1080.0,
+        "height": 1080.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-social/user-image/1790678343_ac90fd8d-9e16-48d4-9e1d-a01cf847263f.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Create a background with a solid dark brown color. The canvas is 1080x1080 pixels. Leave a central square area (approximately 15–85% across and 15–85% down) empty for a separate photo layer. The background should be plain and consistent, with no additional elements or textures. Ensure the style is minimalistic and modern, suitable for overlaying text and images. A separate photo layer covers the center of the frame (about 15–85% across, 15–85% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790678343_ac90fd8d-9e16-48d4-9e1d-a01cf847263f.png",
+        "notes": "Ensure the central area remains clear for the photo layer. Text fixed in white sits in the upper-center of the frame (about 22–78% across, 6–23% down); the lower-center of the frame (about 26–74% across, 89–93% down); the middle-left of the frame (about 0–29% across, 48–52% down); the middle-right of the frame (about 72–100% across, 48–52% down), so there the background must stay a saturated, medium-to-dark tone that it reads clearly on — never pastel, pale, cream or near-white, even when a brief asks for soft or light tones (put those elsewhere and in the accents instead). The photo frames are separate layers; a regenerated background must not contain its own circles, rings or photos under them."
+      },
+      "text_layer_count": 4,
+      "slots": [
+        {
+          "layer_id": "000a97f2-0362-4889-b30d-06bcc4359e53",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 165.9699164907412,
+            "y": 165.9699164907412
+          },
+          "box_size": {
+            "width": 748.0601670185175,
+            "height": 748.0601670185175,
+            "x": 270.0,
+            "y": 270.0
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a gourmet dessert and cocktail pairing (this template: a chocolate dessert with a cocktail), shot from a slightly elevated angle, with warm ambient lighting, styled elegantly on a wooden table, and framed to fill the center of the image. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790678394_034a055f-dc92-4bdd-ac43-074f8a421ee3.png",
+            "notes": "The subject is centered and cropped by its frame, requiring a balanced composition with both elements clearly visible and aesthetically pleasing. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "32830b1f-6fbc-435a-9169-00708f09a04c",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Coming Soon",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 127.60949307789906,
+            "y": 62.02858909051286
+          },
+          "box_size": {
+            "x": 96.25887106932313,
+            "y": 133.42842143578417,
+            "width": 824.7810138442019,
+            "height": 188.08718738082126
+          },
+          "image": null,
+          "notes": "Headline in script font. Keep to a short, impactful phrase. Must stay on one line."
+        },
+        {
+          "layer_id": "e7aefcdb-ece9-492e-9a0b-cf535451245d",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "123 Anywhere St., Any City",
+          "max_chars": 30,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 30.0,
+          "position": {
+            "x": 271.8495002212822,
+            "y": 961.6109980552549
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 42.0
+          },
+          "image": null,
+          "notes": "Subhead with address. Fits on one line. Part of contact information trio."
+        },
+        {
+          "layer_id": "57dc7939-6320-41b8-a993-9618c794fa43",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.yourwebsite.com",
+          "max_chars": 30,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 30.0,
+          "position": {
+            "x": -169.23011543069873,
+            "y": 519.0
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 42.0
+          },
+          "image": null,
+          "notes": "Website URL. Ensure it fits on one line. Part of contact information trio."
+        },
+        {
+          "layer_id": "01220290-b562-42c5-aa28-e5c16af25fb5",
+          "resolved_name": "TextLayer",
+          "role": "email",
+          "editable": true,
+          "default_text": "youremail@gmail.com",
+          "max_chars": 30,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 30.0,
+          "position": {
+            "x": 712.9291158732631,
+            "y": 519.0
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 42.0
+          },
+          "image": null,
+          "notes": "Email address. Must fit on one line. Part of contact information trio."
+        },
+        {
+          "layer_id": "8925a3df-7188-4178-b4de-996de7d16974",
+          "resolved_name": "ImageLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 18.628731195012094,
+            "y": 18.491528857132522
+          },
+          "box_size": {
+            "width": 160.58330630601395,
+            "height": 130.2368547206255,
+            "x": 108.0,
+            "y": 189.63779527559052
+          },
+          "image": null,
+          "notes": null
+        }
+      ]
+    }
+  }
+]

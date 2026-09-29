@@ -493,11 +493,13 @@ async def _draft_background(meta: LidoTemplateMeta, layers: dict,
     for area in empty_areas:
         prompt = _append(prompt, f" IMPORTANT: leave {area} empty of any dish, product, person or "
                    "other subject — that area is reserved for a separate transparent "
-                   "cutout composited on top; keep only background surface there.")
+                   "cutout composited on top; keep only background surface there, as if "
+                   "the canvas physically ended at that boundary.")
     for area, shape in covered_areas:
         prompt = _append(prompt, f" A separate {'round ' if shape else ''}photo layer covers {area}: draw "
                    "no circle, ring, frame, shadow or photo there — keep plain background "
-                   "surface.")
+                   "surface, as if the canvas physically ended at that boundary; do not "
+                   "let the scene, gradient or lighting reach into it even faded.")
     if "no text" not in prompt.lower():
         prompt = _append(prompt, _NO_TEXT_CLAUSE)
 

@@ -1,0 +1,1158 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": null,
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "7986482a-c1ae-47aa-b736-ba62ccab8668",
+          "2a22e7e5-8456-433e-919f-5d5c32669a2a",
+          "0b74ba97-ca58-4e12-b02f-0d96d3544409",
+          "d5514e2c-0915-4453-ac89-8cc85901794e",
+          "a01d09f8-24d0-492d-86dd-82ff6fa2deba",
+          "19fceb0c-2c52-4917-a3a7-b8ef8a1b0a13",
+          "048932b3-ec0a-413f-ae54-3598c94797d1",
+          "b3ef4dd2-29c8-4610-bd75-59894dfe086b",
+          "1d4fec72-c969-4ffb-bd92-86d56c66e92c",
+          "643f29e9-f234-4b03-8e97-85537d43cad5",
+          "e153ebcd-b946-4f40-b277-c18a12f74a08"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "#fff",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790677535_5400e7fc-ce52-426d-8c50-e7dc6515c430.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790677535_5400e7fc-ce52-426d-8c50-e7dc6515c430.png",
+            "boxSize": {
+              "width": 1080,
+              "height": 1080
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "7986482a-c1ae-47aa-b736-ba62ccab8668": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(176, 157, 93)",
+                  "fontFamily": "Aguafina Script",
+                  "fontSize": "100px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(176, 157, 93)"
+                        }
+                      }
+                    ],
+                    "text": "Discount"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Aguafina Script",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aguafinascript/v24/If2QXTv_ZzSxGIO30LemWEOmt1bHqs4pgicOrg.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1.3698656711871011,
+          "colors": [
+            "rgb(176, 157, 93)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 89.53959814657972,
+            "y": 53.16302286915959,
+            "width": 431.696957383426,
+            "height": 191.78119396619414
+          },
+          "position": {
+            "x": 76.53431252201014,
+            "y": 3.908903959103366
+          },
+          "fontSizes": [
+            100
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "2a22e7e5-8456-433e-919f-5d5c32669a2a": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 0 0 L 350 0 L 350 500 L 0 500 Z",
+          "position": {
+            "x": 477.1465153816833,
+            "y": -20.63687562037459
+          },
+          "boxSize": {
+            "width": 778.4840471804939,
+            "height": 1112.1200674007057,
+            "x": 477.14651538168334,
+            "y": -13.925257329454666
+          },
+          "rotate": 0,
+          "scale": 2.2242401348014114,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790677923_5b19d12d-d2a4-4062-9cbb-64b73c0d40b5.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790677923_5b19d12d-d2a4-4062-9cbb-64b73c0d40b5.png",
+            "boxSize": {
+              "width": 500,
+              "height": 500
+            },
+            "position": {
+              "x": -129.31478703505405,
+              "y": 0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "0b74ba97-ca58-4e12-b02f-0d96d3544409": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 76.53431252201018,
+            "y": 149.77272158354052
+          },
+          "boxSize": {
+            "width": 413.66060757772254,
+            "height": 587.0044488946528,
+            "x": 76.53431252201018,
+            "y": 149.77272158354052
+          },
+          "rotate": 0,
+          "color": "rgb(255, 255, 255)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d5514e2c-0915-4453-ac89-8cc85901794e": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 0 0 L 350 0 L 350 500 L 0 500 Z",
+          "position": {
+            "x": 85.99629293695068,
+            "y": 162.81454181346592
+          },
+          "boxSize": {
+            "width": 391.15022244473266,
+            "height": 558.7860320639038,
+            "x": 85.99629293695068,
+            "y": 162.81454181346592
+          },
+          "rotate": 0,
+          "scale": 1.1175720641278077,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790677923_e707bcf3-da5d-44dd-9e4c-5cb904ebe2d1.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790677923_e707bcf3-da5d-44dd-9e4c-5cb904ebe2d1.png",
+            "boxSize": {
+              "width": 499.99999999999994,
+              "height": 499.99999999999994
+            },
+            "position": {
+              "x": -75,
+              "y": 0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a01d09f8-24d0-492d-86dd-82ff6fa2deba": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(0, 0, 0)",
+                  "fontFamily": "Poppins",
+                  "fontSize": "137.942934px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Get "
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.36246873028903226,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 59.662356920305,
+            "y": 794.3573788449992,
+            "width": 200.50789868676554,
+            "height": 69.95646494578322
+          },
+          "position": {
+            "x": 82.8567176241059,
+            "y": 758.4931358139102
+          },
+          "fontSizes": [
+            137.942934
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "19fceb0c-2c52-4917-a3a7-b8ef8a1b0a13": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(0, 0, 0)",
+                  "fontFamily": "Poppins",
+                  "fontSize": "90.22377px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "30% Off"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.5541776842894223,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 85.99629293695071,
+            "y": 758.4931358139102,
+            "width": 297.20604601684215,
+            "height": 69.82638822046721
+          },
+          "position": {
+            "x": 211.02522388859404,
+            "y": 758.6232125392262
+          },
+          "fontSizes": [
+            90.22377
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "048932b3-ec0a-413f-ae54-3598c94797d1": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(0, 0, 0)",
+                  "fontFamily": "Poppins",
+                  "fontSize": "32px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Sale is on now:"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 45
+          },
+          "position": {
+            "x": 91.4777471182974,
+            "y": 868.6876826338606
+          },
+          "fontSizes": [
+            32
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b3ef4dd2-29c8-4610-bd75-59894dfe086b": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "left",
+                  "color": "rgb(0, 0, 0)",
+                  "fontFamily": "Poppins",
+                  "fontSize": "32px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ],
+                    "text": "www.yourwebsite.com"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 45
+          },
+          "position": {
+            "x": 91.47774711829734,
+            "y": 955.3596032923256
+          },
+          "fontSizes": [
+            32
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1d4fec72-c969-4ffb-bd92-86d56c66e92c": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "",
+                  "color": "",
+                  "fontFamily": "Poppins",
+                  "fontSize": "32px",
+                  "lineHeight": null,
+                  "letterSpacing": null,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "+123-456-7890"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 45
+          },
+          "position": {
+            "x": 91.47774711829734,
+            "y": 913.6876826338606
+          },
+          "fontSizes": [
+            32
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "643f29e9-f234-4b03-8e97-85537d43cad5": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 881.3713718189942,
+            "y": -61.193719165503296
+          },
+          "boxSize": {
+            "width": 256.8838170908008,
+            "height": 256.8838170908008,
+            "x": 888.0829901099141,
+            "y": -40.37632894997548
+          },
+          "rotate": 0,
+          "color": "rgb(176, 157, 93)",
+          "scale": 4.013809642043763
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e153ebcd-b946-4f40-b277-c18a12f74a08": {
+        "type": {
+          "type": null,
+          "resolvedName": "ImageLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790678041_45eb5bdf-c25f-44bd-8fb3-59b355ddce06.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790678041_45eb5bdf-c25f-44bd-8fb3-59b355ddce06.png",
+            "boxSize": {
+              "width": 148.17007053494396,
+              "height": 120.1694272842459
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "position": {
+            "x": 916.7500040558506,
+            "y": 19.53586686291471
+          },
+          "boxSize": {
+            "width": 148.17007053494396,
+            "height": 120.1694272842459,
+            "x": 108,
+            "y": 189.63779527559052
+          },
+          "rotate": 0,
+          "transparency": 1
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_4",
+      "name": "Fashion Sale Promo",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "fashion",
+        "sale",
+        "discount"
+      ],
+      "description": "A promotional post template for a fashion sale offering a 30% discount.",
+      "canvas_size": {
+        "width": 1080.0,
+        "height": 1080.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-social/user-image/1790677535_5400e7fc-ce52-426d-8c50-e7dc6515c430.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Create a minimalist background with a soft, light beige color (this template: #f5f3e9) filling the entire canvas. The design should be simple and clean, with a subtle horizontal line in a light gold color (this template: #b09d5d) positioned near the bottom of the frame, approximately 8% from the bottom edge and spanning 20% of the width from the left edge. Ensure the background remains uncluttered to accommodate additional elements in the foreground. A separate photo layer covers the middle-right of the frame (about 44–100% across, 0–100% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. A separate photo layer covers the middle-left of the frame (about 8–44% across, 15–67% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790677535_5400e7fc-ce52-426d-8c50-e7dc6515c430.png",
+        "notes": "Ensure the left side of the frame (about 8–44% across, 15–67% down) remains clear for a photo layer. The middle-right of the frame (about 44–100% across, 0–100% down) must also stay clear for another photo layer. Text fixed in light (rgb(176, 157, 93)) sits in the upper-left of the frame (about 7–39% across, 0–18% down), so there the background must stay a saturated, medium-to-dark tone that it reads clearly on — never pastel, pale, cream or near-white, even when a brief asks for soft or light tones (put those elsewhere and in the accents instead). Text fixed in black sits in the lower-left of the frame (about 13–21% across, 70–77% down); the lower-left of the frame (about 24–43% across, 70–77% down); the lower-left of the frame (about 8–30% across, 80–85% down); the lower-left of the frame (about 8–42% across, 88–93% down), so there the background must stay a light, calm tone that it reads clearly on — never dark or busy, even when a brief asks for a moody palette. The photo frames are separate layers; a regenerated background must not contain its own circles, rings or photos under them."
+      },
+      "text_layer_count": 6,
+      "slots": [
+        {
+          "layer_id": "7986482a-c1ae-47aa-b736-ba62ccab8668",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Discount",
+          "max_chars": 8,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 100.0,
+          "position": {
+            "x": 76.53431252201014,
+            "y": 3.908903959103366
+          },
+          "box_size": {
+            "x": 89.53959814657972,
+            "y": 53.16302286915959,
+            "width": 431.696957383426,
+            "height": 191.78119396619414
+          },
+          "image": null,
+          "notes": "Script accent word for emphasis, typically a single word like 'Discount'. Keep to one line."
+        },
+        {
+          "layer_id": "2a22e7e5-8456-433e-919f-5d5c32669a2a",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 477.1465153816833,
+            "y": -20.63687562037459
+          },
+          "box_size": {
+            "width": 778.4840471804939,
+            "height": 1112.1200674007057,
+            "x": 477.14651538168334,
+            "y": -13.925257329454666
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a person posing in a fitted dress (this template: a beige knit dress), captured from a slightly elevated angle, with soft, even lighting to highlight textures, styled with minimal accessories, and framed to fill the middle-right of the composition, ensuring the subject is cropped by the frame. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790677923_5b19d12d-d2a4-4062-9cbb-64b73c0d40b5.png",
+            "notes": "The subject is positioned to the middle-right of the frame, requiring the image to be composed so that the person is prominently featured and cropped appropriately by the frame. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "0b74ba97-ca58-4e12-b02f-0d96d3544409",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 76.53431252201018,
+            "y": 149.77272158354052
+          },
+          "box_size": {
+            "width": 413.66060757772254,
+            "height": 587.0044488946528,
+            "x": 76.53431252201018,
+            "y": 149.77272158354052
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "d5514e2c-0915-4453-ac89-8cc85901794e",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 85.99629293695068,
+            "y": 162.81454181346592
+          },
+          "box_size": {
+            "width": 391.15022244473266,
+            "height": 558.7860320639038,
+            "x": 85.99629293695068,
+            "y": 162.81454181346592
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a portrait of a person (this template: a woman with long dark hair wearing a beige top), captured from a slightly elevated angle, with soft, diffused lighting to create a warm and inviting atmosphere. The styling is natural and minimalistic, with the subject's gaze directed towards the camera. The framing should allow the subject to fill the middle-left of the composition, ensuring the face is the focal point and cropped appropriately by the frame. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790677923_e707bcf3-da5d-44dd-9e4c-5cb904ebe2d1.png",
+            "notes": "The subject is positioned in the middle-left of the frame, requiring the image to have a balanced composition that draws attention to the face while maintaining the natural flow of the hair and clothing within the cropped area. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "a01d09f8-24d0-492d-86dd-82ff6fa2deba",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Get",
+          "max_chars": 3,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 137.942934,
+          "position": {
+            "x": 82.8567176241059,
+            "y": 758.4931358139102
+          },
+          "box_size": {
+            "x": 59.662356920305,
+            "y": 794.3573788449992,
+            "width": 200.50789868676554,
+            "height": 69.95646494578322
+          },
+          "image": null,
+          "notes": "Headline word, part of a two-part phrase with the next slot. Keep to one impactful word, uppercase."
+        },
+        {
+          "layer_id": "19fceb0c-2c52-4917-a3a7-b8ef8a1b0a13",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "30% Off",
+          "max_chars": 7,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 90.22377,
+          "position": {
+            "x": 211.02522388859404,
+            "y": 758.6232125392262
+          },
+          "box_size": {
+            "x": 85.99629293695071,
+            "y": 758.4931358139102,
+            "width": 297.20604601684215,
+            "height": 69.82638822046721
+          },
+          "image": null,
+          "notes": "Part of a two-part headline phrase with the previous slot. Short offer phrase, uppercase, one line."
+        },
+        {
+          "layer_id": "048932b3-ec0a-413f-ae54-3598c94797d1",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Sale is on now:",
+          "max_chars": 16,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 32.0,
+          "position": {
+            "x": 91.4777471182974,
+            "y": 868.6876826338606
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 45.0
+          },
+          "image": null,
+          "notes": "Introductory phrase for the sale, one line. Sets context for contact info below."
+        },
+        {
+          "layer_id": "b3ef4dd2-29c8-4610-bd75-59894dfe086b",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.yourwebsite.com",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 32.0,
+          "position": {
+            "x": 91.47774711829734,
+            "y": 955.3596032923256
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 45.0
+          },
+          "image": null,
+          "notes": "Website URL, keep to one line. Ensure it fits within the visible space."
+        },
+        {
+          "layer_id": "1d4fec72-c969-4ffb-bd92-86d56c66e92c",
+          "resolved_name": "TextLayer",
+          "role": "phone",
+          "editable": true,
+          "default_text": "+123-456-7890",
+          "max_chars": 13,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 32.0,
+          "position": {
+            "x": 91.47774711829734,
+            "y": 913.6876826338606
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 45.0
+          },
+          "image": null,
+          "notes": "Contact phone number, formatted with dashes. Keep to one line."
+        },
+        {
+          "layer_id": "643f29e9-f234-4b03-8e97-85537d43cad5",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 881.3713718189942,
+            "y": -61.193719165503296
+          },
+          "box_size": {
+            "width": 256.8838170908008,
+            "height": 256.8838170908008,
+            "x": 888.0829901099141,
+            "y": -40.37632894997548
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "e153ebcd-b946-4f40-b277-c18a12f74a08",
+          "resolved_name": "ImageLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 916.7500040558506,
+            "y": 19.53586686291471
+          },
+          "box_size": {
+            "width": 148.17007053494396,
+            "height": 120.1694272842459,
+            "x": 108.0,
+            "y": 189.63779527559052
+          },
+          "image": null,
+          "notes": null
+        }
+      ]
+    }
+  }
+]

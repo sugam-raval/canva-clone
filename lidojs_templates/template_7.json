@@ -1,0 +1,920 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": null,
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "fbec86d1-25cf-4903-86ab-71a21e141234",
+          "c06fdc7b-d92b-425e-8718-6d7e2e928176",
+          "5edaeaff-7beb-4cab-855a-fd5058bb034d",
+          "20c6ec69-bb00-448a-b1a0-0a4a0059adad",
+          "9a64fd58-cf87-428a-8ac7-65e5ae29982b",
+          "c46634a4-73fc-4570-ab10-d61fc75bad57",
+          "34677cef-2375-4984-836b-9ef094d0d894",
+          "807c445d-7c3f-4096-83c8-d460b40b1c50",
+          "b87608bb-435a-4021-8118-0f9db974172a",
+          "835dd1c9-ccdc-410f-b59b-693ec556b4a8"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "#fff",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790679392_5c1eccf0-33a4-4d45-ae53-4fee583a2a9d.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790679392_5c1eccf0-33a4-4d45-ae53-4fee583a2a9d.png",
+            "boxSize": {
+              "width": 1080,
+              "height": 1080
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "fbec86d1-25cf-4903-86ab-71a21e141234": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "AR One Sans",
+                  "fontSize": "68px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "Trusted"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "AR One Sans",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWqH6DW03no5mBF4.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWpj6DW03no5mBF4.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWn_9DW03no5mBF4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 95
+          },
+          "position": {
+            "x": 257.9837519427131,
+            "y": 99.04075026578586
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c06fdc7b-d92b-425e-8718-6d7e2e928176": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "AR One Sans",
+                  "fontSize": "68px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "Bussiness Loan"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "AR One Sans",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWqH6DW03no5mBF4.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWpj6DW03no5mBF4.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWn_9DW03no5mBF4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 258.42626363944237,
+            "y": 166.98651289038378,
+            "width": 636.9752739212345,
+            "height": 95
+          },
+          "position": {
+            "x": 207.64661476081372,
+            "y": 176.22436061136494
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "5edaeaff-7beb-4cab-855a-fd5058bb034d": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "AR One Sans",
+                  "fontSize": "28px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "Get the capital you need with our easy business loans."
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "AR One Sans",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWqH6DW03no5mBF4.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWpj6DW03no5mBF4.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWn_9DW03no5mBF4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 78
+          },
+          "position": {
+            "x": 258.42626363944237,
+            "y": 280.3817415268828
+          },
+          "fontSizes": [
+            28
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "20c6ec69-bb00-448a-b1a0-0a4a0059adad": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "octagon",
+          "position": {
+            "x": 245.44553875433166,
+            "y": 388.0674274363799
+          },
+          "boxSize": {
+            "width": 562.2624493276571,
+            "height": 562.2624493276571,
+            "x": 242.53224130560085,
+            "y": 388.0674274363799
+          },
+          "rotate": 0,
+          "color": "rgb(9, 85, 241)",
+          "scale": 8.785350770744643
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "9a64fd58-cf87-428a-8ac7-65e5ae29982b": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 146 0 L 354 0 L 500 146 L 500 354 L 354 500 L 146 500 L 0 354 L 0 146 Z",
+          "position": {
+            "x": 258.4262636394424,
+            "y": 399.19865210020834
+          },
+          "boxSize": {
+            "width": 540,
+            "height": 540
+          },
+          "rotate": 0,
+          "scale": 1.08,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790679620_55f75b9a-b5ae-425d-aedb-4666bead1bcc.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790679620_55f75b9a-b5ae-425d-aedb-4666bead1bcc.png",
+            "boxSize": {
+              "width": 749.9999999999999,
+              "height": 499.99999999999994
+            },
+            "position": {
+              "x": -124.99999999999997,
+              "y": 0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c46634a4-73fc-4570-ab10-d61fc75bad57": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 393.27273680312203,
+            "y": 971.9782187464132
+          },
+          "boxSize": {
+            "width": 270.30705367264073,
+            "height": 68.95850494504309,
+            "x": 378,
+            "y": 435.0487554728193
+          },
+          "rotate": 0,
+          "color": "rgb(9, 85, 241)",
+          "scale": 1.9688634440291004
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "34677cef-2375-4984-836b-9ef094d0d894": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "AR One Sans",
+                  "fontSize": "38px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "Call Now"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "AR One Sans",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWqH6DW03no5mBF4.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWpj6DW03no5mBF4.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWn_9DW03no5mBF4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 55
+          },
+          "position": {
+            "x": 257.98375194271324,
+            "y": 978.9574712189348
+          },
+          "fontSizes": [
+            38
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "807c445d-7c3f-4096-83c8-d460b40b1c50": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "AR One Sans",
+                  "fontSize": "33px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "www.yourwebsite.com"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "AR One Sans",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWqH6DW03no5mBF4.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWpj6DW03no5mBF4.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/aronesans/v6/TUZezwhrmbFp0Srr_tH6fv6RcUejHO_u7GF5aXfv-U2QzBLF6gslWn_9DW03no5mBF4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 46
+          },
+          "position": {
+            "x": 271.40698852455307,
+            "y": 40.44709339934474
+          },
+          "fontSizes": [
+            33
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b87608bb-435a-4021-8118-0f9db974172a": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": -7.918051727895488,
+            "y": -11.792532836915996
+          },
+          "boxSize": {
+            "width": 213.60219573238118,
+            "height": 203.19087076344138,
+            "x": -7.918051727895488,
+            "y": -11.792532836915996
+          },
+          "rotate": 0,
+          "color": "rgb(9, 85, 241)",
+          "scale": 3.1748573556787725
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "835dd1c9-ccdc-410f-b59b-693ec556b4a8": {
+        "type": {
+          "type": null,
+          "resolvedName": "ImageLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790678041_45eb5bdf-c25f-44bd-8fb3-59b355ddce06.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790678041_45eb5bdf-c25f-44bd-8fb3-59b355ddce06.png",
+            "boxSize": {
+              "width": 159.28007945340812,
+              "height": 129.1799069582759
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "position": {
+            "x": 19.24300641159104,
+            "y": 34.45079678664791
+          },
+          "boxSize": {
+            "width": 159.28007945340812,
+            "height": 129.1799069582759,
+            "x": 108,
+            "y": 189.63779527559052
+          },
+          "rotate": 0
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_7",
+      "name": "Business Loan Promotion",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "business",
+        "finance",
+        "loan"
+      ],
+      "description": "A promotional post template for advertising business loans.",
+      "canvas_size": {
+        "width": 1080.0,
+        "height": 1080.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-social/user-image/1790679392_5c1eccf0-33a4-4d45-ae53-4fee583a2a9d.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Create a solid blue background (this template: blue) with a clean, modern style. Place a cluster of small white dots in the top-left corner (5% across, 5% down) and another cluster in the bottom-right corner (95% across, 95% down). Add a larger halftone dot pattern in the bottom-left corner (5% across, 95% down) and a smaller one in the top-right corner (95% across, 5% down). Ensure the center area remains clear for a separate photo layer. A separate photo layer covers the center of the frame (about 24–74% across, 37–87% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790679392_5c1eccf0-33a4-4d45-ae53-4fee583a2a9d.png",
+        "notes": "Keep the central area (24–74% across, 37–87% down) clear for the photo layer. Text fixed in white sits in the upper-center of the frame (about 35–63% across, 9–18% down); the upper-center of the frame (about 22–76% across, 16–25% down); the upper-center of the frame (about 25–73% across, 26–33% down); the upper-center of the frame (about 33–67% across, 4–8% down), so there the background must stay a saturated, medium-to-dark tone that it reads clearly on — never pastel, pale, cream or near-white, even when a brief asks for soft or light tones (put those elsewhere and in the accents instead). The photo frames are separate layers; a regenerated background must not contain its own circles, rings or photos under them."
+      },
+      "text_layer_count": 5,
+      "slots": [
+        {
+          "layer_id": "fbec86d1-25cf-4903-86ab-71a21e141234",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Trusted",
+          "max_chars": 10,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 257.9837519427131,
+            "y": 99.04075026578586
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 95.0
+          },
+          "image": null,
+          "notes": "Main headline, one impactful word. Should remain on one line for emphasis."
+        },
+        {
+          "layer_id": "c06fdc7b-d92b-425e-8718-6d7e2e928176",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Bussiness Loan",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 207.64661476081372,
+            "y": 176.22436061136494
+          },
+          "box_size": {
+            "x": 258.42626363944237,
+            "y": 166.98651289038378,
+            "width": 636.9752739212345,
+            "height": 95.0
+          },
+          "image": null,
+          "notes": "Subheadline, descriptive of the service. Should stay on one line to maintain clarity and impact."
+        },
+        {
+          "layer_id": "5edaeaff-7beb-4cab-855a-fd5058bb034d",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Get the capital you need with our easy business loans.",
+          "max_chars": 60,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 28.0,
+          "position": {
+            "x": 258.42626363944237,
+            "y": 280.3817415268828
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 78.0
+          },
+          "image": null,
+          "notes": "Body text, brief description of the offer. Can wrap to two lines for readability."
+        },
+        {
+          "layer_id": "20c6ec69-bb00-448a-b1a0-0a4a0059adad",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 245.44553875433166,
+            "y": 388.0674274363799
+          },
+          "box_size": {
+            "width": 562.2624493276571,
+            "height": 562.2624493276571,
+            "x": 242.53224130560085,
+            "y": 388.0674274363799
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "9a64fd58-cf87-428a-8ac7-65e5ae29982b",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 258.4262636394424,
+            "y": 399.19865210020834
+          },
+          "box_size": {
+            "width": 540.0,
+            "height": 540.0
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a group of people engaged in a discussion (this template: a team meeting), captured from a slightly elevated angle, with soft, natural lighting. The setting is a modern office space, with a focus on the interaction and expressions of the people. The composition should be centered and cropped to fit within a circular frame, ensuring the group dynamics are clearly visible. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790679620_55f75b9a-b5ae-425d-aedb-4666bead1bcc.png",
+            "notes": "The subject is centrally positioned and cropped by a circular frame, requiring a balanced composition that highlights interaction and expressions within the group. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "c46634a4-73fc-4570-ab10-d61fc75bad57",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 393.27273680312203,
+            "y": 971.9782187464132
+          },
+          "box_size": {
+            "width": 270.30705367264073,
+            "height": 68.95850494504309,
+            "x": 378.0,
+            "y": 435.0487554728193
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "34677cef-2375-4984-836b-9ef094d0d894",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Call Now",
+          "max_chars": 10,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 38.0,
+          "position": {
+            "x": 257.98375194271324,
+            "y": 978.9574712189348
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 55.0
+          },
+          "image": null,
+          "notes": "Call to action button, short and direct. Must stay on one line for button design."
+        },
+        {
+          "layer_id": "807c445d-7c3f-4096-83c8-d460b40b1c50",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.yourwebsite.com",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 33.0,
+          "position": {
+            "x": 271.40698852455307,
+            "y": 40.44709339934474
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 46.0
+          },
+          "image": null,
+          "notes": "Website URL, typically one line. Ensure it remains concise and fits within the available space."
+        },
+        {
+          "layer_id": "b87608bb-435a-4021-8118-0f9db974172a",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": -7.918051727895488,
+            "y": -11.792532836915996
+          },
+          "box_size": {
+            "width": 213.60219573238118,
+            "height": 203.19087076344138,
+            "x": -7.918051727895488,
+            "y": -11.792532836915996
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "835dd1c9-ccdc-410f-b59b-693ec556b4a8",
+          "resolved_name": "ImageLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 19.24300641159104,
+            "y": 34.45079678664791
+          },
+          "box_size": {
+            "width": 159.28007945340812,
+            "height": 129.1799069582759,
+            "x": 108.0,
+            "y": 189.63779527559052
+          },
+          "image": null,
+          "notes": null
+        }
+      ]
+    }
+  }
+]

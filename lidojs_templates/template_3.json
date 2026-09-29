@@ -1,0 +1,758 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": null,
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "77e2ba5a-c523-4968-af0d-01440a0f4b19",
+          "82808832-8622-44ca-8b73-fcdde0a1fa61",
+          "e1dbbeb6-bfbf-45ab-83fc-d0fc2565b18a",
+          "bc9dc4da-98ac-485a-b128-ea3d606b8cfd",
+          "2d5acf09-d523-4908-b5b7-367814b5798b",
+          "e3a05b2e-a267-49f9-b8d5-a30c3caf7489",
+          "ecefdaf3-16b2-4457-9401-fe55437a5806"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "#fff",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790676975_a5da81e4-21aa-4612-8ac9-c25b57fa8652.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790676975_a5da81e4-21aa-4612-8ac9-c25b57fa8652.png",
+            "boxSize": {
+              "width": 1080,
+              "height": 1080
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "77e2ba5a-c523-4968-af0d-01440a0f4b19": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "right",
+                  "color": "rgb(0, 0, 0)",
+                  "fontFamily": "Oswald",
+                  "fontSize": "68px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "We Are"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1y9ogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 95
+          },
+          "position": {
+            "x": 470.5971803519006,
+            "y": 77.07251822321894
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "82808832-8622-44ca-8b73-fcdde0a1fa61": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "right",
+                  "color": "rgb(81, 63, 44)",
+                  "fontFamily": "Oswald",
+                  "fontSize": "68px",
+                  "lineHeight": 1.25,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(81, 63, 44)"
+                        }
+                      }
+                    ],
+                    "text": "Digital Marketing Agency"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1y9ogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1.2871405362802397,
+          "colors": [
+            "rgb(81, 63, 44)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 588.6503136625685,
+            "y": 187.01595281950603,
+            "width": 428.70827046416855,
+            "height": 328.22083675146115
+          },
+          "position": {
+            "x": 590.1446571221973,
+            "y": 172.07251822321894
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e1dbbeb6-bfbf-45ab-83fc-d0fc2565b18a": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "right",
+                  "color": "rgb(0, 0, 0)",
+                  "fontFamily": "Oswald",
+                  "fontSize": "42px",
+                  "lineHeight": 1.28,
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Take your company to the next level and grow your business"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1y9ogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 266.70344933721725,
+            "y": 515.2367895709672,
+            "width": 431.696957383426,
+            "height": 161
+          },
+          "position": {
+            "x": 575.2012225259102,
+            "y": 512.2481026517098
+          },
+          "fontSizes": [
+            42
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "bc9dc4da-98ac-485a-b128-ea3d606b8cfd": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "right",
+                  "color": "rgb(81, 63, 44)",
+                  "fontFamily": "Oswald",
+                  "fontSize": "68px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(81, 63, 44)"
+                        }
+                      }
+                    ],
+                    "text": "Join us :"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1y9ogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.7603705053055646,
+          "colors": [
+            "rgb(81, 63, 44)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 469.1028368922716,
+            "y": 863.0971779879198,
+            "width": 407.7874620293667,
+            "height": 72.23519800402863
+          },
+          "position": {
+            "x": 599.1107178799695,
+            "y": 860.1084910686625
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "2d5acf09-d523-4908-b5b7-367814b5798b": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "right",
+                  "color": "rgb(0, 0, 0)",
+                  "fontFamily": "Oswald",
+                  "fontSize": "38px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ],
+                    "text": "www.yourwebsite.com"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1y9ogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZogUFoZAaRliE.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 53
+          },
+          "position": {
+            "x": 470.5971803519005,
+            "y": 932.3436890726912
+          },
+          "fontSizes": [
+            38
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e3a05b2e-a267-49f9-b8d5-a30c3caf7489": {
+        "type": {
+          "type": null,
+          "resolvedName": "ImageLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790664810_afe5329b-a42c-4cf4-834c-ae933b78d19b.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790664810_afe5329b-a42c-4cf4-834c-ae933b78d19b.png",
+            "boxSize": {
+              "width": 152.7795623503055,
+              "height": 123.90783403213754
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "position": {
+            "x": 42.248887776336815,
+            "y": 63.10811878736851
+          },
+          "boxSize": {
+            "width": 152.7795623503055,
+            "height": 123.90783403213754,
+            "x": 108,
+            "y": 189.63779527559052
+          },
+          "rotate": 0
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ecefdaf3-16b2-4457-9401-fe55437a5806": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": -158.6547836125653,
+            "y": 351.12637119523663
+          },
+          "boxSize": {
+            "width": 800.0157619753952,
+            "height": 800.0157619753952,
+            "x": -158.6547836125653,
+            "y": 351.12637119523663
+          },
+          "rotate": 0,
+          "scale": 1.6000315239507907,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790677227_301ac33f-bbfa-4819-a10a-ab89756ffee2.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790677227_301ac33f-bbfa-4819-a10a-ab89756ffee2.png",
+            "boxSize": {
+              "width": 999.9999999999998,
+              "height": 499.9999999999999
+            },
+            "position": {
+              "x": -93.09702811496341,
+              "y": 0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_3",
+      "name": "Digital Agency Promo",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "digital marketing",
+        "business",
+        "promotion"
+      ],
+      "description": "A promotional post template for digital marketing agencies to attract new clients.",
+      "canvas_size": {
+        "width": 1080.0,
+        "height": 1080.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-social/user-image/1790676975_a5da81e4-21aa-4612-8ac9-c25b57fa8652.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Create a minimalist background with a light gray base color. Add two large, textured white semicircles: one in the upper-left corner (0–40% across, 0–40% down) and another in the upper-right corner (60–100% across, 0–40% down). Include a grid of small black dots (3x3) in the lower-right quadrant (70–90% across, 70–90% down). Ensure the overall style is clean and modern with a subtle grainy texture on the semicircles for depth. Keep the area in the lower-left quadrant (0–60% across, 30–100% down) clear for a photo layer. A separate round photo layer covers the lower-left of the frame (about 0–59% across, 33–100% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790676975_a5da81e4-21aa-4612-8ac9-c25b57fa8652.png",
+        "notes": "Ensure the background maintains high contrast for dark text in the upper-right and middle-right areas. Text fixed in black sits in the upper-right of the frame (about 76–93% across, 7–16% down); the middle-right of the frame (about 54–93% across, 47–62% down); the lower-right of the frame (about 63–93% across, 86–91% down), so there the background must stay a light, calm tone that it reads clearly on — never dark or busy, even when a brief asks for a moody palette. Text fixed in dark (rgb(81, 63, 44)) sits in the upper-right of the frame (about 56–94% across, 16–46% down); the lower-right of the frame (about 78–93% across, 80–86% down), so there the background must stay a light, calm tone that it reads clearly on — never dark or busy, even when a brief asks for a moody palette. The photo frames are separate layers; a regenerated background must not contain its own circles, rings or photos under them."
+      },
+      "text_layer_count": 5,
+      "slots": [
+        {
+          "layer_id": "77e2ba5a-c523-4968-af0d-01440a0f4b19",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "We Are",
+          "max_chars": 10,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 470.5971803519006,
+            "y": 77.07251822321894
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 95.0
+          },
+          "image": null,
+          "notes": "Headline phrase, bold and concise. Keep to one line for impact."
+        },
+        {
+          "layer_id": "82808832-8622-44ca-8b73-fcdde0a1fa61",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Digital Marketing Agency",
+          "max_chars": 30,
+          "max_lines": 3,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 590.1446571221973,
+            "y": 172.07251822321894
+          },
+          "box_size": {
+            "x": 588.6503136625685,
+            "y": 187.01595281950603,
+            "width": 428.70827046416855,
+            "height": 328.22083675146115
+          },
+          "image": null,
+          "notes": "Subhead in uppercase, describing the business type. Stacked for emphasis, up to three lines."
+        },
+        {
+          "layer_id": "e1dbbeb6-bfbf-45ab-83fc-d0fc2565b18a",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Take your company to the next level and grow your business",
+          "max_chars": 70,
+          "max_lines": 3,
+          "locked": false,
+          "font_size": 42.0,
+          "position": {
+            "x": 575.2012225259102,
+            "y": 512.2481026517098
+          },
+          "box_size": {
+            "x": 266.70344933721725,
+            "y": 515.2367895709672,
+            "width": 431.696957383426,
+            "height": 161.0
+          },
+          "image": null,
+          "notes": "Body text, informative and motivational. Three lines to maintain readability."
+        },
+        {
+          "layer_id": "bc9dc4da-98ac-485a-b128-ea3d606b8cfd",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Join us :",
+          "max_chars": 10,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 599.1107178799695,
+            "y": 860.1084910686625
+          },
+          "box_size": {
+            "x": 469.1028368922716,
+            "y": 863.0971779879198,
+            "width": 407.7874620293667,
+            "height": 72.23519800402863
+          },
+          "image": null,
+          "notes": "Call to action, inviting engagement. Short and impactful, one line."
+        },
+        {
+          "layer_id": "2d5acf09-d523-4908-b5b7-367814b5798b",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.yourwebsite.com",
+          "max_chars": 25,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 38.0,
+          "position": {
+            "x": 470.5971803519005,
+            "y": 932.3436890726912
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 53.0
+          },
+          "image": null,
+          "notes": "Website URL, clear and direct. Keep to one line for clarity."
+        },
+        {
+          "layer_id": "e3a05b2e-a267-49f9-b8d5-a30c3caf7489",
+          "resolved_name": "ImageLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 42.248887776336815,
+            "y": 63.10811878736851
+          },
+          "box_size": {
+            "width": 152.7795623503055,
+            "height": 123.90783403213754,
+            "x": 108.0,
+            "y": 189.63779527559052
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "ecefdaf3-16b2-4457-9401-fe55437a5806",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": -158.6547836125653,
+            "y": 351.12637119523663
+          },
+          "box_size": {
+            "width": 800.0157619753952,
+            "height": 800.0157619753952,
+            "x": -158.6547836125653,
+            "y": 351.12637119523663
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a person working on a laptop and smartphone (this template: analyzing data on a laptop and smartphone), captured from a side angle with natural daylight streaming in, creating a warm and inviting atmosphere, styled with casual attire and a cozy setting, framed to fit within a circular mask. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790677227_301ac33f-bbfa-4819-a10a-ab89756ffee2.png",
+            "notes": "The subject is positioned in the lower-left corner, requiring a composition that emphasizes the person's interaction with the devices, ensuring the key elements are within the circular crop. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later without exposing hard edges."
+        }
+      ]
+    }
+  }
+]

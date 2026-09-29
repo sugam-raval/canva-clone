@@ -1,0 +1,935 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": null,
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "44b5915a-fb02-4f0b-8550-7dc6fc43416b",
+          "cb6fb2d1-ecf2-49cb-ae0c-ca18b4ebb3e4",
+          "0bd6b7d3-c6aa-4fe8-998d-4ec755c062df",
+          "4d06ab52-b34f-4fc7-bac2-9fba7b60dabe",
+          "1a99f593-3a1c-4edf-8dc9-6fcac61c68b9",
+          "7dc6a4bd-465a-4080-9ea1-4f94124bb892",
+          "c2311bd1-d0ed-4f96-a4ee-f3c3b7e79a4b",
+          "cf947157-923d-4b62-9579-1e6ec46b21d4",
+          "b3082eca-6949-411a-81aa-b5502c159516"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "#fff",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790678825_15be7220-391a-487c-96b5-a408178fd48c.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790678825_15be7220-391a-487c-96b5-a408178fd48c.png",
+            "boxSize": {
+              "width": 1080,
+              "height": 1080
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "44b5915a-fb02-4f0b-8550-7dc6fc43416b": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 307.5280079453408,
+            "y": 180.0072604178623
+          },
+          "boxSize": {
+            "width": 810.5923260916943,
+            "height": 468.29979325477836,
+            "x": 304.17219879988085,
+            "y": 143.09335981780274
+          },
+          "rotate": 0,
+          "color": "rgb(255, 255, 255)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "cb6fb2d1-ecf2-49cb-ae0c-ca18b4ebb3e4": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(255, 255, 255)",
+                  "fontFamily": "Poppins",
+                  "fontSize": "38px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ],
+                    "text": "Experience stress-free financing—get in touch with us today!"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 243.69087076344138,
+            "y": 698.0695030002978,
+            "width": 771.2076397396329,
+            "height": 106
+          },
+          "position": {
+            "x": 143.01659639964254,
+            "y": 708.1369304366777
+          },
+          "fontSizes": [
+            38
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "0bd6b7d3-c6aa-4fe8-998d-4ec755c062df": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 96.55454347809219,
+            "y": 879.2831968551359
+          },
+          "boxSize": {
+            "width": 471.65560240023825,
+            "height": 90.15811054517256,
+            "x": 72.7748945994639,
+            "y": 885.9948151460558
+          },
+          "rotate": 0,
+          "color": "rgb(255, 255, 255)",
+          "scale": 7.369618787503723
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "4d06ab52-b34f-4fc7-bac2-9fba7b60dabe": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 614.2901098923364,
+            "y": 880.0123214854327
+          },
+          "boxSize": {
+            "width": 378.7188777470878,
+            "height": 82.28515083981364,
+            "x": 583.7988427227882,
+            "y": 891.0285288642457
+          },
+          "rotate": 0,
+          "color": "rgb(255, 255, 255)",
+          "scale": 5.917482464798247
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1a99f593-3a1c-4edf-8dc9-6fcac61c68b9": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(136, 88, 66)",
+                  "fontFamily": "Poppins",
+                  "fontSize": "68px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(136, 88, 66)"
+                        }
+                      }
+                    ],
+                    "text": "Call Now"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 0.6370752047874322,
+          "colors": [
+            "rgb(136, 88, 66)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 510.87240554510254,
+            "y": 885.9948151460558,
+            "width": 341.66406912075786,
+            "height": 60.52214445480605
+          },
+          "position": {
+            "x": 647.9891093732065,
+            "y": 891.2990877598796
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "7dc6a4bd-465a-4080-9ea1-4f94124bb892": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "center",
+                  "color": "rgb(136, 88, 66)",
+                  "fontFamily": "Poppins",
+                  "fontSize": "38px",
+                  "lineHeight": "1.4",
+                  "letterSpacing": 0,
+                  "textTransform": "",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(136, 88, 66)"
+                        }
+                      }
+                    ],
+                    "text": "www.yourwebsite.com"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(136, 88, 66)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 53
+          },
+          "position": {
+            "x": 64.23184489949351,
+            "y": 894.6548969053396
+          },
+          "fontSizes": [
+            38
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c2311bd1-d0ed-4f96-a4ee-f3c3b7e79a4b": {
+        "type": {
+          "type": null,
+          "resolvedName": "TextLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "textAlign": "right",
+                  "color": "rgb(136, 88, 66)",
+                  "fontFamily": "Poppins",
+                  "fontSize": "68px",
+                  "lineHeight": 1.23,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase",
+                  "marginLeft": null,
+                  "indent": 0,
+                  "listType": ""
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(136, 88, 66)"
+                        }
+                      }
+                    ],
+                    "text": "Simple loan process"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "style": "Bold_Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "style": "Italic",
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1.3402743539102755,
+          "colors": [
+            "rgb(136, 88, 66)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 544.4304969997022,
+            "y": 180.0072604178623,
+            "width": 543.3799832464528,
+            "height": 336.40886283147915
+          },
+          "position": {
+            "x": 487.3817415268829,
+            "y": 245.95272562951195
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "cf947157-923d-4b62-9579-1e6ec46b21d4": {
+        "type": {
+          "type": null,
+          "resolvedName": "ImageLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790678041_45eb5bdf-c25f-44bd-8fb3-59b355ddce06.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790678041_45eb5bdf-c25f-44bd-8fb3-59b355ddce06.png",
+            "boxSize": {
+              "width": 160.58330630601424,
+              "height": 130.23685472062573
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotate": 0
+          },
+          "position": {
+            "x": 870.1784184673214,
+            "y": 22.784221038062554
+          },
+          "boxSize": {
+            "width": 160.58330630601424,
+            "height": 130.23685472062573,
+            "x": 72.77489459946392,
+            "y": 197.28629660198052
+          },
+          "rotate": 0,
+          "transparency": 1
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b3082eca-6949-411a-81aa-b5502c159516": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 0 0 L 350 0 L 350 500 L 0 500 Z",
+          "position": {
+            "x": -4.715769418755869,
+            "y": -132.8318034939823
+          },
+          "boxSize": {
+            "width": 549.146266418458,
+            "height": 784.4946663120829,
+            "x": -12.425312145757907,
+            "y": 91.52800794534082
+          },
+          "rotate": 0,
+          "scale": 1.568989332624166,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790679191_e45dd2f5-5895-40ce-bdf0-453a0e94d089.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790679191_e45dd2f5-5895-40ce-bdf0-453a0e94d089.png",
+            "boxSize": {
+              "width": 750.5070993914807,
+              "height": 499.99999999999994
+            },
+            "position": {
+              "x": -328.5836438148879,
+              "y": 0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_6",
+      "name": "Loan Service Promotion",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "finance",
+        "loan",
+        "business"
+      ],
+      "description": "A social media post template promoting a simple loan process.",
+      "canvas_size": {
+        "width": 1080.0,
+        "height": 1080.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-social/user-image/1790678825_15be7220-391a-487c-96b5-a408178fd48c.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Create a background with a solid dark brown base color. Add a pattern of light brown halftone dots in the upper-left corner (this template: upper-left) and lower-right corner (this template: lower-right), each covering approximately 20% of the width and height of the canvas. Ensure the dots gradually decrease in size as they move outward from the corners. Maintain a clean and minimalistic style with no additional elements or textures. A separate photo layer covers the upper-left of the frame (about 0–50% across, 0–60% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790678825_15be7220-391a-487c-96b5-a408178fd48c.png",
+        "notes": "Ensure the lower-center area (14–84% across, 66–75% down) remains clear for text placement. Text fixed in white sits in the lower-center of the frame (about 14–84% across, 66–75% down), so there the background must stay a saturated, medium-to-dark tone that it reads clearly on — never pastel, pale, cream or near-white, even when a brief asks for soft or light tones (put those elsewhere and in the accents instead). The photo frames are separate layers; a regenerated background must not contain its own circles, rings or photos under them."
+      },
+      "text_layer_count": 4,
+      "slots": [
+        {
+          "layer_id": "44b5915a-fb02-4f0b-8550-7dc6fc43416b",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 307.5280079453408,
+            "y": 180.0072604178623
+          },
+          "box_size": {
+            "width": 810.5923260916943,
+            "height": 468.29979325477836,
+            "x": 304.17219879988085,
+            "y": 143.09335981780274
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "cb6fb2d1-ecf2-49cb-ae0c-ca18b4ebb3e4",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Experience stress-free financing—get in touch with us today!",
+          "max_chars": 70,
+          "max_lines": 2,
+          "locked": false,
+          "font_size": 38.0,
+          "position": {
+            "x": 143.01659639964254,
+            "y": 708.1369304366777
+          },
+          "box_size": {
+            "x": 243.69087076344138,
+            "y": 698.0695030002978,
+            "width": 771.2076397396329,
+            "height": 106.0
+          },
+          "image": null,
+          "notes": "Body text providing a reassuring message about the service. Can be slightly longer to convey full message. Not a peer with headline or subhead."
+        },
+        {
+          "layer_id": "0bd6b7d3-c6aa-4fe8-998d-4ec755c062df",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 96.55454347809219,
+            "y": 879.2831968551359
+          },
+          "box_size": {
+            "width": 471.65560240023825,
+            "height": 90.15811054517256,
+            "x": 72.7748945994639,
+            "y": 885.9948151460558
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "4d06ab52-b34f-4fc7-bac2-9fba7b60dabe",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 614.2901098923364,
+            "y": 880.0123214854327
+          },
+          "box_size": {
+            "width": 378.7188777470878,
+            "height": 82.28515083981364,
+            "x": 583.7988427227882,
+            "y": 891.0285288642457
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "1a99f593-3a1c-4edf-8dc9-6fcac61c68b9",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Call Now",
+          "max_chars": 10,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 647.9891093732065,
+            "y": 891.2990877598796
+          },
+          "box_size": {
+            "x": 510.87240554510254,
+            "y": 885.9948151460558,
+            "width": 341.66406912075786,
+            "height": 60.52214445480605
+          },
+          "image": null,
+          "notes": "Call to action button text. Must be short and direct. Peer with other CTA buttons if present."
+        },
+        {
+          "layer_id": "7dc6a4bd-465a-4080-9ea1-4f94124bb892",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.yourwebsite.com",
+          "max_chars": 25,
+          "max_lines": 1,
+          "locked": false,
+          "font_size": 38.0,
+          "position": {
+            "x": 64.23184489949351,
+            "y": 894.6548969053396
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 53.0
+          },
+          "image": null,
+          "notes": "Website URL for contact or more information. Keep it on one line for clarity. Peer with other contact info if present."
+        },
+        {
+          "layer_id": "c2311bd1-d0ed-4f96-a4ee-f3c3b7e79a4b",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Simple loan process",
+          "max_chars": 25,
+          "max_lines": 3,
+          "locked": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 487.3817415268829,
+            "y": 245.95272562951195
+          },
+          "box_size": {
+            "x": 544.4304969997022,
+            "y": 180.0072604178623,
+            "width": 543.3799832464528,
+            "height": 336.40886283147915
+          },
+          "image": null,
+          "notes": "Subhead phrase emphasizing ease of process. Keep it concise and impactful. Peer with other subheads if present."
+        },
+        {
+          "layer_id": "cf947157-923d-4b62-9579-1e6ec46b21d4",
+          "resolved_name": "ImageLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": 870.1784184673214,
+            "y": 22.784221038062554
+          },
+          "box_size": {
+            "width": 160.58330630601424,
+            "height": 130.23685472062573,
+            "x": 72.77489459946392,
+            "y": 197.28629660198052
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "b3082eca-6949-411a-81aa-b5502c159516",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "font_size": null,
+          "position": {
+            "x": -4.715769418755869,
+            "y": -132.8318034939823
+          },
+          "box_size": {
+            "width": 549.146266418458,
+            "height": 784.4946663120829,
+            "x": -12.425312145757907,
+            "y": 91.52800794534082
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "The brief's hero subject, photographed in the same camera angle, lighting and styling as the reference image, framed to fill the mask. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790679191_e45dd2f5-5895-40ce-bdf0-453a0e94d089.png",
+            "notes": "Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": null
+        }
+      ]
+    }
+  }
+]
