@@ -5,8 +5,10 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from pydantic.alias_generators import to_camel
+
+from app.lido_corpus.palette import parse_palette, to_hex
 
 
 class Base(BaseModel):
@@ -30,6 +32,17 @@ class LidoGenerateRequest(Base):
     generate_images: bool = True
     template_id: str | None = None
     random_template: bool = False
+    palette: list[str] | None = Field(default=None, max_length=4)
+    """Optional colour theme: up to 4 colours (#rrggbb), the first one primary. Applied
+    during generation to text, shapes and images (docs/palette_theme.md); template search
+    ignores it. Omitted or empty: generation is unchanged."""
+
+    @field_validator("palette")
+    @classmethod
+    def _valid_palette(cls, value: list[str] | None) -> list[str] | None:
+        if not value:
+            return None
+        return [to_hex(c) for c in parse_palette(value)]
 
 
 class LidoSlotFillInfo(Base):
@@ -100,6 +113,9 @@ class LidoGenerateResponse(Base):
     image_failures: list[str] = Field(default_factory=list)
     dropped_lines: list[str] = Field(default_factory=list)
     """Lines the user asked for that had no room in the template — never silently lost."""
+    theme: dict[str, Any] | None = None
+    """How the palette was applied (colour map, per-layer text colours, contrast fixes);
+    null when no palette was chosen."""
     match: LidoMatchInfo | None = None
     """How the automatic match picked the template; None for an explicit or random pick."""
 

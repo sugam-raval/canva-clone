@@ -19,6 +19,15 @@ const EXAMPLES = [
   'Restaurant grand opening flyer, elegant, address 42 Main St, website example.com',
 ]
 
+/** Optional colour theme (docs/palette_theme.md): at most 4 colours, the first is primary.
+ * Template search ignores it; it is applied while the chosen template is generated. */
+const MAX_PALETTE = 4
+const PALETTE_PRESETS: { name: string; colors: string[] }[] = [
+  { name: 'Forest', colors: ['#0b3d2e', '#f2c14e', '#e4572e', '#f7f3e9'] },
+  { name: 'Ocean', colors: ['#1d3557', '#457b9d', '#a8dadc', '#f1faee'] },
+  { name: 'Sunset', colors: ['#6a0d52', '#e4572e', '#ffc857', '#fff4e0'] },
+]
+
 /** Which template to fill: the automatic match (docs/new_match_plan.md), an exact pick by
  * id, or a uniform pick across the whole catalog. */
 type TemplateChoice = { mode: 'auto' } | { mode: 'random' } | { mode: 'id'; id: string }
@@ -28,6 +37,7 @@ export function LidoFlow() {
   const [prompt, setPrompt] = useState('')
   const [kind, setKind] = useState('')
   const [templateChoice, setTemplateChoice] = useState<TemplateChoice>({ mode: 'auto' })
+  const [palette, setPalette] = useState<string[]>([])
   const [templates, setTemplates] = useState<LidoTemplateSummary[]>([])
   const [running, setRunning] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -57,6 +67,7 @@ export function LidoFlow() {
       const response = await api.lidoGenerate(prompt.trim(), kind || undefined, {
         templateId: templateChoice.mode === 'id' ? templateChoice.id : undefined,
         randomTemplate: templateChoice.mode === 'random',
+        palette,
       })
       setResult(response)
       setLayers(response.document?.[0]?.layers ?? null)
@@ -130,6 +141,51 @@ export function LidoFlow() {
               <span className="badge">{(elapsedMs / 1000).toFixed(1)}s</span>
             )}
           </div>
+          <div className="prompt-row" style={{ alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+            <span style={{ fontSize: 12, color: 'var(--muted)' }}>
+              Colour theme (optional, up to {MAX_PALETTE}):
+            </span>
+            {palette.length === 0 && (
+              <span style={{ fontSize: 12 }}>template colours</span>
+            )}
+            {palette.map((color, i) => (
+              <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 2 }}>
+                <input
+                  type="color"
+                  value={color}
+                  title={i === 0 ? `Primary ${color}` : color}
+                  disabled={running}
+                  onChange={(e) => setPalette(palette.map((c, j) => (j === i ? e.target.value : c)))}
+                  style={{ width: 32, height: 28, padding: 0, border: 'none', background: 'none' }}
+                />
+                <button
+                  onClick={() => setPalette(palette.filter((_, j) => j !== i))}
+                  disabled={running}
+                  title="Remove colour"
+                  style={{ padding: '0 6px' }}
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+            {palette.length < MAX_PALETTE && (
+              <button
+                onClick={() => setPalette([...palette, palette.length ? palette[palette.length - 1] : '#1d3557'])}
+                disabled={running}
+              >
+                + Add colour
+              </button>
+            )}
+            {PALETTE_PRESETS.map((preset) => (
+              <button key={preset.name} onClick={() => setPalette(preset.colors)} disabled={running}
+                title={preset.colors.join(', ')}>
+                {preset.name}
+              </button>
+            ))}
+            {palette.length > 0 && (
+              <button onClick={() => setPalette([])} disabled={running}>Clear</button>
+            )}
+          </div>
           <div className="examples">
             {EXAMPLES.map((example) => (
               <button key={example} onClick={() => setPrompt(example)} disabled={running}>
@@ -187,6 +243,23 @@ export function LidoFlow() {
                           </div>
                         ))}
                       </div>
+                    </div>
+                  )}
+                  {result.theme && (
+                    <div style={{ fontSize: 12, marginTop: 8 }}>
+                      <strong>Colour theme:</strong>{' '}
+                      {result.theme.palette.map((c) => (
+                        <span key={c} title={c} style={{
+                          display: 'inline-block', width: 14, height: 14, borderRadius: 3,
+                          background: c, marginRight: 4, verticalAlign: 'middle',
+                          border: '1px solid var(--muted)',
+                        }} />
+                      ))}
+                      {result.theme.contrastFixed.length > 0 && (
+                        <span style={{ color: 'var(--muted)' }}>
+                          {' '}· {result.theme.contrastFixed.length} text layer(s) recoloured to stay readable
+                        </span>
+                      )}
                     </div>
                   )}
                   {result.droppedLines.length > 0 && (

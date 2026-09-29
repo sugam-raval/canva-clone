@@ -29,6 +29,7 @@ from .textfit import TextMeasure, family_name, font_file, too_wide_words, wrap
 
 if TYPE_CHECKING:
     from .fit import TemplateFit
+    from .palette import ThemePlan
 
 log = structlog.get_logger(__name__)
 
@@ -381,7 +382,8 @@ def _text_payload(target: TextTarget) -> dict:
 def build_user_message(user_prompt: str, template: LidoTemplateFile,
                        texts: list[TextTarget], images: list[ImageTarget],
                        kind: str | None = None, *, placed: list[str] | None = None,
-                       dropped: list[str] | None = None) -> str:
+                       dropped: list[str] | None = None,
+                       theme: ThemePlan | None = None) -> str:
     meta = template.meta
     width, height = (int(meta.canvas_size.get(k, 0)) for k in ("width", "height"))
     image_payload = [
@@ -417,6 +419,9 @@ def build_user_message(user_prompt: str, template: LidoTemplateFile,
         parts += ["", ("Lines the user asked for that have no room in this template. If a "
                        "layer above suits one, you may use a shorter version of it there:"),
                   json.dumps(dropped, ensure_ascii=False)]
+    if theme is not None:
+        roles = {t.layer_id: t.slot.role for t in texts}
+        parts += ["", theme.prompt_block(roles)]
     if image_payload:
         parts += [
             "",
@@ -489,12 +494,14 @@ def _accept_text(raw: str, target: TextTarget, user_prompt: str) -> str:
 
 async def generate_template_fill(user_prompt: str, template: LidoTemplateFile,
                                  *, kind: str | None = None,
-                                 plan: TemplateFit | None = None) -> TemplateFill:
+                                 plan: TemplateFit | None = None,
+                                 theme: ThemePlan | None = None) -> TemplateFill:
     """Fill every non-locked text layer and write every image prompt in one call.
 
     `plan` (from the matcher, docs/slot_fit_match_plan.md) pins the user's own lines to
     their layers — those are never sent to the model, repaired or clamped — and empties
-    optional contact layers the user gave nothing for.
+    optional contact layers the user gave nothing for. `theme` (a user palette,
+    docs/palette_theme.md) is described to the model so every image prompt uses it.
 
     A second, text-only call happens only when the first answer broke a size limit;
     anything still over after that is trimmed by `clamp_text`. Raises `AdapterError`
@@ -515,7 +522,7 @@ async def generate_template_fill(user_prompt: str, template: LidoTemplateFile,
         SYSTEM_PROMPT,
         build_user_message(user_prompt, template, texts, images, kind,
                            placed=list(placed.values()),
-                           dropped=plan.dropped if plan else None),
+                           dropped=plan.dropped if plan else None, theme=theme),
         LidoTemplateFillOutput,
     )
     parsed: LidoTemplateFillOutput = result.parsed

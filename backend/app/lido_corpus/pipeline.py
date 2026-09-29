@@ -34,6 +34,7 @@ from .generate_ai import (
 from .generated import new_design_id, upload_asset
 from .loader import DEFAULT_CORPUS_DIR, derive_meta
 from .model import LidoDocument, LidoTemplateFile
+from .palette import ThemePlan, apply_theme, check_contrast, parse_palette, plan_theme
 from .retrieval import choose_template
 from .store import load_catalog
 
@@ -57,6 +58,8 @@ class LidoGenerationResult:
     clamped: list[str] = field(default_factory=list)
     dropped_lines: list[str] = field(default_factory=list)
     """Lines the user asked for that had no room in the chosen template."""
+    theme: dict | None = None
+    """The palette and how it was applied; None when the user chose no palette."""
 
 
 def _design_name(template: LidoTemplateFile, text: dict[str, str]) -> str:
@@ -84,7 +87,8 @@ async def _upload_all(design_id: str, rendered: dict[str, bytes]) -> dict[str, s
 
 def _build_meta(design_id: str, template: LidoTemplateFile, layers: dict, *, name: str,
                 prompt: str, kind: str | None, fill: TemplateFill,
-                image_fills: dict[str, str], image_failures: list[str]) -> dict:
+                image_fills: dict[str, str], image_failures: list[str],
+                theme: ThemePlan | None = None) -> dict:
     """The template's own metadata (limits, notes, image specs) carried onto the
     design, plus a record of what this run actually did."""
     existing = template.meta.model_dump(mode="json")
@@ -110,6 +114,8 @@ def _build_meta(design_id: str, template: LidoTemplateFile, layers: dict, *, nam
             "llm_cost_cents": fill.cost_cents,
         },
     )
+    if theme is not None:
+        meta["generation"]["theme"] = theme.to_json()
     return meta
 
 
@@ -120,8 +126,13 @@ async def generate_lido_design(
     generate_images: bool = True,
     template_id: str | None = None,
     random_template: bool = False,
+    palette: list[str] | None = None,
     corpus_dir: Path | str = DEFAULT_CORPUS_DIR,
 ) -> LidoGenerationResult:
+    """`palette`: up to 4 colours (#rrggbb, first = primary) applied to the chosen
+    template's text, shapes and generated images (docs/palette_theme.md). Template
+    search ignores it. None or empty: generation is exactly as without the feature."""
+    colors = parse_palette(palette)
     catalog = await load_catalog(corpus_dir)      # lido_templates (DB), files as fallback
     templates = catalog.templates
     chosen = await choose_template(templates, prompt, template_id=template_id,
@@ -129,7 +140,12 @@ async def generate_lido_design(
                                    catalog=catalog)
     template = chosen.template
 
-    fill = await generate_template_fill(prompt, template, kind=kind, plan=chosen.fit)
+    theme = plan_theme(template, colors) if colors else None
+    fill = await generate_template_fill(prompt, template, kind=kind, plan=chosen.fit,
+                                        theme=theme)
+    if theme is not None:
+        fill.image_prompts = theme.finalize_prompts(fill.image_prompts,
+                                                    image_targets(template))
     name = _design_name(template, fill.text)
     design_id = new_design_id(name)
 
@@ -144,6 +160,10 @@ async def generate_lido_design(
                 rendered[BACKGROUND_LAYER_ID], canvas.get("width", 0), canvas.get("height", 0),
                 reserved_overlay_areas(template),
             )
+        if theme is not None:
+            canvas = template.meta.canvas_size
+            check_contrast(theme, rendered.get(BACKGROUND_LAYER_ID),
+                           canvas.get("width", 0), canvas.get("height", 0))
         image_fills = await _upload_all(design_id, rendered)
         image_failures = [t.layer_id for t in targets if t.layer_id not in image_fills]
         if (bg_url := image_fills.get(BACKGROUND_LAYER_ID)) is not None:
@@ -151,10 +171,12 @@ async def generate_lido_design(
                 image_fills.setdefault(mirror_id, bg_url)
 
     document = fill_template(template, by_layer_id=fill.text, image_by_layer_id=image_fills)
+    if theme is not None:
+        apply_theme(document[0]["layers"], theme)
     document[0]["meta"] = _build_meta(
         design_id, template, document[0]["layers"], name=name,
         prompt=prompt, kind=kind, fill=fill, image_fills=image_fills,
-        image_failures=image_failures,
+        image_failures=image_failures, theme=theme,
     )
 
     return LidoGenerationResult(
@@ -170,4 +192,5 @@ async def generate_lido_design(
         repaired=fill.repaired,
         clamped=fill.clamped,
         dropped_lines=fill.dropped,
+        theme=theme.to_json() if theme is not None else None,
     )

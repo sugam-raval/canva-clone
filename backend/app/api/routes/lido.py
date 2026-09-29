@@ -68,6 +68,7 @@ async def lido_generate(body: LidoGenerateRequest,
         result = await generate_lido_design(
             body.prompt, kind=body.kind, generate_images=body.generate_images,
             template_id=body.template_id, random_template=body.random_template,
+            palette=body.palette,
         )
     except TemplateNotFoundError as exc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
@@ -114,6 +115,7 @@ async def lido_generate(body: LidoGenerateRequest,
         ],
         image_failures=result.image_failures,
         dropped_lines=result.dropped_lines,
+        theme=result.theme,
         match=LidoMatchInfo.model_validate(result.match) if result.match else None,
     )
 

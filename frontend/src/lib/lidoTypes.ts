@@ -65,6 +65,15 @@ export interface LidoMatchInfo {
   candidates: LidoMatchCandidate[]
 }
 
+/** docs/palette_theme.md — template colour → palette colour, per-layer text colours,
+ * and text layers whose colour was swapped to stay readable on the generated image. */
+export interface LidoTheme {
+  palette: string[]
+  colorMap: Record<string, string>
+  textColors: Record<string, Record<string, string>>
+  contrastFixed: string[]
+}
+
 export interface LidoGenerateResponse {
   document: LidoDocumentEntry[]
   templateId: string
@@ -76,6 +85,8 @@ export interface LidoGenerateResponse {
   imageFailures: string[]
   /** Lines the user asked for that had no room in the template. */
   droppedLines: string[]
+  /** How the colour palette was applied; null when none was chosen. */
+  theme?: LidoTheme | null
   /** null for an explicit or random template pick. */
   match?: LidoMatchInfo | null
 }

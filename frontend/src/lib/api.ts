@@ -42,7 +42,7 @@ export const api = {
   lidoGenerate: (
     prompt: string,
     kind?: string,
-    options: { templateId?: string; randomTemplate?: boolean } = {},
+    options: { templateId?: string; randomTemplate?: boolean; palette?: string[] } = {},
   ) =>
     request<LidoGenerateResponse>('/lido/generate', {
       method: 'POST',
@@ -51,6 +51,8 @@ export const api = {
         kind: kind || null,
         templateId: options.templateId || null,
         randomTemplate: options.randomTemplate ?? false,
+        // Omitted when empty: no palette means generation exactly as before.
+        palette: options.palette && options.palette.length ? options.palette : null,
       }),
     }),
 

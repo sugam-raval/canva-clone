@@ -110,7 +110,11 @@ function RenderText({ layer }: { layer: LidoLayer }) {
       const text = (para.content ?? [])
         .map((n: any) => applyTransform(n.text ?? '', attrs.textTransform))
         .join('')
-      return { attrs, text }
+      // A colour mark on the text overrides the paragraph colour, as in Lido.js.
+      const marked = (para.content ?? [])
+        .flatMap((n: any) => (n.text ? n.marks ?? [] : []))
+        .find((m: any) => m.type === 'color')?.attrs?.color
+      return { attrs: marked ? { ...attrs, color: marked } : attrs, text }
     })
     .filter((p: { text: string }) => p.text.length > 0)
 
