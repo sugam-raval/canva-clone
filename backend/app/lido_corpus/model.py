@@ -31,16 +31,21 @@ class LidoLayerType(LidoBase):
     """The `type` object on a layer.
 
     `type.type` is Lido's own semantic tag (`"bodyText"`, `"static"`, `"phoneNumber"`,
-    `"address"`, `"website"`, `"logo"`, `"bgImage"`) — this is what tells a filler which
-    layers are safe to rewrite and which (`"static"`, carrying `fixedText`) must not be
-    touched. `resolvedName` is the component class: `TextLayer` / `FrameLayer` /
-    `ShapeLayer` / `RootLayer`.
+    `"address"`, `"website"`, `"logo"`, `"bgImage"`) — this is what a filler uses to
+    decide a text layer's role. `"static"` does not mean "must not be touched": every
+    `TextLayer` is fair game to rewrite (see `SlotInfo.editable` in this module).
+    `resolvedName` is the component class: `TextLayer` / `FrameLayer` / `ShapeLayer` /
+    `RootLayer`.
+
+    Some raw exports also carry a `fixedText`/`replacableText` pair alongside
+    `props.doc`'s actual ProseMirror content — an export-tool-specific field, not part
+    of Lido's own schema, so it isn't read here (and may not exist in future exports).
+    `props.doc` is the one text source this corpus relies on; `LidoBase`'s
+    `extra="allow"` tolerates whatever a given export adds beyond it.
     """
 
     type: str | None = None
     resolvedName: str
-    fixedText: str | None = None
-    replacableText: str | None = None
 
 
 class LidoLayer(LidoBase):

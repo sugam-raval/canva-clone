@@ -150,7 +150,7 @@ def _role_for(layer_id: str, layer: LidoLayer, headline_id: str | None,
         return "address"
     if t == "website":
         return "website"
-    contact = _contact_role_from_text(layer.type.replacableText or _default_text(layer))
+    contact = _contact_role_from_text(_default_text(layer))
     if contact:
         return contact
     if layer_id == headline_id:
@@ -167,7 +167,7 @@ def _free_text_ids(layers: dict[str, LidoLayer]) -> list[str]:
         lid for lid, layer in layers.items()
         if lid != "ROOT" and layer.type.resolvedName == "TextLayer"
         and layer.type.type in _FREE_TEXT_TYPES
-        and not _contact_role_from_text(layer.type.replacableText or _default_text(layer))
+        and not _contact_role_from_text(_default_text(layer))
     ]
 
 
@@ -199,7 +199,7 @@ def _extract_slots(
         role = _role_for(lid, layer, headline_id, subhead_id, layers)
         # Exports sometimes carry layout whitespace inside the text ("●\n      Haircut");
         # it renders as single spaces, so the default copy and its limits should too.
-        raw_text = layer.type.replacableText or _default_text(layer)
+        raw_text = _default_text(layer)
         default_text = " ".join(raw_text.split()) if raw_text else None
         prior = existing_slots.get(lid) or {}
         image = prior.get("image")
