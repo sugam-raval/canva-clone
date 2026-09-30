@@ -67,14 +67,17 @@ _DRAFT = $(PY) scripts/enrich_lido_templates.py --draft-slots \
            $(if $(TEMPLATE),--template $(TEMPLATE) --force,$(if $(FORCE),--force)) \
            $(if $(KIND),--kind $(KIND))
 
-# make lido-create [COUNT=5] [AI=1] [SEED=n] [IDEA="..."]
+# make lido-create [COUNT=5] [AI=1] [SEED=n] [IDEA="..."] [THEME=x] [PALETTE=x] [FONTS=x]
 #   generate brand-new template drafts (raw layers + preview PNG) into
 #   lidojs_templates/drafts/ for review — nothing is added to matching until you move one
 #   into lidojs_templates/ and run lido-add. AI=1 lets the LLM invent the layouts instead
-#   of using the built-in recipes. Full options: scripts/lido_create_layouts.py --help
+#   of using the built-in recipes. THEME/PALETTE/FONTS pin one choice (names: add
+#   --list to the script). Full options: scripts/lido_create_layouts.py --help
 lido-create: ## Generate new template drafts for review into lidojs_templates/drafts/
 	$(PY) scripts/lido_create_layouts.py --count $(or $(COUNT),5) $(if $(AI),--ai) \
-	  $(if $(SEED),--seed $(SEED)) $(if $(IDEA),--idea "$(IDEA)")
+	  $(if $(SEED),--seed $(SEED)) $(if $(IDEA),--idea "$(IDEA)") \
+	  $(if $(THEME),--theme $(THEME)) $(if $(PALETTE),--palette $(PALETTE)) \
+	  $(if $(FONTS),--fonts $(FONTS))
 
 lido-add: ## New template(s) not yet in the database, end to end: metadata + verify + embed + sync
 	$(PY) scripts/lido_match.py add $(_TPL) $(if $(KIND),--kind $(KIND))
