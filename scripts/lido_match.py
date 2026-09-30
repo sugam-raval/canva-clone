@@ -24,6 +24,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "backend"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from app.lido_corpus.loader import DEFAULT_CORPUS_DIR, discover_templates
 from app.lido_corpus.match_index import embedder_name
@@ -177,14 +178,20 @@ async def cmd_add(args) -> int:
             print("no new templates — every file in the directory is already in the database")
         return 0
 
+    kind_override = getattr(args, "kind", None)
     print(f"onboarding {len(ids)} new template(s): {', '.join(ids)}\n")
     ok: list[str] = []
     for tid in ids:
         path = files[tid]
         try:
             errors, warnings = enrich._verify(path)
-            if errors:
-                await enrich._enrich_file_in_place_async(path, use_llm=True, draft_slots=True)
+            # --kind forces the draft step even on a file that already verifies cleanly
+            # — otherwise a template that already has valid meta would never pick up
+            # the override (it's a human-set value, so it always wins, same as
+            # enrich_lido_templates.py --kind).
+            if errors or kind_override:
+                await enrich._enrich_file_in_place_async(path, use_llm=True, draft_slots=True,
+                                                          kind_override=kind_override)
                 errors, warnings = enrich._verify(path)
         except (json.JSONDecodeError, ValueError, OSError) as exc:
             errors, warnings = [f"cannot read or write {path.name}: {exc}"], []
@@ -226,7 +233,16 @@ def main() -> int:
     p.add_argument("--template", action="append", default=None, metavar="NAME",
                    help="only this template (file stem); repeat for several. Omit for "
                         "every template not yet in the database")
+    from enrich_lido_templates import DESIGN_KINDS  # sibling script, on sys.path above
+    p.add_argument("--kind", choices=DESIGN_KINDS, default=None,
+                   help="set this template's design kind yourself instead of letting the "
+                        "LLM guess (see enrich_lido_templates.py --kind); requires exactly "
+                        "one --template")
     args = parser.parse_args()
+    if args.cmd == "add" and args.kind and (not args.template or len(args.template) != 1):
+        print("--kind needs exactly one --template (it sets a single template's kind)",
+             file=sys.stderr)
+        return 1
     commands = {"index": cmd_index, "show": cmd_show, "test": cmd_test, "add": cmd_add}
     return asyncio.run(commands[args.cmd](args))
 

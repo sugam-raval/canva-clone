@@ -572,7 +572,7 @@
     "meta": {
       "id": "template_7347",
       "name": "Juice Bar Discount Promo",
-      "kind": "ad",
+      "kind": "post",
       "aspect": "1:1",
       "tags": [
         "juice bar",
@@ -580,7 +580,7 @@
         "discount",
         "promotion"
       ],
-      "description": "A square food-and-drink promo ad over a warm sunburst: a big italic headline and a product-name line at the top, a hero product group (juices and fresh fruit) in the center, a discount badge and an order-now badge on either side, and a logo with an email line along the bottom.",
+      "description": "A square food-and-drink promo post over a warm sunburst: a big italic headline and a product-name line at the top, a hero product group (juices and fresh fruit) in the center, a discount badge and an order-now badge on either side, and a logo with an email line along the bottom.",
       "canvas_size": {
         "width": 675,
         "height": 675

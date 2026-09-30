@@ -57,13 +57,18 @@ db-upgrade: ## Apply infra/initdb/*.sql to the running database (all idempotent)
 #                                  template that's already in the database
 # FORCE=1: lido-meta re-drafts every template (fills only empty fields, keeps what you
 # wrote); lido-sync re-embeds even unchanged templates.
+# KIND=post|story|poster|banner|thumbnail|ad|flyer (with lido-meta or lido-add, requires
+#   TEMPLATE=x): set that one template's design kind yourself — always wins over the
+#   LLM's guess (and over the "post" default), same as if you'd hand-typed it into the
+#   template's JSON. Example: make lido-add TEMPLATE=template_300 KIND=banner
 
 _TPL   = $(if $(TEMPLATE),--template $(TEMPLATE))
 _DRAFT = $(PY) scripts/enrich_lido_templates.py --draft-slots \
-           $(if $(TEMPLATE),--template $(TEMPLATE) --force,$(if $(FORCE),--force))
+           $(if $(TEMPLATE),--template $(TEMPLATE) --force,$(if $(FORCE),--force)) \
+           $(if $(KIND),--kind $(KIND))
 
 lido-add: ## New template(s) not yet in the database, end to end: metadata + verify + embed + sync
-	$(PY) scripts/lido_match.py add $(_TPL)
+	$(PY) scripts/lido_match.py add $(_TPL) $(if $(KIND),--kind $(KIND))
 
 lido-meta: ## Metadata only, no database write: all templates without it, or TEMPLATE=x (then verify)
 	$(_DRAFT)

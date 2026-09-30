@@ -69,6 +69,10 @@ from app.lido_corpus.loader import (
 from app.lido_corpus.model import ImageSpec, LidoDocument, LidoTemplateMeta, SlotInfo
 from app.lido_corpus.textfit import wrap
 
+# Kept in sync with LidoGenerateRequest.kind (backend/app/api/schemas.py) — the same set
+# of design kinds a generation request can ask for.
+DESIGN_KINDS = ("post", "story", "poster", "banner", "thumbnail", "ad", "flyer")
+
 
 class TemplateMetadataSchema(BaseModel):
     """Schema for LLM to generate intelligent template metadata."""
@@ -826,22 +830,32 @@ The image is the finished template. Name and describe it for what it actually pr
 
 
 async def _enrich_file_in_place_async(path: Path, use_llm: bool = True,
-                                      draft_slots: bool = False) -> LidoTemplateMeta:
+                                      draft_slots: bool = False,
+                                      kind_override: str | None = None) -> LidoTemplateMeta:
     """The async core of `_enrich_file_in_place` — awaitable directly from a caller
     that already has an event loop running (e.g. `lido_match.py add`, which is itself
     async). `_enrich_file_in_place` is the sync wrapper for everything else (this
     script's own CLI, tests) — it does its own `asyncio.run` and cannot be called from
-    inside a running loop."""
+    inside a running loop.
+
+    `kind_override`, when given, is applied *before* enrichment by writing it into the
+    existing meta — reusing the same rule both `_enrich_with_llm` and `derive_meta`
+    already follow: a human-set `kind` always wins over the LLM's guess (or the "post"
+    default), never the other way around. So this is exactly as if the value had been
+    hand-typed into the template's JSON first."""
     obj = _read_root_object(path)
     doc = LidoDocument.model_validate({"layers": obj["layers"]})
+    existing = obj.get("meta") or {}
+    if kind_override:
+        existing = {**existing, "kind": kind_override}
 
     if use_llm:
         preview = _load_preview(path)
-        meta = await _enrich_with_llm(path.stem, doc.layers, existing=obj.get("meta"),
+        meta = await _enrich_with_llm(path.stem, doc.layers, existing=existing,
                                       preview=preview)
     else:
         # Fallback: rule-based (same merge behavior as the API's own loader)
-        meta = derive_meta(path.stem, doc.layers, existing=obj.get("meta"))
+        meta = derive_meta(path.stem, doc.layers, existing=existing)
     if draft_slots and use_llm:
         await _draft_slot_metadata(meta, doc.layers, preview=preview)
 
@@ -856,12 +870,12 @@ async def _enrich_file_in_place_async(path: Path, use_llm: bool = True,
     return meta
 
 
-def _enrich_file_in_place(path: Path, use_llm: bool = True,
-                          draft_slots: bool = False) -> LidoTemplateMeta:
+def _enrich_file_in_place(path: Path, use_llm: bool = True, draft_slots: bool = False,
+                          kind_override: str | None = None) -> LidoTemplateMeta:
     """Recompute metadata and write it back, preserving human-authored fields. Sync
     wrapper around `_enrich_file_in_place_async` — only call this where no event loop
     is already running."""
-    return asyncio.run(_enrich_file_in_place_async(path, use_llm, draft_slots))
+    return asyncio.run(_enrich_file_in_place_async(path, use_llm, draft_slots, kind_override))
 
 
 def _has_meta(path: Path) -> bool:
@@ -972,11 +986,20 @@ def main() -> int:
                              "fields — a starting point to review against "
                              "docs/TEMPLATE_METADATA_RULES.md, never a substitute for it; "
                              "only fills fields that are currently empty")
+    parser.add_argument("--kind", choices=DESIGN_KINDS, default=None,
+                        help="set this template's design kind yourself instead of letting "
+                             "the LLM guess — always wins over the guess (and over the "
+                             "'post' default), requires exactly one --template")
     args = parser.parse_args()
 
     if args.draft_slots and args.no_llm:
         print("--draft-slots has no effect with --no-llm (drafting requires the LLM)",
              file=sys.stderr)
+
+    if args.kind and (not args.template or len(args.template) != 1):
+        print("--kind needs exactly one --template (it sets a single template's kind)",
+             file=sys.stderr)
+        return 1
 
     paths = discover_templates(args.dir)
     if not paths:
@@ -1015,12 +1038,15 @@ def main() -> int:
         print(f"all {len(paths)} template(s) have meta")
         return 1 if errors else 0
 
-    targets = paths if args.force else missing
+    # --kind targets one already-named template (via --template), whether or not it
+    # already has meta — that's the whole point, to change an existing value.
+    targets = paths if (args.force or args.kind) else missing
     enriched: list[Path] = []
     for path in targets:
         try:
             meta = _enrich_file_in_place(path, use_llm=not args.no_llm,
-                                         draft_slots=args.draft_slots)
+                                         draft_slots=args.draft_slots,
+                                         kind_override=args.kind)
             enriched.append(path)
             status = f"name={meta.name!r}, kind={meta.kind}" if meta.name else f"kind={meta.kind}"
             print(f"  enriched {path.name:<25} {status}")

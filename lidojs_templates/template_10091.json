@@ -599,7 +599,7 @@
     "meta": {
       "id": "template_10091",
       "name": "Interior Design Sale",
-      "kind": "ad",
+      "kind": "post",
       "aspect": "1:1",
       "tags": [
         "interior design",
@@ -608,7 +608,7 @@
         "sale",
         "discount"
       ],
-      "description": "Home decor / interior design discount ad: a category heading ('Interior design'), an offer ('get 50% off'), an 'order now' button and a website, with a circular room photo and a large living-room photo in the background.",
+      "description": "Home decor / interior design discount post: a category heading ('Interior design'), an offer ('get 50% off'), an 'order now' button and a website, with a circular room photo and a large living-room photo in the background.",
       "canvas_size": {
         "width": 675.0,
         "height": 675.0
