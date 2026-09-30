@@ -28,7 +28,8 @@ class LidoGenerateRequest(Base):
     gave come first, then the best topic + details match. The response's `match` says
     how it decided."""
     prompt: str = Field(min_length=1, max_length=2000)
-    kind: Literal["story", "post", "poster", "banner", "thumbnail", "ad", "flyer"] | None = None
+    kind: Literal["story", "post", "poster", "banner", "thumbnail", "ad", "flyer",
+                 "leaflet"] | None = None
     generate_images: bool = True
     template_id: str | None = None
     random_template: bool = False

@@ -38,7 +38,7 @@ image prompt, images are generated and uploaded, the result is saved to
 | Field | Type | Required | Notes |
 |---|---|---|---|
 | `prompt` | string | **yes** | 1–2000 characters. The design brief. |
-| `kind` | `"story"｜"post"｜"poster"｜"banner"｜"thumbnail"｜"ad"｜"flyer"｜null` | no | Hint only; omit to auto-detect. |
+| `kind` | `"story"｜"post"｜"poster"｜"banner"｜"thumbnail"｜"ad"｜"flyer"｜"leaflet"｜null` | no | Hint only; omit to auto-detect. |
 | `generateImages` | boolean | no | Default `true`. `false` skips image generation — the template's own images are kept. |
 | `templateId` | string \| `null` | no | Pick an exact template by id (e.g. `"template_227"`), skipping the automatic match entirely. 404 if it doesn't exist. |
 | `randomTemplate` | boolean | no | Default `false`. Pick uniformly at random across the whole corpus. Ignored if `templateId` is set. |

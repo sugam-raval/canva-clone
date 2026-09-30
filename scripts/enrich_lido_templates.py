@@ -71,14 +71,14 @@ from app.lido_corpus.textfit import wrap
 
 # Kept in sync with LidoGenerateRequest.kind (backend/app/api/schemas.py) — the same set
 # of design kinds a generation request can ask for.
-DESIGN_KINDS = ("post", "story", "poster", "banner", "thumbnail", "ad", "flyer")
+DESIGN_KINDS = ("post", "story", "poster", "banner", "thumbnail", "ad", "flyer", "leaflet")
 
 
 class TemplateMetadataSchema(BaseModel):
     """Schema for LLM to generate intelligent template metadata."""
     name: str = Field(description="A short, descriptive name for the template (2-4 words)")
     kind: str = Field(
-        description="The most suitable design kind: post, story, poster, banner, thumbnail, ad, or flyer"
+        description="The most suitable design kind: post, story, poster, banner, thumbnail, ad, flyer, or leaflet"
     )
     description: str = Field(description="A one-sentence description of what this template is for")
     tags: list[str] = Field(description="2-3 relevant tags for the template")
@@ -779,7 +779,7 @@ Editable slots in the design:
 
 Generate appropriate metadata:
 - name: A short, descriptive name (2-4 words, e.g. "Product Showcase", "Restaurant Menu")
-- kind: The most suitable design kind: post, story, poster, banner, thumbnail, ad, or flyer
+- kind: The most suitable design kind: post, story, poster, banner, thumbnail, ad, flyer, or leaflet
 - description: A one-sentence description of what this template is for
 - tags: 2-3 relevant tags (e.g. business, contact, modern)"""
     if preview:

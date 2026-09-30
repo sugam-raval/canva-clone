@@ -1,0 +1,1638 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer"
+        },
+        "child": [
+          "77a6fbc6-1a7e-4440-87d7-cbcd6b805edb",
+          "ee8186a8-9479-4564-8b7b-c67dbe037a9d",
+          "6a79244c-0814-49a5-acf7-9db6b0b0a608",
+          "b453a7b8-4945-4a78-9884-dd19139f76d5",
+          "bbc6f324-3583-4527-94ef-04fd9044ab62",
+          "474a8193-a353-4456-b2f0-cb66da54cf05",
+          "bb2e0272-0ad6-47ca-a6f2-3014759fe9c3",
+          "ba4a5f13-fd3d-4523-bb22-e40eba3a9043",
+          "840001d8-4e1c-4f60-aeda-a696e28ffc39",
+          "7458ab31-023c-40d8-80d1-48df9a893445",
+          "1cd428e3-e442-41a1-a4fc-d07d7258f63a",
+          "b949e073-f029-4ae9-8a66-1408a133bc54",
+          "d382d07d-c06d-44d9-b6b0-45d254bb6761"
+        ],
+        "props": {
+          "color": "#fff",
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-templates-2/without_leaflet__temp_15.png",
+            "thumb": "https://assets.quickhub.ai/qh-templates-2/without_leaflet__temp_15.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 2000,
+              "height": 1414
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "video": null,
+          "rotate": 0,
+          "boxSize": {
+            "width": 2000,
+            "height": 1414
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "locked": false,
+        "parent": null
+      },
+      "1cd428e3-e442-41a1-a4fc-d07d7258f63a": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer"
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1788847611_348c14db-cca5-4e6b-a97b-b9e767c6171b.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1788847611_348c14db-cca5-4e6b-a97b-b9e767c6171b.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 749.9999999999999,
+              "height": 499.99999999999994
+            },
+            "position": {
+              "x": -157.66128890332806,
+              "y": 0
+            }
+          },
+          "scale": 1.1210741788897616,
+          "rotate": 0,
+          "boxSize": {
+            "x": 757.319696192298,
+            "y": 56.505764707674814,
+            "width": 560.5370894448807,
+            "height": 560.5370894448807
+          },
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 726.0811315186143,
+            "y": 45.015080746926486
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "474a8193-a353-4456-b2f0-cb66da54cf05": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Contact",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(84, 84, 84)",
+                  "indent": 0,
+                  "fontSize": "68px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Contact",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(84, 84, 84)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ],
+                  "style": "Italic"
+                }
+              ]
+            }
+          ],
+          "scale": 0.8160027241378399,
+          "colors": [
+            "rgb(84, 84, 84)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 1354.5205663075822,
+            "y": 933.9775830204221,
+            "width": 437.623076596714,
+            "height": 77.5202587930948
+          },
+          "position": {
+            "x": 1354.5205663075822,
+            "y": 949.189547654817
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "6a79244c-0814-49a5-acf7-9db6b0b0a608": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Lorem ipsum dolor is amet, consectetur adipiscing eit. Nullam pharetra in lorem at laoreet. Donec hendrerit libero eget est tempor, quis tempus arcu elementum. In elementum elit at dui tristique feugiat. Mauris convallis, mi at mattis malesuada, neque nulla volutpat dolor, hendrerit fucibus eros nibh ut nunc."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "26.312505px",
+                  "listType": "",
+                  "textAlign": "justify",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Lorem ipsum dolor is amet, consectetur adipiscing eit. Nullam pharetra in lorem at laoreet. Donec hendrerit libero eget est tempor, quis tempus arcu elementum. In elementum elit at dui tristique feugiat. Mauris convallis, mi at mattis malesuada, neque nulla volutpat dolor, hendrerit fucibus eros nibh ut nunc.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ],
+                  "style": "Italic"
+                }
+              ]
+            }
+          ],
+          "scale": 1.2541565431764097,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 62.415419081487194,
+            "y": 405.2834729150503,
+            "width": 590.1191721997487,
+            "height": 461.52960788891875
+          },
+          "position": {
+            "x": 58.34700489940043,
+            "y": 389.00981618670374
+          },
+          "fontSizes": [
+            26.312505
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "7458ab31-023c-40d8-80d1-48df9a893445": {
+        "type": {
+          "type": "address",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "123 Anywhere St., Any City"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "28px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "123 Anywhere St., Any City ",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ],
+                  "style": "Italic"
+                }
+              ]
+            }
+          ],
+          "scale": 0.9852768147195963,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 528.4049405748858,
+            "height": 38.425795774064255
+          },
+          "position": {
+            "x": 1471.5950594251144,
+            "y": 1229.1343192462768
+          },
+          "fontSizes": [
+            28
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "77a6fbc6-1a7e-4440-87d7-cbcd6b805edb": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer"
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 205.82258943069405,
+              "height": 166.92698197922434
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "rotate": 0,
+          "boxSize": {
+            "x": 56.907214787111656,
+            "y": 27.323842094293397,
+            "width": 205.82258943069405,
+            "height": 158.51008454509025
+          },
+          "position": {
+            "x": 107.16797508444027,
+            "y": 36.09893116396312
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "840001d8-4e1c-4f60-aeda-a696e28ffc39": {
+        "type": {
+          "type": "website",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "www.yourwebsite.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "28px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "www.yourwebsite.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ],
+                  "style": "Italic"
+                }
+              ]
+            }
+          ],
+          "scale": 0.9852768147195963,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 528.4049405748858,
+            "height": 38.425795774064255
+          },
+          "position": {
+            "x": 1471.5950594251144,
+            "y": 1169.7696151969203
+          },
+          "fontSizes": [
+            28
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b453a7b8-4945-4a78-9884-dd19139f76d5": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Lorem ipsum dolor is amet, consectetur adipiscing eit. Nullam pharetra in lorem at laoreet. Donec hendrerit libero eget est tempor, quis tempus arcu elementum. In elementum elit at dui tristique feugiat. Mauris convallis, mi at mattis malesuada, neque nulla volutpat dolor, hendrerit fucibus eros nibh ut nunc."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "33px",
+                  "listType": "",
+                  "textAlign": "justify",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Lorem ipsum dolor is amet, consectetur adipiscing eit. Nullam pharetra in lorem at laoreet. Donec hendrerit libero eget est tempor, quis tempus arcu elementum. In elementum elit at dui tristique feugiat. Mauris convallis, mi at mattis malesuada, neque nulla volutpat dolor, hendrerit fucibus eros nibh ut nunc.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ],
+                  "style": "Italic"
+                }
+              ]
+            }
+          ],
+          "scale": 0.9334480025946428,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 695.3683197747703,
+            "y": 665.6971334366281,
+            "width": 553.851177696775,
+            "height": 431.252977198725
+          },
+          "position": {
+            "x": 726.0811315186144,
+            "y": 659.2501729082733
+          },
+          "fontSizes": [
+            33
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b949e073-f029-4ae9-8a66-1408a133bc54": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer"
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1788847611_0b9c8a5b-d835-4967-9a72-e217ac27c2f1.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1788847611_0b9c8a5b-d835-4967-9a72-e217ac27c2f1.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 751.1061946902657,
+              "height": 500.00000000000006
+            },
+            "position": {
+              "x": -125.55309734513284,
+              "y": 0
+            }
+          },
+          "scale": 1.4302736567283465,
+          "rotate": 0,
+          "boxSize": {
+            "x": 1374.160701348384,
+            "y": -110.36397939115612,
+            "width": 715.1368283641733,
+            "height": 715.1368283641733
+          },
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 1354.5205663075822,
+            "y": -118.50080775532938
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ba4a5f13-fd3d-4523-bb22-e40eba3a9043": {
+        "type": {
+          "type": "email",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "youremail@gmail.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "28px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "youremail@gmail.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ],
+                  "style": "Italic"
+                }
+              ]
+            }
+          ],
+          "scale": 0.9852768147195963,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 528.4049405748858,
+            "height": 38.425795774064255
+          },
+          "position": {
+            "x": 1471.5950594251144,
+            "y": 1111.0606408691672
+          },
+          "fontSizes": [
+            28
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "bb2e0272-0ad6-47ca-a6f2-3014759fe9c3": {
+        "type": {
+          "type": "phoneNumber",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "+123-456-7890"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "28px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "+123-456-7890",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ],
+                  "style": "Italic"
+                }
+              ]
+            }
+          ],
+          "scale": 0.9852768147195963,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 528.4049405748858,
+            "height": 38.425795774064255
+          },
+          "position": {
+            "x": 1468.8553171718738,
+            "y": 1055.791365260559
+          },
+          "fontSizes": [
+            28
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "bbc6f324-3583-4527-94ef-04fd9044ab62": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Lorem ipsum dolor is amet, consectetur adipiscing eit. Nullam pharetra in lorem at laoreet. Donec hendrerit libero eget est tempor, quis tempus arcu elementum."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(0, 0, 0)",
+                  "indent": 0,
+                  "fontSize": "24.172614px",
+                  "listType": "",
+                  "textAlign": "justify",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Lorem ipsum dolor is amet, consectetur adipiscing eit. Nullam pharetra in lorem at laoreet. Donec hendrerit libero eget est tempor, quis tempus arcu elementum.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(0, 0, 0)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ],
+                  "style": "Italic"
+                }
+              ]
+            }
+          ],
+          "scale": 1.2410738755403772,
+          "colors": [
+            "rgb(0, 0, 0)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 1350.1330217727473,
+            "y": 665.135176541312,
+            "width": 502.81891012035726,
+            "height": 251.93799673469655
+          },
+          "position": {
+            "x": 1354.5205663075822,
+            "y": 659.2501729082733
+          },
+          "fontSizes": [
+            24.172614
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d382d07d-c06d-44d9-b6b0-45d254bb6761": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer"
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1788847795_9f9b4c2d-8cd4-44cd-929f-337f0e2270ba.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1788847795_9f9b4c2d-8cd4-44cd-929f-337f0e2270ba.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 862.763915547025,
+              "height": 500.00000000000006
+            },
+            "position": {
+              "x": -181.38195777351248,
+              "y": 0
+            }
+          },
+          "scale": 1.5523260821909457,
+          "rotate": 0,
+          "boxSize": {
+            "x": -52.71467803112556,
+            "y": 842.4901684247246,
+            "width": 776.163041095473,
+            "height": 776.163041095473
+          },
+          "clipPath": "M 430 90 C 480 150 490 240 465 320 C 440 400 370 455 290 470 C 210 485 130 465 75 410 C 20 355 5 270 25 190 C 45 110 115 55 200 35 C 285 15 380 30 430 90 Z",
+          "position": {
+            "x": -75.09095603260218,
+            "y": 841.0527986985404
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ee8186a8-9479-4564-8b7b-c67dbe037a9d": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Healthy Food",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(84, 84, 84)",
+                  "indent": 0,
+                  "fontSize": "68px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Poppins",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": ""
+                },
+                "content": [
+                  {
+                    "text": "Healthy Food",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      },
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(84, 84, 84)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Poppins",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLBT5V1tvFP-KUEg.ttf"
+                  ],
+                  "style": "Bold_Italic"
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ]
+                },
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf"
+                  ],
+                  "style": "Italic"
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(84, 84, 84)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 95
+          },
+          "position": {
+            "x": 107.16797508444029,
+            "y": 277.7836254693668
+          },
+          "fontSizes": [
+            68
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_18064",
+      "name": "Healthy Food Flyer",
+      "kind": "leaflet",
+      "aspect": "1000:707",
+      "tags": [
+        "healthy",
+        "food",
+        "business"
+      ],
+      "description": "A promotional flyer for a healthy food business or service.",
+      "canvas_size": {
+        "width": 2000.0,
+        "height": 1414.0
+      },
+      "background_image_url": "https://assets.quickhub.ai/qh-templates-2/without_leaflet__temp_15.png",
+      "background": {
+        "kind": "background_photo",
+        "generate": true,
+        "transparent": false,
+        "prompt": "Create a background with a light mint green base color. Place a large mustard yellow rectangle in the upper-left corner (this template: Healthy Food), covering approximately 10–32% across and 20–26% down. Add another mustard yellow rectangle in the lower-right corner, covering about 68–90% across and 47–64% down. Include a mustard yellow rectangle in the center-right, covering about 36–63% across and 47–77% down. In the lower-left corner, draw a detailed line illustration of a salad bowl in white, occupying about 0–35% across and 59–100% down. Add small black icons (phone, email, web, location) vertically aligned in the lower-right corner, about 73–91% across and 75–90% down. Ensure a clean, flat design style with no gradients or shadows. A separate round photo layer covers the upper-center of the frame (about 36–64% across, 3–43% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. A separate round photo layer covers the upper-right of the frame (about 68–100% across, 0–42% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. A separate round photo layer covers the lower-left of the frame (about 0–35% across, 59–100% down): draw no circle, ring, frame, shadow or photo there — keep plain background surface, as if the canvas physically ended at that boundary; do not let the scene, gradient or lighting reach into it even faded. No text, lettering, logos or watermarks anywhere in the image.",
+        "reference_url": "https://assets.quickhub.ai/qh-templates-2/without_leaflet__temp_15.png",
+        "notes": "Keep the areas for the round photo layers in the upper-center, upper-right, and lower-left corners clear for separate photo layers. Text fixed in dark (rgb(84, 84, 84)) sits in the lower-right of the frame (about 68–79% across, 67–73% down); the upper-left of the frame (about 10–32% across, 20–26% down), so there the background must stay a light, calm tone that it reads clearly on — never dark or busy, even when a brief asks for a moody palette. Text fixed in black sits in the middle-left of the frame (about 3–32% across, 28–60% down); the lower-right of the frame (about 74–91% across, 87–90% down); the lower-right of the frame (about 74–89% across, 83–85% down); the center of the frame (about 36–63% across, 47–77% down); the lower-right of the frame (about 74–90% across, 79–81% down); the lower-right of the frame (about 73–84% across, 75–77% down); the middle-right of the frame (about 68–90% across, 47–64% down), so there the background must stay a light, calm tone that it reads clearly on — never dark or busy, even when a brief asks for a moody palette. The photo frames are separate layers; a regenerated background must not contain its own circles, rings or photos under them."
+      },
+      "text_layer_count": 9,
+      "slots": [
+        {
+          "layer_id": "1cd428e3-e442-41a1-a4fc-d07d7258f63a",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 726.0811315186143,
+            "y": 45.015080746926486
+          },
+          "box_size": {
+            "x": 757.319696192298,
+            "y": 56.505764707674814,
+            "width": 560.5370894448807,
+            "height": 560.5370894448807
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a vibrant salad bowl (this template: a colorful vegetable salad with avocado, cherry tomatoes, and chickpeas), top-down angle, natural daylight, rustic styling, centered and filling the frame to fit within a circular crop. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1788847611_348c14db-cca5-4e6b-a97b-b9e767c6171b.png",
+            "notes": "The subject is centered and fills the circular mask well, requiring a balanced composition with vibrant colors and textures to stand out against the background. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later without exposing hard edges."
+        },
+        {
+          "layer_id": "474a8193-a353-4456-b2f0-cb66da54cf05",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Contact",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 1354.5205663075822,
+            "y": 949.189547654817
+          },
+          "box_size": {
+            "x": 1354.5205663075822,
+            "y": 933.9775830204221,
+            "width": 437.623076596714,
+            "height": 77.5202587930948
+          },
+          "image": null,
+          "notes": "Headline for the contact section, large and prominent. Keep to 1 line for clarity."
+        },
+        {
+          "layer_id": "6a79244c-0814-49a5-acf7-9db6b0b0a608",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Lorem ipsum dolor is amet, consectetur adipiscing eit. Nullam pharetra in lorem at laoreet. Donec hendrerit libero eget est tempor, quis tempus arcu elementum. In elementum elit at dui tristique feugiat. Mauris convallis, mi at mattis malesuada, neque nulla volutpat dolor, hendrerit fucibus eros nibh ut nunc.",
+          "max_chars": 400,
+          "max_lines": 10,
+          "locked": false,
+          "optional": false,
+          "font_size": 26.312505,
+          "position": {
+            "x": 58.34700489940043,
+            "y": 389.00981618670374
+          },
+          "box_size": {
+            "x": 62.415419081487194,
+            "y": 405.2834729150503,
+            "width": 590.1191721997487,
+            "height": 461.52960788891875
+          },
+          "image": null,
+          "notes": "Body text for detailed information. Can wrap to multiple lines, but should stay concise."
+        },
+        {
+          "layer_id": "7458ab31-023c-40d8-80d1-48df9a893445",
+          "resolved_name": "TextLayer",
+          "role": "address",
+          "editable": true,
+          "default_text": "123 Anywhere St., Any City",
+          "max_chars": 40,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 28.0,
+          "position": {
+            "x": 1471.5950594251144,
+            "y": 1229.1343192462768
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 528.4049405748858,
+            "height": 38.425795774064255
+          },
+          "image": null,
+          "notes": "Physical address for contact information. Keep to 1 line for clarity."
+        },
+        {
+          "layer_id": "77a6fbc6-1a7e-4440-87d7-cbcd6b805edb",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 107.16797508444027,
+            "y": 36.09893116396312
+          },
+          "box_size": {
+            "x": 56.907214787111656,
+            "y": 27.323842094293397,
+            "width": 205.82258943069405,
+            "height": 158.51008454509025
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "840001d8-4e1c-4f60-aeda-a696e28ffc39",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.yourwebsite.com",
+          "max_chars": 30,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 28.0,
+          "position": {
+            "x": 1471.5950594251144,
+            "y": 1169.7696151969203
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 528.4049405748858,
+            "height": 38.425795774064255
+          },
+          "image": null,
+          "notes": "Website URL for contact information. Keep to 1 line for clarity."
+        },
+        {
+          "layer_id": "b453a7b8-4945-4a78-9884-dd19139f76d5",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Lorem ipsum dolor is amet, consectetur adipiscing eit. Nullam pharetra in lorem at laoreet. Donec hendrerit libero eget est tempor, quis tempus arcu elementum. In elementum elit at dui tristique feugiat. Mauris convallis, mi at mattis malesuada, neque nulla volutpat dolor, hendrerit fucibus eros nibh ut nunc.",
+          "max_chars": 400,
+          "max_lines": 10,
+          "locked": false,
+          "optional": false,
+          "font_size": 33.0,
+          "position": {
+            "x": 726.0811315186144,
+            "y": 659.2501729082733
+          },
+          "box_size": {
+            "x": 695.3683197747703,
+            "y": 665.6971334366281,
+            "width": 553.851177696775,
+            "height": 431.252977198725
+          },
+          "image": null,
+          "notes": "Subhead or secondary body text. Should complement the main body text, wrapping to multiple lines if needed."
+        },
+        {
+          "layer_id": "b949e073-f029-4ae9-8a66-1408a133bc54",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 1354.5205663075822,
+            "y": -118.50080775532938
+          },
+          "box_size": {
+            "x": 1374.160701348384,
+            "y": -110.36397939115612,
+            "width": 715.1368283641733,
+            "height": 715.1368283641733
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a vibrant salad bowl (this template: a colorful vegan Buddha bowl) captured from a top-down angle, with soft natural lighting highlighting the fresh ingredients, styled with a rustic cloth underneath, and framed tightly to fill a circular mask. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1788847611_0b9c8a5b-d835-4967-9a72-e217ac27c2f1.png",
+            "notes": "The subject is positioned in the upper-right corner, cropped by a circular mask, requiring a composition that focuses on the central elements of the bowl to ensure they are visible and engaging within the mask. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later without exposing hard edges."
+        },
+        {
+          "layer_id": "ba4a5f13-fd3d-4523-bb22-e40eba3a9043",
+          "resolved_name": "TextLayer",
+          "role": "email",
+          "editable": true,
+          "default_text": "youremail@gmail.com",
+          "max_chars": 30,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 28.0,
+          "position": {
+            "x": 1471.5950594251144,
+            "y": 1111.0606408691672
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 528.4049405748858,
+            "height": 38.425795774064255
+          },
+          "image": null,
+          "notes": "Email address for contact information. Keep to 1 line for clarity."
+        },
+        {
+          "layer_id": "bb2e0272-0ad6-47ca-a6f2-3014759fe9c3",
+          "resolved_name": "TextLayer",
+          "role": "phone",
+          "editable": true,
+          "default_text": "+123-456-7890",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 28.0,
+          "position": {
+            "x": 1468.8553171718738,
+            "y": 1055.791365260559
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 528.4049405748858,
+            "height": 38.425795774064255
+          },
+          "image": null,
+          "notes": "Phone number for contact information. Keep to 1 line for clarity."
+        },
+        {
+          "layer_id": "bbc6f324-3583-4527-94ef-04fd9044ab62",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Lorem ipsum dolor is amet, consectetur adipiscing eit. Nullam pharetra in lorem at laoreet. Donec hendrerit libero eget est tempor, quis tempus arcu elementum.",
+          "max_chars": 200,
+          "max_lines": 6,
+          "locked": false,
+          "optional": false,
+          "font_size": 24.172614,
+          "position": {
+            "x": 1354.5205663075822,
+            "y": 659.2501729082733
+          },
+          "box_size": {
+            "x": 1350.1330217727473,
+            "y": 665.135176541312,
+            "width": 502.81891012035726,
+            "height": 251.93799673469655
+          },
+          "image": null,
+          "notes": "Body text for additional details. Can wrap to multiple lines, but should remain concise."
+        },
+        {
+          "layer_id": "d382d07d-c06d-44d9-b6b0-45d254bb6761",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": -75.09095603260218,
+            "y": 841.0527986985404
+          },
+          "box_size": {
+            "x": -52.71467803112556,
+            "y": 842.4901684247246,
+            "width": 776.163041095473,
+            "height": 776.163041095473
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a trio of fresh fruit juices in glasses (this template: orange, kiwi, and strawberry juices), photographed from a slightly elevated angle, with bright, natural lighting to enhance the vibrant colors, styled with fresh fruit slices and leaves around the base, and framed to fill a circular mask in the lower-left corner of the image. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1788847795_9f9b4c2d-8cd4-44cd-929f-337f0e2270ba.png",
+            "notes": "The subject is cropped by a circular mask, so the composition should ensure the glasses and accompanying fruit slices are centered and fill the circle effectively, maintaining focus on the vibrant colors and freshness. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later without exposing hard edges."
+        },
+        {
+          "layer_id": "ee8186a8-9479-4564-8b7b-c67dbe037a9d",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Healthy Food",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 68.0,
+          "position": {
+            "x": 107.16797508444029,
+            "y": 277.7836254693668
+          },
+          "box_size": {
+            "x": 523.1390728476821,
+            "y": 259.9867549668875,
+            "width": 536.3009995574356,
+            "height": 95.0
+          },
+          "image": null,
+          "notes": "Headline for the section, large and prominent. Keep to 1 line for impact."
+        }
+      ]
+    }
+  }
+]
