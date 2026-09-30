@@ -5,13 +5,14 @@ from __future__ import annotations
 
 import uuid
 
-from lido_layouts.check import background_at, luminance
-from lido_layouts.kit import (
+from app.lido_create.check import background_at, luminance
+from app.lido_create.kit import (
     FONT_URLS,
     LOGOS,
     Design,
     Element,
     H,
+    Photo,
     Variant,
     W,
     line_count,
@@ -96,8 +97,7 @@ def clip_path(clip: str, cw: float, ch: float, r: float = 0) -> str:
     return f"M 0 0 L {cw} 0 L {cw} {ch} L 0 {ch} Z"
 
 
-def _photo(e: Element, v: Variant) -> dict:
-    p = pick_photo(v, e.w, e.h)
+def _photo(e: Element, p: Photo) -> dict:
     cw = 500.0
     ch = 500.0 if e.clip == "circle" else round(500.0 * e.h / e.w, 4)
     scale = e.w / cw
@@ -130,7 +130,10 @@ def _logo(e: Element, index: int, design: Design, v: Variant) -> dict:
     })
 
 
-def to_lido(design: Design, v: Variant) -> list[dict]:
+def to_lido(design: Design, v: Variant, photos: list[Photo] | None = None) -> list[dict]:
+    """`photos` fills the photo elements in order (see `photos.resolve_photos`); without
+    it each one gets a cached corpus photo."""
+    queue = list(photos or [])
     layers: dict[str, dict] = {"ROOT": {
         "type": {"type": "bgImage", "resolvedName": "RootLayer", "fixedText": None,
                  "replacableText": None},
@@ -145,7 +148,7 @@ def to_lido(design: Design, v: Variant) -> list[dict]:
         elif e.kind == "shape":
             layer = _shape(e, v)
         elif e.kind == "photo":
-            layer = _photo(e, v)
+            layer = _photo(e, queue.pop(0) if queue else pick_photo(v, e.w, e.h))
         else:
             layer = _logo(e, i, design, v)
         lid = str(uuid.uuid4())

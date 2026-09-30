@@ -16,12 +16,12 @@ For *why* the layouts are designed the way they are (grid, shapes, photos, fonts
 |---|---|
 | `Makefile` → `lido-create` | Turns `COUNT=`, `AI=`, `SEED=`, `IDEA=` into script arguments |
 | `scripts/lido_create_layouts.py` | The entry point: reads options, runs the loop, saves files |
-| `scripts/lido_layouts/kit.py` | The ingredients: palettes, fonts, themes, photo pool, the `Element` model, the `Canvas` drawing helpers |
-| `scripts/lido_layouts/recipes.py` | The 8 built-in layouts, and `mirror()` |
-| `scripts/lido_layouts/ai.py` | AI mode: builds the prompt, calls the LLM, runs the repair loop |
-| `scripts/lido_layouts/check.py` | The design checks every layout must pass |
-| `scripts/lido_layouts/lido.py` | Turns checked elements into real Lido.js JSON |
-| `scripts/lido_layouts/render.py` | HTML render + headless Chrome screenshot + overview sheet |
+| `backend/app/lido_create/kit.py` | The ingredients: palettes, fonts, themes, photo pool, the `Element` model, the `Canvas` drawing helpers |
+| `backend/app/lido_create/recipes.py` | The 8 built-in layouts, and `mirror()` |
+| `backend/app/lido_create/ai.py` | AI mode: builds the prompt, calls the LLM, runs the repair loop |
+| `backend/app/lido_create/check.py` | The design checks every layout must pass |
+| `backend/app/lido_create/lido.py` | Turns checked elements into real Lido.js JSON |
+| `backend/app/lido_create/render.py` | HTML render + headless Chrome screenshot + overview sheet |
 | `backend/app/lido_corpus/textfit.py` | *(existing)* measures text with the real font file |
 | `backend/app/adapters/openai_adapters.py` | *(existing)* the project's OpenAI client, used for the LLM call |
 
@@ -164,7 +164,7 @@ The design then goes to the checks (step 3). **Recipe mode makes no LLM call at 
 
 ## 5. Step 2b: AI mode (`AI=1`), and the LLM call
 
-`from_ai()` in the entry script, then `invent()` in `scripts/lido_layouts/ai.py`.
+`from_ai()` in the entry script, then `invent()` in `backend/app/lido_create/ai.py`.
 
 ### 5.1 The script picks the "dress"; the LLM only designs the layout
 
@@ -403,3 +403,74 @@ the LLM, and you would see `ai attempt 2: … — passes` on the next line.
 
 The first run downloads each corpus photo and font once. Later runs use the caches
 (`drafts/.photo_cache.json`, `lidojs_templates/fonts/`).
+
+---
+
+## 12. Designing from a prompt in the UI ("Design new template" tab)
+
+The web app's **Design new template** tab (`frontend/src/pages/DraftStudio.tsx`) takes a
+free-text prompt, the kind you'd give a designer, and designs a brand-new template
+from it: layout, decoration, colours, fonts **and the copy**, all from the prompt.
+
+```
+UI prompt ──► POST /v1/lido/drafts {prompt, variations 1–3}
+                 │  (app/api/routes/lido_drafts.py; prompt screened by screen_prompt)
+                 ▼
+        drafts.create_from_prompt()                 app/lido_create/drafts.py
+                 │  photo pool loaded (cached corpus photos)
+                 │  one creative direction per variation (none for a single design)
+                 ▼  variations run in parallel
+        brief.design_from_brief()  ×N               app/lido_create/brief.py
+                 │  1 LLM call: layout + colours + fonts + copy + photo subjects
+                 │  check.validate() → failures sent back for repair (≤ 2 rounds)
+                 ▼
+        photos.resolve_photos(source)               app/lido_create/photos.py
+                 │  CachedPhotos today: a corpus photo per frame
+                 ▼
+        drafts.save_draft()  →  template_<id>.json + previews/<id>.png + <id>.info.json
+                 ▼
+UI shows the preview, idea, colours, fonts, photo subjects and check status,
+and lists every draft (GET /v1/lido/drafts) with open / download / delete.
+```
+
+### What differs from `AI=1` in the CLI
+
+| | CLI `AI=1` | UI prompt (`/v1/lido/drafts`) |
+|---|---|---|
+| Colours | Picked from the 12 palettes by the script | **Chosen by the LLM to match the prompt** (any 5 hex colours, contrast still checked) |
+| Fonts | Rotated by the script | Chosen by the LLM from the 5 font sets, by their described character |
+| Copy | The theme's placeholder copy | **Written from the prompt**: the user's own headline, price, offer, CTA and contact are used exactly when given |
+| Photos | Placeholder | Placeholder, plus a `subject` per photo saying what it should show |
+| Variety | "Different from the recipes and earlier layouts" | Each variation gets a different **creative direction** (asymmetric split, magazine cover, photo-dominant, typographic, layered, minimal, grid, framed) |
+
+### The extra rules the LLM gets for prompts (`BRIEF_RULES` in `brief.py`)
+
+- Use the client's exact copy; placeholders only when the prompt gives none.
+- At most 9 text boxes. A long feature list is cut to the 3 most important items.
+- One text box is one paragraph: no line breaks, no emoji, bullets or icon characters.
+  Two checks enforce this (`check.py`), so the repair loop fixes it.
+- Visual effects in the prompt (glow, reflections, lighting) go into the photo
+  `subject`, not into shapes.
+- The headline dominates (typically 90–140px), and the creative direction is mandatory.
+
+### The API
+
+| Method | Path | Does |
+|---|---|---|
+| POST | `/v1/lido/drafts` | `{prompt, variations}` → the new drafts, each with its document |
+| GET | `/v1/lido/drafts` | Every draft, newest first (no documents) |
+| GET | `/v1/lido/drafts/{id}` | One draft with its document |
+| GET | `/v1/lido/drafts/{id}/preview.png` | Its screenshot |
+| DELETE | `/v1/lido/drafts/{id}` | Removes its JSON, info file and preview |
+
+A request takes ~30–120 s: one LLM call per variation, in parallel, plus any repairs.
+
+### Adding image generation later
+
+Only one function changes: `photo_source()` in `app/lido_create/drafts.py`. Today it
+returns `CachedPhotos`. A generating source implements the same
+`photo_for(element, variant)` using `element.subject` as the image prompt
+(`registry.text_to_image()`), uploads the result, and returns a `Photo` with its URL and
+size. The sketch is in the docstring of `app/lido_create/photos.py`. The designer, the
+checks, the Lido writer and the UI don't change. The info file already records
+`photoSource`, so each draft shows which source filled it.

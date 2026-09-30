@@ -149,3 +149,39 @@ class LidoGenerationSummary(Base):
     thumbnail_url: str | None = None
     path: str | None = None
     created_at: datetime
+
+
+class LidoDraftRequest(Base):
+    """Design brand-new template(s) from a prompt (`POST /v1/lido/drafts`). Each variation
+    is designed in a different creative direction and saved to lidojs_templates/drafts/."""
+    prompt: str = Field(min_length=3, max_length=4000)
+    variations: int = Field(default=1, ge=1, le=3)
+
+
+class LidoDraftInfo(Base):
+    """One draft template awaiting review. `document` is only sent when a single draft
+    is requested (or just created); the list omits it."""
+    id: str
+    created_at: datetime
+    source: str = "recipe"
+    """"brief" (designed from a prompt), "ai" (CLI --ai), "recipe" (CLI) or "manual"."""
+    prompt: str | None = None
+    name: str | None = None
+    idea: str | None = None
+    direction: str | None = None
+    layout: str | None = None
+    theme: str | None = None
+    palette: str | None = None
+    fonts: str | None = None
+    mirrored: bool = False
+    colors: dict[str, str] = Field(default_factory=dict)
+    text_count: int | None = None
+    photo_subjects: list[str] = Field(default_factory=list)
+    """What each photo should show — the prompts a future image-generation step uses."""
+    photo_source: str | None = None
+    attempts: int | None = None
+    problems: list[str] = Field(default_factory=list)
+    """Design checks still failing after the repair rounds; empty when it passes."""
+    has_preview: bool = False
+    preview_url: str | None = None
+    document: list[dict[str, Any]] | None = None

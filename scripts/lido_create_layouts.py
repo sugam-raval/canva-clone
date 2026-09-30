@@ -4,7 +4,7 @@ into lidojs_templates/drafts/ for review. How it works: docs/AI_TEMPLATE_GENERAT
 
 Each template is a layout recipe (or, with --ai, a layout the LLM invents) dressed in a
 palette, a font pairing and a copy theme, optionally mirrored. Every one must pass the
-mechanical design checks in scripts/lido_layouts/check.py; a combination that fails is
+mechanical design checks in backend/app/lido_create/check.py; a combination that fails is
 discarded and another is tried.
 
     python scripts/lido_create_layouts.py                  # 5 new drafts from the recipes
@@ -28,15 +28,14 @@ import argparse
 import asyncio
 import json
 import random
-import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "backend"))
 
-from lido_layouts.check import validate
-from lido_layouts.kit import (
-    CORPUS_DIR,
+from app.lido_create.check import validate
+from app.lido_create.drafts import FIRST_ID, next_ids, save_draft
+from app.lido_create.kit import (
     DRAFTS_DIR,
     FONT_SETS,
     FONT_SETS_BY_NAME,
@@ -50,29 +49,8 @@ from lido_layouts.kit import (
     photo_pool,
     theme_photo_count,
 )
-from lido_layouts.lido import to_lido
-from lido_layouts.recipes import RECIPES, mirror
-from lido_layouts.render import browser, overview, screenshot
-
-FIRST_ID = 90001  # generated templates live in their own id range, clear of real exports
-
-
-def used_ids() -> set[int]:
-    ids = set()
-    for p in CORPUS_DIR.rglob("template_*"):
-        m = re.fullmatch(r"template_(\d+)", p.stem)
-        if m:
-            ids.add(int(m.group(1)))
-    return ids
-
-
-def next_ids(count: int, start: int) -> list[int]:
-    taken, out, n = used_ids(), [], start
-    while len(out) < count:
-        if n not in taken:
-            out.append(n)
-        n += 1
-    return out
+from app.lido_create.recipes import RECIPES, mirror
+from app.lido_create.render import browser, overview
 
 
 def build(recipe: str, v: Variant, mirrored: bool) -> Design:
@@ -145,7 +123,7 @@ def from_recipes(args, rng: random.Random, photos, history: set[str], count: int
 async def from_ai(args, rng: random.Random, photos, count: int):
     """LLM-invented layouts, each dressed in a different palette/fonts/theme from the
     same rotation the recipes use (the model only designs the layout)."""
-    from lido_layouts.ai import invent
+    from app.lido_create.ai import invent
     avoid: list[str] = []
     used: dict[str, set[str]] = {"palette": set(), "fonts": set(), "theme": set()}
     themes = [t for t in THEMES if theme_photo_count(t, photos) >= 1] or THEMES
@@ -173,16 +151,14 @@ async def from_ai(args, rng: random.Random, photos, count: int):
 
 def save(design: Design, v: Variant, tid: int, out: Path, preview: bool,
          errors: list[str] | None = None) -> Path | None:
-    doc = to_lido(design, v)
-    path = out / f"template_{tid}.json"
-    path.write_text(json.dumps(doc, indent=2) + "\n")
-    png = out / "previews" / f"template_{tid}.png"
-    shot = preview and screenshot(doc[0]["layers"], png)
-    texts = sum(e.kind == "text" for e in design.elements)
+    record = save_draft(design, v, tid, out=out, preview=preview,
+                        info={"problems": errors or []})
+    texts = record["textCount"]
     flag = f"  ({len(errors)} unresolved problem(s))" if errors else ""
     print(f"  template_{tid}  {design.recipe:<18} {design.theme:<10} {design.palette:<17} "
           f"{design.fonts:<17} {'mirrored ' if design.mirrored else ''}{texts} texts{flag}")
-    return png if shot else None
+    png = out / "previews" / f"template_{tid}.png"
+    return png if record["hasPreview"] else None
 
 
 def list_options() -> None:

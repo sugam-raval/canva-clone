@@ -351,7 +351,7 @@ mirrored left to right:
 
 | Ingredient | Count | Where |
 |---|---|---|
-| Layout recipes | 8: the 5 above plus `card_over_photo`, `twin_photo`, `offset_frame` | `scripts/lido_layouts/recipes.py` |
+| Layout recipes | 8: the 5 above plus `card_over_photo`, `twin_photo`, `offset_frame` | `backend/app/lido_create/recipes.py` |
 | Palettes | 12, each pairing already contrast-safe | `kit.py` → `PALETTES` |
 | Font pairings | 5: Anton, Archivo Black, DM Serif Display, Playfair Display, Bebas Neue (with Montserrat, Oswald and Great Vibes) | `kit.py` → `FONT_SETS` |
 | Copy themes | 8: fashion, interior, business, food, event, beauty, education, wellness | `kit.py` → `THEMES` |
@@ -375,7 +375,7 @@ plate of food.
 
 ### The checks (why the results are consistent)
 
-Before anything is saved, `scripts/lido_layouts/check.py` checks each design. A
+Before anything is saved, `backend/app/lido_create/check.py` checks each design. A
 combination that fails is thrown away and another is tried:
 
 - every text fits its box and line budget, measured with the real font

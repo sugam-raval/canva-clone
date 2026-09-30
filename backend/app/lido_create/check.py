@@ -12,9 +12,14 @@ can be checked from coordinates alone:
 
 from __future__ import annotations
 
-from lido_layouts.kit import RGB, Design, Element, H, Palette, Variant, W, line_count
+import re
+
+from app.lido_create.kit import RGB, Design, Element, H, Palette, Variant, W, line_count
 
 EDGE = 30  # minimum distance from text/logo to the canvas edge
+# Emoji, pictographs and bullet/check marks: the template fonts have no glyphs for them.
+UNDRAWABLE = re.compile("[\u2022\u2023\u25a0-\u25ff\u2600-\u27bf\u2b00-\u2bff"
+                        "\U0001f000-\U0001faff]")
 FREE_TEXT = {"headline", "kicker", "body", "item", "cta", "badge"}
 
 # -- geometry ---------------------------------------------------------------------------
@@ -35,7 +40,7 @@ def covers(e: Element, px: float, py: float) -> bool:
 def text_extent(e: Element, v: Variant) -> tuple[float, float, float, float]:
     """The box the glyphs actually occupy (a 420px box holding a 270px line only has
     ink on 270px of it, aligned left/centre/right)."""
-    from lido_layouts.kit import measure
+    from app.lido_create.kit import measure
     lines, _ = line_count(v.fonts, e)
     m = measure(v.fonts, e.font or "body", e.size or 16, bool(e.uppercase),
                 e.letter_spacing or 0)
@@ -129,6 +134,12 @@ def validate(design: Design, v: Variant) -> list[str]:
         x0, y0, x1, y1 = extents[i]
         if x0 < EDGE or y0 < EDGE or x1 > W - EDGE or y1 > H - EDGE:
             errors.append(f"{name(e)}: closer than {EDGE}px to the canvas edge")
+        if "\n" in (e.text or ""):
+            errors.append(f"{name(e)}: contains a line break — a text box is one "
+                          "paragraph; put each line (each list item) in its own text box")
+        if UNDRAWABLE.search(e.text or ""):
+            errors.append(f"{name(e)}: has emoji/icon/bullet characters the fonts can't "
+                          "draw — plain text only")
         if e.color == "soft":
             errors.append(f"{name(e)}: 'soft' is a decoration colour, never text")
 

@@ -13,14 +13,14 @@ import json
 import random
 import urllib.request
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Literal
 
-from app.lido_corpus.textfit import TextMeasure, font_file, too_wide_words, wrap
 from pydantic import BaseModel
 
-REPO = Path(__file__).resolve().parents[2]
-CORPUS_DIR = REPO / "lidojs_templates"
+from app.lido_corpus.loader import DEFAULT_CORPUS_DIR
+from app.lido_corpus.textfit import TextMeasure, font_file, too_wide_words, wrap
+
+CORPUS_DIR = DEFAULT_CORPUS_DIR
 DRAFTS_DIR = CORPUS_DIR / "drafts"
 PHOTO_CACHE = DRAFTS_DIR / ".photo_cache.json"
 
@@ -221,6 +221,7 @@ class Element(BaseModel):
     letter_spacing: float | None = None  # em
     line_height: float | None = None
     bleed: bool | None = None  # allowed to run off the canvas (decoration or photo)
+    subject: str | None = None  # photos: what the picture should show (for generation)
 
 
 class Design(BaseModel):

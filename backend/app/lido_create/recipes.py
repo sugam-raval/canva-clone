@@ -11,7 +11,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 
-from lido_layouts.kit import Canvas, Design, Element, M, W
+from app.lido_create.kit import Canvas, Design, Element, M, W
 
 
 def _bottom(e: Element) -> float:

@@ -8,8 +8,8 @@ import json
 
 from pydantic import BaseModel
 
-from lido_layouts.check import validate
-from lido_layouts.kit import (
+from app.lido_create.check import validate
+from app.lido_create.kit import (
     FONT_SETS,
     PALETTES,
     THEMES,
@@ -19,7 +19,7 @@ from lido_layouts.kit import (
     Variant,
     line_count,
 )
-from lido_layouts.recipes import RECIPES
+from app.lido_create.recipes import RECIPES
 
 
 class AIDesign(BaseModel):
@@ -36,7 +36,8 @@ ELEMENTS (drawn in list order: first = back, last = front)
 - shape: shape "rectangle" (radius = corner radius px, 0 for sharp) or "circle";
   color = a palette role; optional opacity 0-1; bleed=true if it may run off the canvas.
 - photo: clip "rect" | "rounded" (radius px) | "circle" (w must equal h) | "arch";
-  focus 0-1 (0.3 keeps faces, 0.5 centre). The photo itself is chosen automatically.
+  focus 0-1 (0.3 keeps faces, 0.5 centre); subject = one sentence on what it shows.
+  The picture itself is supplied automatically.
 - logo: exactly one, w 110, h 89. It must sit on one flat colour, never on a photo.
 - text: text (placeholder copy), text_type, font role, size px, align, max_lines,
   uppercase, letter_spacing (em, 0-0.3), line_height. Set h to 0 — it is measured.
@@ -74,7 +75,7 @@ def _example(recipe: str, v: Variant) -> str:
         e.model_dump(exclude_none=True) for e in c.els]}, separators=(",", ":"))
 
 
-def _normalise(els: list[Element], v: Variant) -> None:
+def normalise(els: list[Element], v: Variant) -> None:
     """Fill what the model may leave loose: text heights are always measured."""
     for e in els:
         if e.kind == "text":
@@ -133,7 +134,7 @@ async def invent(v: Variant, *, hint: str | None, avoid: list[str],
         result = await llm.complete_json(system=SYSTEM, user=user, schema=AIDesign,
                                          temperature=0.9, max_tokens=16000)
         ai: AIDesign = result.parsed
-        _normalise(ai.elements, v)
+        normalise(ai.elements, v)
         design = Design(recipe=f"ai:{ai.name}", theme=v.theme.name, palette=v.palette.name,
                         fonts=v.fonts.name, elements=ai.elements)
         errors = validate(design, v)

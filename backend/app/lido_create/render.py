@@ -11,7 +11,7 @@ from pathlib import Path
 
 from PIL import Image
 
-from lido_layouts.lido import ROUNDED_PER_PX
+from app.lido_create.lido import ROUNDED_PER_PX
 
 BROWSERS = ("google-chrome", "google-chrome-stable", "chromium", "chromium-browser")
 

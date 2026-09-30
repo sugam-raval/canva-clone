@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.adapters.registry import describe as describe_adapters
-from app.api.routes import lido
+from app.api.routes import lido, lido_drafts
 from app.config import get_settings
 from app.db.session import dispose_engine, healthcheck
 from app.lido_corpus.store import warm_catalog
@@ -82,6 +82,7 @@ def create_app() -> FastAPI:
         return JSONResponse(status_code=400, content={"detail": str(exc)})
 
     app.include_router(lido.router)
+    app.include_router(lido_drafts.router)
 
     @app.get("/v1/health", tags=["health"])
     async def health() -> dict:

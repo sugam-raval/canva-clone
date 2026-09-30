@@ -115,3 +115,33 @@ export interface LidoGenerationSummary {
   path: string | null
   createdAt: string
 }
+
+/** `/v1/lido/drafts` — a brand-new template designed from a prompt (or by the CLI),
+ * waiting for review in lidojs_templates/drafts/. */
+export interface LidoDraftInfo {
+  id: string
+  createdAt: string
+  /** "brief" (from a prompt in this UI), "ai" / "recipe" (the CLI), "manual". */
+  source: string
+  prompt?: string | null
+  name?: string | null
+  idea?: string | null
+  direction?: string | null
+  layout?: string | null
+  theme?: string | null
+  palette?: string | null
+  fonts?: string | null
+  mirrored?: boolean
+  colors: Record<string, string>
+  textCount?: number | null
+  /** What each photo should show — the prompts future image generation will use. */
+  photoSubjects: string[]
+  photoSource?: string | null
+  attempts?: number | null
+  /** Design checks still failing after repairs; empty when the design passes. */
+  problems: string[]
+  hasPreview: boolean
+  previewUrl?: string | null
+  /** Only on a single draft (or one just created), not in the list. */
+  document?: LidoDocumentEntry[] | null
+}
