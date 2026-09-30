@@ -25,7 +25,7 @@ SHAPE_SCALE = W / (640 / 3)  # the `scale` Lido writes for a shape drawn on a fr
 ROUNDED_PER_PX = 4
 
 LIDO_TEXT_TYPE = {"headline": "bodyText", "kicker": "bodyText", "body": "bodyText",
-                  "item": "bodyText", "cta": "static", "badge": "static",
+                  "item": "bodyText", "cta": "static", "badge": "static", "caption": "static",
                   "website": "website", "phone": "phoneNumber", "email": "email",
                   "address": "address"}
 
@@ -72,8 +72,11 @@ def _text(e: Element, v: Variant) -> dict:
 def _shape(e: Element, v: Variant) -> dict:
     props = {"shape": "circle" if e.shape == "circle" else "rectangle",
              "position": {"x": e.x, "y": e.y}, "boxSize": {"width": e.w, "height": e.h},
-             "rotate": 0, "color": rgb(v.palette.color(e.color or "accent")),
+             "rotate": e.rotate or 0, "color": rgb(v.palette.color(e.color or "accent")),
              "scale": SHAPE_SCALE}
+    if e.stroke and e.stroke_width:
+        props["border"] = {"color": rgb(v.palette.color(e.stroke)), "style": "solid",
+                           "weight": e.stroke_width}
     if e.radius and e.shape != "circle":
         props["roundedCorners"] = round(e.radius * ROUNDED_PER_PX)
     if e.opacity is not None and e.opacity < 1:
@@ -81,10 +84,41 @@ def _shape(e: Element, v: Variant) -> dict:
     return _layer(None, "ShapeLayer", props)
 
 
+# An organic blob (the one template_18064 uses), drawn in a 500 x 500 box.
+BLOB_500 = ("M 430 90 C 480 150 490 240 465 320 C 440 400 370 455 290 470 C 210 485 130 "
+            "465 75 410 C 20 355 5 270 25 190 C 45 110 115 55 200 35 C 285 15 380 30 430 90 Z")
+
+
+def _polygon(points, cw: float, ch: float) -> str:
+    return ("M " + " L ".join(f"{x * cw:.3f} {y * ch:.3f}" for x, y in points) + " Z")
+
+
+def _scaled(path: str, sx: float, sy: float) -> str:
+    """A path written for a 500 x 500 box, stretched to cw x ch (commands keep, x/y pairs
+    scale)."""
+    out, xy = [], 0
+    for token in path.split():
+        if token.isalpha():
+            out.append(token)
+            continue
+        out.append(f"{float(token) * (sx if xy % 2 == 0 else sy):.3f}")
+        xy += 1
+    return " ".join(out)
+
+
 def clip_path(clip: str, cw: float, ch: float, r: float = 0) -> str:
     """Crop shape in the frame's own space (500 units wide; `scale` stretches it)."""
+    from app.lido_create.check import POLYGONS
     if clip == "circle":
         return CIRCLE_PATH
+    if clip in POLYGONS:
+        return _polygon(POLYGONS[clip], cw, ch)
+    if clip == "blob":
+        return _scaled(BLOB_500, cw / 500, ch / 500)
+    if clip == "leaf":  # big rounded top-left and bottom-right corners, the others square
+        k = min(cw, ch) * 0.35
+        return (f"M {k:.3f} 0 L {cw} 0 L {cw} {ch - k:.3f} Q {cw} {ch} {cw - k:.3f} {ch} "
+                f"L 0 {ch} L 0 {k:.3f} Q 0 0 {k:.3f} 0 Z")
     if clip == "arch":
         a = cw / 2
         k = 0.5523 * a
@@ -97,7 +131,23 @@ def clip_path(clip: str, cw: float, ch: float, r: float = 0) -> str:
     return f"M 0 0 L {cw} 0 L {cw} {ch} L 0 {ch} Z"
 
 
+def _cutout(e: Element, p: Photo) -> dict:
+    """A transparent subject: no crop, the whole image fitted inside the box."""
+    return _layer(None, "FrameLayer", {
+        "image": {"url": p.url, "thumb": p.url, "rotate": 0,
+                  "boxSize": {"width": e.w, "height": e.h}, "position": {"x": 0, "y": 0}},
+        "scale": 1, "rotate": 0,
+        "boxSize": {"width": e.w, "height": e.h}, "position": {"x": e.x, "y": e.y},
+        "imageStyle": {"width": "100%", "height": "100%", "display": "block",
+                       "objectFit": "contain"},
+    })
+
+
 def _photo(e: Element, p: Photo) -> dict:
+    if e.clip == "cutout":
+        if p.cutout:
+            return _cutout(e, p)
+        e = e.model_copy(update={"clip": "blob"})  # a placeholder photo, not a cutout
     cw = 500.0
     ch = 500.0 if e.clip == "circle" else round(500.0 * e.h / e.w, 4)
     scale = e.w / cw
@@ -148,7 +198,8 @@ def to_lido(design: Design, v: Variant, photos: list[Photo] | None = None) -> li
         elif e.kind == "shape":
             layer = _shape(e, v)
         elif e.kind == "photo":
-            layer = _photo(e, queue.pop(0) if queue else pick_photo(v, e.w, e.h))
+            layer = _photo(e, queue.pop(0) if queue
+                           else pick_photo(v, e.w, e.h, cutout=e.clip == "cutout"))
         else:
             layer = _logo(e, i, design, v)
         lid = str(uuid.uuid4())

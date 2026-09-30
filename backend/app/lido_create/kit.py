@@ -22,15 +22,17 @@ from app.lido_corpus.textfit import TextMeasure, font_file, too_wide_words, wrap
 
 CORPUS_DIR = DEFAULT_CORPUS_DIR
 DRAFTS_DIR = CORPUS_DIR / "drafts"
-PHOTO_CACHE = DRAFTS_DIR / ".photo_cache.json"
+PHOTO_CACHE = DRAFTS_DIR / ".photo_cache.v2.json"  # url -> [w, h, is_cutout] or null
 
 W = H = 1080
 M = 70  # side margin every left-aligned element starts at
 
 ColorRole = Literal["bg", "ink", "accent", "on_accent", "soft"]
 FontRole = Literal["display", "body", "button", "script"]
-TextType = Literal["headline", "kicker", "body", "item", "cta", "badge",
+TextType = Literal["headline", "kicker", "body", "item", "cta", "badge", "caption",
                    "website", "phone", "email", "address"]
+ClipShape = Literal["rect", "rounded", "circle", "arch", "hexagon", "diamond", "blob",
+                    "leaf", "cutout"]
 
 # --------------------------------------------------------------------------------------
 # Palettes: bg (ROOT colour), ink (text on bg), accent (buttons/badges), on_accent (text
@@ -148,6 +150,7 @@ class Theme:
     phone: str = "+123-456-7890"
     email: str = "hello@yourwebsite.com"
     address: str = "123 Anywhere St., Any City"
+    price: str = "$29.99"
 
 
 THEMES = [
@@ -200,7 +203,7 @@ LOGO_RATIO = 103 / 127  # both logo files are 127 x 103
 
 
 class Element(BaseModel):
-    kind: Literal["shape", "photo", "logo", "text"]
+    kind: Literal["shape", "photo", "logo", "text", "dots"]
     x: float
     y: float
     w: float
@@ -209,7 +212,13 @@ class Element(BaseModel):
     shape: Literal["rectangle", "circle"] | None = None
     radius: float | None = None  # corner radius in px (rectangles, "rounded" photo clips)
     opacity: float | None = None
-    clip: Literal["rect", "rounded", "circle", "arch"] | None = None
+    rotate: float | None = None  # shapes: degrees clockwise, around the shape's centre
+    stroke: ColorRole | None = None  # shapes: outline colour (fill still drawn)
+    stroke_width: float | None = None  # shapes: outline width in px
+    rows: int | None = None  # dots: a rows x cols grid of dots filling x/y/w/h
+    cols: int | None = None
+    dot: float | None = None  # dots: diameter of each dot in px
+    clip: ClipShape | None = None  # photos; "cutout" = transparent subject, no crop
     focus: float | None = None  # 0 = keep the top of the photo, 0.5 = centre
     text: str | None = None
     text_type: TextType | None = None
@@ -246,9 +255,11 @@ class Photo:
     w: int
     h: int
     tags: tuple[str, ...]
+    cutout: bool = False  # a transparent subject (no backdrop) rather than a photo
 
 
-def _usable(data: bytes) -> tuple[int, int] | None:
+def _usable(data: bytes) -> tuple[int, int, bool] | None:
+    """(width, height, is_cutout), or None for anything that is no use as a photo."""
     from PIL import Image
     try:
         im = Image.open(io.BytesIO(data))
@@ -257,11 +268,14 @@ def _usable(data: bytes) -> tuple[int, int] | None:
         return None
     if min(im.size) < 300:  # logos and icons
         return None
+    cutout = False
     if im.mode in ("RGBA", "LA", "P"):
-        alpha = im.convert("RGBA").getchannel("A")
-        if alpha.getextrema()[0] < 250:  # cutouts: they'd show the frame's corners empty
-            return None
-    return im.size
+        alpha = im.convert("RGBA").getchannel("A").resize((64, 64))
+        clear = sum(1 for a in alpha.getdata() if a < 20) / (64 * 64)
+        cutout = clear > 0.1  # a real transparent backdrop, not a stray soft edge
+        if not cutout and alpha.getextrema()[0] < 250:
+            return None  # partly see-through photo: neither a clean photo nor a cutout
+    return im.size[0], im.size[1], cutout
 
 
 def photo_pool() -> list[Photo]:
@@ -291,7 +305,8 @@ def photo_pool() -> list[Photo]:
                 cache[url], changed = (list(size) if size else None), True
             if cache[url]:
                 prior = pool.get(url)
-                pool[url] = Photo(url, *cache[url], tags + (prior.tags if prior else ()))
+                w, h, cutout = cache[url]
+                pool[url] = Photo(url, w, h, tags + (prior.tags if prior else ()), cutout)
     if changed:
         PHOTO_CACHE.parent.mkdir(parents=True, exist_ok=True)
         PHOTO_CACHE.write_text(json.dumps(cache, indent=1))
@@ -408,15 +423,49 @@ class Canvas:
 
     def shape(self, x: float, y: float, w: float, h: float, color: str, *,
               circle: bool = False, radius: float = 0, opacity: float | None = None,
-              bleed: bool = False) -> Element:
+              bleed: bool = False, rotate: float = 0, stroke: str | None = None,
+              stroke_width: float | None = None) -> Element:
         e = Element(kind="shape", x=x, y=y, w=w, h=h, color=color,
                     shape="circle" if circle else "rectangle", radius=radius or None,
-                    opacity=opacity, bleed=bleed or None)
+                    opacity=opacity, bleed=bleed or None, rotate=rotate or None,
+                    stroke=stroke, stroke_width=stroke_width if stroke else None)
         self.els.append(e)
         return e
 
+    def dots(self, x: float, y: float, cols: int, rows: int, *, gap: float = 24,
+             dot: float = 9, color: str = "accent", opacity: float | None = None) -> None:
+        """A dot-grid texture: `cols` x `rows` small circles, `gap` apart."""
+        for r in range(rows):
+            for col in range(cols):
+                self.shape(x + col * gap, y + r * gap, dot, dot, color, circle=True,
+                           opacity=opacity)
+
+    def bullet(self, x: float, y: float, style: str = "ring", size: float = 26,
+               color: str = "accent", inner: str = "bg") -> None:
+        """A list marker: a solid dot, a ring (dot with a hole) or a short bar."""
+        if style == "bar":
+            self.shape(x, y + size / 2 - 3, size, 6, color, radius=3)
+            return
+        self.shape(x, y, size, size, color, circle=True)
+        if style == "ring":
+            hole = size * 0.46
+            self.shape(x + (size - hole) / 2, y + (size - hole) / 2, hole, hole, inner,
+                       circle=True)
+
+    def contact_block(self, kind: str, label: str, *, x: float, y: float, w: float,
+                      align: str = "left", color: str = "ink",
+                      label_color: str = "accent") -> tuple[Element, Element]:
+        """A small caps label ("CALL US") above the contact value, the way pro
+        templates set phone/website lines."""
+        cap = self.text(label, "caption", x=x, y=y, w=w, size=18, color=label_color,
+                        align=align, upper=True, ls=0.15, fit_from=18, smallest=14)
+        value = self.text(getattr(self.v.theme, kind), kind, x=x, y=cap.y + cap.h + 2, w=w,
+                          size=26, color=color, align=align, fit_from=26, smallest=18)
+        return cap, value
+
     def photo(self, x: float, y: float, w: float, h: float, *, clip: str = "rect",
               radius: float = 0, focus: float = 0.4, bleed: bool = False) -> Element:
+        """clip="cutout" is a transparent subject that floats over the design unframed."""
         e = Element(kind="photo", x=x, y=y, w=w, h=h, clip=clip, radius=radius or None,
                     focus=focus, bleed=bleed or None)
         self.els.append(e)
@@ -449,16 +498,26 @@ def on_theme(theme: Theme, photo: Photo) -> bool:
 
 
 def theme_photo_count(theme: Theme, photos: list[Photo]) -> int:
-    return sum(on_theme(theme, p) for p in photos)
+    """On-theme framed photos (cutouts are few, so any cutout stands in for any theme)."""
+    return sum(on_theme(theme, p) for p in photos if not p.cutout)
 
 
-def pick_photo(v: Variant, w: float, h: float) -> Photo:
-    """A theme photo whose shape suits the frame, preferring ones not used yet."""
+def pick_photo(v: Variant, w: float, h: float, cutout: bool = False) -> Photo:
+    """A theme photo whose shape suits the frame, preferring ones not used yet; for a
+    cutout frame, a transparent subject."""
+    if cutout:
+        # a real cutout when one suits the theme; otherwise an on-theme photo (drawn
+        # blob-cropped) — the corpus has almost no cutouts to stand in with
+        pool = ([p for p in v.photos if p.cutout and on_theme(v.theme, p)]
+                or [p for p in v.photos if not p.cutout] or v.photos)
+    else:
+        pool = [p for p in v.photos if not p.cutout] or v.photos
+
     def score(p: Photo) -> tuple:
         aspect_gap = abs((p.w / p.h) - (w / h))
         return (p.url in v.used_photos, not on_theme(v.theme, p), round(aspect_gap, 1),
                 v.rng.random())
 
-    best = min(v.photos, key=score)
+    best = min(pool, key=score)
     v.used_photos.add(best.url)
     return best

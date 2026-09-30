@@ -351,7 +351,7 @@ mirrored left to right:
 
 | Ingredient | Count | Where |
 |---|---|---|
-| Layout recipes | 8: the 5 above plus `card_over_photo`, `twin_photo`, `offset_frame` | `backend/app/lido_create/recipes.py` |
+| Layout recipes | 10: the 5 above plus `card_over_photo`, `twin_photo`, `offset_frame`, and the pro `fresh_promo` and `geo_agency` | `backend/app/lido_create/recipes.py` |
 | Palettes | 12, each pairing already contrast-safe | `kit.py` → `PALETTES` |
 | Font pairings | 5: Anton, Archivo Black, DM Serif Display, Playfair Display, Bebas Neue (with Montserrat, Oswald and Great Vibes) | `kit.py` → `FONT_SETS` |
 | Copy themes | 8: fashion, interior, business, food, event, beauty, education, wellness | `kit.py` → `THEMES` |

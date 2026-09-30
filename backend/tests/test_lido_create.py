@@ -80,7 +80,7 @@ def test_checks_catch_text_on_a_photo_line_breaks_and_emoji():
 
 
 class _FakeLLM:
-    """Replays a recipe as the model's answer; the first answer carries a line break so
+    """Replays a pro recipe as the model's answer; the first answer carries a line break so
     the repair round is exercised."""
 
     def __init__(self):
@@ -92,7 +92,7 @@ class _FakeLLM:
         if len(self.calls) in self.failures:
             raise self.failures[len(self.calls)]
         v = _variant()
-        design = _recipe_design("event_invite", v)
+        design = _recipe_design("fresh_promo", v)  # rich enough for the creative checks
         if len(self.calls) == 1:
             next(e for e in design.elements if e.text_type == "headline").text = "Grand\nNight"
         parsed = schema(
@@ -194,3 +194,54 @@ def test_a_failed_repair_keeps_the_last_design(api):
     fake.failures = {2: AdapterError("refused", recoverable=False)}  # the repair call
     [draft] = client.post("/v1/lido/drafts", json={"prompt": "Launch"}).json()
     assert any("line break" in p for p in draft["problems"])
+
+
+def test_rotated_shapes_and_new_crops_hit_test_their_real_outline():
+    from app.lido_create.check import covers
+    from app.lido_create.kit import Element
+
+    diamond = Element(kind="shape", shape="rectangle", x=0, y=0, w=100, h=100, rotate=45)
+    assert covers(diamond, 50, 50) and covers(diamond, 50, -15)  # tip pokes above the box
+    assert not covers(diamond, 2, 2)  # the unrotated square's corner is empty
+    hexagon = Element(kind="photo", clip="hexagon", x=0, y=0, w=200, h=100)
+    assert covers(hexagon, 100, 50) and not covers(hexagon, 5, 5)
+
+
+def test_dots_expand_and_compact_round_trip():
+    from app.lido_create.ai import compact, expand_dots
+    from app.lido_create.kit import Element
+
+    grid = Element(kind="dots", x=100, y=200, w=80, h=50, rows=3, cols=4, dot=8,
+                   color="accent")
+    circles = expand_dots(grid)
+    assert len(circles) == 12 and {c.w for c in circles} == {8}
+    assert circles[-1].x + 8 == pytest.approx(180) and circles[-1].y + 8 == pytest.approx(250)
+    [back] = compact(circles)
+    assert back["kind"] == "dots" and (back["rows"], back["cols"]) == (3, 4)
+
+
+def test_a_cutout_frame_without_a_cutout_photo_falls_back_to_a_blob_crop():
+    v = _variant()
+    d = _recipe_design("fresh_promo", v)
+    layers = to_lido(d, v, photos=[PHOTOS[0]])[0]["layers"]  # an opaque photo
+    frames = [lr for lr in layers.values()
+              if lr["type"]["resolvedName"] == "FrameLayer" and lr["type"]["type"] != "logo"]
+    assert frames[0]["props"]["clipPath"].startswith("M ")
+    cut = Photo("https://example.test/cut.png", 800, 800, ("business",), cutout=True)
+    layers = to_lido(d, v, photos=[cut])[0]["layers"]
+    frame = next(lr for lr in layers.values()
+                 if lr["type"]["resolvedName"] == "FrameLayer" and lr["type"]["type"] != "logo")
+    assert "clipPath" not in frame["props"]
+    assert frame["props"]["imageStyle"]["objectFit"] == "contain"
+
+
+def test_creative_checks_flag_plain_layouts_and_unbulleted_items():
+    v = _variant()
+    plain = _recipe_design("split_offer", v)
+    assert any("bare" in e for e in validate(plain, v, creative=True))
+    assert not any("bare" in e for e in validate(plain, v))  # recipes are exempt
+    rich = _recipe_design("geo_agency", v)
+    assert validate(rich, v, creative=True) == []
+    # drop the bullet bars (22px wide shapes beside the items): now the items fail
+    rich.elements = [e for e in rich.elements if not (e.kind == "shape" and e.w == 22)]
+    assert any("bullet marker" in e for e in validate(rich, v, creative=True))

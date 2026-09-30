@@ -11,7 +11,6 @@ to the model for repair, so only a passing design is returned unless repairs run
 from __future__ import annotations
 
 import asyncio
-import json
 import random
 from dataclasses import dataclass, field
 from typing import Literal
@@ -21,7 +20,7 @@ from pydantic import BaseModel
 
 from app.adapters.base import AdapterError
 from app.lido_corpus.palette import parse_color, to_hex
-from app.lido_create.ai import SYSTEM, normalise
+from app.lido_create.ai import EXAMPLE_RECIPES, SYSTEM, example, normalise
 from app.lido_create.check import validate
 from app.lido_create.kit import (
     FONT_SETS,
@@ -29,14 +28,12 @@ from app.lido_create.kit import (
     PALETTES,
     THEMES,
     THEMES_BY_NAME,
-    Canvas,
     Design,
     Element,
     Palette,
     Photo,
     Variant,
 )
-from app.lido_create.recipes import RECIPES
 
 log = structlog.get_logger(__name__)
 
@@ -75,8 +72,11 @@ YOU ARE DESIGNING FROM A CLIENT BRIEF
   action and contact details exactly when they give them (shorten only if they cannot
   fit). Where the brief gives none, use a neutral placeholder (www.yourwebsite.com,
   +123-456-7890). Keep copy short: real templates hold short lines.
-- At most 9 text boxes in total. When the brief lists many features, keep the 3 most
-  important as items and drop the rest.
+- At most 12 text boxes in total. When the brief lists many features, keep the 3-4
+  most important as bulleted items and drop the rest.
+- Use the brief's details the way pro templates do: an offer or discount as a
+  multi-line badge ("UP TO" + "30% OFF"), a price as a price tag ("ONLY" + price),
+  contacts as caption + value blocks with ring markers, a tagline as a reverse band.
 - Plain text only: no emoji, icons or bullet symbols (✓ • 📞 🌐) — the fonts cannot draw
   them. Currency symbols, %, &, digits and punctuation are fine.
 - Every photo gets `subject`: one sentence saying exactly what the picture should show,
@@ -154,10 +154,7 @@ def _palette(colors: BriefColors) -> Palette:
 
 def _format_example(photos: list[Photo]) -> str:
     v = Variant(PALETTES[0], FONT_SETS[0], THEMES[0], random.Random(0), photos)
-    c = Canvas(v)
-    RECIPES["split_offer"].build(c)
-    return json.dumps({"elements": [e.model_dump(exclude_none=True) for e in c.els]},
-                      separators=(",", ":"))
+    return "\n".join(example(r, v) for r in EXAMPLE_RECIPES)
 
 
 def _catalogue() -> str:
@@ -181,8 +178,9 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
     steer = (f"Creative direction for this version: {direction}." if direction
              else "Choose the composition that best serves this brief.")
     user = (f"{brief}\n\n{steer}\n\n"
-            "Element format reference — an existing layout; use the format, not the "
-            f"composition:\n{_format_example(photos)}\n\n"
+            "Two existing pro layouts, to show the format and the level of detail "
+            "expected — match their richness, do not copy their composition:\n"
+            f"{_format_example(photos)}\n\n"
             "Design the template: name, idea, colours, font set, photo theme, elements.")
 
     llm = get_llm()
@@ -200,10 +198,10 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
         ai: BriefDesign = reply.parsed
         v = Variant(_palette(ai.colors), FONT_SETS_BY_NAME[ai.fonts],
                     THEMES_BY_NAME[ai.photo_theme], rng, photos)
-        normalise(ai.elements, v)
+        ai.elements = normalise(ai.elements, v)
         design = Design(recipe=f"brief:{ai.name}", theme=ai.photo_theme, palette="custom",
                         fonts=ai.fonts, elements=ai.elements)
-        errors = validate(design, v)
+        errors = validate(design, v, creative=True)
         result = BriefResult(design, v, errors, ai.name, ai.idea, direction, attempt,
                              {r: to_hex(v.palette.color(r))
                               for r in ("bg", "ink", "accent", "on_accent", "soft")})

@@ -474,3 +474,54 @@ returns `CachedPhotos`. A generating source implements the same
 size. The sketch is in the docstring of `app/lido_create/photos.py`. The designer, the
 checks, the Lido writer and the UI don't change. The info file already records
 `photoSource`, so each draft shows which source filled it.
+
+---
+
+## 13. The pro design vocabulary (what makes AI designs look designed)
+
+Plain AI layouts used to come back as "headline, wide photo, list, button". Real
+templates layer techniques on top of that. The engine now supports them, the AI is
+taught them, and the checks require them.
+
+### New building blocks (`app/lido_create/kit.py` `Element`)
+
+| Block | Field(s) | Written to Lido as |
+|---|---|---|
+| Rotation | `rotate` (degrees) | `ShapeLayer.props.rotate`: diamonds, tilted accents, arrow tips |
+| Outline | `stroke`, `stroke_width` | `ShapeLayer.props.border`: price tags, rings, inset frames |
+| Dot grid | `kind: "dots"`, `rows`, `cols`, `dot` | expanded into small circle shapes (one element for the AI) |
+| New crops | `clip: hexagon, diamond, blob, leaf` | the matching `clipPath` |
+| Cutout subject | `clip: "cutout"` | a frame with no crop, `objectFit: contain`, for a transparent subject standing in front of a shape |
+| Caption text | `text_type: "caption"` | a small `static` label ("UP TO", "ONLY", "CALL US") |
+
+Placeholder cutouts: the corpus has only one real transparent cutout, so a cutout slot
+uses an on-theme cutout if there is one, otherwise an on-theme photo in a blob crop.
+Image generation will produce real cutouts.
+
+### Techniques the AI is taught (`SYSTEM` in `ai.py`)
+
+Script + caps headline pairing · reverse band · multi-line offer badge ("UP TO" +
+"30% OFF") · outlined price tag ("ONLY" + price) ·
+corner diamonds and accent panels with an arrow tip · dot-grid textures · bulleted
+features (ring, dot or bar markers) · caption + value contact blocks with ring markers ·
+inset frames and edge bands.
+
+The two example layouts shown to the AI are the pro recipes `fresh_promo` and
+`geo_agency` (written back compactly, dot grids as single `dots` elements). Before this,
+the example was the plain `split_offer`, and the AI copied its plainness.
+
+### Creative checks (`validate(..., creative=True)`, AI designs only)
+
+- **At least 3 decorative elements.** Pills, badges and tags that snugly hold text don't
+  count; frames, panels, dot grids, lines and corner accents do.
+- **No shape behind a photo.** Photos sit directly on the background: a stage circle
+  or blob under a rectangular photo just looks like a stray shape. Badges may overlap a
+  photo's edge when drawn on top of it. (`service_list` and `offset_frame` were changed
+  to follow this too.)
+- **Every list item has a bullet marker** beside it, on its first line.
+- Up to **12** text boxes (was 9), to allow badges, price tags and contact labels.
+- Any small shape (a dot, a bullet) touching a text counts as the text sitting on it,
+  because sampling alone could step over a 9px dot.
+
+The hand-made recipes are exempt (`make lido-create` still uses all 10), but only the
+two pro recipes and `service_list` would pass the creative checks.

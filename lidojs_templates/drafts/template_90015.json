@@ -1,0 +1,1659 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "f6edf9ea-3364-4426-8473-e8b2e4cc450e",
+          "cbd40f1c-0dec-4289-8404-317e371f973d",
+          "f75edc3b-436a-41e6-9737-668f9f0a0eb8",
+          "826afdbf-b434-40a8-acc2-3ad59d7068ce",
+          "f2c09912-d6e2-42cf-9717-f46bc2b8eda5",
+          "e2b24a3f-140d-417d-a557-a8517a10e360",
+          "eb4bb577-a1c1-4964-b8fb-97bf27deb0ab",
+          "2157b435-70b9-4f14-a848-872e6dc0f356",
+          "1f22126a-4054-4e1f-9978-314d83c66de3",
+          "aace30ab-3dc0-49d0-9ace-79827dda3633",
+          "92b55539-e257-42b3-a0af-d3bdead24677",
+          "32c48fdb-7c98-4967-95f7-85b21f5903e1",
+          "15fa59e7-29a6-426a-856e-1bd6dd20cdd6",
+          "d2fefee1-2781-4cde-acd2-8b5ae821fe8a",
+          "88b00a4d-c46c-4f18-b319-d5eae4f9e3cd",
+          "58d64835-050c-4e22-b008-6cdecf3ef06b",
+          "e47f87b6-e6ce-4918-953c-888df052272f",
+          "8cd320e9-1b54-43db-a680-57edec30f4a6",
+          "cbcfce32-2d25-4eda-951a-cfeb77153911",
+          "c2fad69e-7555-40b8-bf7b-f94bd64a5df9",
+          "167516f0-9984-4d7c-934f-aeb22a5d88a0",
+          "53b226e4-8738-4913-8dd4-2227801da4f8",
+          "7c39f8af-1be9-4fe8-9e60-ba2ed13aee79",
+          "98f5070b-8e1c-4f05-b499-90b406cb6bdf",
+          "355691db-1d67-4d69-97e8-77f03aa0d5b5",
+          "aa047cc6-790f-4c97-b146-9d543bfd38e0",
+          "52823e6b-fa52-42dd-bbf8-ed3e27ffc35f",
+          "0ba857ff-7d4a-4ba1-addf-428cb57ef350",
+          "83eed6f9-9478-4a7b-ad24-57ac51108a4c",
+          "6a8887f7-f206-49bb-8b49-c66700042ff3",
+          "875a136c-4337-49dc-857d-7e229516b91e",
+          "803068bd-3cfb-4694-aa31-a2bcd6ee84ef",
+          "d8960d7b-827f-4a80-bbe4-db6766542e97",
+          "f071ea3e-46d2-4696-847b-e2a6e7c33f38",
+          "6a6cf2b4-737b-42bd-ba81-e957c71e15fe",
+          "3e9b3aa4-5070-4fe6-be36-5d86a7d7b23a",
+          "71a4b274-44cd-448a-820f-9688f54553c3",
+          "9b037414-2964-4413-93e4-fe2133755f79",
+          "c8602c10-9788-4746-a52d-b5a196f87c3a",
+          "9ce3335a-f1ed-4f7e-b451-42d1a12d7e4d",
+          "7f371814-3b7b-4a88-89a7-2e8f4446d1e3"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(238, 252, 255)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "f6edf9ea-3364-4426-8473-e8b2e4cc450e": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": -125.0,
+            "y": -250.0
+          },
+          "boxSize": {
+            "width": 350.0,
+            "height": 350.0
+          },
+          "rotate": 0,
+          "color": "rgb(190, 238, 244)",
+          "scale": 5.0625,
+          "transparency": 0.65
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "cbd40f1c-0dec-4289-8404-317e371f973d": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70.0,
+            "y": 55.0
+          },
+          "boxSize": {
+            "width": 130.0,
+            "height": 110.0
+          },
+          "rotate": 0,
+          "color": "rgb(238, 252, 255)",
+          "scale": 5.0625,
+          "roundedCorners": 64
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f75edc3b-436a-41e6-9737-668f9f0a0eb8": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 955.0,
+            "y": -55.0
+          },
+          "boxSize": {
+            "width": 190.0,
+            "height": 190.0
+          },
+          "rotate": 0,
+          "color": "rgb(255, 207, 50)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "826afdbf-b434-40a8-acc2-3ad59d7068ce": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 514.0,
+            "y": 86.0
+          },
+          "boxSize": {
+            "width": 480.0,
+            "height": 770.0
+          },
+          "rotate": 0,
+          "color": "rgb(190, 238, 244)",
+          "scale": 5.0625,
+          "roundedCorners": 160
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f2c09912-d6e2-42cf-9717-f46bc2b8eda5": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 37.500 0 L 462.500 0 Q 500.0 0 500.0 37.500 L 500.0 764.583 Q 500.0 802.0833 462.500 802.0833 L 37.500 802.0833 Q 0 802.0833 0 764.583 L 0 37.500 Q 0 0 37.500 0 Z",
+          "position": {
+            "x": 530.0,
+            "y": 70.0
+          },
+          "boxSize": {
+            "width": 480.0,
+            "height": 770.0
+          },
+          "rotate": 0,
+          "scale": 0.96,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790678394_034a055f-dc92-4bdd-ac43-074f8a421ee3.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790678394_034a055f-dc92-4bdd-ac43-074f8a421ee3.png",
+            "boxSize": {
+              "width": 802.0833,
+              "height": 802.0833
+            },
+            "position": {
+              "x": -151.04165,
+              "y": 0.0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e2b24a3f-140d-417d-a557-a8517a10e360": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 380.0,
+            "y": 82.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "eb4bb577-a1c1-4964-b8fb-97bf27deb0ab": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 407.0,
+            "y": 82.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "2157b435-70b9-4f14-a848-872e6dc0f356": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 434.0,
+            "y": 82.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1f22126a-4054-4e1f-9978-314d83c66de3": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 461.0,
+            "y": 82.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "aace30ab-3dc0-49d0-9ace-79827dda3633": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 380.0,
+            "y": 111.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "92b55539-e257-42b3-a0af-d3bdead24677": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 407.0,
+            "y": 111.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "32c48fdb-7c98-4967-95f7-85b21f5903e1": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 434.0,
+            "y": 111.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "15fa59e7-29a6-426a-856e-1bd6dd20cdd6": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 461.0,
+            "y": 111.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d2fefee1-2781-4cde-acd2-8b5ae821fe8a": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 380.0,
+            "y": 140.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "88b00a4d-c46c-4f18-b319-d5eae4f9e3cd": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 407.0,
+            "y": 140.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "58d64835-050c-4e22-b008-6cdecf3ef06b": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 434.0,
+            "y": 140.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e47f87b6-e6ce-4918-953c-888df052272f": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 461.0,
+            "y": 140.0
+          },
+          "boxSize": {
+            "width": 7.0,
+            "height": 7.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.2
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "8cd320e9-1b54-43db-a680-57edec30f4a6": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 266.0,
+            "y": 110.0
+          },
+          "boxSize": {
+            "width": 30.0,
+            "height": 30.0
+          },
+          "rotate": 25.0,
+          "color": "rgb(255, 207, 50)",
+          "scale": 5.0625,
+          "roundedCorners": 20
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "cbcfce32-2d25-4eda-951a-cfeb77153911": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70.0,
+            "y": 605.0
+          },
+          "boxSize": {
+            "width": 430.0,
+            "height": 90.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "roundedCorners": 72
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c2fad69e-7555-40b8-bf7b-f94bd64a5df9": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 770.0,
+            "y": 585.0
+          },
+          "boxSize": {
+            "width": 260.0,
+            "height": 260.0
+          },
+          "rotate": 0,
+          "color": "rgb(238, 252, 255)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "167516f0-9984-4d7c-934f-aeb22a5d88a0": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 778.0,
+            "y": 593.0
+          },
+          "boxSize": {
+            "width": 244.0,
+            "height": 244.0
+          },
+          "rotate": 0,
+          "color": "rgb(255, 207, 50)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "53b226e4-8738-4913-8dd4-2227801da4f8": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70.0,
+            "y": 890.0
+          },
+          "boxSize": {
+            "width": 940.0,
+            "height": 106.0
+          },
+          "rotate": 0,
+          "color": "rgb(255, 207, 50)",
+          "scale": 5.0625,
+          "roundedCorners": 72
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "7c39f8af-1be9-4fe8-9e60-ba2ed13aee79": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 53.0,
+            "y": 926.0
+          },
+          "boxSize": {
+            "width": 34.0,
+            "height": 34.0
+          },
+          "rotate": 0,
+          "color": "rgb(238, 252, 255)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "98f5070b-8e1c-4f05-b499-90b406cb6bdf": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 993.0,
+            "y": 926.0
+          },
+          "boxSize": {
+            "width": 34.0,
+            "height": 34.0
+          },
+          "rotate": 0,
+          "color": "rgb(238, 252, 255)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "355691db-1d67-4d69-97e8-77f03aa0d5b5": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 514.0,
+            "y": 908.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.35
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "aa047cc6-790f-4c97-b146-9d543bfd38e0": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 514.0,
+            "y": 920.8
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.35
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "52823e6b-fa52-42dd-bbf8-ed3e27ffc35f": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 514.0,
+            "y": 933.6
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.35
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "0ba857ff-7d4a-4ba1-addf-428cb57ef350": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 514.0,
+            "y": 946.4
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.35
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "83eed6f9-9478-4a7b-ad24-57ac51108a4c": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 514.0,
+            "y": 959.2
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.35
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "6a8887f7-f206-49bb-8b49-c66700042ff3": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 514.0,
+            "y": 972.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(6, 70, 107)",
+          "scale": 5.0625,
+          "transparency": 0.35
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "875a136c-4337-49dc-857d-7e229516b91e": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89
+          },
+          "position": {
+            "x": 80.0,
+            "y": 65.0
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "803068bd-3cfb-4694-aa31-a2bcd6ee84ef": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "MAKE A SPLASH THIS SUMMER"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(6, 70, 107)",
+                  "indent": 0,
+                  "fontSize": "88.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Bebas Neue",
+                  "lineHeight": "1.08",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "MAKE A SPLASH THIS SUMMER",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(6, 70, 107)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Bebas Neue",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXooxW4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(6, 70, 107)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 430.0,
+            "height": 190.08
+          },
+          "position": {
+            "x": 70.0,
+            "y": 192.0
+          },
+          "fontSizes": [
+            88.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d8960d7b-827f-4a80-bbe4-db6766542e97": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Your Ultimate Water Adventure Awaits"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(238, 252, 255)",
+                  "indent": 0,
+                  "fontSize": "23.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.25",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Your Ultimate Water Adventure Awaits",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(238, 252, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(238, 252, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 386.0,
+            "height": 57.5
+          },
+          "position": {
+            "x": 92.0,
+            "y": 621.0
+          },
+          "fontSizes": [
+            23.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f071ea3e-46d2-4696-847b-e2a6e7c33f38": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Enjoy thrilling slides, refreshing pools, exciting attractions, and unforgettable moments with your family and friends."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(6, 70, 107)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.22",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Enjoy thrilling slides, refreshing pools, exciting attractions, and unforgettable moments with your family and friends.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(6, 70, 107)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(6, 70, 107)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 423.0,
+            "height": 107.36
+          },
+          "position": {
+            "x": 70.0,
+            "y": 718.0
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "6a6cf2b4-737b-42bd-ba81-e957c71e15fe": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "FLAT",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(7, 59, 89)",
+                  "indent": 0,
+                  "fontSize": "24.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.18,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "FLAT",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(7, 59, 89)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(7, 59, 89)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 160.0,
+            "height": 28.8
+          },
+          "position": {
+            "x": 820.0,
+            "y": 647.0
+          },
+          "fontSizes": [
+            24.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3e9b3aa4-5070-4fe6-be36-5d86a7d7b23a": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "30% OFF",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(7, 59, 89)",
+                  "indent": 0,
+                  "fontSize": "65.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Bebas Neue",
+                  "lineHeight": "1.15",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "30% OFF",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(7, 59, 89)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Bebas Neue",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXooxW4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(7, 59, 89)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 208.0,
+            "height": 74.75
+          },
+          "position": {
+            "x": 796.0,
+            "y": 685.0
+          },
+          "fontSizes": [
+            65.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "71a4b274-44cd-448a-820f-9688f54553c3": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "PROMO CODE",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(7, 59, 89)",
+                  "indent": 0,
+                  "fontSize": "16.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.15,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "PROMO CODE",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(7, 59, 89)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(7, 59, 89)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 350.0,
+            "height": 19.2
+          },
+          "position": {
+            "x": 112.0,
+            "y": 906.0
+          },
+          "fontSizes": [
+            16.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "9b037414-2964-4413-93e4-fe2133755f79": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "SUMMER30",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(7, 59, 89)",
+                  "indent": 0,
+                  "fontSize": "42.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Bebas Neue",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": 0.04,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "SUMMER30",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(7, 59, 89)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Bebas Neue",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXooxW4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(7, 59, 89)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 350.0,
+            "height": 46.2
+          },
+          "position": {
+            "x": 112.0,
+            "y": 934.0
+          },
+          "fontSizes": [
+            42.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c8602c10-9788-4746-a52d-b5a196f87c3a": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "BOOK YOUR TICKETS",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(7, 59, 89)",
+                  "indent": 0,
+                  "fontSize": "27.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.02,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "BOOK YOUR TICKETS",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(7, 59, 89)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(7, 59, 89)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 410.0,
+            "height": 32.4
+          },
+          "position": {
+            "x": 555.0,
+            "y": 926.0
+          },
+          "fontSizes": [
+            27.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "9ce3335a-f1ed-4f7e-b451-42d1a12d7e4d": {
+        "type": {
+          "type": "phoneNumber",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "+91 98765 43210"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(6, 70, 107)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "+91 98765 43210",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(6, 70, 107)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(6, 70, 107)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 430.0,
+            "height": 26.4
+          },
+          "position": {
+            "x": 70.0,
+            "y": 1016.0
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "7f371814-3b7b-4a88-89a7-2e8f4446d1e3": {
+        "type": {
+          "type": "website",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "www.aquaworld.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(6, 70, 107)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "www.aquaworld.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(6, 70, 107)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(6, 70, 107)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 460.0,
+            "height": 26.4
+          },
+          "position": {
+            "x": 550.0,
+            "y": 1016.0
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    }
+  }
+]

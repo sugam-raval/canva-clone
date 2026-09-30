@@ -12,6 +12,7 @@ can be checked from coordinates alone:
 
 from __future__ import annotations
 
+import math
 import re
 
 from app.lido_create.kit import RGB, Design, Element, H, Palette, Variant, W, line_count
@@ -20,15 +21,36 @@ EDGE = 30  # minimum distance from text/logo to the canvas edge
 # Emoji, pictographs and bullet/check marks: the template fonts have no glyphs for them.
 UNDRAWABLE = re.compile("[\u2022\u2023\u25a0-\u25ff\u2600-\u27bf\u2b00-\u2bff"
                         "\U0001f000-\U0001faff]")
-FREE_TEXT = {"headline", "kicker", "body", "item", "cta", "badge"}
+FREE_TEXT = {"headline", "kicker", "body", "item", "cta", "badge", "caption"}
+MAX_TEXTS = 12
+# Crop shapes as polygons in the unit square (the same outlines lido.clip_path draws).
+POLYGONS = {
+    "hexagon": ((0.25, 0), (0.75, 0), (1, 0.5), (0.75, 1), (0.25, 1), (0, 0.5)),
+    "diamond": ((0.5, 0), (1, 0.5), (0.5, 1), (0, 0.5)),
+}
 
 # -- geometry ---------------------------------------------------------------------------
 
 
+def _in_polygon(points, x: float, y: float) -> bool:
+    inside = False
+    for (x1, y1), (x2, y2) in zip(points, points[1:] + points[:1]):
+        if (y1 > y) != (y2 > y) and x < x1 + (y - y1) * (x2 - x1) / (y2 - y1):
+            inside = not inside
+    return inside
+
+
 def covers(e: Element, px: float, py: float) -> bool:
+    if e.rotate:  # test the point in the shape's own, unrotated frame
+        cx, cy = e.x + e.w / 2, e.y + e.h / 2
+        a = math.radians(-e.rotate)
+        dx, dy = px - cx, py - cy
+        px, py = cx + dx * math.cos(a) - dy * math.sin(a), cy + dx * math.sin(a) + dy * math.cos(a)
     if not (e.x <= px <= e.x + e.w and e.y <= py <= e.y + e.h):
         return False
-    if e.shape == "circle" or e.clip == "circle":
+    if e.clip in POLYGONS:
+        return _in_polygon(POLYGONS[e.clip], (px - e.x) / e.w, (py - e.y) / e.h)
+    if e.shape == "circle" or e.clip in ("circle", "blob"):
         rx, ry = e.w / 2, e.h / 2
         return ((px - e.x - rx) / rx) ** 2 + ((py - e.y - ry) / ry) ** 2 <= 1
     if e.clip == "arch" and py < e.y + e.w / 2:
@@ -99,7 +121,77 @@ def _overlap(a, b, pad: float = 4) -> bool:
 # -- the checks -------------------------------------------------------------------------
 
 
-def validate(design: Design, v: Variant) -> list[str]:
+def rotated_extent(e: Element) -> tuple[float, float, float, float]:
+    """Bounding box of a (possibly rotated) element."""
+    if not e.rotate:
+        return e.x, e.y, e.x + e.w, e.y + e.h
+    a = math.radians(e.rotate)
+    hw = (abs(e.w * math.cos(a)) + abs(e.h * math.sin(a))) / 2
+    hh = (abs(e.w * math.sin(a)) + abs(e.h * math.cos(a))) / 2
+    cx, cy = e.x + e.w / 2, e.y + e.h / 2
+    return cx - hw, cy - hh, cx + hw, cy + hh
+
+
+def _richness(els: list[Element], texts, extents, name) -> list[str]:
+    """What separates a designed template from a wireframe — enforced on AI designs."""
+    errors = []
+    # A shape only stops counting as decoration when it is a snug container for its
+    # text (a pill, badge or tag). Frames, panels and stages with text on them still
+    # decorate.
+    on_shape: dict[int, list[tuple[float, float, float, float]]] = {}
+    for i, _ in texts:
+        box = extents[i]
+        for j in range(i):
+            e = els[j]
+            if e.kind == "shape" and all(covers(e, px, py) for px, py in _samples(box)):
+                on_shape.setdefault(j, []).append(box)
+    backing = set()
+    for j, boxes in on_shape.items():
+        uw = max(b[2] for b in boxes) - min(b[0] for b in boxes)
+        uh = max(b[3] for b in boxes) - min(b[1] for b in boxes)
+        e = els[j]
+        if e.w <= uw + 200 and e.h <= uh + 150:
+            backing.add(j)
+    shapes = [(j, e) for j, e in enumerate(els) if e.kind == "shape" and j not in backing]
+    big = sum(1 for _, e in shapes if min(e.w, e.h) >= 24 or max(e.w, e.h) >= 80)
+    textures = 1 if any(max(e.w, e.h) < 24 for _, e in shapes) else 0
+    if big + textures < 3:
+        errors.append(f"the design looks bare: only {big + textures} decorative element(s) "
+                      "besides text pills and badges — add at least 3 (a big background "
+                      "shape, a dot grid, a ring or frame, a corner accent, lines...)")
+    for p, photo in enumerate(els):
+        if photo.kind != "photo":
+            continue
+        area = photo.w * photo.h
+        for s in els[:p]:
+            if s.kind != "shape":
+                continue
+            x0, y0, x1, y1 = rotated_extent(s)
+            ox = max(0.0, min(x1, photo.x + photo.w) - max(x0, photo.x))
+            oy = max(0.0, min(y1, photo.y + photo.h) - max(y0, photo.y))
+            if ox * oy > 0.1 * area:
+                errors.append("a shape is placed behind a photo — photos sit directly on "
+                              "the background; put decoration around the photo, not under "
+                              "it (badges may overlap its edge if drawn on top)")
+                break
+    for i, e in texts:
+        if e.text_type != "item":
+            continue
+        x0, y0, x1, _ = extents[i]
+        first_line = (y0, y0 + (e.size or 20) * (e.line_height or 1.3))
+        marker = any(
+            s.kind == "shape" and s.y < first_line[1] and s.y + s.h > first_line[0]
+            and (0 <= x0 - (s.x + s.w) <= 60 or 0 <= s.x - x1 <= 60)
+            and max(s.w, s.h) <= 60
+            for s in els)
+        if not marker:
+            errors.append(f"{name(e)}: list item has no bullet marker — put a small shape "
+                          "(dot, ring, bar) just beside it, vertically centred on its line")
+    return errors
+
+
+def validate(design: Design, v: Variant, *, creative: bool = False) -> list[str]:
+    """`creative` adds the richness rules asked of AI-designed layouts."""
     els, pal = design.elements, v.palette
     errors: list[str] = []
     texts = [(i, e) for i, e in enumerate(els) if e.kind == "text"]
@@ -117,8 +209,10 @@ def validate(design: Design, v: Variant) -> list[str]:
     if not 1 <= photos <= 2:
         errors.append(f"{photos} photos — use 1 or 2 (the photo slot is what makes a "
                       "generated design fit the brief)")
-    if not 3 <= len(texts) <= 9:
-        errors.append(f"{len(texts)} text boxes — keep between 3 and 9")
+    if not 3 <= len(texts) <= MAX_TEXTS:
+        errors.append(f"{len(texts)} text boxes — keep between 3 and {MAX_TEXTS}")
+    if any(e.kind == "dots" for e in els):
+        errors.append("unexpanded dots element")
     for kind in ("website", "phone", "email", "address"):
         if sum(e.text_type == kind for _, e in texts) > 1:
             errors.append(f"more than one {kind} line")
@@ -151,6 +245,15 @@ def validate(design: Design, v: Variant) -> list[str]:
                 if els[j].kind in ("shape", "photo", "logo") and covers(els[j], px, py):
                     errors.append(f"{name(e)}: a {els[j].kind} is drawn on top of it")
                     break
+        # sampling can step over a small shape (a 9px dot between sample points), so any
+        # small shape whose box touches the text counts too
+        box = extents[i]
+        for j in range(i):
+            s = els[j]
+            if s.kind == "shape" and max(s.w, s.h) < 60 \
+                    and _overlap(rotated_extent(s), box, pad=0) \
+                    and not all(covers(s, px, py) for px, py in _samples(box)):
+                seen.add(("small shape", j))
         if "photo" in seen:
             errors.append(f"{name(e)}: sits on a photo — put it on a flat colour")
         elif len(seen) > 1:
@@ -184,7 +287,8 @@ def validate(design: Design, v: Variant) -> list[str]:
                 errors.append(f"logo overlaps {name(e)}")
 
     for e in els:
-        off = e.x < -1 or e.y < -1 or e.x + e.w > W + 1 or e.y + e.h > H + 1
+        x0, y0, x1, y1 = rotated_extent(e)
+        off = x0 < -1 or y0 < -1 or x1 > W + 1 or y1 > H + 1
         if e.kind in ("shape", "photo") and not e.bleed and off:
             errors.append(f"{e.kind} at ({e.x:.0f},{e.y:.0f}) runs off the canvas "
                           "without bleed")
@@ -197,4 +301,6 @@ def validate(design: Design, v: Variant) -> list[str]:
             if e.text_type in FREE_TEXT and e is not headlines[0] and (e.size or 0) >= top:
                 errors.append(f"{name(e)} is as large as the headline — the loader would "
                               "take it for the headline")
+    if creative:
+        errors += _richness(els, texts, extents, name)
     return list(dict.fromkeys(errors))

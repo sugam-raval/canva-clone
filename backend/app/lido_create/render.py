@@ -24,8 +24,9 @@ def html(layers: dict) -> str:
         layer = layers[lid]
         p, rn = layer["props"], layer["type"]["resolvedName"]
         pos, box = p["position"], p["boxSize"]
+        turn = f"transform:rotate({p['rotate']}deg);" if p.get("rotate") else ""
         base = (f"position:absolute;left:{pos['x']}px;top:{pos['y']}px;"
-                f"width:{box['width']}px;height:{box['height']}px;")
+                f"width:{box['width']}px;height:{box['height']}px;{turn}")
         if rn == "TextLayer":
             for f in p["fonts"]:
                 faces[f["name"]] = f["fonts"][0]["urls"][0]
@@ -40,8 +41,11 @@ def html(layers: dict) -> str:
         elif rn == "ShapeLayer":
             radius = ("50%" if p["shape"] == "circle"
                       else f"{p.get('roundedCorners', 0) / ROUNDED_PER_PX}px")
+            b = p.get("border")
+            border = (f"border:{b['weight']}px {b['style']} {b['color']};box-sizing:border-box;"
+                      if b else "")
             parts.append(f'<div style="{base}background:{p["color"]};border-radius:{radius};'
-                         f'opacity:{p.get("transparency", 1)};"></div>')
+                         f'opacity:{p.get("transparency", 1)};{border}"></div>')
         elif "clipPath" in p:
             img, sc = p["image"], p["scale"]
             cw, ch = box["width"] / sc, box["height"] / sc

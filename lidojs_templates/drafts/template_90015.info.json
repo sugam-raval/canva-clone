@@ -1,0 +1,29 @@
+{
+  "id": "template_90015",
+  "createdAt": "2026-09-30T10:49:55.681171+00:00",
+  "source": "brief",
+  "layout": "brief:Summer Splash Ticket",
+  "theme": "event",
+  "palette": "custom",
+  "fonts": "tall-caps",
+  "mirrored": false,
+  "textCount": 10,
+  "photoSubjects": [
+    "A vibrant large water park with towering colorful water slides, a turquoise wave pool, families enjoying the attractions, sparkling splashing water in the foreground, palm trees and brilliant summer sunshine, photographed with energetic realistic lighting."
+  ],
+  "hasPreview": true,
+  "problems": [],
+  "prompt": "Create a vibrant summer promotional poster for a large water park. Show exciting water slides, a wave pool, families enjoying the attractions, splashing water, palm trees, and bright summer sunshine.\n\nHeadline: MAKE A SPLASH THIS SUMMER\nSubheadline: Your Ultimate Water Adventure Awaits\nOffer: FLAT 30% OFF\nBody: Enjoy thrilling slides, refreshing pools, exciting attractions, and unforgettable moments with your family and friends.\nPromo Code: SUMMER30\nCTA: BOOK YOUR TICKETS\nPhone: +91 98765 43210\nWebsite: [www.aquaworld.com](http://www.aquaworld.com)\n\nUse energetic water effects, playful decorative elements, a large discount badge, ticket-style graphics, and highly readable promotional text.",
+  "name": "Summer Splash Ticket",
+  "idea": "An energetic split composition pairs an oversized stacked headline with a sunlit water-park hero image. A bold discount seal overlaps the photo, while a notched ticket strip organizes the booking action and promo code.",
+  "direction": null,
+  "attempts": 2,
+  "colors": {
+    "bg": "#eefcff",
+    "ink": "#06466b",
+    "accent": "#ffcf32",
+    "on_accent": "#073b59",
+    "soft": "#beeef4"
+  },
+  "photoSource": "corpus-cache"
+}

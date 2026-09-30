@@ -1,0 +1,1316 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "c6286dd1-fe0d-4cc3-beea-43cb1b0fed73",
+          "0452adb4-98e6-4a14-82ac-79e82884b365",
+          "32efaafd-ab16-49d6-8225-7af5cdf66a64",
+          "fd55d38a-e08f-49fe-ad6e-d5f52811d7de",
+          "3de08f3c-e658-4ddb-9846-a1df85ef179b",
+          "ab5676dd-40f9-4eea-a2c9-7543ab279d48",
+          "d2cfbe79-697e-4a5a-9c0d-a48c30b146ea",
+          "101f29ee-ed5b-4fb8-bee3-21f84c2afeeb",
+          "4e403390-9745-46ee-b266-454d93dcccd9",
+          "a867b907-c6d3-451c-9912-ad6e8f998a87",
+          "1a5daf1e-b2f0-477d-8302-e74bc7893b64",
+          "fd97c248-54fe-4d3f-95ba-cfb3b295be75",
+          "c68ec16c-a35d-48a0-b303-5c10f29dff53",
+          "ed7f6df3-e210-4552-adf1-3ad8d040d167",
+          "f7c015e8-c89c-4c78-a2c1-f5defbf33465",
+          "b5e29d1c-9d6e-4b31-91ac-f84f0548f340",
+          "04550f2f-0d9c-4022-ac2f-181cd7c88fca",
+          "f5be1d28-c89d-4825-af11-cbc9bdee1b25",
+          "130f0ff0-6597-4fcd-a191-ecf606a03d94",
+          "cb6f5e36-ee04-4e76-9ff3-b717444de9a4",
+          "335c3779-4e6c-47f7-99f8-df219b8178bc",
+          "5630ee60-3aed-475a-bd6e-6b8c3049252b",
+          "eef38a83-305a-40f0-86d2-8469453b10d7",
+          "87171cc4-c58e-45e7-85cf-ee1e21656384"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 242, 235)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "c6286dd1-fe0d-4cc3-beea-43cb1b0fed73": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 13.043 0 L 486.957 0 Q 500.0 0 500.0 13.043 L 500.0 878.261 Q 500.0 891.3043 486.957 891.3043 L 13.043 891.3043 Q 0 891.3043 0 878.261 L 0 13.043 Q 0 0 13.043 0 Z",
+          "position": {
+            "x": 550.0,
+            "y": 70.0
+          },
+          "boxSize": {
+            "width": 460.0,
+            "height": 820.0
+          },
+          "rotate": 0,
+          "scale": 0.92,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1787203946_54eb3490-bb9d-44be-9852-d9e04ff474cb.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1787203946_54eb3490-bb9d-44be-9852-d9e04ff474cb.png",
+            "boxSize": {
+              "width": 594.4999681,
+              "height": 891.3043
+            },
+            "position": {
+              "x": -47.24998405000002,
+              "y": 0.0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "0452adb4-98e6-4a14-82ac-79e82884b365": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 210.0,
+            "y": 110.0
+          },
+          "boxSize": {
+            "width": 238.0,
+            "height": 3.0
+          },
+          "rotate": 0,
+          "color": "rgb(216, 210, 196)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "32efaafd-ab16-49d6-8225-7af5cdf66a64": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 482.0,
+            "y": 103.0
+          },
+          "boxSize": {
+            "width": 16.0,
+            "height": 16.0
+          },
+          "rotate": 45.0,
+          "color": "rgb(134, 99, 56)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fd55d38a-e08f-49fe-ad6e-d5f52811d7de": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70.0,
+            "y": 969.0
+          },
+          "boxSize": {
+            "width": 940.0,
+            "height": 2.0
+          },
+          "rotate": 0,
+          "color": "rgb(216, 210, 196)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3de08f3c-e658-4ddb-9846-a1df85ef179b": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70.0,
+            "y": 488.0
+          },
+          "boxSize": {
+            "width": 440.0,
+            "height": 46.0
+          },
+          "rotate": 0,
+          "color": "rgb(25, 61, 52)",
+          "scale": 5.0625,
+          "roundedCorners": 16
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ab5676dd-40f9-4eea-a2c9-7543ab279d48": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 600.0,
+            "y": 815.0
+          },
+          "boxSize": {
+            "width": 410.0,
+            "height": 125.0
+          },
+          "rotate": 0,
+          "color": "rgb(134, 99, 56)",
+          "scale": 5.0625,
+          "roundedCorners": 32
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d2cfbe79-697e-4a5a-9c0d-a48c30b146ea": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70.0,
+            "y": 883.0
+          },
+          "boxSize": {
+            "width": 440.0,
+            "height": 64.0
+          },
+          "rotate": 0,
+          "color": "rgb(25, 61, 52)",
+          "scale": 5.0625,
+          "roundedCorners": 16
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "101f29ee-ed5b-4fb8-bee3-21f84c2afeeb": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 72.0,
+            "y": 712.0
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 12.0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 242, 235)",
+          "scale": 5.0625,
+          "border": {
+            "color": "rgb(134, 99, 56)",
+            "style": "solid",
+            "weight": 2.0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "4e403390-9745-46ee-b266-454d93dcccd9": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 72.0,
+            "y": 751.0
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 12.0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 242, 235)",
+          "scale": 5.0625,
+          "border": {
+            "color": "rgb(134, 99, 56)",
+            "style": "solid",
+            "weight": 2.0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a867b907-c6d3-451c-9912-ad6e8f998a87": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 72.0,
+            "y": 790.0
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 12.0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 242, 235)",
+          "scale": 5.0625,
+          "border": {
+            "color": "rgb(134, 99, 56)",
+            "style": "solid",
+            "weight": 2.0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1a5daf1e-b2f0-477d-8302-e74bc7893b64": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 72.0,
+            "y": 829.0
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 12.0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 242, 235)",
+          "scale": 5.0625,
+          "border": {
+            "color": "rgb(134, 99, 56)",
+            "style": "solid",
+            "weight": 2.0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fd97c248-54fe-4d3f-95ba-cfb3b295be75": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89
+          },
+          "position": {
+            "x": 70.0,
+            "y": 70.0
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c68ec16c-a35d-48a0-b303-5c10f29dff53": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "YOUR DREAM HOME IS HERE"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(25, 61, 52)",
+                  "indent": 0,
+                  "fontSize": "100.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Bebas Neue",
+                  "lineHeight": "0.94",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "YOUR DREAM HOME IS HERE",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(25, 61, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Bebas Neue",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXooxW4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(25, 61, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 440.0,
+            "height": 188.0
+          },
+          "position": {
+            "x": 70.0,
+            "y": 190.0
+          },
+          "fontSizes": [
+            100.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ed7f6df3-e210-4552-adf1-3ad8d040d167": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Luxury Living, Designed for You"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(245, 242, 235)",
+                  "indent": 0,
+                  "fontSize": "20.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Luxury Living, Designed for You",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(245, 242, 235)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(245, 242, 235)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 404.0,
+            "height": 22.0
+          },
+          "position": {
+            "x": 88.0,
+            "y": 500.0
+          },
+          "fontSizes": [
+            20.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f7c015e8-c89c-4c78-a2c1-f5defbf33465": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Experience contemporary architecture, thoughtfully designed spaces, and world-class amenities in a connected location."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(25, 61, 52)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.22",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Experience contemporary architecture, thoughtfully designed spaces, and world-class amenities in a connected location.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(25, 61, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(25, 61, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 430.0,
+            "height": 107.36
+          },
+          "position": {
+            "x": 70.0,
+            "y": 557.0
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b5e29d1c-9d6e-4b31-91ac-f84f0548f340": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Spacious Apartments"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(25, 61, 52)",
+                  "indent": 0,
+                  "fontSize": "23.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Spacious Apartments",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(25, 61, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(25, 61, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 386.0,
+            "height": 27.6
+          },
+          "position": {
+            "x": 104.0,
+            "y": 704.0
+          },
+          "fontSizes": [
+            23.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "04550f2f-0d9c-4022-ac2f-181cd7c88fca": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Clubhouse"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(25, 61, 52)",
+                  "indent": 0,
+                  "fontSize": "23.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Clubhouse",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(25, 61, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(25, 61, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 386.0,
+            "height": 27.6
+          },
+          "position": {
+            "x": 104.0,
+            "y": 743.0
+          },
+          "fontSizes": [
+            23.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f5be1d28-c89d-4825-af11-cbc9bdee1b25": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Swimming Pool"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(25, 61, 52)",
+                  "indent": 0,
+                  "fontSize": "23.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Swimming Pool",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(25, 61, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(25, 61, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 386.0,
+            "height": 27.6
+          },
+          "position": {
+            "x": 104.0,
+            "y": 782.0
+          },
+          "fontSizes": [
+            23.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "130f0ff0-6597-4fcd-a191-ecf606a03d94": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "24/7 Security"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(25, 61, 52)",
+                  "indent": 0,
+                  "fontSize": "23.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "24/7 Security",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(25, 61, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(25, 61, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 386.0,
+            "height": 27.6
+          },
+          "position": {
+            "x": 104.0,
+            "y": 821.0
+          },
+          "fontSizes": [
+            23.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "cb6f5e36-ee04-4e76-9ff3-b717444de9a4": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Starting at",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "20.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.03,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Starting at",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 354.0,
+            "height": 24.0
+          },
+          "position": {
+            "x": 628.0,
+            "y": 830.0
+          },
+          "fontSizes": [
+            20.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "335c3779-4e6c-47f7-99f8-df219b8178bc": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "\u20b979 Lakhs",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "57.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Bebas Neue",
+                  "lineHeight": "1.0",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "\u20b979 Lakhs",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Bebas Neue",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXooxW4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 354.0,
+            "height": 57.0
+          },
+          "position": {
+            "x": 628.0,
+            "y": 864.0
+          },
+          "fontSizes": [
+            57.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "5630ee60-3aed-475a-bd6e-6b8c3049252b": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "BOOK A SITE VISIT",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(245, 242, 235)",
+                  "indent": 0,
+                  "fontSize": "23.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.07,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "BOOK A SITE VISIT",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(245, 242, 235)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(245, 242, 235)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 396.0,
+            "height": 27.6
+          },
+          "position": {
+            "x": 92.0,
+            "y": 902.0
+          },
+          "fontSizes": [
+            23.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "eef38a83-305a-40f0-86d2-8469453b10d7": {
+        "type": {
+          "type": "phoneNumber",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "+91 98765 43210"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(25, 61, 52)",
+                  "indent": 0,
+                  "fontSize": "25.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "+91 98765 43210",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(25, 61, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(25, 61, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 420.0,
+            "height": 30.0
+          },
+          "position": {
+            "x": 70.0,
+            "y": 994.0
+          },
+          "fontSizes": [
+            25.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "87171cc4-c58e-45e7-85cf-ee1e21656384": {
+        "type": {
+          "type": "website",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "www.greenheights.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(25, 61, 52)",
+                  "indent": 0,
+                  "fontSize": "24.0px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "www.greenheights.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(25, 61, 52)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(25, 61, 52)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 460.0,
+            "height": 28.8
+          },
+          "position": {
+            "x": 550.0,
+            "y": 994.0
+          },
+          "fontSizes": [
+            24.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    }
+  }
+]

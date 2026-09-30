@@ -62,10 +62,8 @@ def arch_showcase(c: Canvas) -> None:
 
 
 def service_list(c: Canvas) -> None:
-    """Headline column with a 3-item checklist, big circle photo inside an accent ring,
-    button, email."""
+    """Headline column with a 3-item checklist, big circle photo, button, email."""
     t = c.v.theme
-    c.shape(480, 400, 640, 640, "accent", circle=True, bleed=True)
     c.photo(520, 440, 560, 560, clip="circle")
     c.shape(930, 395, 90, 90, "soft", circle=True)
     c.logo(M, 60)
@@ -152,10 +150,10 @@ def twin_photo(c: Canvas) -> None:
 
 
 def offset_frame(c: Canvas) -> None:
-    """Tall photo with an accent block offset behind it like a shadow, text column on the
+    """Tall photo with a thick accent bar running down beside it, text column on the
     other side, phone line under the photo."""
     t = c.v.theme
-    c.shape(100, 140, 440, 740, "accent")
+    c.shape(M + 460, 110, 14, 740, "accent")
     c.photo(M, 110, 440, 740, focus=0.35)
     c.shape(960, 930, 200, 200, "soft", circle=True, bleed=True)
     c.logo(590, 60)
@@ -166,6 +164,82 @@ def offset_frame(c: Canvas) -> None:
                   lh=1.45, fit_from=26, smallest=20)
     c.button(t.cta, x=590, y=_bottom(body) + 44)
     c.contact("phone", x=M, y=960, w=440)
+
+
+def _offer_badge(c: Canvas, lead: str, text: str, cx: float, cy: float,
+                 d: float = 210) -> None:
+    """A multi-line offer badge: a small caps lead ("UP TO") over a big offer."""
+    c.shape(cx - d / 2, cy - d / 2, d, d, "accent", circle=True)
+    cap = c.text(lead, "caption", x=cx - d * 0.35, y=0, w=d * 0.7, size=20,
+                 color="on_accent", align="center", upper=True, ls=0.15, fit_from=20,
+                 smallest=14)
+    big = c.text(text, "badge", x=cx - d * 0.4, y=0, w=d * 0.8, font="display",
+                 color="on_accent", align="center", max_lines=2, upper=True, fit_from=56,
+                 smallest=32)
+    top = cy - (cap.h + big.h) / 2
+    cap.y, big.y = round(top, 2), round(top + cap.h, 2)
+
+
+def fresh_promo(c: Canvas) -> None:
+    """Pro product promo: script line over a huge caps headline, reverse-colour band,
+    the subject straight on the background, multi-line offer badge, outlined price
+    tag, dot-grid textures, a corner diamond, label + value contacts with ring
+    markers."""
+    t = c.v.theme
+    c.shape(880, -110, 280, 280, "accent", rotate=45, bleed=True)
+    c.dots(70, 400, 4, 4, gap=22, dot=8)
+    c.dots(930, 760, 4, 3, gap=22, dot=8)
+    c.logo(M, 50)
+    s = c.text(t.script, "kicker", x=190, y=55, w=700, font="script", size=76,
+               color="accent", align="center", fit_from=76, smallest=48)
+    hl = c.headline(t.headline, x=60, y=_bottom(s), w=960, max_lines=2, start=124,
+                    smallest=84, align="center")
+    band, _ = c.button(t.kicker, x=0, y=_bottom(hl) + 14, h=58, center_x=W / 2,
+                       text_type="kicker", fill="ink", ink="bg")
+    top = band.y + band.h + 50
+    c.photo(250, top, 580, 945 - top, clip="cutout")
+    _offer_badge(c, "Up to", t.badge, 925, 535)
+    c.shape(M, 560, 200, 120, "bg", radius=18, stroke="accent", stroke_width=3)
+    only = c.text("Only", "caption", x=M, y=0, w=200, size=18, color="accent",
+                  align="center", upper=True, ls=0.2)
+    price = c.text(t.price, "badge", x=M + 10, y=0, w=180, font="display", color="ink",
+                   align="center", fit_from=52, smallest=30)
+    only.y = round(620 - (only.h + price.h) / 2, 2)
+    price.y = round(only.y + only.h, 2)
+    cap, _ = c.contact_block("phone", "Order now", x=118, y=950, w=300)
+    c.bullet(M, cap.y + 6, "ring", 34)
+    cap, _ = c.contact_block("website", "Visit us", x=560, y=950, w=362, align="right")
+    c.bullet(976, cap.y + 6, "ring", 34)
+
+
+def geo_agency(c: Canvas) -> None:
+    """Pro service promo: script line + accent caps headline, a corner disc holding the
+    logo, a hexagon photo, an accent panel with an arrow tip holding a bulleted list,
+    dot grids, then label + value contacts either side of a button."""
+    t = c.v.theme
+    c.shape(760, -170, 500, 500, "accent", circle=True, bleed=True)
+    c.dots(930, 420, 3, 3, gap=22, dot=9)  # in the corner the hexagon leaves free
+    c.logo(880, 70)
+    s = c.text(t.script, "kicker", x=M, y=80, w=600, font="script", size=72,
+               color="ink", fit_from=72, smallest=48)
+    hl = c.headline(t.headline, x=M, y=_bottom(s), w=600, max_lines=2, start=100,
+                    smallest=76, color="accent")
+    c.text(t.body, "body", x=M, y=_bottom(hl) + 16, w=420, max_lines=3, size=22,
+           fit_from=22, smallest=18)
+    c.shape(0, 640, 400, 200, "accent")
+    c.shape(300, 669, 142, 142, "accent", rotate=45)
+    c.photo(430, 400, 580, 520, clip="hexagon", focus=0.35)
+    for i, item in enumerate(t.items):
+        y = 668 + i * 50
+        label = c.text(item, "item", x=104, y=y, w=260, size=24, color="on_accent",
+                       fit_from=24, smallest=18)
+        c.bullet(M, label.y + (label.h - 22) / 2, "bar", 22, color="on_accent")
+    cap, _ = c.contact_block("phone", "Call us", x=118, y=950, w=280)
+    c.bullet(M, cap.y + 6, "ring", 34)
+    c.button(t.cta, x=0, y=958, h=70, center_x=W / 2)
+    cap, _ = c.contact_block("website", "Visit our website", x=682, y=950, w=280,
+                             align="right")
+    c.bullet(976, cap.y + 6, "ring", 34)
 
 
 @dataclass(frozen=True)
@@ -188,6 +262,8 @@ RECIPES = {r.name: r for r in [
     Recipe("card_over_photo", card_over_photo, True),
     Recipe("twin_photo", twin_photo, True),
     Recipe("offset_frame", offset_frame, True),
+    Recipe("fresh_promo", fresh_promo, False),
+    Recipe("geo_agency", geo_agency, True),
 ]}
 
 
@@ -198,6 +274,8 @@ def mirror(design: Design) -> Design:
     swap = {"left": "right", "right": "left", "center": "center"}
     for e in flipped.elements:
         e.x = round(W - e.x - e.w, 2)
+        if e.rotate:
+            e.rotate = -e.rotate
         if e.kind == "text":
             e.align = swap[e.align or "left"]
     return flipped

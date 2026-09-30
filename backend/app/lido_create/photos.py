@@ -36,7 +36,7 @@ class CachedPhotos:
     name = "corpus-cache"
 
     async def photo_for(self, element: Element, v: Variant) -> Photo:
-        return pick_photo(v, element.w, element.h)
+        return pick_photo(v, element.w, element.h, cutout=element.clip == "cutout")
 
 
 async def resolve_photos(design: Design, v: Variant, source: PhotoSource) -> list[Photo]:
