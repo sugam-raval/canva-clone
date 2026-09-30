@@ -127,11 +127,16 @@ async def generate_lido_design(
     template_id: str | None = None,
     random_template: bool = False,
     palette: list[str] | None = None,
+    logo_url: str | None = None,
     corpus_dir: Path | str = DEFAULT_CORPUS_DIR,
 ) -> LidoGenerationResult:
     """`palette`: up to 4 colours (#rrggbb, first = primary) applied to the chosen
     template's text, shapes and generated images (docs/palette_theme.md). Template
-    search ignores it. None or empty: generation is exactly as without the feature."""
+    search ignores it. None or empty: generation is exactly as without the feature.
+
+    `logo_url`: a plain URL swap into the chosen template's logo slot (if it has one) —
+    a code-level replacement, never AI-generated or re-cropped. Applied after image
+    generation so it always wins over whatever the logo slot originally held."""
     colors = parse_palette(palette)
     catalog = await load_catalog(corpus_dir)      # lido_templates (DB), files as fallback
     templates = catalog.templates
@@ -170,7 +175,18 @@ async def generate_lido_design(
             for mirror_id in background_mirror_ids(template):
                 image_fills.setdefault(mirror_id, bg_url)
 
-    document = fill_template(template, by_layer_id=fill.text, image_by_layer_id=image_fills)
+    unlock_layer_ids: set[str] = set()
+    if logo_url:
+        logo_slot = next((s for s in template.meta.slots if s.role == "logo"), None)
+        if logo_slot is not None:
+            image_fills[logo_slot.layer_id] = logo_url
+            unlock_layer_ids.add(logo_slot.layer_id)
+        else:
+            log.info("lido.logo_url_ignored", reason="template has no logo slot",
+                     template_id=template.meta.id)
+
+    document = fill_template(template, by_layer_id=fill.text, image_by_layer_id=image_fills,
+                             unlock_layer_ids=unlock_layer_ids)
     if theme is not None:
         apply_theme(document[0]["layers"], theme)
     document[0]["meta"] = _build_meta(

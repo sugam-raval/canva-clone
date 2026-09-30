@@ -38,6 +38,7 @@ export function LidoFlow() {
   const [kind, setKind] = useState('')
   const [templateChoice, setTemplateChoice] = useState<TemplateChoice>({ mode: 'auto' })
   const [palette, setPalette] = useState<string[]>([])
+  const [logoUrl, setLogoUrl] = useState('')
   const [templates, setTemplates] = useState<LidoTemplateSummary[]>([])
   const [running, setRunning] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -68,6 +69,7 @@ export function LidoFlow() {
         templateId: templateChoice.mode === 'id' ? templateChoice.id : undefined,
         randomTemplate: templateChoice.mode === 'random',
         palette,
+        logoUrl: logoUrl.trim() || undefined,
       })
       setResult(response)
       setLayers(response.document?.[0]?.layers ?? null)
@@ -184,6 +186,29 @@ export function LidoFlow() {
             ))}
             {palette.length > 0 && (
               <button onClick={() => setPalette([])} disabled={running}>Clear</button>
+            )}
+          </div>
+          <div className="prompt-row" style={{ alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+            <span style={{ fontSize: 12, color: 'var(--muted)' }}>Brand logo (optional):</span>
+            <input
+              type="url"
+              value={logoUrl}
+              onChange={(e) => setLogoUrl(e.target.value)}
+              placeholder="https://example.com/logo.png"
+              disabled={running}
+              style={{ flex: '1 1 260px', minWidth: 200 }}
+              title="Replaces the chosen template's logo slot with this image, if it has one"
+            />
+            {logoUrl.trim() && (
+              <>
+                <img
+                  src={logoUrl.trim()}
+                  alt="Logo preview"
+                  style={{ height: 28, width: 28, objectFit: 'contain', background: '#fff', borderRadius: 4 }}
+                  onError={(e) => { (e.target as HTMLImageElement).style.visibility = 'hidden' }}
+                />
+                <button onClick={() => setLogoUrl('')} disabled={running}>Clear</button>
+              </>
             )}
           </div>
           <div className="examples">

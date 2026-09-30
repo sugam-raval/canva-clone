@@ -30,7 +30,8 @@ image prompt, images are generated and uploaded, the result is saved to
   "generateImages": true,
   "templateId": null,
   "randomTemplate": false,
-  "palette": ["#6b3f1d", "#e8b04b"]
+  "palette": ["#6b3f1d", "#e8b04b"],
+  "logoUrl": "https://assets.example.com/brand/logo.png"
 }
 ```
 
@@ -42,6 +43,7 @@ image prompt, images are generated and uploaded, the result is saved to
 | `templateId` | string \| `null` | no | Pick an exact template by id (e.g. `"template_227"`), skipping the automatic match entirely. 404 if it doesn't exist. |
 | `randomTemplate` | boolean | no | Default `false`. Pick uniformly at random across the whole corpus. Ignored if `templateId` is set. |
 | `palette` | array of hex strings \| `null` | no | Up to **4** colours (`"#rrggbb"`), first = primary. Applied to text/shapes/images during generation; template search never uses it. Omit or send `[]` for no theme (generation is then exactly as without this field) — see [`docs/palette_theme.md`](palette_theme.md). Any entry that isn't a colour, or more than 4 entries → `400`. |
+| `logoUrl` | string \| `null` | no | An http(s) image URL. When given, it's swapped directly into the chosen template's logo slot (a plain code-level URL replacement, no AI, no re-cropping — logo slots render `objectFit: contain`). Ignored if the chosen template has no logo slot. Not a colour or a generation prompt — malformed URLs (not starting `http://`/`https://`) → `400`. |
 
 Precedence when choosing a template: `templateId` wins outright; otherwise
 `randomTemplate: true` picks at random; otherwise the automatic best-match runs

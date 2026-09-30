@@ -36,6 +36,11 @@ class LidoGenerateRequest(Base):
     """Optional colour theme: up to 4 colours (#rrggbb), the first one primary. Applied
     during generation to text, shapes and images (docs/palette_theme.md); template search
     ignores it. Omitted or empty: generation is unchanged."""
+    logo_url: str | None = None
+    """Optional brand logo image URL. When given, it replaces the chosen template's logo
+    slot directly (a plain URL swap, no AI involved) — even though logo slots are
+    normally `locked` against every other kind of write. Omitted: the template's own
+    logo (if any) is left as-is. Ignored if the template has no logo slot."""
 
     @field_validator("palette")
     @classmethod
@@ -43,6 +48,15 @@ class LidoGenerateRequest(Base):
         if not value:
             return None
         return [to_hex(c) for c in parse_palette(value)]
+
+    @field_validator("logo_url")
+    @classmethod
+    def _valid_logo_url(cls, value: str | None) -> str | None:
+        if not value:
+            return None
+        if not value.startswith(("http://", "https://")):
+            raise ValueError("logo_url must be an http(s) URL")
+        return value
 
 
 class LidoSlotFillInfo(Base):

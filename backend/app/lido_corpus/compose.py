@@ -43,16 +43,20 @@ def fill_template(
     template: LidoTemplateFile,
     by_layer_id: dict[str, str] | None = None,
     image_by_layer_id: dict[str, str] | None = None,
+    unlock_layer_ids: set[str] | None = None,
 ) -> list[dict]:
     """Returns a fresh `[{"layers": {...}}]` document, ready to hand to the Lido editor.
 
     `image_by_layer_id` replaces a layer's `props.image.url` (and `.thumb`) — pass
     `"ROOT"` as a layer_id to replace the background. Slots marked `locked` in the
-    template's metadata (e.g. the logo) are never written, whatever is passed in.
+    template's metadata (e.g. the logo) are never written, whatever is passed in —
+    unless their layer_id is also in `unlock_layer_ids`, for the one case where a
+    caller-supplied replacement (e.g. a brand logo swap) is meant to override the lock.
     """
     by_layer_id = by_layer_id or {}
     image_by_layer_id = image_by_layer_id or {}
-    locked = {slot.layer_id for slot in template.meta.slots if slot.locked}
+    unlock_layer_ids = unlock_layer_ids or set()
+    locked = {slot.layer_id for slot in template.meta.slots if slot.locked} - unlock_layer_ids
     layers_out = {
         lid: copy.deepcopy(layer.model_dump(mode="json"))
         for lid, layer in template.layers.items()
