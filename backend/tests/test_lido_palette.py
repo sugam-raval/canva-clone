@@ -4,7 +4,10 @@ image adapters are the recording fakes from test_lido_generate_template."""
 
 from __future__ import annotations
 
+import io
+
 import pytest
+from PIL import Image
 from pydantic import ValidationError
 from test_lido_generate_template import (  # noqa: F401 — fixtures used by name
     PROMPT,
@@ -17,7 +20,7 @@ from test_lido_generate_template import (  # noqa: F401 — fixtures used by nam
 )
 
 from app.api.schemas import LidoGenerateRequest
-from app.lido_corpus import generate_ai
+from app.lido_corpus import generate_ai, pipeline
 from app.lido_corpus.loader import DEFAULT_CORPUS_DIR, load_enriched
 from app.lido_corpus.palette import (
     MAX_COLORS,
@@ -156,6 +159,32 @@ async def test_text_unreadable_on_the_generated_background_is_swapped(fakes):  #
                                         palette=[NAVY, RED, CREAM])
 
     green = (40, 200, 90)
+    assert result.theme["contrastFixed"]
+    for lid in result.theme["contrastFixed"]:
+        for color in _colors(result.document[0]["layers"][lid]):
+            rgb = parse_color(color)
+            if rgb is not None and rgb != (0, 0, 0):
+                assert contrast(rgb, green) >= 3.0
+
+
+async def test_without_image_generation_text_is_checked_on_the_templates_own_background(
+        fakes, monkeypatch):  # noqa: F811
+    install, _, _ = fakes
+    install(_output())
+    green = (40, 200, 90)
+    buf = io.BytesIO()
+    Image.new("RGB", (64, 64), green).save(buf, format="PNG")
+    fetched: list[str | None] = []
+
+    async def fake_fetch(url):
+        fetched.append(url)
+        return buf.getvalue()
+
+    monkeypatch.setattr(pipeline, "_fetch_image", fake_fetch)
+    result = await generate_lido_design(PROMPT, generate_images=False, template_id=TEMPLATE_ID,
+                                        palette=[NAVY, RED, CREAM])
+
+    assert fetched == [_template(TEMPLATE_ID).meta.background_image_url]
     assert result.theme["contrastFixed"]
     for lid in result.theme["contrastFixed"]:
         for color in _colors(result.document[0]["layers"][lid]):

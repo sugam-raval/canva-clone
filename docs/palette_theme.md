@@ -39,8 +39,11 @@ areas) is kept, and the background prompt's "keep this area dark" notes stay tru
    text of 24px and larger, 4.5:1 for smaller text.
 2. **Text on the picture** keeps its original light/dark side, at least as far from the
    opposite pole as the original colour was.
-3. **After the background is generated**, the pixels behind every text box are measured
-   (median of the box). A text colour that doesn't reach the contrast above is swapped.
+3. **Against the background the design ships with**, the pixels behind every text box are
+   measured (median of the box). That is the newly generated background, or, when none was
+   generated (`generateImages: false`, or its generation/upload failed), the template's own
+   background picture, downloaded for the check. A text colour that doesn't reach the
+   contrast above is swapped.
    The order of preference is: the first readable palette colour, then the same hue made
    lighter or darker, then black or white. The layers this happened to are listed in
    `theme.contrastFixed`.

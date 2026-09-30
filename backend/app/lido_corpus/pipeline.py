@@ -16,6 +16,7 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 
+import httpx
 import structlog
 from botocore.exceptions import BotoCoreError, ClientError
 
@@ -77,6 +78,21 @@ async def _upload(design_id: str, layer_id: str, data: bytes) -> str | None:
         return await asyncio.to_thread(upload_asset, design_id, _asset_name(layer_id), data)
     except (BotoCoreError, ClientError, OSError) as exc:
         log.warning("lido.template_image.upload_failed", layer_id=layer_id, error=str(exc))
+        return None
+
+
+async def _fetch_image(url: str | None) -> bytes | None:
+    if not url:
+        return None
+    try:
+        # The asset CDN answers 403 to clients without a browser user agent.
+        async with httpx.AsyncClient(timeout=15, follow_redirects=True,
+                                     headers={"User-Agent": "Mozilla/5.0"}) as client:
+            response = await client.get(url)
+            response.raise_for_status()
+            return response.content
+    except httpx.HTTPError as exc:
+        log.warning("lido.palette.background_fetch_failed", url=url, error=str(exc))
         return None
 
 
@@ -156,6 +172,7 @@ async def generate_lido_design(
 
     image_fills: dict[str, str] = {}
     image_failures: list[str] = []
+    rendered: dict[str, bytes] = {}
     if generate_images:
         targets = image_targets(template)
         rendered = await generate_template_images(targets, fill.image_prompts)
@@ -165,15 +182,21 @@ async def generate_lido_design(
                 rendered[BACKGROUND_LAYER_ID], canvas.get("width", 0), canvas.get("height", 0),
                 reserved_overlay_areas(template),
             )
-        if theme is not None:
-            canvas = template.meta.canvas_size
-            check_contrast(theme, rendered.get(BACKGROUND_LAYER_ID),
-                           canvas.get("width", 0), canvas.get("height", 0))
         image_fills = await _upload_all(design_id, rendered)
         image_failures = [t.layer_id for t in targets if t.layer_id not in image_fills]
         if (bg_url := image_fills.get(BACKGROUND_LAYER_ID)) is not None:
             for mirror_id in background_mirror_ids(template):
                 image_fills.setdefault(mirror_id, bg_url)
+
+    if theme is not None:
+        # Measure against the background the design actually ships with: the new one if
+        # it was generated and uploaded, otherwise the template's own picture.
+        if BACKGROUND_LAYER_ID in image_fills:
+            background = rendered.get(BACKGROUND_LAYER_ID)
+        else:
+            background = await _fetch_image(template.meta.background_image_url)
+        canvas = template.meta.canvas_size
+        check_contrast(theme, background, canvas.get("width", 0), canvas.get("height", 0))
 
     unlock_layer_ids: set[str] = set()
     if logo_url:
