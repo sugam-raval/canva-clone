@@ -1,0 +1,1175 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "f18ad4ce-66ab-43b1-82ca-0aa8ca21f415",
+          "3774389e-3ac8-44e0-be5c-60330b440c01",
+          "f2c836ed-f9e6-4642-a219-c5e37c838944",
+          "85ac14a0-ed4b-472b-8206-056de41c2e1e",
+          "a19d619e-d6f6-4a7e-ad95-e3e45ce65507",
+          "a4be9140-890a-4283-b337-0c7141d3669b",
+          "5dd118a9-0037-452a-a710-5b68526b4bea",
+          "3c212f83-2ff1-4021-8e7a-42ac977350c9",
+          "ccc723d7-45f3-48f0-9f1d-911c53fc9a8c",
+          "e0148e9d-016b-4cfc-96ce-d7aff2a7931a",
+          "a9eba1ee-f219-47bd-b114-491b85e6dfaf",
+          "edc65344-3872-477f-9b65-a5dbaac45e5c",
+          "52a4c152-57b1-4ac9-a7e8-c0902b89a9a4",
+          "526a1728-a506-42c8-9e4b-4a767dc14825",
+          "d6470f9a-342a-4189-b80b-3eaa35e2a93c"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(255, 255, 255)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "f18ad4ce-66ab-43b1-82ca-0aa8ca21f415": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 480,
+            "y": 400
+          },
+          "boxSize": {
+            "width": 640,
+            "height": 640
+          },
+          "rotate": 0,
+          "color": "rgb(0, 109, 119)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3774389e-3ac8-44e0-be5c-60330b440c01": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+          "position": {
+            "x": 520,
+            "y": 440
+          },
+          "boxSize": {
+            "width": 560,
+            "height": 560
+          },
+          "rotate": 0,
+          "scale": 1.12,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790679620_55f75b9a-b5ae-425d-aedb-4666bead1bcc.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790679620_55f75b9a-b5ae-425d-aedb-4666bead1bcc.png",
+            "boxSize": {
+              "width": 750.0,
+              "height": 500.0
+            },
+            "position": {
+              "x": -125.0,
+              "y": 0.0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f2c836ed-f9e6-4642-a219-c5e37c838944": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 470,
+            "y": 420
+          },
+          "boxSize": {
+            "width": 90,
+            "height": 90
+          },
+          "rotate": 0,
+          "color": "rgb(255, 140, 66)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "85ac14a0-ed4b-472b-8206-056de41c2e1e": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89.21259842519684
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89.21259842519684px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89.21259842519684
+          },
+          "position": {
+            "x": 70,
+            "y": 60
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a19d619e-d6f6-4a7e-ad95-e3e45ce65507": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "What We Offer"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 140, 66)",
+                  "indent": 0,
+                  "fontSize": "24px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.2,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "What We Offer",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 140, 66)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 140, 66)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 420,
+            "height": 28.8
+          },
+          "position": {
+            "x": 70,
+            "y": 205
+          },
+          "fontSizes": [
+            24
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a4be9140-890a-4283-b337-0c7141d3669b": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Expert Business Solutions"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(20, 40, 50)",
+                  "indent": 0,
+                  "fontSize": "66px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Archivo Black",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Expert Business Solutions",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(20, 40, 50)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Archivo Black",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYuP_x7yx3A.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(20, 40, 50)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 470,
+            "height": 217.8
+          },
+          "position": {
+            "x": 70,
+            "y": 245
+          },
+          "fontSizes": [
+            66
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "5dd118a9-0037-452a-a710-5b68526b4bea": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 70,
+            "y": 548
+          },
+          "boxSize": {
+            "width": 30,
+            "height": 30
+          },
+          "rotate": 0,
+          "color": "rgb(0, 109, 119)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3c212f83-2ff1-4021-8e7a-42ac977350c9": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Strategy & Planning"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(20, 40, 50)",
+                  "indent": 0,
+                  "fontSize": "28px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Strategy & Planning",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(20, 40, 50)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(20, 40, 50)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 330,
+            "height": 33.6
+          },
+          "position": {
+            "x": 118,
+            "y": 545
+          },
+          "fontSizes": [
+            28
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ccc723d7-45f3-48f0-9f1d-911c53fc9a8c": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 70,
+            "y": 614
+          },
+          "boxSize": {
+            "width": 30,
+            "height": 30
+          },
+          "rotate": 0,
+          "color": "rgb(0, 109, 119)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e0148e9d-016b-4cfc-96ce-d7aff2a7931a": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Marketing Support"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(20, 40, 50)",
+                  "indent": 0,
+                  "fontSize": "28px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Marketing Support",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(20, 40, 50)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(20, 40, 50)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 330,
+            "height": 33.6
+          },
+          "position": {
+            "x": 118,
+            "y": 611
+          },
+          "fontSizes": [
+            28
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a9eba1ee-f219-47bd-b114-491b85e6dfaf": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 70,
+            "y": 680
+          },
+          "boxSize": {
+            "width": 30,
+            "height": 30
+          },
+          "rotate": 0,
+          "color": "rgb(0, 109, 119)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "edc65344-3872-477f-9b65-a5dbaac45e5c": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Financial Advice"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(20, 40, 50)",
+                  "indent": 0,
+                  "fontSize": "28px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Financial Advice",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(20, 40, 50)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(20, 40, 50)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 330,
+            "height": 33.6
+          },
+          "position": {
+            "x": 118,
+            "y": 677
+          },
+          "fontSizes": [
+            28
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "52a4c152-57b1-4ac9-a7e8-c0902b89a9a4": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70,
+            "y": 790
+          },
+          "boxSize": {
+            "width": 280,
+            "height": 80
+          },
+          "rotate": 0,
+          "color": "rgb(255, 140, 66)",
+          "scale": 5.0625,
+          "roundedCorners": 40
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "526a1728-a506-42c8-9e4b-4a767dc14825": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Contact Us",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "32px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.08,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Contact Us",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 280,
+            "height": 38.4
+          },
+          "position": {
+            "x": 70,
+            "y": 806
+          },
+          "fontSizes": [
+            32
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d6470f9a-342a-4189-b80b-3eaa35e2a93c": {
+        "type": {
+          "type": "email",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "hello@yourwebsite.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(20, 40, 50)",
+                  "indent": 0,
+                  "fontSize": "24px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "hello@yourwebsite.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(20, 40, 50)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(20, 40, 50)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 400,
+            "height": 28.8
+          },
+          "position": {
+            "x": 70,
+            "y": 975
+          },
+          "fontSizes": [
+            24
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_90003",
+      "name": "Business Solutions Ad",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "business",
+        "consulting",
+        "services"
+      ],
+      "description": "A promotional post for business consulting services.",
+      "canvas_size": {
+        "width": 1080.0,
+        "height": 1080.0
+      },
+      "background_image_url": null,
+      "background": null,
+      "text_layer_count": 7,
+      "slots": [
+        {
+          "layer_id": "f18ad4ce-66ab-43b1-82ca-0aa8ca21f415",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 480.0,
+            "y": 400.0
+          },
+          "box_size": {
+            "width": 640.0,
+            "height": 640.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "3774389e-3ac8-44e0-be5c-60330b440c01",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 520.0,
+            "y": 440.0
+          },
+          "box_size": {
+            "width": 560.0,
+            "height": 560.0
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a group of people in a meeting (this template: a specific team discussion), captured from a slightly elevated angle, with soft, natural lighting. The setting is modern and professional, with a focus on interaction and engagement. The composition should be tight to ensure the group fills the circular mask well. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790679620_55f75b9a-b5ae-425d-aedb-4666bead1bcc.png",
+            "notes": "The subject is cropped by a circular mask in the lower-right of the frame, requiring a composition that keeps key elements within this area, ensuring faces and expressions are visible and engaging. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later without exposing hard edges."
+        },
+        {
+          "layer_id": "f2c836ed-f9e6-4642-a219-c5e37c838944",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 470.0,
+            "y": 420.0
+          },
+          "box_size": {
+            "width": 90.0,
+            "height": 90.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "85ac14a0-ed4b-472b-8206-056de41c2e1e",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 70.0,
+            "y": 60.0
+          },
+          "box_size": {
+            "width": 110.0,
+            "height": 89.21259842519684
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "a19d619e-d6f6-4a7e-ad95-e3e45ce65507",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "What We Offer",
+          "max_chars": 20,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 24.0,
+          "position": {
+            "x": 70.0,
+            "y": 205.0
+          },
+          "box_size": {
+            "width": 420.0,
+            "height": 28.8
+          },
+          "image": null,
+          "notes": "Section title or introductory phrase for the offerings list. Keep it concise and impactful. One line only."
+        },
+        {
+          "layer_id": "a4be9140-890a-4283-b337-0c7141d3669b",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Expert Business Solutions",
+          "max_chars": 60,
+          "max_lines": 3,
+          "locked": false,
+          "optional": false,
+          "font_size": 66.0,
+          "position": {
+            "x": 70.0,
+            "y": 245.0
+          },
+          "box_size": {
+            "width": 470.0,
+            "height": 217.8
+          },
+          "image": null,
+          "notes": "Main headline for the template. Should be strong and attention-grabbing. Can span up to three lines as currently set."
+        },
+        {
+          "layer_id": "5dd118a9-0037-452a-a710-5b68526b4bea",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 70.0,
+            "y": 548.0
+          },
+          "box_size": {
+            "width": 30.0,
+            "height": 30.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "3c212f83-2ff1-4021-8e7a-42ac977350c9",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Strategy & Planning",
+          "max_chars": 25,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 28.0,
+          "position": {
+            "x": 118.0,
+            "y": 545.0
+          },
+          "box_size": {
+            "width": 330.0,
+            "height": 33.6
+          },
+          "image": null,
+          "notes": "First item in a list of services offered. Keep it concise. Peer in a parallel list with the following slots."
+        },
+        {
+          "layer_id": "ccc723d7-45f3-48f0-9f1d-911c53fc9a8c",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 70.0,
+            "y": 614.0
+          },
+          "box_size": {
+            "width": 30.0,
+            "height": 30.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "e0148e9d-016b-4cfc-96ce-d7aff2a7931a",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Marketing Support",
+          "max_chars": 25,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 28.0,
+          "position": {
+            "x": 118.0,
+            "y": 611.0
+          },
+          "box_size": {
+            "width": 330.0,
+            "height": 33.6
+          },
+          "image": null,
+          "notes": "Second item in a list of services offered. Keep it concise. Peer in a parallel list with the previous and following slots."
+        },
+        {
+          "layer_id": "a9eba1ee-f219-47bd-b114-491b85e6dfaf",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 70.0,
+            "y": 680.0
+          },
+          "box_size": {
+            "width": 30.0,
+            "height": 30.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "edc65344-3872-477f-9b65-a5dbaac45e5c",
+          "resolved_name": "TextLayer",
+          "role": "body",
+          "editable": true,
+          "default_text": "Financial Advice",
+          "max_chars": 25,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 28.0,
+          "position": {
+            "x": 118.0,
+            "y": 677.0
+          },
+          "box_size": {
+            "width": 330.0,
+            "height": 33.6
+          },
+          "image": null,
+          "notes": "Third item in a list of services offered. Keep it concise. Peer in a parallel list with the previous slots."
+        },
+        {
+          "layer_id": "52a4c152-57b1-4ac9-a7e8-c0902b89a9a4",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 70.0,
+            "y": 790.0
+          },
+          "box_size": {
+            "width": 280.0,
+            "height": 80.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "526a1728-a506-42c8-9e4b-4a767dc14825",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Contact Us",
+          "max_chars": 15,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 32.0,
+          "position": {
+            "x": 70.0,
+            "y": 806.0
+          },
+          "box_size": {
+            "width": 280.0,
+            "height": 38.4
+          },
+          "image": null,
+          "notes": "Call-to-action button label. Should be short and actionable. One line only."
+        },
+        {
+          "layer_id": "d6470f9a-342a-4189-b80b-3eaa35e2a93c",
+          "resolved_name": "TextLayer",
+          "role": "email",
+          "editable": true,
+          "default_text": "hello@yourwebsite.com",
+          "max_chars": 30,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 24.0,
+          "position": {
+            "x": 70.0,
+            "y": 975.0
+          },
+          "box_size": {
+            "width": 400.0,
+            "height": 28.8
+          },
+          "image": null,
+          "notes": "Contact email address. Should fit on one line. Ensure clarity and readability."
+        }
+      ]
+    }
+  }
+]

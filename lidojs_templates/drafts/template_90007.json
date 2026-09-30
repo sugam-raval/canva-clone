@@ -1,0 +1,632 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "92ead350-dc51-4d0b-8641-9c65e2311907",
+          "0c24c24d-03e3-4bab-b591-b2696a3e1b85",
+          "2e6c8103-7bcf-43b1-bfed-d93e6ceb627a",
+          "0d4888e8-a160-4176-ab1e-01df3c8ed487",
+          "dfdefdb0-ecd2-44b3-bf35-eb6575ba0dd7",
+          "2d465a3e-688a-4f8b-ac2c-4718e92825af",
+          "249ceac4-e17a-4787-9b54-f50f83eeed36",
+          "57fdbbf7-02cb-4663-ae95-c02e2620bce5",
+          "35a4727a-0433-418f-b7c2-a3083425af84",
+          "dfa09eb3-977d-4b8b-8bfc-15fda469dc41",
+          "62538e00-1256-44e7-8aad-6255ff97754d",
+          "e1f34773-507a-459a-be07-4090714d56b4"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 239, 230)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "92ead350-dc51-4d0b-8641-9c65e2311907": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "boxSize": {
+            "width": 1080.0,
+            "height": 1080.0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 239, 230)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "0c24c24d-03e3-4bab-b591-b2696a3e1b85": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70.0,
+            "y": 177.0
+          },
+          "boxSize": {
+            "width": 940.0,
+            "height": 2.0
+          },
+          "rotate": 0,
+          "color": "rgb(222, 186, 168)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "2e6c8103-7bcf-43b1-bfed-d93e6ceb627a": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 0 0 L 500.0 0 L 500.0 220.2128 L 0 220.2128 Z",
+          "position": {
+            "x": 70.0,
+            "y": 520.0
+          },
+          "boxSize": {
+            "width": 940.0,
+            "height": 414.0
+          },
+          "rotate": 0,
+          "scale": 1.88,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1787203946_54eb3490-bb9d-44be-9852-d9e04ff474cb.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1787203946_54eb3490-bb9d-44be-9852-d9e04ff474cb.png",
+            "boxSize": {
+              "width": 499.99999999999994,
+              "height": 749.6251874062968
+            },
+            "position": {
+              "x": 2.842170943040401e-14,
+              "y": -264.7061937031484
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "0d4888e8-a160-4176-ab1e-01df3c8ed487": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 370.0,
+            "y": 520.0
+          },
+          "boxSize": {
+            "width": 20.0,
+            "height": 414.0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 239, 230)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "dfdefdb0-ecd2-44b3-bf35-eb6575ba0dd7": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 690.0,
+            "y": 520.0
+          },
+          "boxSize": {
+            "width": 20.0,
+            "height": 414.0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 239, 230)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "2d465a3e-688a-4f8b-ac2c-4718e92825af": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 730.0,
+            "y": 897.0
+          },
+          "boxSize": {
+            "width": 260.0,
+            "height": 74.0
+          },
+          "rotate": 0,
+          "color": "rgb(168, 86, 62)",
+          "scale": 5.0625,
+          "roundedCorners": 148
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "249ceac4-e17a-4787-9b54-f50f83eeed36": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89
+          },
+          "position": {
+            "x": 900.0,
+            "y": 60.0
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "57fdbbf7-02cb-4663-ae95-c02e2620bce5": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Home & Living"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(168, 86, 62)",
+                  "indent": 0,
+                  "fontSize": "24.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0.08,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Home & Living",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(168, 86, 62)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(168, 86, 62)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 630.0,
+            "height": 31.2
+          },
+          "position": {
+            "x": 70.0,
+            "y": 91.0
+          },
+          "fontSizes": [
+            24.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "35a4727a-0433-418f-b7c2-a3083425af84": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Designed for\nLiving"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(62, 44, 35)",
+                  "indent": 0,
+                  "fontSize": "88.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Archivo Black",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Designed for\nLiving",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(62, 44, 35)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Archivo Black",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/archivoblack/v23/HTxqL289NzCGg4MzN6KJ7eW6OYuP_x7yx3A.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(62, 44, 35)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 940.0,
+            "height": 96.8
+          },
+          "position": {
+            "x": 70.0,
+            "y": 215.0
+          },
+          "fontSizes": [
+            88.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "dfa09eb3-977d-4b8b-8bfc-15fda469dc41": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Thoughtful spaces, crafted around you."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(62, 44, 35)",
+                  "indent": 0,
+                  "fontSize": "26.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.4",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Thoughtful spaces, crafted around you.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(62, 44, 35)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(62, 44, 35)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 940.0,
+            "height": 36.4
+          },
+          "position": {
+            "x": 70.0,
+            "y": 443.0
+          },
+          "fontSizes": [
+            26.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "62538e00-1256-44e7-8aad-6255ff97754d": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Book a Visit",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 248, 240)",
+                  "indent": 0,
+                  "fontSize": "26.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.06,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Book a Visit",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 248, 240)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 248, 240)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 260.0,
+            "height": 31.2
+          },
+          "position": {
+            "x": 730.0,
+            "y": 918.4
+          },
+          "fontSizes": [
+            26.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e1f34773-507a-459a-be07-4090714d56b4": {
+        "type": {
+          "type": "website",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "www.yourwebsite.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(62, 44, 35)",
+                  "indent": 0,
+                  "fontSize": "24.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "www.yourwebsite.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(62, 44, 35)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(62, 44, 35)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 600.0,
+            "height": 31.2
+          },
+          "position": {
+            "x": 70.0,
+            "y": 983.0
+          },
+          "fontSizes": [
+            24.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    }
+  }
+]

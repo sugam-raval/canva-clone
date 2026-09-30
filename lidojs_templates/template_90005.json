@@ -1,0 +1,737 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "942da613-450c-4192-8639-094bb94f2b72",
+          "902f5678-192b-448d-9289-e8b6bb3156b5",
+          "52fa03a7-187d-40a4-a174-dc9a2ebd26ce",
+          "26f43795-e346-4674-8030-b82b0ed9d9ca",
+          "6cd36164-9460-479b-9fd8-0b78dbf669a8",
+          "b98f093f-6990-4ec7-aa9f-d0132c7d7d05",
+          "8a0fd9b4-3979-4d86-a214-89ec59683241",
+          "e4400982-4425-47d9-b17b-63de6fee335f",
+          "ab625da7-f41a-4909-b630-6240c983fd09"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(36, 22, 62)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "942da613-450c-4192-8639-094bb94f2b72": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": -90,
+            "y": -90
+          },
+          "boxSize": {
+            "width": 280,
+            "height": 280
+          },
+          "rotate": 0,
+          "color": "rgb(255, 107, 107)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "902f5678-192b-448d-9289-e8b6bb3156b5": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 930,
+            "y": 900
+          },
+          "boxSize": {
+            "width": 240,
+            "height": 240
+          },
+          "rotate": 0,
+          "color": "rgb(255, 222, 150)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "52fa03a7-187d-40a4-a174-dc9a2ebd26ce": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89.21259842519684
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89.21259842519684px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89.21259842519684
+          },
+          "position": {
+            "x": 485,
+            "y": 50
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "26f43795-e346-4674-8030-b82b0ed9d9ca": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "You're Invited"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 222, 150)",
+                  "indent": 0,
+                  "fontSize": "58px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Great Vibes",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "You're Invited",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 222, 150)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Great Vibes",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/greatvibes/v21/RWmMoKWR9v4ksMfaWd_JN-XC.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 222, 150)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 600,
+            "height": 69.6
+          },
+          "position": {
+            "x": 240,
+            "y": 160
+          },
+          "fontSizes": [
+            58
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "6cd36164-9460-479b-9fd8-0b78dbf669a8": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Grand Opening Night"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "118px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.05",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Grand Opening Night",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 900,
+            "height": 247.8
+          },
+          "position": {
+            "x": 90,
+            "y": 240
+          },
+          "fontSizes": [
+            118
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b98f093f-6990-4ec7-aa9f-d0132c7d7d05": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 315,
+            "y": 510
+          },
+          "boxSize": {
+            "width": 450,
+            "height": 80
+          },
+          "rotate": 0,
+          "color": "rgb(255, 107, 107)",
+          "scale": 5.0625,
+          "roundedCorners": 160
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "8a0fd9b4-3979-4d86-a214-89ec59683241": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Sat, 12 October · 7 PM",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "32px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.06,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Sat, 12 October · 7 PM",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 450,
+            "height": 38.4
+          },
+          "position": {
+            "x": 315,
+            "y": 526
+          },
+          "fontSizes": [
+            32
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e4400982-4425-47d9-b17b-63de6fee335f": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 22.500 0 L 477.500 0 Q 500.0 0 500.0 22.500 L 500.0 165.000 Q 500.0 187.5 477.500 187.5 L 22.500 187.5 Q 0 187.5 0 165.000 L 0 22.500 Q 0 0 22.500 0 Z",
+          "position": {
+            "x": 140,
+            "y": 630
+          },
+          "boxSize": {
+            "width": 800,
+            "height": 300
+          },
+          "rotate": 0,
+          "scale": 1.6,
+          "image": {
+            "url": "https://assets.quickhub.ai/user-image/user-image/1786165054_36.png",
+            "thumb": "https://assets.quickhub.ai/user-image/user-image/1786165054_36.png",
+            "boxSize": {
+              "width": 500.0,
+              "height": 312.8571428571429
+            },
+            "position": {
+              "x": 0.0,
+              "y": -62.678571428571445
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ab625da7-f41a-4909-b630-6240c983fd09": {
+        "type": {
+          "type": "address",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "123 Anywhere St., Any City"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "26px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.05,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "123 Anywhere St., Any City",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 800,
+            "height": 31.2
+          },
+          "position": {
+            "x": 140,
+            "y": 968
+          },
+          "fontSizes": [
+            26
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_90005",
+      "name": "Grand Opening Invitation",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "event",
+        "invitation",
+        "celebration"
+      ],
+      "description": "A social media post template for inviting guests to a grand opening event.",
+      "canvas_size": {
+        "width": 1080.0,
+        "height": 1080.0
+      },
+      "background_image_url": null,
+      "background": null,
+      "text_layer_count": 4,
+      "slots": [
+        {
+          "layer_id": "942da613-450c-4192-8639-094bb94f2b72",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": -90.0,
+            "y": -90.0
+          },
+          "box_size": {
+            "width": 280.0,
+            "height": 280.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "902f5678-192b-448d-9289-e8b6bb3156b5",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 930.0,
+            "y": 900.0
+          },
+          "box_size": {
+            "width": 240.0,
+            "height": 240.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "52fa03a7-187d-40a4-a174-dc9a2ebd26ce",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 485.0,
+            "y": 50.0
+          },
+          "box_size": {
+            "width": 110.0,
+            "height": 89.21259842519684
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "26f43795-e346-4674-8030-b82b0ed9d9ca",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "You're Invited",
+          "max_chars": 15,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 58.0,
+          "position": {
+            "x": 240.0,
+            "y": 160.0
+          },
+          "box_size": {
+            "width": 600.0,
+            "height": 69.6
+          },
+          "image": null,
+          "notes": "Script accent phrase, typically a short welcoming message. Keep to one line for elegance."
+        },
+        {
+          "layer_id": "6cd36164-9460-479b-9fd8-0b78dbf669a8",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Grand Opening Night",
+          "max_chars": 20,
+          "max_lines": 2,
+          "locked": false,
+          "optional": false,
+          "font_size": 118.0,
+          "position": {
+            "x": 90.0,
+            "y": 240.0
+          },
+          "box_size": {
+            "width": 900.0,
+            "height": 247.8
+          },
+          "image": null,
+          "notes": "Main headline, bold and attention-grabbing. Can be two lines, with each line having a strong impact."
+        },
+        {
+          "layer_id": "b98f093f-6990-4ec7-aa9f-d0132c7d7d05",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 315.0,
+            "y": 510.0
+          },
+          "box_size": {
+            "width": 450.0,
+            "height": 80.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "8a0fd9b4-3979-4d86-a214-89ec59683241",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Sat, 12 October · 7 PM",
+          "max_chars": 25,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 32.0,
+          "position": {
+            "x": 315.0,
+            "y": 526.0
+          },
+          "box_size": {
+            "width": 450.0,
+            "height": 38.4
+          },
+          "image": null,
+          "notes": "Event date and time label, concise and clear. Fits in one line for easy readability."
+        },
+        {
+          "layer_id": "e4400982-4425-47d9-b17b-63de6fee335f",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 140.0,
+            "y": 630.0
+          },
+          "box_size": {
+            "width": 800.0,
+            "height": 300.0
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a group of people enjoying a meal together (this template: a group of colleagues toasting at a dinner table); captured from a slightly elevated angle to show the table setting and interactions; warm, ambient lighting to create a cozy and inviting atmosphere; styled with a mix of formal and casual attire, with a focus on the camaraderie and shared experience; framed to ensure the group is centered and fills the lower-center of the composition, cropped by a shaped mask. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/user-image/user-image/1786165054_36.png",
+            "notes": "The group is positioned in the lower-center of the frame, requiring the image to focus on the interaction and connection between the people, ensuring they are the focal point within the shaped mask. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later without exposing hard edges."
+        },
+        {
+          "layer_id": "ab625da7-f41a-4909-b630-6240c983fd09",
+          "resolved_name": "TextLayer",
+          "role": "address",
+          "editable": true,
+          "default_text": "123 Anywhere St., Any City",
+          "max_chars": 30,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 26.0,
+          "position": {
+            "x": 140.0,
+            "y": 968.0
+          },
+          "box_size": {
+            "width": 800.0,
+            "height": 31.2
+          },
+          "image": null,
+          "notes": "Address line, straightforward and informative. Fits in one line for clarity."
+        }
+      ]
+    }
+  }
+]

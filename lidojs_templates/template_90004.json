@@ -1,0 +1,787 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "edcf2659-37fa-4d7b-baae-315b2960aba2",
+          "e1df8a0a-2ef8-4743-a3ae-3b010665f569",
+          "9ac74238-ccec-4be7-92e0-67a0e63f774f",
+          "eb753810-74a4-460c-9739-3c4b845b02a6",
+          "cf5f4cfe-2643-4a7a-8888-227ee6fdd150",
+          "5b4d3b8f-7a06-4cc6-9b07-7913ce649ff2",
+          "fdf98a49-c44b-4bd1-a848-ee7ea059d2dc",
+          "92ac068a-bda6-4186-a8cb-5e6b377cf992",
+          "3ffea417-ee66-465d-a4f6-8352191dc4be"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(28, 61, 46)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "edcf2659-37fa-4d7b-baae-315b2960aba2": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 0 0 L 500.0 0 L 500.0 296.2963 L 0 296.2963 Z",
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "boxSize": {
+            "width": 1080,
+            "height": 640
+          },
+          "rotate": 0,
+          "scale": 2.16,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790678394_034a055f-dc92-4bdd-ac43-074f8a421ee3.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790678394_034a055f-dc92-4bdd-ac43-074f8a421ee3.png",
+            "boxSize": {
+              "width": 500.0,
+              "height": 500.0
+            },
+            "position": {
+              "x": 0.0,
+              "y": -112.03703500000002
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e1df8a0a-2ef8-4743-a3ae-3b010665f569": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 800,
+            "y": 530
+          },
+          "boxSize": {
+            "width": 220,
+            "height": 220
+          },
+          "rotate": 0,
+          "color": "rgb(242, 183, 5)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "9ac74238-ccec-4be7-92e0-67a0e63f774f": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "20% Off",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(28, 61, 46)",
+                  "indent": 0,
+                  "fontSize": "62px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.05",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "20% Off",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(28, 61, 46)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(28, 61, 46)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 180,
+            "height": 130.2
+          },
+          "position": {
+            "x": 820,
+            "y": 575
+          },
+          "fontSizes": [
+            62
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "eb753810-74a4-460c-9739-3c4b845b02a6": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Taste the Season"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 248, 235)",
+                  "indent": 0,
+                  "fontSize": "92px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "DM Serif Display",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Taste the Season",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 248, 235)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "DM Serif Display",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/dmserifdisplay/v17/-nFnOHM81r4j6k0gjAW3mujVU2B2K_c.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 248, 235)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 720,
+            "height": 101.2
+          },
+          "position": {
+            "x": 70,
+            "y": 680
+          },
+          "fontSizes": [
+            92
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "cf5f4cfe-2643-4a7a-8888-227ee6fdd150": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Fresh ingredients and bold flavours, made daily."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 248, 235)",
+                  "indent": 0,
+                  "fontSize": "26px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.45",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Fresh ingredients and bold flavours, made daily.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 248, 235)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 248, 235)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 640,
+            "height": 37.7
+          },
+          "position": {
+            "x": 70,
+            "y": 800
+          },
+          "fontSizes": [
+            26
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "5b4d3b8f-7a06-4cc6-9b07-7913ce649ff2": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70,
+            "y": 935
+          },
+          "boxSize": {
+            "width": 260,
+            "height": 76
+          },
+          "rotate": 0,
+          "color": "rgb(242, 183, 5)",
+          "scale": 5.0625,
+          "roundedCorners": 40
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fdf98a49-c44b-4bd1-a848-ee7ea059d2dc": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Order Now",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(28, 61, 46)",
+                  "indent": 0,
+                  "fontSize": "30px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.08,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Order Now",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(28, 61, 46)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(28, 61, 46)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 260,
+            "height": 36.0
+          },
+          "position": {
+            "x": 70,
+            "y": 952
+          },
+          "fontSizes": [
+            30
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "92ac068a-bda6-4186-a8cb-5e6b377cf992": {
+        "type": {
+          "type": "address",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "123 Anywhere St., Any City"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 248, 235)",
+                  "indent": 0,
+                  "fontSize": "22px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "123 Anywhere St., Any City",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 248, 235)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 248, 235)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 420,
+            "height": 26.4
+          },
+          "position": {
+            "x": 365,
+            "y": 958
+          },
+          "fontSizes": [
+            22
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3ffea417-ee66-465d-a4f6-8352191dc4be": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89.21259842519684
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89.21259842519684px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89.21259842519684
+          },
+          "position": {
+            "x": 900,
+            "y": 928
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_90004",
+      "name": "Restaurant Promotion",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "restaurant",
+        "promotion",
+        "discount"
+      ],
+      "description": "A promotional post for a restaurant offering a seasonal discount.",
+      "canvas_size": {
+        "width": 1080.0,
+        "height": 1080.0
+      },
+      "background_image_url": null,
+      "background": null,
+      "text_layer_count": 5,
+      "slots": [
+        {
+          "layer_id": "edcf2659-37fa-4d7b-baae-315b2960aba2",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "box_size": {
+            "width": 1080.0,
+            "height": 640.0
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a gourmet dessert and cocktail pairing (this template: a chocolate dessert with garnish and a cocktail in a coupe glass), captured from a slightly elevated angle, with warm ambient lighting, styled elegantly on a wooden table, and framed to emphasize the pairing. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1790678394_034a055f-dc92-4bdd-ac43-074f8a421ee3.png",
+            "notes": "The subject is cropped by its frame, requiring the image to be centered and balanced to ensure both elements are visible and well-composed within the upper-center of the frame. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "e1df8a0a-2ef8-4743-a3ae-3b010665f569",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 800.0,
+            "y": 530.0
+          },
+          "box_size": {
+            "width": 220.0,
+            "height": 220.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "9ac74238-ccec-4be7-92e0-67a0e63f774f",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "20% Off",
+          "max_chars": 10,
+          "max_lines": 2,
+          "locked": false,
+          "optional": false,
+          "font_size": 62.0,
+          "position": {
+            "x": 820.0,
+            "y": 575.0
+          },
+          "box_size": {
+            "width": 180.0,
+            "height": 130.2
+          },
+          "image": null,
+          "notes": "Stacked offer block in uppercase, emphasizing discount. Keep to two short lines for impact."
+        },
+        {
+          "layer_id": "eb753810-74a4-460c-9739-3c4b845b02a6",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Taste the Season",
+          "max_chars": 30,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 92.0,
+          "position": {
+            "x": 70.0,
+            "y": 680.0
+          },
+          "box_size": {
+            "width": 720.0,
+            "height": 101.2
+          },
+          "image": null,
+          "notes": "Main headline, large and prominent. Should remain on one line for visual impact."
+        },
+        {
+          "layer_id": "cf5f4cfe-2643-4a7a-8888-227ee6fdd150",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Fresh ingredients and bold flavours, made daily.",
+          "max_chars": 60,
+          "max_lines": 2,
+          "locked": false,
+          "optional": false,
+          "font_size": 26.0,
+          "position": {
+            "x": 70.0,
+            "y": 800.0
+          },
+          "box_size": {
+            "width": 640.0,
+            "height": 37.7
+          },
+          "image": null,
+          "notes": "Subhead providing additional detail. Can wrap to two lines if necessary, but ideally stays on one."
+        },
+        {
+          "layer_id": "5b4d3b8f-7a06-4cc6-9b07-7913ce649ff2",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 70.0,
+            "y": 935.0
+          },
+          "box_size": {
+            "width": 260.0,
+            "height": 76.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "fdf98a49-c44b-4bd1-a848-ee7ea059d2dc",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Order Now",
+          "max_chars": 15,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 30.0,
+          "position": {
+            "x": 70.0,
+            "y": 952.0
+          },
+          "box_size": {
+            "width": 260.0,
+            "height": 36.0
+          },
+          "image": null,
+          "notes": "CTA button text in uppercase. Should remain on one line for clarity and emphasis."
+        },
+        {
+          "layer_id": "92ac068a-bda6-4186-a8cb-5e6b377cf992",
+          "resolved_name": "TextLayer",
+          "role": "address",
+          "editable": true,
+          "default_text": "123 Anywhere St., Any City",
+          "max_chars": 35,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 22.0,
+          "position": {
+            "x": 365.0,
+            "y": 958.0
+          },
+          "box_size": {
+            "width": 420.0,
+            "height": 26.4
+          },
+          "image": null,
+          "notes": "Address line, typically one line for simplicity. Ensure it remains concise."
+        },
+        {
+          "layer_id": "3ffea417-ee66-465d-a4f6-8352191dc4be",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 900.0,
+            "y": 928.0
+          },
+          "box_size": {
+            "width": 110.0,
+            "height": 89.21259842519684
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": null
+        }
+      ]
+    }
+  }
+]

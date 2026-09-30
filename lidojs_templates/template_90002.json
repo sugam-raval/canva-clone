@@ -1,0 +1,837 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "b323056d-351e-4e99-9f2f-f13a956e3903",
+          "b3e4ad9a-46e2-45a3-8d79-770a1a99e4f1",
+          "3c25977c-ffb8-4f78-875b-89224eaa81ae",
+          "a1ae6ec2-e983-4c61-9727-32234c57efe0",
+          "6bc46b92-28df-482c-8532-31d48d317794",
+          "4eb726df-4d32-4e2a-9647-cb9b2c10d034",
+          "21bf7ccc-5a16-41e8-aaf8-f968be183fdb",
+          "68a39a07-d76c-441c-a925-f4f4f6f5bc9c",
+          "d129c369-853a-4e4e-9544-f908753d94d4",
+          "5e9df43d-ba99-43c0-9267-7caa513284e2"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 239, 230)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "b323056d-351e-4e99-9f2f-f13a956e3903": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 700,
+            "y": 230
+          },
+          "boxSize": {
+            "width": 260,
+            "height": 260
+          },
+          "rotate": 0,
+          "color": "rgb(193, 110, 84)",
+          "scale": 5.0625,
+          "transparency": 0.35
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b3e4ad9a-46e2-45a3-8d79-770a1a99e4f1": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 150,
+            "y": 700
+          },
+          "boxSize": {
+            "width": 140,
+            "height": 140
+          },
+          "rotate": 0,
+          "color": "rgb(193, 110, 84)",
+          "scale": 5.0625,
+          "transparency": 0.35
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3c25977c-ffb8-4f78-875b-89224eaa81ae": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89.21259842519684
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89.21259842519684px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89.21259842519684
+          },
+          "position": {
+            "x": 485,
+            "y": 40
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a1ae6ec2-e983-4c61-9727-32234c57efe0": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Designed for Living"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(62, 44, 35)",
+                  "indent": 0,
+                  "fontSize": "84px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "DM Serif Display",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Designed for Living",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(62, 44, 35)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "DM Serif Display",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/dmserifdisplay/v17/-nFnOHM81r4j6k0gjAW3mujVU2B2K_c.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(62, 44, 35)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 900,
+            "height": 92.4
+          },
+          "position": {
+            "x": 90,
+            "y": 140
+          },
+          "fontSizes": [
+            84
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "6bc46b92-28df-482c-8532-31d48d317794": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 0 535.7143 L 0 250.0 C 0 111.925 111.925 0 250.0 0 C 388.075 0 500.0 111.925 500.0 250.0 L 500.0 535.7143 Z",
+          "position": {
+            "x": 260,
+            "y": 255
+          },
+          "boxSize": {
+            "width": 560,
+            "height": 600
+          },
+          "rotate": 0,
+          "scale": 1.12,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1787203946_54eb3490-bb9d-44be-9852-d9e04ff474cb.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1787203946_54eb3490-bb9d-44be-9852-d9e04ff474cb.png",
+            "boxSize": {
+              "width": 499.99999999999994,
+              "height": 749.6251874062968
+            },
+            "position": {
+              "x": 2.842170943040401e-14,
+              "y": -106.95544370314843
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "4eb726df-4d32-4e2a-9647-cb9b2c10d034": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 385,
+            "y": 815
+          },
+          "boxSize": {
+            "width": 310,
+            "height": 80
+          },
+          "rotate": 0,
+          "color": "rgb(193, 110, 84)",
+          "scale": 5.0625,
+          "roundedCorners": 160
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "21bf7ccc-5a16-41e8-aaf8-f968be183fdb": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Book a Visit",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(245, 239, 230)",
+                  "indent": 0,
+                  "fontSize": "30px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.15,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Book a Visit",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(245, 239, 230)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(245, 239, 230)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 310,
+            "height": 36.0
+          },
+          "position": {
+            "x": 385,
+            "y": 833
+          },
+          "fontSizes": [
+            30
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "68a39a07-d76c-441c-a925-f4f4f6f5bc9c": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Thoughtful spaces, crafted around you."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(62, 44, 35)",
+                  "indent": 0,
+                  "fontSize": "26px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Thoughtful spaces, crafted around you.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(62, 44, 35)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(62, 44, 35)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 800,
+            "height": 33.8
+          },
+          "position": {
+            "x": 140,
+            "y": 925
+          },
+          "fontSizes": [
+            26
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d129c369-853a-4e4e-9544-f908753d94d4": {
+        "type": {
+          "type": "phoneNumber",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "+123-456-7890"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(62, 44, 35)",
+                  "indent": 0,
+                  "fontSize": "22px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "+123-456-7890",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(62, 44, 35)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(62, 44, 35)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 400,
+            "height": 26.4
+          },
+          "position": {
+            "x": 70,
+            "y": 1005
+          },
+          "fontSizes": [
+            22
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "5e9df43d-ba99-43c0-9267-7caa513284e2": {
+        "type": {
+          "type": "website",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "www.yourwebsite.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(62, 44, 35)",
+                  "indent": 0,
+                  "fontSize": "22px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "www.yourwebsite.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(62, 44, 35)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(62, 44, 35)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 400,
+            "height": 26.4
+          },
+          "position": {
+            "x": 610,
+            "y": 1005
+          },
+          "fontSizes": [
+            22
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    },
+    "meta": {
+      "id": "template_90002",
+      "name": "Interior Design Promotion",
+      "kind": "post",
+      "aspect": "1:1",
+      "tags": [
+        "interior design",
+        "home decor",
+        "promotion"
+      ],
+      "description": "A promotional template for showcasing thoughtfully designed living spaces and encouraging potential clients to book a visit.",
+      "canvas_size": {
+        "width": 1080.0,
+        "height": 1080.0
+      },
+      "background_image_url": null,
+      "background": null,
+      "text_layer_count": 5,
+      "slots": [
+        {
+          "layer_id": "b323056d-351e-4e99-9f2f-f13a956e3903",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 700.0,
+            "y": 230.0
+          },
+          "box_size": {
+            "width": 260.0,
+            "height": 260.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "b3e4ad9a-46e2-45a3-8d79-770a1a99e4f1",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 150.0,
+            "y": 700.0
+          },
+          "box_size": {
+            "width": 140.0,
+            "height": 140.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "3c25977c-ffb8-4f78-875b-89224eaa81ae",
+          "resolved_name": "FrameLayer",
+          "role": "logo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": true,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 485.0,
+            "y": 40.0
+          },
+          "box_size": {
+            "width": 110.0,
+            "height": 89.21259842519684
+          },
+          "image": {
+            "kind": "logo_static",
+            "generate": false,
+            "transparent": true,
+            "prompt": null,
+            "reference_url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."
+          },
+          "notes": null
+        },
+        {
+          "layer_id": "a1ae6ec2-e983-4c61-9727-32234c57efe0",
+          "resolved_name": "TextLayer",
+          "role": "headline",
+          "editable": true,
+          "default_text": "Designed for Living",
+          "max_chars": 25,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 84.0,
+          "position": {
+            "x": 90.0,
+            "y": 140.0
+          },
+          "box_size": {
+            "width": 900.0,
+            "height": 92.4
+          },
+          "image": null,
+          "notes": "Main headline, large serif font. Should remain impactful and concise, ideally one line."
+        },
+        {
+          "layer_id": "6bc46b92-28df-482c-8532-31d48d317794",
+          "resolved_name": "FrameLayer",
+          "role": "photo",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 260.0,
+            "y": 255.0
+          },
+          "box_size": {
+            "width": 560.0,
+            "height": 600.0
+          },
+          "image": {
+            "kind": "background_photo",
+            "generate": true,
+            "transparent": false,
+            "prompt": "a modern living room interior (this template: a contemporary living room with a grey sofa and wooden accents); captured from a slightly elevated angle, with soft, natural lighting highlighting the textures; styled with minimalist decor and neutral tones; framed to fill a central mask, focusing on the seating area and coffee table. No text, lettering, logos or watermarks anywhere in the image.",
+            "reference_url": "https://assets.quickhub.ai/qh-social/user-image/1787203946_54eb3490-bb9d-44be-9852-d9e04ff474cb.png",
+            "notes": "The subject is centered and cropped by a shaped mask, requiring the image to focus on the main elements like the sofa and coffee table, ensuring they are well-positioned within the frame. Opaque photo, cover-cropped to the frame — it must fill the frame completely with no empty corners."
+          },
+          "notes": "The mask on this layer crops the image at render time — keep the source image a full rectangle (not pre-cropped), so the mask can be moved or resized later without exposing hard edges."
+        },
+        {
+          "layer_id": "4eb726df-4d32-4e2a-9647-cb9b2c10d034",
+          "resolved_name": "ShapeLayer",
+          "role": "decoration",
+          "editable": false,
+          "default_text": null,
+          "max_chars": null,
+          "max_lines": null,
+          "locked": false,
+          "optional": false,
+          "font_size": null,
+          "position": {
+            "x": 385.0,
+            "y": 815.0
+          },
+          "box_size": {
+            "width": 310.0,
+            "height": 80.0
+          },
+          "image": null,
+          "notes": null
+        },
+        {
+          "layer_id": "21bf7ccc-5a16-41e8-aaf8-f968be183fdb",
+          "resolved_name": "TextLayer",
+          "role": "label",
+          "editable": true,
+          "default_text": "Book a Visit",
+          "max_chars": 15,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 30.0,
+          "position": {
+            "x": 385.0,
+            "y": 833.0
+          },
+          "box_size": {
+            "width": 310.0,
+            "height": 36.0
+          },
+          "image": null,
+          "notes": "Call-to-action button label, uppercase. Needs to be short and direct, one line only."
+        },
+        {
+          "layer_id": "68a39a07-d76c-441c-a925-f4f4f6f5bc9c",
+          "resolved_name": "TextLayer",
+          "role": "subhead",
+          "editable": true,
+          "default_text": "Thoughtful spaces, crafted around you.",
+          "max_chars": 50,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 26.0,
+          "position": {
+            "x": 140.0,
+            "y": 925.0
+          },
+          "box_size": {
+            "width": 800.0,
+            "height": 33.8
+          },
+          "image": null,
+          "notes": "Subhead, complements the headline. Can be slightly longer, but should stay within one line for balance."
+        },
+        {
+          "layer_id": "d129c369-853a-4e4e-9544-f908753d94d4",
+          "resolved_name": "TextLayer",
+          "role": "phone",
+          "editable": true,
+          "default_text": "+123-456-7890",
+          "max_chars": 15,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 22.0,
+          "position": {
+            "x": 70.0,
+            "y": 1005.0
+          },
+          "box_size": {
+            "width": 400.0,
+            "height": 26.4
+          },
+          "image": null,
+          "notes": "Contact phone number, straightforward display. Must remain on one line."
+        },
+        {
+          "layer_id": "5e9df43d-ba99-43c0-9267-7caa513284e2",
+          "resolved_name": "TextLayer",
+          "role": "website",
+          "editable": true,
+          "default_text": "www.yourwebsite.com",
+          "max_chars": 25,
+          "max_lines": 1,
+          "locked": false,
+          "optional": false,
+          "font_size": 22.0,
+          "position": {
+            "x": 610.0,
+            "y": 1005.0
+          },
+          "box_size": {
+            "width": 400.0,
+            "height": 26.4
+          },
+          "image": null,
+          "notes": "Website URL, straightforward display. Must remain on one line."
+        }
+      ]
+    }
+  }
+]

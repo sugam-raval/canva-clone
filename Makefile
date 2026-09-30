@@ -8,7 +8,7 @@ UV      := VIRTUAL_ENV=$(PWD)/$(VENV) uv pip install --python $(PWD)/$(VENV)/bin
 
 .DEFAULT_GOAL := help
 .PHONY: help setup install infra infra-down db-reset db-upgrade api web dev \
-        test lint fmt clean check lido-meta lido-sync lido-add
+        test lint fmt clean check lido-meta lido-sync lido-add lido-create
 
 help: ## Show this help
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | \
@@ -66,6 +66,15 @@ _TPL   = $(if $(TEMPLATE),--template $(TEMPLATE))
 _DRAFT = $(PY) scripts/enrich_lido_templates.py --draft-slots \
            $(if $(TEMPLATE),--template $(TEMPLATE) --force,$(if $(FORCE),--force)) \
            $(if $(KIND),--kind $(KIND))
+
+# make lido-create [COUNT=5] [AI=1] [SEED=n] [IDEA="..."]
+#   generate brand-new template drafts (raw layers + preview PNG) into
+#   lidojs_templates/drafts/ for review — nothing is added to matching until you move one
+#   into lidojs_templates/ and run lido-add. AI=1 lets the LLM invent the layouts instead
+#   of using the built-in recipes. Full options: scripts/lido_create_layouts.py --help
+lido-create: ## Generate new template drafts for review into lidojs_templates/drafts/
+	$(PY) scripts/lido_create_layouts.py --count $(or $(COUNT),5) $(if $(AI),--ai) \
+	  $(if $(SEED),--seed $(SEED)) $(if $(IDEA),--idea "$(IDEA)")
 
 lido-add: ## New template(s) not yet in the database, end to end: metadata + verify + embed + sync
 	$(PY) scripts/lido_match.py add $(_TPL) $(if $(KIND),--kind $(KIND))
