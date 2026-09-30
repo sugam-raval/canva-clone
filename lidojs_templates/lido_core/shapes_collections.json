@@ -1,0 +1,1049 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "resolvedName": "RootLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(250, 251, 243)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "child": [
+          "f4ff0641-ebfa-4ca2-8342-c4a4152f2341",
+          "67e75b3c-d887-4d3b-96ec-000d3feb4df1",
+          "b9504fff-840e-454d-b401-f78c000d90a0",
+          "629e72f2-f8b5-4e31-8f19-2082e93c60c1",
+          "15f127e0-2f3c-446b-91e0-2d3a13421ca9",
+          "4bdfab07-585d-44ed-8727-37c295b41e95",
+          "6290c4bf-3737-4fef-86c1-cc1e2159b4ff",
+          "b147af2e-806a-43f4-aaa4-6f25712ebea7",
+          "84a4bc8d-32a7-45db-9fdf-f2c515011c28",
+          "3b8b0ef1-4338-4e46-8c8a-800f25bf8a19",
+          "2aef09e2-f7b0-4a4a-a492-37f034644c4f",
+          "85db2c40-0a2e-4ffd-a25f-f77aee9a26d3",
+          "999d1268-3c01-4d61-8a81-5480273e2d4f",
+          "dbe88ea7-e2d6-4f98-b53c-343d1f3424dc",
+          "7fafe86f-704e-45e1-88d9-8dfa41a21645",
+          "6fe6b4b4-62ba-4a16-8a63-fcd5ddee3426",
+          "77868047-e29a-4b18-8273-f116341b8625",
+          "ab69ccdc-1d66-4287-9389-d8409b63e4d4",
+          "3021247c-0ea0-42c4-9b8e-b1a56f34f13e",
+          "4a11024b-2b94-42fd-ae18-2e372ff5dede",
+          "cf1511b3-19d3-4538-9b36-fb8db65c9284",
+          "ec5ea0bf-66f6-4af9-a5e8-091020d910ad",
+          "0b249cef-3cbc-4631-9f49-2cabef8ef5e7",
+          "79091c6f-69b9-491d-82bf-5a8a2ce50e94",
+          "bc27bd93-0ca8-4ba5-b7af-13442c98022f",
+          "cfccfc8e-6473-4020-a8b6-feb68c1b0370",
+          "68b61ee9-dffb-494d-ad33-e523aed7d592",
+          "bf804b9f-8cb4-437d-81ab-4fa79d8b5ef2",
+          "9901c354-a597-454a-a2cf-e24551133bfa",
+          "82e7a6ff-68ab-4c92-8f5d-f5ff88b03a37",
+          "6b5191e3-fbb7-400f-be27-9cdeadae63bd",
+          "423a731c-b208-4254-83d2-b30c8f2f547b",
+          "f0f717c4-9533-46b1-9ce5-72fddf99b9f4",
+          "b278b321-6243-4917-8528-0bf95717a648",
+          "9c3292a6-d9a2-4d8d-8552-6f244a6d7c3a",
+          "8aba8feb-2f89-48b5-b887-7b55a89542c4",
+          "e49acb13-72bf-4245-9e26-08a1bfe3c151",
+          "5f1bce3f-dd5d-40c4-94a9-fa3b2f5cd207",
+          "9b3461e9-87e6-4a76-9c4b-19142b2486d2",
+          "8a34769c-2c2f-43e1-a153-7c1be675530c",
+          "d1642554-0b42-46c1-ba00-a260c7727370",
+          "60831e9d-abb9-4eba-bf4d-80e463d48a4b"
+        ],
+        "parent": null
+      },
+      "f4ff0641-ebfa-4ca2-8342-c4a4152f2341": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "style": "solid",
+          "boxSize": {
+            "width": 104.42661252448032,
+            "height": 4
+          },
+          "color": "rgb(0, 0, 0)",
+          "position": {
+            "x": 29.054774263652696,
+            "y": 39.02588880008135
+          },
+          "scale": 1,
+          "rotate": 1.0436391742359774
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "67e75b3c-d887-4d3b-96ec-000d3feb4df1": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 97.78942495815218,
+            "height": 4
+          },
+          "position": {
+            "x": 167.039994,
+            "y": 44.063231
+          },
+          "style": "shortDashes",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 0.10155837606203022
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "b9504fff-840e-454d-b401-f78c000d90a0": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 112.60775232434588,
+            "height": 4
+          },
+          "position": {
+            "x": 310.279014,
+            "y": 44.34962
+          },
+          "style": "dots",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 0.37967298367328794
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "629e72f2-f8b5-4e31-8f19-2082e93c60c1": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 121.55860206773055,
+            "height": 4
+          },
+          "position": {
+            "x": 474.382072,
+            "y": 49.269117
+          },
+          "style": "solid",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 0.5152081283664529,
+          "arrowStart": "bar",
+          "arrowEnd": "bar"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "15f127e0-2f3c-446b-91e0-2d3a13421ca9": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 124.56481373774119,
+            "height": 4
+          },
+          "position": {
+            "x": 633.993466,
+            "y": 52.549522
+          },
+          "style": "dots",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 358.82163856307875,
+          "arrowStart": "none",
+          "arrowEnd": "arrow"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "4bdfab07-585d-44ed-8727-37c295b41e95": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 108.13505410952375,
+            "height": 4
+          },
+          "position": {
+            "x": 810.045602,
+            "y": 51.815561
+          },
+          "style": "solid",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 359.9163328049426,
+          "arrowStart": "arrow",
+          "arrowEnd": "arrow"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "6290c4bf-3737-4fef-86c1-cc1e2159b4ff": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 100.70126021555564,
+            "height": 4
+          },
+          "position": {
+            "x": 953.254619,
+            "y": 51.980572
+          },
+          "style": "solid",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 359.19015630292233,
+          "arrowStart": "outlineDiamond",
+          "arrowEnd": "outlineDiamond"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "b147af2e-806a-43f4-aaa4-6f25712ebea7": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 108.92331512459148,
+            "height": 4
+          },
+          "position": {
+            "x": 29.328413614066484,
+            "y": 115.18283708437045
+          },
+          "style": "solid",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 0.5088822780503506,
+          "arrowStart": "diamond",
+          "arrowEnd": "diamond"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "84a4bc8d-32a7-45db-9fdf-f2c515011c28": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 66.36655120834227,
+            "height": 4
+          },
+          "position": {
+            "x": 182.751431,
+            "y": 119.894337
+          },
+          "style": "solid",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 359.606456107541,
+          "arrowStart": "none",
+          "arrowEnd": "arrow"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "3b8b0ef1-4338-4e46-8c8a-800f25bf8a19": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "style": "solid",
+          "arrowStart": "none",
+          "arrowEnd": "triangle",
+          "boxSize": {
+            "width": 111.87090660975215,
+            "height": 4
+          },
+          "color": "rgb(0, 0, 0)",
+          "position": {
+            "x": 311.020022,
+            "y": 122.122212
+          },
+          "scale": 1,
+          "rotate": 359.76104695614606
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "2aef09e2-f7b0-4a4a-a492-37f034644c4f": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 120.06924289085887,
+            "height": 4
+          },
+          "position": {
+            "x": 475.126752,
+            "y": 124.355474
+          },
+          "style": "solid",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 359.96258783842484,
+          "arrowStart": "circle",
+          "arrowEnd": "circle"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "85db2c40-0a2e-4ffd-a25f-f77aee9a26d3": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 132.00127697536337,
+            "height": 4
+          },
+          "position": {
+            "x": 633.976216,
+            "y": 124.70797
+          },
+          "style": "solid",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 0.34006729648280043,
+          "arrowStart": "square",
+          "arrowEnd": "square"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "999d1268-3c01-4d61-8a81-5480273e2d4f": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 130.51171940423933,
+            "height": 4
+          },
+          "position": {
+            "x": 798.857269,
+            "y": 130.000822
+          },
+          "style": "solid",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 359.2085766996371,
+          "arrowStart": "outlineSquare",
+          "arrowEnd": "outlineSquare"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "dbe88ea7-e2d6-4f98-b53c-343d1f3424dc": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 114.22146528833042,
+            "height": 4
+          },
+          "position": {
+            "x": 958.2751857750393,
+            "y": 129.03507067066528
+          },
+          "style": "dots",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 0.6293395697340429,
+          "arrowStart": "triangle",
+          "arrowEnd": "triangle"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "7fafe86f-704e-45e1-88d9-8dfa41a21645": {
+        "type": {
+          "resolvedName": "LineLayer"
+        },
+        "props": {
+          "boxSize": {
+            "width": 116.09732020420907,
+            "height": 4
+          },
+          "position": {
+            "x": 29.31657032748936,
+            "y": 171.7708567375366
+          },
+          "style": "solid",
+          "color": "rgb(94, 98, 120)",
+          "scale": 1,
+          "rotate": 359.16269079020185,
+          "arrowStart": "outlineCircle",
+          "arrowEnd": "outlineCircle"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "6fe6b4b4-62ba-4a16-8a63-fcd5ddee3426": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 29.312799,
+            "y": 273.572272
+          },
+          "boxSize": {
+            "width": 130.062789,
+            "height": 119.620016
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "77868047-e29a-4b18-8273-f116341b8625": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 375.906423,
+            "y": 273.572272
+          },
+          "boxSize": {
+            "width": 118.128192,
+            "height": 110.669068
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "ab69ccdc-1d66-4287-9389-d8409b63e4d4": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "triangle",
+          "position": {
+            "x": 195.997387,
+            "y": 258.874758
+          },
+          "boxSize": {
+            "width": 156.915634,
+            "height": 134.31753
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "3021247c-0ea0-42c4-9b8e-b1a56f34f13e": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "triangleUpsideDown",
+          "position": {
+            "x": 523.465683,
+            "y": 267.825707
+          },
+          "boxSize": {
+            "width": 144.981036,
+            "height": 116.415633
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "4a11024b-2b94-42fd-ae18-2e372ff5dede": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "rhombus",
+          "position": {
+            "x": 710.676908,
+            "y": 261.637674
+          },
+          "boxSize": {
+            "width": 131.554614,
+            "height": 131.554614
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "cf1511b3-19d3-4538-9b36-fb8db65c9284": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "arrowRight",
+          "position": {
+            "x": 882.232687,
+            "y": 251.194901
+          },
+          "boxSize": {
+            "width": 141.997387,
+            "height": 127.07914
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "ec5ea0bf-66f6-4af9-a5e8-091020d910ad": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "arrowLeft",
+          "position": {
+            "x": 29.312799,
+            "y": 428.72204
+          },
+          "boxSize": {
+            "width": 130.062789,
+            "height": 121.111841
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "0b249cef-3cbc-4631-9f49-2cabef8ef5e7": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "arrowTop",
+          "position": {
+            "x": 216.13702,
+            "y": 432.451602
+          },
+          "boxSize": {
+            "width": 116.636367,
+            "height": 113.652718
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "79091c6f-69b9-491d-82bf-5a8a2ce50e94": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "arrowBottom",
+          "position": {
+            "x": 375.906423,
+            "y": 428.722041
+          },
+          "boxSize": {
+            "width": 121.111841,
+            "height": 121.111841
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "bc27bd93-0ca8-4ba5-b7af-13442c98022f": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "arrowPentagon",
+          "position": {
+            "x": 523.667499,
+            "y": 439.606279
+          },
+          "boxSize": {
+            "width": 176.309355,
+            "height": 81.441466
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "cfccfc8e-6473-4020-a8b6-feb68c1b0370": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "chevron",
+          "position": {
+            "x": 723.379886,
+            "y": 451.540876
+          },
+          "boxSize": {
+            "width": 173.325706,
+            "height": 57.572271
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "68b61ee9-dffb-494d-ad33-e523aed7d592": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "cross",
+          "position": {
+            "x": 909.232571,
+            "y": 423.500654
+          },
+          "boxSize": {
+            "width": 122.603666,
+            "height": 122.603666
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "bf804b9f-8cb4-437d-81ab-4fa79d8b5ef2": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "parallelogram",
+          "position": {
+            "x": 33.997387,
+            "y": 588.568016
+          },
+          "boxSize": {
+            "width": 156.915634,
+            "height": 134.096797
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "9901c354-a597-454a-a2cf-e24551133bfa": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "parallelogramUpsideDown",
+          "position": {
+            "x": 225.095227,
+            "y": 593.04349
+          },
+          "boxSize": {
+            "width": 171.83388,
+            "height": 129.621323
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625,
+          "roundedCorners": 0
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "82e7a6ff-68ab-4c92-8f5d-f5ff88b03a37": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "trapezoid",
+          "position": {
+            "x": 441.988201,
+            "y": 593.04349
+          },
+          "boxSize": {
+            "width": 183.768478,
+            "height": 125.145849
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "6b5191e3-fbb7-400f-be27-9cdeadae63bd": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "trapezoidUpsideDown",
+          "position": {
+            "x": 677.833523,
+            "y": 593.04349
+          },
+          "boxSize": {
+            "width": 176.309355,
+            "height": 135.588622
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "423a731c-b208-4254-83d2-b30c8f2f547b": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "pentagon",
+          "position": {
+            "x": 874.027651,
+            "y": 573.429036
+          },
+          "boxSize": {
+            "width": 158.407459,
+            "height": 164.374757
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "f0f717c4-9533-46b1-9ce5-72fddf99b9f4": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "hexagonVertical",
+          "position": {
+            "x": 33.997387,
+            "y": 759.960431
+          },
+          "boxSize": {
+            "width": 142.681453,
+            "height": 170.342056
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "b278b321-6243-4917-8528-0bf95717a648": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "hexagonHorizontal",
+          "position": {
+            "x": 225.095227,
+            "y": 780.503944
+          },
+          "boxSize": {
+            "width": 173.325706,
+            "height": 129.25503
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "9c3292a6-d9a2-4d8d-8552-6f244a6d7c3a": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "octagon",
+          "position": {
+            "x": 442.437284,
+            "y": 759.960431
+          },
+          "boxSize": {
+            "width": 162.46043,
+            "height": 156.493131
+          },
+          "rotate": 0,
+          "color": "#5E6278"
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "8aba8feb-2f89-48b5-b887-7b55a89542c4": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "parallelogram",
+          "position": {
+            "x": 644.922069,
+            "y": 782.356765
+          },
+          "boxSize": {
+            "width": 156.915634,
+            "height": 134.096797
+          },
+          "rotate": 0,
+          "color": {
+            "colors": [
+              {
+                "color": "rgba(235, 71, 61, 1)",
+                "percent": 0
+              },
+              {
+                "color": "rgba(235, 71, 61, 0)",
+                "percent": 100
+              }
+            ],
+            "style": "linear"
+          },
+          "scale": 5.0625
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "e49acb13-72bf-4245-9e26-08a1bfe3c151": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "pentagon",
+          "position": {
+            "x": 838.979789,
+            "y": 756.019618
+          },
+          "boxSize": {
+            "width": 158.407459,
+            "height": 164.374757
+          },
+          "rotate": 0,
+          "color": "rgb(12, 192, 223)",
+          "scale": 5.0625,
+          "transparency": 0.35
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "5f1bce3f-dd5d-40c4-94a9-fa3b2f5cd207": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "octagon",
+          "position": {
+            "x": 41.447201,
+            "y": 937.645514
+          },
+          "boxSize": {
+            "width": 157.984956,
+            "height": 120.689338
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "border": {
+            "style": "solid",
+            "weight": 4,
+            "color": "rgb(0, 0, 0)"
+          }
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "9b3461e9-87e6-4a76-9c4b-19142b2486d2": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "octagon",
+          "position": {
+            "x": 232.765602,
+            "y": 930.302487
+          },
+          "boxSize": {
+            "width": 157.984956,
+            "height": 120.689338
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "border": {
+            "style": "solid",
+            "weight": 4,
+            "color": "rgb(203, 108, 230)"
+          }
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "8a34769c-2c2f-43e1-a153-7c1be675530c": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "octagon",
+          "position": {
+            "x": 407.301833,
+            "y": 930.302487
+          },
+          "boxSize": {
+            "width": 157.984956,
+            "height": 120.689338
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "border": {
+            "style": "shortDashes",
+            "weight": 4,
+            "color": "rgb(203, 108, 230)"
+          }
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "d1642554-0b42-46c1-ba00-a260c7727370": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "octagon",
+          "position": {
+            "x": 595.956201,
+            "y": 930.302487
+          },
+          "boxSize": {
+            "width": 157.984956,
+            "height": 120.689338
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "border": {
+            "style": "dots",
+            "weight": 4,
+            "color": "rgb(203, 108, 230)"
+          }
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      },
+      "60831e9d-abb9-4eba-bf4d-80e463d48a4b": {
+        "type": {
+          "resolvedName": "ShapeLayer"
+        },
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 792.841045,
+            "y": 937.645514
+          },
+          "boxSize": {
+            "width": 122.603666,
+            "height": 110.669068
+          },
+          "rotate": 0,
+          "color": "#5E6278",
+          "scale": 5.0625,
+          "roundedCorners": 63
+        },
+        "locked": false,
+        "child": [],
+        "parent": "ROOT"
+      }
+    }
+  }
+]
