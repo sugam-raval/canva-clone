@@ -377,7 +377,9 @@ def _text_placements(layers: dict, slots: list[SlotInfo]) -> list[tuple[bool, st
 
 
 def _is_subject_slot(slot: SlotInfo) -> bool:
-    return slot.role == "photo" and slot.resolved_name == "FrameLayer"
+    # Same set `_verify` demands an image spec for — a photo ImageLayer left out here
+    # would always fail verify with "no image spec".
+    return slot.role == "photo" and slot.resolved_name in ("FrameLayer", "ImageLayer")
 
 
 def _subject_is_cutout(slot: SlotInfo, layers: dict, data: bytes | None) -> bool:
