@@ -212,7 +212,7 @@ def _photo(e: Element, p: Photo) -> dict:
     return _layer(None, "FrameLayer", {
         "clipPath": path or clip_path(e.clip or "rect", cw, ch, (e.radius or 0) / scale),
         "position": {"x": e.x, "y": e.y}, "boxSize": {"width": e.w, "height": e.h},
-        "rotate": 0, "scale": scale,
+        "rotate": e.rotate or 0, "scale": scale,
         "image": {"url": p.url, "thumb": p.url, "boxSize": {"width": bw, "height": bh},
                   "position": {"x": (cw - bw) / 2, "y": (ch - bh) * focus}, "rotate": 0},
     })

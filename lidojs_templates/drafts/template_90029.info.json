@@ -1,0 +1,74 @@
+{
+  "id": "template_90029",
+  "createdAt": "2026-10-01T08:37:35.792809+00:00",
+  "source": "brief",
+  "layout": "brief:Pristine Comparison",
+  "theme": "business",
+  "palette": "custom",
+  "fonts": "tall-caps",
+  "mirrored": false,
+  "textCount": 4,
+  "photoSubjects": [
+    "Before detailing: a dusty, visibly dirty car outdoors in natural daylight, photographed from a front three-quarter angle with the same setting and composition as the after image.",
+    "After detailing: the exact same car now spotless with clean wheels, clear glass and polished paint reflecting natural daylight, outdoors in the identical setting and front three-quarter composition."
+  ],
+  "hasPreview": true,
+  "problems": [],
+  "prompt": "Show the before and after of our car detailing service. Headline \"Like New Again\". Clean and professional. Call 555-0101",
+  "name": "Pristine Comparison",
+  "idea": "A crisp white comparison grid with matched car photographs, restrained blue accents and a centered call-to-action. Clear Before and After labels make the transformation immediately readable.",
+  "direction": null,
+  "attempts": 1,
+  "colors": {
+    "bg": "#ffffff",
+    "ink": "#172b3a",
+    "accent": "#075da8",
+    "on_accent": "#ffffff",
+    "soft": "#dce5eb"
+  },
+  "features": [],
+  "plan": {
+    "texts": [
+      {
+        "role": "headline",
+        "text": "Like New Again"
+      },
+      {
+        "role": "cta",
+        "text": "Call 555-0101"
+      }
+    ],
+    "photos": [
+      {
+        "from_brief": "before and after of our car detailing service",
+        "subject": "Before detailing - a car in need of cleaning, outdoors, daylight",
+        "role": "hero",
+        "frame": "rect"
+      },
+      {
+        "from_brief": "before and after of our car detailing service",
+        "subject": "After detailing - the same car, now spotless, outdoors, daylight",
+        "role": "hero",
+        "frame": "rect"
+      }
+    ],
+    "logo": true,
+    "exclude": [],
+    "moods": [
+      "clean_professional"
+    ],
+    "layout": "custom",
+    "custom_layout": "Two side-by-side rectangular photos, 'Before' on the left and 'After' on the right, with the headline centered above both. The call to action is centered below the photos in a clean, structured layout. Ample white space around the elements to emphasize cleanliness and professionalism.",
+    "shapes": [
+      "rectangle"
+    ],
+    "draw": [],
+    "effects": [],
+    "gradient": null,
+    "photo_theme": "business",
+    "notes": "Ensure a balanced layout with clear distinction between the before and after images. Use professional fonts and a structured arrangement to convey trustworthiness."
+  },
+  "fingerprint": "custom (2 photos; frames rect)",
+  "planLayout": "custom",
+  "photoSource": "corpus-cache"
+}

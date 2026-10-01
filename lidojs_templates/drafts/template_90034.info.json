@@ -1,0 +1,119 @@
+{
+  "id": "template_90034",
+  "createdAt": "2026-10-01T09:48:38.076773+00:00",
+  "source": "brief",
+  "layout": "brief:nexora_cinematic_launch",
+  "theme": "business",
+  "palette": "custom",
+  "fonts": "tall-caps",
+  "mirrored": false,
+  "textCount": 15,
+  "photoSubjects": [
+    "A premium silver NEXORA ProBook X15 laptop centered slightly open at a three-quarter angle, showing vivid abstract blue and purple wallpaper, surrounded by subtle holographic specification interfaces and electric blue light trails against dark navy, with realistic metallic reflections and cinematic technology-advertising lighting."
+  ],
+  "hasPreview": true,
+  "problems": [],
+  "prompt": "Create a premium, modern product launch advertisement for a new laptop by a technology brand named **NEXORA**.\n\n**Main headline:** \"POWER YOUR NEXT BIG IDEA\"\n\n**Product name:** NEXORA ProBook X15\n\n**Product features:**\n\n* 15.6-inch 2.8K OLED display.\n* Intel Core Ultra 7 processor.\n* 32GB DDR5 RAM.\n* 1TB NVMe SSD.\n* NVIDIA RTX 4060 graphics.\n* Up to 12 hours of battery life.\n* Ultra-slim aluminum body.\n* Advanced dual-fan cooling system.\n\n**Promotional offer:**\n\n* Launch price: \u20b989,999.\n* Original price: \u20b91,09,999.\n* Save \u20b920,000.\n* Free wireless mouse for the first 100 customers.\n\n**Call to action:** \"PRE-ORDER NOW\"\n\n**Website:** [www.nexora-tech.com](http://www.nexora-tech.com)\n\n**Contact:** +91 98765 43210\n\n**Visual direction:** Place a premium silver laptop in the center, slightly open at a three-quarter angle. Display a vivid abstract blue and purple wallpaper on the screen. Surround the laptop with subtle holographic interface elements highlighting key specifications. Use a dark navy background, electric blue light trails, realistic metallic reflections, cinematic lighting, and premium technology-advertising aesthetics.\n\nEnsure the headline is prominent, the specifications are neatly organized, and the price and promotional offer are easy to read. Maintain correct spelling and clear text hierarchy.",
+  "name": "nexora_cinematic_launch",
+  "idea": "A cinematic gem-framed laptop bleeds off the left edge, balanced by a readable single-column specification list. A bold overhead headline and high-contrast launch-price footer establish a premium technology launch hierarchy.",
+  "direction": null,
+  "attempts": 2,
+  "colors": {
+    "bg": "#080f20",
+    "ink": "#f3f6ff",
+    "accent": "#4285ff",
+    "on_accent": "#080f20",
+    "soft": "#142747"
+  },
+  "features": [],
+  "plan": {
+    "texts": [
+      {
+        "role": "headline",
+        "text": "POWER YOUR NEXT BIG IDEA"
+      },
+      {
+        "role": "item",
+        "text": "15.6-inch 2.8K OLED display."
+      },
+      {
+        "role": "item",
+        "text": "Intel Core Ultra 7 processor."
+      },
+      {
+        "role": "item",
+        "text": "32GB DDR5 RAM."
+      },
+      {
+        "role": "item",
+        "text": "1TB NVMe SSD."
+      },
+      {
+        "role": "item",
+        "text": "NVIDIA RTX 4060 graphics."
+      },
+      {
+        "role": "item",
+        "text": "Up to 12 hours of battery life."
+      },
+      {
+        "role": "item",
+        "text": "Ultra-slim aluminum body."
+      },
+      {
+        "role": "item",
+        "text": "Advanced dual-fan cooling system."
+      },
+      {
+        "role": "cta",
+        "text": "PRE-ORDER NOW"
+      },
+      {
+        "role": "badge",
+        "text": "Launch price: \u20b989,999"
+      },
+      {
+        "role": "price",
+        "text": "Original price: \u20b91,09,999. Save \u20b920,000. Free wireless mouse for the first 100 customers."
+      },
+      {
+        "role": "website",
+        "text": "www.nexora-tech.com"
+      },
+      {
+        "role": "phone",
+        "text": "+91 98765 43210"
+      }
+    ],
+    "photos": [
+      {
+        "from_brief": "premium silver laptop in the center, slightly open at a three-quarter angle. Display a vivid abstract blue and purple wallpaper on the screen.",
+        "subject": "Silver laptop with blue and purple wallpaper, cinematic lighting, surrounded by holographic interface elements",
+        "role": "hero",
+        "frame": "gem"
+      }
+    ],
+    "logo": true,
+    "exclude": [],
+    "moods": [
+      "sleek_modern"
+    ],
+    "layout": "corner_photo",
+    "custom_layout": null,
+    "shapes": [
+      "hexagonHorizontal",
+      "rectangle"
+    ],
+    "draw": [],
+    "effects": [
+      "shadow",
+      "hollow"
+    ],
+    "gradient": "a deep dark-to-darker background",
+    "photo_theme": "business",
+    "notes": "Keep the headline bold and centered above the hero photo. Arrange product features in a neat list to the right, with clear spacing. Ensure the promotional offer is prominent and easy to read at the bottom."
+  },
+  "fingerprint": "corner_photo (1 photos; frames gem, gradient, shadow)",
+  "planLayout": "corner_photo",
+  "photoSource": "corpus-cache"
+}

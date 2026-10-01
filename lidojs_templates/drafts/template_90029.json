@@ -1,0 +1,572 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "028ee1c8-8a49-4476-82f0-974eaee559eb",
+          "934397f5-363c-4e3c-a337-ff963dcbdc2f",
+          "57fa10cd-52c8-48ae-9546-659004dcb683",
+          "b345ef2a-637a-43af-a8b6-86f9949844f3",
+          "dbfdc1af-3ee7-4ad7-bf3b-f65d651537e2",
+          "f7e213a1-301e-4853-bfb5-ef14859658d8",
+          "991a9428-85d5-4558-9d11-58b0d9adc601",
+          "626307a3-45b1-49f7-b221-a9f6f9ab01f3",
+          "474dbc96-1619-414b-880e-65f9da510134",
+          "a6fb8ce3-67b8-4dde-a76a-273694853e47",
+          "aa4fd6cf-f40b-4404-aa70-a9b6482cc7d3"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(255, 255, 255)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "028ee1c8-8a49-4476-82f0-974eaee559eb": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89
+          },
+          "position": {
+            "x": 485.0,
+            "y": 48.0
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "934397f5-363c-4e3c-a337-ff963dcbdc2f": {
+        "type": {
+          "type": null,
+          "resolvedName": "LineLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "style": "solid",
+          "boxSize": {
+            "width": 340.0,
+            "height": 2.0
+          },
+          "color": "rgb(220, 229, 235)",
+          "position": {
+            "x": 70.0,
+            "y": 92.0
+          },
+          "scale": 1,
+          "rotate": 0,
+          "arrowStart": "none",
+          "arrowEnd": "none"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "57fa10cd-52c8-48ae-9546-659004dcb683": {
+        "type": {
+          "type": null,
+          "resolvedName": "LineLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "style": "solid",
+          "boxSize": {
+            "width": 340.0,
+            "height": 2.0
+          },
+          "color": "rgb(220, 229, 235)",
+          "position": {
+            "x": 670.0,
+            "y": 92.0
+          },
+          "scale": 1,
+          "rotate": 0,
+          "arrowStart": "none",
+          "arrowEnd": "none"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b345ef2a-637a-43af-a8b6-86f9949844f3": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Like New Again"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(23, 43, 58)",
+                  "indent": 0,
+                  "fontSize": "116.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Bebas Neue",
+                  "lineHeight": "1.05",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Like New Again",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(23, 43, 58)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Bebas Neue",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXooxW4.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(23, 43, 58)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 940.0,
+            "height": 121.8
+          },
+          "position": {
+            "x": 70.0,
+            "y": 177.0
+          },
+          "fontSizes": [
+            116.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "dbfdc1af-3ee7-4ad7-bf3b-f65d651537e2": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 501.0,
+            "y": 319.0
+          },
+          "boxSize": {
+            "width": 78.0,
+            "height": 5.0
+          },
+          "rotate": 0,
+          "color": "rgb(7, 93, 168)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f7e213a1-301e-4853-bfb5-ef14859658d8": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 0 0 L 500.0 0 L 500.0 475.7709 L 0 475.7709 Z",
+          "position": {
+            "x": 70.0,
+            "y": 406.0
+          },
+          "boxSize": {
+            "width": 454.0,
+            "height": 432.0
+          },
+          "rotate": 0,
+          "scale": 0.908,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790665049_dbddece1-53fc-4188-b32b-f1e6d6daf096.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790665049_dbddece1-53fc-4188-b32b-f1e6d6daf096.png",
+            "boxSize": {
+              "width": 713.65635,
+              "height": 475.77090000000004
+            },
+            "position": {
+              "x": -106.82817499999999,
+              "y": -2.842170943040401e-14
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "991a9428-85d5-4558-9d11-58b0d9adc601": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 0 0 L 500.0 0 L 500.0 475.7709 L 0 475.7709 Z",
+          "position": {
+            "x": 556.0,
+            "y": 406.0
+          },
+          "boxSize": {
+            "width": 454.0,
+            "height": 432.0
+          },
+          "rotate": 0,
+          "scale": 0.908,
+          "image": {
+            "url": "https://assets.quickhub.ai/user-image/user-image/1786165189_88.png",
+            "thumb": "https://assets.quickhub.ai/user-image/user-image/1786165189_88.png",
+            "boxSize": {
+              "width": 713.65635,
+              "height": 475.7709
+            },
+            "position": {
+              "x": -106.82817499999999,
+              "y": 0.0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "626307a3-45b1-49f7-b221-a9f6f9ab01f3": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Before",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(23, 43, 58)",
+                  "indent": 0,
+                  "fontSize": "24.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.04,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Before",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(23, 43, 58)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(23, 43, 58)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 454.0,
+            "height": 28.8
+          },
+          "position": {
+            "x": 70.0,
+            "y": 362.0
+          },
+          "fontSizes": [
+            24.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "474dbc96-1619-414b-880e-65f9da510134": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "After",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(7, 93, 168)",
+                  "indent": 0,
+                  "fontSize": "24.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.04,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "After",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(7, 93, 168)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(7, 93, 168)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 454.0,
+            "height": 28.8
+          },
+          "position": {
+            "x": 556.0,
+            "y": 362.0
+          },
+          "fontSizes": [
+            24.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a6fb8ce3-67b8-4dde-a76a-273694853e47": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 340.0,
+            "y": 910.0
+          },
+          "boxSize": {
+            "width": 400.0,
+            "height": 84.0
+          },
+          "rotate": 0,
+          "color": "rgb(7, 93, 168)",
+          "scale": 5.0625,
+          "roundedCorners": 30
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "aa4fd6cf-f40b-4404-aa70-a9b6482cc7d3": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Call 555-0101",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "32.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Call 555-0101",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 350.0,
+            "height": 38.4
+          },
+          "position": {
+            "x": 365.0,
+            "y": 932.0
+          },
+          "fontSizes": [
+            32.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    }
+  }
+]

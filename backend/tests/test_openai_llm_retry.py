@@ -266,3 +266,23 @@ async def test_unrelated_404_is_not_treated_as_responses_only(fake_client):
         )
 
     assert OpenAILLM._responses_only_models == set()
+
+
+async def test_an_explicit_model_with_an_explicit_effort_reasons(monkeypatch):
+    """LIDO_LAYOUT_MODEL=gpt-6-astra + an effort must reach the reasoning path; an
+    explicit model without one keeps the plain path, as before."""
+    llm = OpenAILLM()
+    calls = []
+
+    async def reasoning(**kw):
+        calls.append(("reasoning", kw["model"], kw["effort"]))
+
+    async def chat(**kw):
+        calls.append(("chat", kw["model"], None))
+
+    monkeypatch.setattr(llm, "_complete_json_reasoning", reasoning)
+    monkeypatch.setattr(llm, "_complete_json_chat", chat)
+    await llm.complete_json(system="s", user="u", schema=Answer, model="gpt-6-astra",
+                            reasoning_effort="low")
+    await llm.complete_json(system="s", user="u", schema=Answer, model="gpt-4o")
+    assert calls == [("reasoning", "gpt-6-astra", "low"), ("chat", "gpt-4o", None)]

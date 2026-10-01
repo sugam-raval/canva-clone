@@ -1,0 +1,70 @@
+{
+  "id": "template_90027",
+  "createdAt": "2026-10-01T08:22:33.657459+00:00",
+  "source": "brief",
+  "layout": "brief:Soundco \u2014 Precision Spotlight",
+  "theme": "fashion",
+  "palette": "custom",
+  "fonts": "heavy-grotesk",
+  "mirrored": false,
+  "textCount": 3,
+  "photoSubjects": [
+    "A pair of sleek and modern wireless headphones centred on a clean, minimalist dark background, highlighted by a subtle radial spotlight glow and precise soft lighting that emphasizes the product's sleek design."
+  ],
+  "hasPreview": true,
+  "problems": [],
+  "prompt": "Launch post for our new wireless headphones. Sleek and modern. Headline \"Hear Every Detail\". Order at www.soundco.com",
+  "name": "Soundco \u2014 Precision Spotlight",
+  "idea": "A calm, symmetrical launch composition with a precise launch kicker, bold headline, spotlight-lit headphone hero and one clear ordering button. Cyan geometry and fine arrow-ended lines bring precision to the dark palette.",
+  "direction": null,
+  "attempts": 2,
+  "colors": {
+    "bg": "#0b1018",
+    "ink": "#f4f7fb",
+    "accent": "#8be4f2",
+    "on_accent": "#0b1018",
+    "soft": "#263e52"
+  },
+  "features": [],
+  "plan": {
+    "texts": [
+      {
+        "role": "headline",
+        "text": "Hear Every Detail"
+      },
+      {
+        "role": "cta",
+        "text": "Order at www.soundco.com"
+      }
+    ],
+    "photos": [
+      {
+        "from_brief": "wireless headphones",
+        "subject": "A pair of sleek and modern wireless headphones on a clean, minimalist background, highlighted with a subtle spotlight effect to emphasize the product's sleek design.",
+        "role": "hero",
+        "frame": "rounded_card"
+      }
+    ],
+    "logo": true,
+    "exclude": [],
+    "moods": [
+      "sleek_modern"
+    ],
+    "layout": "spotlight_column",
+    "custom_layout": null,
+    "shapes": [
+      "hexagonHorizontal",
+      "rectangle"
+    ],
+    "draw": [],
+    "effects": [
+      "shadow"
+    ],
+    "gradient": "a radial spotlight behind the hero",
+    "photo_theme": "fashion",
+    "notes": "Ensure the spotlight effect draws attention to the headphones with a subtle glow. Text should be bold and modern, using clean lines and ample spacing for a sleek presentation."
+  },
+  "fingerprint": "spotlight_column (1 photos; frames rounded_card, gradient, shadow)",
+  "planLayout": "spotlight_column",
+  "photoSource": "corpus-cache"
+}

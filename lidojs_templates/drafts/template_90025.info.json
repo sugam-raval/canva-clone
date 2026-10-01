@@ -1,0 +1,70 @@
+{
+  "id": "template_90025",
+  "createdAt": "2026-10-01T08:18:02.717710+00:00",
+  "source": "brief",
+  "layout": "brief:sleek_headphone_launch",
+  "theme": "fashion",
+  "palette": "custom",
+  "fonts": "heavy-grotesk",
+  "mirrored": false,
+  "textCount": 2,
+  "photoSubjects": [
+    "A sleek pair of wireless headphones showcased against a clean, minimal background, emphasizing their modern design."
+  ],
+  "hasPreview": true,
+  "problems": [
+    "2 text boxes \u2014 keep between 3 and 24",
+    "headline 'Hear Every Detail': sits on a photo \u2014 put it on a flat colour"
+  ],
+  "prompt": "Launch post for our new wireless headphones. Sleek and modern. Headline \"Hear Every Detail\". Order at www.soundco.com",
+  "name": "sleek_headphone_launch",
+  "idea": "Highlight the sleek and modern design of the wireless headphones with a centered hero photo, geometric accents, and prominent headline and call-to-action text, maintaining ample spacing around elements to emphasize the product.",
+  "direction": null,
+  "attempts": 3,
+  "colors": {
+    "bg": "#f5f5f5",
+    "ink": "#000000",
+    "accent": "#1a1a1a",
+    "on_accent": "#ffffff",
+    "soft": "#e0e0e0"
+  },
+  "features": [],
+  "plan": {
+    "texts": [
+      {
+        "role": "headline",
+        "text": "Hear Every Detail"
+      },
+      {
+        "role": "cta",
+        "text": "Order at www.soundco.com"
+      }
+    ],
+    "photos": [
+      {
+        "from_brief": "wireless headphones",
+        "subject": "A sleek pair of wireless headphones showcased against a clean, minimal background, emphasizing their modern design.",
+        "role": "hero",
+        "frame": "rounded_card"
+      }
+    ],
+    "logo": true,
+    "exclude": [],
+    "moods": [
+      "sleek_modern"
+    ],
+    "layout": "centre_stage",
+    "custom_layout": null,
+    "shapes": [],
+    "draw": [],
+    "effects": [
+      "shadow"
+    ],
+    "gradient": null,
+    "photo_theme": "fashion",
+    "notes": "Ensure ample spacing around the hero photo to emphasize the product, utilizing a modern font for the headline to match the sleek design."
+  },
+  "fingerprint": "centre_stage (1 photos; frames rounded_card, shadow)",
+  "planLayout": "centre_stage",
+  "photoSource": "corpus-cache"
+}

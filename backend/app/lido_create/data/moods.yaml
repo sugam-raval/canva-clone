@@ -1,0 +1,118 @@
+# The mood map: the art director's cheat sheet for turning the FEEL of a brief into
+# Lido features, so users never have to name a frame, a shape or an effect.
+#
+# Moods are styles, not industries: any business can use any mood. The art director
+# picks moods by the feeling a brief asks for, never by what the business sells.
+#
+# To add a mood, copy an entry:
+#   name:      short_snake_case
+#   when:      FEELING words that signal this mood (adjectives, not businesses)
+#   frames:    photo frames that fit (names from data/frames.json, or the crops
+#              rect, rounded, circle, arch, hexagon, diamond, blob, leaf, cutout)
+#   shapes:    Lido shapes that fit (names from shapes.py SHAPES)
+#   draw:      hand-drawn strokes that fit (draw.py DRAW_PRESETS), may be empty
+#   effects:   text effects that fit (shadow, lift, hollow), may be empty
+#   gradient:  how a gradient is used in this mood, or "none"
+#   avoid:     what would feel wrong in this mood
+#   feel:      one line on spacing, weight and attitude
+# After editing, check it: see docs/CREATIVE_LAYOUT_PLAN.md section 8.
+
+- name: calm_airy
+  when: [calm, peaceful, serene, soft, gentle, relaxing, mindful, soothing, tranquil, balanced]
+  frames: [egg_blob, circle, arch, oval, rounded_card, blob]
+  shapes: [circle, rectangle]
+  draw: [squiggle, underline]
+  effects: [lift]
+  gradient: a soft dawn glow — radial, or a gentle vertical fade between two light tones
+  avoid: sharp geometry, loud badges, zigzags, hollow text, heavy shadows, crowding
+  feel: airy, lots of empty space, soft rounded forms, light weight, slow rhythm
+
+- name: bold_loud
+  when: [bold, loud, urgent, punchy, high-energy, striking, aggressive, powerful, intense, limited time]
+  frames: [rounded_card, circle, scallop_badge, torn_paper, rect]
+  shapes: [octagon, arrowPentagon, parallelogram, chevron, rhombus, arrowRight]
+  draw: [circle, sparkle, underline]
+  effects: [hollow, shadow]
+  gradient: optional — a strong band or a punchy two-colour background, never washed out
+  avoid: timid small type, lots of empty space, pastel softness
+  feel: loud, high contrast, huge numbers or words, one dominant element, slanted energy
+
+- name: playful_bright
+  when: [playful, fun, cheerful, happy, quirky, colourful, colorful, cute, friendly, lively]
+  frames: [scallop_badge, gem, egg_blob, circle, ring, blob]
+  shapes: [triangle, cross, rhombus, pentagon, circle, hexagonVertical]
+  draw: [zigzag, sparkle, squiggle, check, arrow]
+  effects: [shadow]
+  gradient: none, or a bright two-colour background
+  avoid: thin elegant lines, dark moody palettes, stiff grids
+  feel: bouncy, tilted tiles, bright colours, doodles around the edges (text stays clear)
+
+- name: elegant_refined
+  when: [elegant, luxurious, refined, sophisticated, exclusive, premium, classy, graceful, upscale, timeless]
+  frames: [gem, arch, oval, circle, corner_card]
+  shapes: [rhombus, rectangle]
+  draw: []
+  effects: [hollow]
+  gradient: a subtle radial glow, often on a dark background
+  avoid: doodles, zigzags, cartoon colours, crowded layouts, many shapes
+  feel: restrained, thin lines, serif type, generous space, one precious accent colour
+
+- name: warm_handmade
+  when: [warm, cosy, cozy, homely, authentic, handmade, crafted, rustic, inviting, personal]
+  frames: [brush_band, brush_stroke, torn_paper, brush_layers, egg_blob, circle]
+  shapes: [circle, arrowPentagon, rectangle]
+  draw: [circle, underline, arrow, squiggle]
+  effects: [lift]
+  gradient: optional — a warm fade on a panel
+  avoid: cold geometric precision, neon colours
+  feel: friendly, casual hand-drawn accents, a bit of texture, warm tones
+
+- name: sleek_modern
+  when: [modern, sleek, futuristic, innovative, cutting-edge, high-tech, digital, smart, precise, next-gen]
+  frames: [rounded_card, hexagon, gem, circle, corner_card]
+  shapes: [hexagonHorizontal, hexagonVertical, chevron, arrowRight, parallelogram, triangle]
+  draw: []
+  effects: [shadow, hollow]
+  gradient: a radial spotlight behind the hero, or a deep dark-to-darker background
+  avoid: hand-drawn doodles, brush strokes, script fonts
+  feel: precise, geometric, thin lines with arrow ends, dark and glowing
+
+- name: clean_professional
+  when: [professional, trustworthy, reliable, clean, clear, credible, serious, structured, expert, corporate]
+  frames: [rounded_card, corner_card, circle, hexagon, rect]
+  shapes: [rectangle, hexagonHorizontal, chevron, arrowRight]
+  draw: []
+  effects: []
+  gradient: none, or a very subtle linear tint
+  avoid: doodles, brush strokes, hollow text, playful tilts
+  feel: structured grid, clean lines, calm confidence, lots of alignment
+
+- name: festive_celebration
+  when: [festive, celebration, party, joyful, exciting, glamorous, night, grand, special occasion, anniversary]
+  frames: [circle, brush_swoosh, rounded_card, ring, gem]
+  shapes: [parallelogram, triangle, chevron, cross, rhombus]
+  draw: [sparkle, zigzag]
+  effects: [hollow, shadow, lift]
+  gradient: a full-canvas gradient background between two strong colours
+  avoid: corporate stiffness, dull muted tones
+  feel: energetic, big type, slanted bands, sparkle accents
+
+- name: natural_organic
+  when: [natural, organic, fresh, earthy, eco, green, sustainable, outdoorsy, botanical, wholesome]
+  frames: [brush_band, torn_paper, torn_panel, egg_blob, oval, brush_swoosh, leaf]
+  shapes: [circle, triangle]
+  draw: [squiggle, arrow, underline]
+  effects: [lift]
+  gradient: a sky-like or leafy vertical fade
+  avoid: hard boxed grids, neon, heavy black
+  feel: open, organic edges, soft textures, a sense of air and growth
+
+- name: editorial_minimal
+  when: [minimal, minimalist, editorial, stylish, chic, simple, understated, magazine, fashion-forward, artistic]
+  frames: [rect, arch, corner_card, oval, letter_A]
+  shapes: [rectangle, rhombus]
+  draw: [underline]
+  effects: [hollow, lift]
+  gradient: none, or one soft tint
+  avoid: clutter, many colours, doodles everywhere
+  feel: type-led, big white space, a strong headline and one striking photo, script plus caps pairing

@@ -50,6 +50,17 @@ class Settings(BaseSettings):
     # template's background/photo). Must be a chat-completions vision model; falls back
     # to llm_model_fast if the call fails.
     lido_enrich_vision_model: str = "gpt-4o"
+    # Designing new templates from a prompt (app/lido_create, the "Design new template"
+    # tab) takes two calls: the art director's plan (a reading job — fast model by
+    # default) and the designer's layout + its repairs (a geometry job — llm_model with
+    # its reasoning effort by default). Empty means that default.
+    lido_plan_model: str = ""
+    lido_layout_model: str = ""
+    # Reasoning effort for each step (none | minimal | low | medium | high …). Empty: the
+    # plan uses none (it's a fast model); the layout uses LLM_REASONING_EFFORT when its
+    # model is LLM_MODEL. Set one to run that step's model with reasoning at that effort.
+    lido_plan_reasoning_effort: str = ""
+    lido_layout_reasoning_effort: str = ""
     # Local embedding model for template matching (lido_templates.embedding). The column
     # is vector(384): changing to a model with another dimension needs the column altered.
     sentence_transformer_model: str = "sentence-transformers/all-MiniLM-L6-v2"

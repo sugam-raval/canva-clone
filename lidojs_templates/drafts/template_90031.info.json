@@ -1,0 +1,104 @@
+{
+  "id": "template_90031",
+  "createdAt": "2026-10-01T08:40:51.553563+00:00",
+  "source": "brief",
+  "layout": "brief:warm_daily_bakes",
+  "theme": "food",
+  "palette": "custom",
+  "fonts": "modern-serif",
+  "mirrored": false,
+  "textCount": 11,
+  "photoSubjects": [
+    "A variety of freshly baked pastries displayed together, including croissants, baguettes, muffins, cinnamon rolls, donuts, cheesecake, brownies and apple pie, with warm and inviting lighting and an authentic handmade bakery atmosphere."
+  ],
+  "hasPreview": true,
+  "problems": [],
+  "prompt": "Bakery menu: Croissant $3, Baguette $4, Muffin $2.50, Cinnamon Roll $3.50, Donut $2, Cheesecake $5, Brownie $3, Apple Pie $4.50. Warm and handmade. Headline \"Freshly Baked Today\". Open 6 AM to 6 PM.",
+  "name": "warm_daily_bakes",
+  "idea": "A warm cream bakery menu with expressive serif typography, a brush-framed pastry photograph, and a neatly grouped two-column menu. Terracotta marker accents and a generous opening-hours band give it a friendly handmade finish.",
+  "direction": null,
+  "attempts": 1,
+  "colors": {
+    "bg": "#fff6e8",
+    "ink": "#442a20",
+    "accent": "#a7472c",
+    "on_accent": "#fff8ee",
+    "soft": "#e9ccaa"
+  },
+  "features": [],
+  "plan": {
+    "texts": [
+      {
+        "role": "headline",
+        "text": "Freshly Baked Today"
+      },
+      {
+        "role": "item",
+        "text": "Croissant $3"
+      },
+      {
+        "role": "item",
+        "text": "Baguette $4"
+      },
+      {
+        "role": "item",
+        "text": "Muffin $2.50"
+      },
+      {
+        "role": "item",
+        "text": "Cinnamon Roll $3.50"
+      },
+      {
+        "role": "item",
+        "text": "Donut $2"
+      },
+      {
+        "role": "item",
+        "text": "Cheesecake $5"
+      },
+      {
+        "role": "item",
+        "text": "Brownie $3"
+      },
+      {
+        "role": "item",
+        "text": "Apple Pie $4.50"
+      },
+      {
+        "role": "subhead",
+        "text": "Open 6 AM to 6 PM."
+      }
+    ],
+    "photos": [
+      {
+        "from_brief": "Bakery menu",
+        "subject": "A variety of freshly baked pastries displayed, with warm and inviting lighting.",
+        "role": "hero",
+        "frame": "brush_stroke"
+      }
+    ],
+    "logo": true,
+    "exclude": [],
+    "moods": [
+      "warm_handmade"
+    ],
+    "layout": "menu_list",
+    "custom_layout": null,
+    "shapes": [
+      "rectangle",
+      "circle"
+    ],
+    "draw": [
+      "underline"
+    ],
+    "effects": [
+      "lift"
+    ],
+    "gradient": "a warm fade on a panel",
+    "photo_theme": "food",
+    "notes": "Use warm tones and textures to create an inviting and homely feel. The text should be clear and easy to read, with a structured layout that emphasizes warmth and authenticity."
+  },
+  "fingerprint": "menu_list (1 photos; frames brush_stroke, gradient, underline, lift)",
+  "planLayout": "menu_list",
+  "photoSource": "corpus-cache"
+}

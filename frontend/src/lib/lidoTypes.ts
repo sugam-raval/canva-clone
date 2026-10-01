@@ -135,6 +135,17 @@ export interface LidoDraftInfo {
   colors: Record<string, string>
   /** Feature families this design was asked to use (gradient, frame, draw, line…). */
   features?: string[]
+  /** The art director's plan (step 1): photos, texts, moods, layout, exclusions. */
+  plan?: {
+    layout: string
+    custom_layout?: string | null
+    moods: string[]
+    exclude: string[]
+    logo: boolean
+    notes: string
+    photos: { subject: string; role: string; frame: string }[]
+  } | null
+  planLayout?: string | null
   textCount?: number | null
   /** What each photo should show — the prompts future image generation will use. */
   photoSubjects: string[]

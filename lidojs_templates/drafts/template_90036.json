@@ -1,0 +1,969 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "1bf26186-05f8-464a-8515-7305b10a736e",
+          "e486cc2a-7745-4a30-945c-61451bd3f3b1",
+          "2e83e898-8623-461b-9ba0-3646213046b0",
+          "f3b57baa-101b-44fe-ab78-f895eaa09ef9",
+          "1f0f787a-e023-40d5-b83d-19e8cae2205a",
+          "dc24c7be-3f38-441a-a849-53f1014ed235",
+          "2b55a6e2-8085-495e-8d90-23315fdc6c7b",
+          "3c60607d-11ed-4334-b236-a934c33353f6",
+          "ad6a122e-c1d4-4c95-8f51-a9635201da80",
+          "41acc94e-fbb4-4636-8a26-d7f9c5c515ba",
+          "9534e0fe-1571-47cd-be1e-a913b413587e",
+          "6542a870-4381-445e-8039-96a2a44ce8a2",
+          "11388cfb-3938-493e-8f1a-da272952a6ac",
+          "88750935-a467-48aa-a0a3-8b5e2bb51e18",
+          "f8c958a5-3c1b-44ae-aa47-97ca81d5cb8a",
+          "dd2e3620-3abf-49f1-81de-b4e8efe6c76e",
+          "3b421d2c-1899-4242-b9ba-1bae8c4a9a27",
+          "c4c2b1e8-030f-4596-b7ff-5d279357e6a1"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 241, 232)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "1bf26186-05f8-464a-8515-7305b10a736e": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 0 808.0808 L 0 250.0 C 0 111.925 111.925 0 250.0 0 C 388.075 0 500.0 111.925 500.0 250.0 L 500.0 808.0808 Z",
+          "position": {
+            "x": 486.0,
+            "y": 60.0
+          },
+          "boxSize": {
+            "width": 594.0,
+            "height": 960.0
+          },
+          "rotate": 0,
+          "scale": 1.188,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1787203946_54eb3490-bb9d-44be-9852-d9e04ff474cb.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1787203946_54eb3490-bb9d-44be-9852-d9e04ff474cb.png",
+            "boxSize": {
+              "width": 538.9898936,
+              "height": 808.0808
+            },
+            "position": {
+              "x": -19.49494679999998,
+              "y": 0.0
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e486cc2a-7745-4a30-945c-61451bd3f3b1": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 486.0,
+            "y": 60.0
+          },
+          "boxSize": {
+            "width": 125.0,
+            "height": 960.0
+          },
+          "rotate": 0,
+          "color": {
+            "colors": [
+              {
+                "color": "rgba(245, 241, 232, 1)",
+                "percent": 0
+              },
+              {
+                "color": "rgba(245, 241, 232, 0)",
+                "percent": 100.0
+              }
+            ],
+            "style": "linear",
+            "angle": 90.0
+          },
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "2e83e898-8623-461b-9ba0-3646213046b0": {
+        "type": {
+          "type": null,
+          "resolvedName": "LineLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "style": "solid",
+          "boxSize": {
+            "width": 90.0,
+            "height": 2.0
+          },
+          "color": "rgb(215, 203, 187)",
+          "position": {
+            "x": 70.0,
+            "y": 192.0
+          },
+          "scale": 1,
+          "rotate": 0,
+          "arrowStart": "none",
+          "arrowEnd": "none"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f3b57baa-101b-44fe-ab78-f895eaa09ef9": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 991.0,
+            "y": 68.0
+          },
+          "boxSize": {
+            "width": 30.0,
+            "height": 30.0
+          },
+          "rotate": 0,
+          "color": "rgb(245, 241, 232)",
+          "scale": 5.0625,
+          "border": {
+            "color": "rgb(215, 203, 187)",
+            "style": "solid",
+            "weight": 2.0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1f0f787a-e023-40d5-b83d-19e8cae2205a": {
+        "type": {
+          "type": null,
+          "resolvedName": "DrawLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "path": "M 2.86,3.47 C 5.49,3.42 13.41,3.04 18.65,3.16 C 23.89,3.29 29.08,4.07 34.31,4.22 C 39.54,4.36 44.80,4.07 50.02,4.04 C 55.25,4.01 60.43,4.13 65.66,4.03 C 70.88,3.93 76.16,3.48 81.38,3.44 C 86.60,3.41 94.38,3.75 96.98,3.81",
+          "color": "rgb(65, 75, 52)",
+          "width": 4.0,
+          "position": {
+            "x": 70.0,
+            "y": 696.0
+          },
+          "boxSize": {
+            "width": 100.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "scale": 1,
+          "transparency": 0.65
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "dc24c7be-3f38-441a-a849-53f1014ed235": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 70.0,
+            "y": 756.0
+          },
+          "boxSize": {
+            "width": 58.0,
+            "height": 58.0
+          },
+          "rotate": 0,
+          "color": "rgb(65, 75, 52)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "2b55a6e2-8085-495e-8d90-23315fdc6c7b": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70.0,
+            "y": 880.0
+          },
+          "boxSize": {
+            "width": 380.0,
+            "height": 150.0
+          },
+          "rotate": 0,
+          "color": "rgb(65, 75, 52)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3c60607d-11ed-4334-b236-a934c33353f6": {
+        "type": {
+          "type": null,
+          "resolvedName": "LineLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "style": "solid",
+          "boxSize": {
+            "width": 330.0,
+            "height": 2.0
+          },
+          "color": "rgb(255, 252, 245)",
+          "position": {
+            "x": 95.0,
+            "y": 951.0
+          },
+          "scale": 1,
+          "rotate": 0,
+          "arrowStart": "none",
+          "arrowEnd": "none"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ad6a122e-c1d4-4c95-8f51-a9635201da80": {
+        "type": {
+          "type": null,
+          "resolvedName": "LineLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "style": "solid",
+          "boxSize": {
+            "width": 28.0,
+            "height": 2.0
+          },
+          "color": "rgb(255, 252, 245)",
+          "position": {
+            "x": 394.0,
+            "y": 991.0
+          },
+          "scale": 1,
+          "rotate": 0,
+          "arrowStart": "none",
+          "arrowEnd": "arrow"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "41acc94e-fbb4-4636-8a26-d7f9c5c515ba": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89
+          },
+          "position": {
+            "x": 70.0,
+            "y": 65.0
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "9534e0fe-1571-47cd-be1e-a913b413587e": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Balance"
+        },
+        "child": [],
+        "props": {
+          "effect": {
+            "name": "hollow",
+            "settings": {
+              "thickness": 50
+            }
+          },
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(52, 61, 43)",
+                  "indent": 0,
+                  "fontSize": "56.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "DM Serif Display",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Balance",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(52, 61, 43)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "DM Serif Display",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/dmserifdisplay/v17/-nFnOHM81r4j6k0gjAW3mujVU2B2K_c.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(52, 61, 43)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 270.0,
+            "height": 61.6
+          },
+          "position": {
+            "x": 194.0,
+            "y": 62.0
+          },
+          "fontSizes": [
+            56.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "6542a870-4381-445e-8039-96a2a44ce8a2": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "YOGA & PILATES",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(52, 61, 43)",
+                  "indent": 0,
+                  "fontSize": "17.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.16,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "YOGA & PILATES",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(52, 61, 43)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(52, 61, 43)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 250.0,
+            "height": 20.4
+          },
+          "position": {
+            "x": 197.0,
+            "y": 130.0
+          },
+          "fontSizes": [
+            17.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "11388cfb-3938-493e-8f1a-da272952a6ac": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Ready to Master Your Form?"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(52, 61, 43)",
+                  "indent": 0,
+                  "fontSize": "76.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "DM Serif Display",
+                  "lineHeight": "1.04",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Ready to Master Your Form?",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(52, 61, 43)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "DM Serif Display",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/dmserifdisplay/v17/-nFnOHM81r4j6k0gjAW3mujVU2B2K_c.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(52, 61, 43)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 395.0,
+            "height": 237.12
+          },
+          "position": {
+            "x": 70.0,
+            "y": 235.0
+          },
+          "fontSizes": [
+            76.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "88750935-a467-48aa-a0a3-8b5e2bb51e18": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "At Balance Pilates & Yoga, our small class sizes mean you get personalized attention to perfect every pose."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(52, 61, 43)",
+                  "indent": 0,
+                  "fontSize": "23.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.35",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "At Balance Pilates & Yoga, our small class sizes mean you get personalized attention to perfect every pose.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(52, 61, 43)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(52, 61, 43)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 363.0,
+            "height": 124.2
+          },
+          "position": {
+            "x": 70.0,
+            "y": 521.0
+          },
+          "fontSizes": [
+            23.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f8c958a5-3c1b-44ae-aa47-97ca81d5cb8a": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "@",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 252, 245)",
+                  "indent": 0,
+                  "fontSize": "30.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "@",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 252, 245)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 252, 245)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 40.0,
+            "height": 36.0
+          },
+          "position": {
+            "x": 79.0,
+            "y": 765.0
+          },
+          "fontSizes": [
+            30.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "dd2e3620-3abf-49f1-81de-b4e8efe6c76e": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Find your balance today",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(52, 61, 43)",
+                  "indent": 0,
+                  "fontSize": "34.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "DM Serif Display",
+                  "lineHeight": "1.12",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Find your balance today",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(52, 61, 43)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "DM Serif Display",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/dmserifdisplay/v17/-nFnOHM81r4j6k0gjAW3mujVU2B2K_c.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(52, 61, 43)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 282.0,
+            "height": 76.16
+          },
+          "position": {
+            "x": 151.0,
+            "y": 747.0
+          },
+          "fontSizes": [
+            34.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3b421d2c-1899-4242-b9ba-1bae8c4a9a27": {
+        "type": {
+          "type": "address",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Jumeirah Center, Dubai"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 252, 245)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Jumeirah Center, Dubai",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 252, 245)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 252, 245)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 330.0,
+            "height": 26.4
+          },
+          "position": {
+            "x": 95.0,
+            "y": 906.0
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c4c2b1e8-030f-4596-b7ff-5d279357e6a1": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Link in bio to book!"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 252, 245)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Link in bio to book!",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 252, 245)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 252, 245)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 285.0,
+            "height": 26.4
+          },
+          "position": {
+            "x": 95.0,
+            "y": 976.0
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    }
+  }
+]

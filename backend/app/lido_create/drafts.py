@@ -143,39 +143,71 @@ def delete_draft(name: str, out: Path | None = None) -> bool:
     return found
 
 
+def recent_fingerprints(limit: int = 10) -> list[str]:
+    """The notebook: one line per recent prompt-designed draft, newest first."""
+    return [r["fingerprint"] for r in list_drafts() if r.get("fingerprint")][:limit]
+
+
+async def _plans(prompt: str, variations: int, rng: random.Random) -> list:
+    """One art-director plan per variation, made one after another so each knows which
+    layouts the others took. A failed plan falls back to designing without one."""
+    from app.lido_create.plan import make_plan
+
+    recent = await asyncio.to_thread(recent_fingerprints)
+    plans: list = []
+    taken: list[str] = []
+    for i in range(variations):
+        try:
+            # with several variations, at least one is a free invention
+            free = True if variations > 1 and i == variations - 1 else None
+            plan = await make_plan(prompt, recent=recent, avoid_layouts=taken, free=free,
+                                   rng=random.Random(rng.random()))
+            taken.append(plan.layout)
+            plans.append(plan)
+        except Exception as exc:  # noqa: BLE001 — the designer can still work without it
+            log.warning("lido.drafts.plan_failed", error=str(exc)[:300])
+            plans.append(None)
+    return plans
+
+
 async def create_from_prompt(prompt: str, *, variations: int = 1,
                              source: PhotoSource | None = None) -> list[dict]:
-    """Design `variations` templates from one prompt (in parallel, each in a different
-    creative direction when there's more than one) and save them as drafts."""
+    """Design `variations` templates from one prompt and save them as drafts: the art
+    director plans each one (fast), then the designers build them in parallel."""
+    from app.lido_create.plan import fingerprint
+
     source = source or photo_source()
     photos = await asyncio.to_thread(photo_pool)
     if not photos:
         raise RuntimeError("no placeholder photos found in lidojs_templates/")
     rng = random.Random()
-    directions: list[str | None] = ([None] if variations == 1
-                                    else rng.sample(DIRECTIONS, variations))
+    plans = await _plans(prompt, variations, rng)
+    fallback_directions = rng.sample(DIRECTIONS, variations)
     outcomes = await asyncio.gather(*(
-        design_from_brief(prompt, photos, direction=d, rng=random.Random(rng.random()))
-        for d in directions), return_exceptions=True)
-    results = [o for o in outcomes if not isinstance(o, BaseException)]
+        design_from_brief(prompt, photos, plan=plan, rng=random.Random(rng.random()),
+                          direction=None if plan else fallback_directions[i])
+        for i, plan in enumerate(plans)), return_exceptions=True)
+    done = [(o, plans[i]) for i, o in enumerate(outcomes) if not isinstance(o, BaseException)]
     failures = [o for o in outcomes if isinstance(o, BaseException)]
-    if not results:
+    if not done:
         raise failures[0]  # every variation failed: report why
     for exc in failures:  # some did: keep the ones that worked
         log.warning("lido.drafts.variation_failed", error=str(exc)[:300])
 
     saved = []
-    for r in results:
+    for r, plan in done:
         chosen = await resolve_photos(r.design, r.variant, source)
         async with _id_lock:
             tid = next_ids(1)[0]
             # claim the id before the slow screenshot, so a parallel request can't take it
             _paths(tid)[0].write_text("[]")
+        plan_info = {"plan": plan.model_dump(), "fingerprint": fingerprint(plan),
+                     "planLayout": plan.layout} if plan else {}
         record = await asyncio.to_thread(
             save_draft, r.design, r.variant, tid, photos=chosen,
             info={"source": "brief", "prompt": prompt, "name": r.name, "idea": r.idea,
                   "direction": r.direction, "attempts": r.attempts, "colors": r.colors,
-                  "features": r.features,
+                  "features": r.features, **plan_info,
                   "photoSource": source.name, "problems": r.errors})
         saved.append({**record, "document": json.loads(_paths(tid)[0].read_text())})
     return saved

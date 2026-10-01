@@ -1,0 +1,73 @@
+{
+  "id": "template_90028",
+  "createdAt": "2026-10-01T08:35:59.667517+00:00",
+  "source": "brief",
+  "layout": "brief:soundco_precision_launch",
+  "theme": "fashion",
+  "palette": "custom",
+  "fonts": "heavy-grotesk",
+  "mirrored": false,
+  "textCount": 3,
+  "photoSubjects": [
+    "Premium wireless over-ear headphones on a sleek dark modern surface with soft even lighting, subtle realistic reflections and a cyan radial spotlight behind the hero, composed prominently in the upper half with dark negative space below."
+  ],
+  "hasPreview": true,
+  "problems": [],
+  "prompt": "Launch post for our new wireless headphones. Sleek and modern. Headline \"Hear Every Detail\". Order at www.soundco.com",
+  "name": "soundco_precision_launch",
+  "idea": "A cinematic headphone hero fills the canvas, with a dark floating card, oversized precision typography and electric-cyan details creating a sleek product launch.",
+  "direction": null,
+  "attempts": 1,
+  "colors": {
+    "bg": "#10171d",
+    "ink": "#f4f8fa",
+    "accent": "#79e5f2",
+    "on_accent": "#10171d",
+    "soft": "#294853"
+  },
+  "features": [],
+  "plan": {
+    "texts": [
+      {
+        "role": "headline",
+        "text": "Hear Every Detail"
+      },
+      {
+        "role": "cta",
+        "text": "Order Now"
+      },
+      {
+        "role": "website",
+        "text": "www.soundco.com"
+      }
+    ],
+    "photos": [
+      {
+        "from_brief": "wireless headphones",
+        "subject": "Wireless headphones on a sleek, modern surface with soft, even lighting",
+        "role": "hero",
+        "frame": "rounded_card"
+      }
+    ],
+    "logo": true,
+    "exclude": [],
+    "moods": [
+      "sleek_modern"
+    ],
+    "layout": "floating_card",
+    "custom_layout": null,
+    "shapes": [
+      "hexagonHorizontal"
+    ],
+    "draw": [],
+    "effects": [
+      "shadow"
+    ],
+    "gradient": "a radial spotlight behind the hero",
+    "photo_theme": "fashion",
+    "notes": "Emphasize the sleek and modern feel with precise alignment and a clean layout. Ensure the text on the floating card is easily readable against the photo background."
+  },
+  "fingerprint": "floating_card (1 photos; frames rounded_card, gradient, shadow)",
+  "planLayout": "floating_card",
+  "photoSource": "corpus-cache"
+}

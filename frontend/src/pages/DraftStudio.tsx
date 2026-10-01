@@ -101,6 +101,23 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
             {draft.features && draft.features.length > 0 && (
               <div><strong>Signature elements:</strong> {draft.features.join(', ')}</div>
             )}
+            {draft.plan && (
+              <>
+                <div>
+                  <strong>Layout:</strong> {draft.plan.layout === 'custom'
+                    ? `custom (invented) — ${draft.plan.custom_layout ?? ''}`
+                    : draft.plan.layout.replace(/_/g, ' ')}
+                </div>
+                <div><strong>Mood:</strong> {draft.plan.moods.join(', ').replace(/_/g, ' ')}</div>
+                <div><strong>Logo:</strong> {draft.plan.logo ? 'yes' : 'no (the prompt asked)'}</div>
+                {draft.plan.exclude.length > 0 && (
+                  <div><strong>Left out:</strong> {draft.plan.exclude.join(', ').replace(/_/g, ' ')}</div>
+                )}
+                {draft.plan.notes && (
+                  <div style={{ color: 'var(--muted)' }}>Art direction: {draft.plan.notes}</div>
+                )}
+              </>
+            )}
             {draft.textCount != null && <div><strong>Text boxes:</strong> {draft.textCount}</div>}
           </div>
           <div style={{ marginTop: 10 }}>

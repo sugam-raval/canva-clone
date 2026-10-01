@@ -24,8 +24,13 @@ EDGE = 30  # minimum distance from text/logo to the canvas edge
 UNDRAWABLE = re.compile("[\u2022\u2023\u25a0-\u25ff\u2600-\u27bf\u2b00-\u2bff"
                         "\U0001f000-\U0001faff]")
 FREE_TEXT = {"headline", "kicker", "body", "item", "cta", "badge", "caption"}
-MAX_TEXTS = 12
+MAX_TEXTS = 24  # room for a 9-item list next to headline, copy, button and contacts
 HOLLOW_MIN_PX = 56  # outline-only letters are only readable when big
+LIST_MIN_PX = 20  # below this a list on a post is too small to read
+MAX_PHOTOS = 4
+CURRENCY = re.compile(r"[$€£₹¥]\s?\d|\d\s?(?:[$€£₹¥]|usd|eur|inr|rs\.?)(?:\W|$)", re.IGNORECASE)
+PERCENT = re.compile(r"\d\s?%")
+_WORDS = re.compile(r"[\w$€£₹%]+")
 STROKES = ("line", "draw")  # thin marks: never a text's backdrop, never through text
 # Procedural photo crops as polygons in the unit square (lido.clip_path draws the same).
 POLYGONS = {
@@ -284,7 +289,10 @@ def _richness(els: list[Element], texts, extents, name) -> list[str]:
             x0, y0, x1, y1 = rotated_extent(s)
             ox = max(0.0, min(x1, photo.x + photo.w) - max(x0, photo.x))
             oy = max(0.0, min(y1, photo.y + photo.h) - max(y0, photo.y))
-            if ox * oy > 0.1 * area:
+            # a snug border just around the photo (a polaroid mat) is part of the photo
+            snug = (x0 >= photo.x - 40 and y0 >= photo.y - 40 and x1 <= photo.x + photo.w + 40
+                    and y1 <= photo.y + photo.h + 70 and s.w * s.h <= area * 1.6)
+            if ox * oy > 0.1 * area and not snug:
                 errors.append("a shape is placed behind a photo — photos sit directly on "
                               "the background; put decoration around the photo, not under "
                               "it (badges may overlap its edge if drawn on top)")
@@ -295,7 +303,7 @@ def _richness(els: list[Element], texts, extents, name) -> list[str]:
         x0, y0, x1, _ = extents[i]
         first_line = (y0, y0 + (e.size or 20) * (e.line_height or 1.3))
         marker = any(
-            s.kind == "shape" and s.y < first_line[1] and s.y + s.h > first_line[0]
+            s.kind in ("shape", "draw") and s.y < first_line[1] and s.y + s.h > first_line[0]
             and (0 <= x0 - (s.x + s.w) <= 60 or 0 <= s.x - x1 <= 60)
             and max(s.w, s.h) <= 60
             for s in els)
@@ -305,8 +313,52 @@ def _richness(els: list[Element], texts, extents, name) -> list[str]:
     return errors
 
 
-def validate(design: Design, v: Variant, *, creative: bool = False) -> list[str]:
-    """`creative` adds the richness rules asked of AI-designed layouts."""
+def _plan_problems(design: Design, plan, texts: list[tuple[int, Element]]) -> list[str]:
+    """Does the design build the art director's plan (app/lido_create/plan.py)?"""
+    errors = []
+    photos = [e for e in design.elements if e.kind == "photo"]
+    if len(photos) != len(plan.photos):
+        errors.append(f"the plan asks for exactly {len(plan.photos)} photos (one per "
+                      f"subject), the design has {len(photos)}")
+    planned_frames = {p.frame for p in plan.photos}
+    if photos and not any((e.frame or e.clip) in planned_frames for e in photos):
+        errors.append(f"no photo uses a planned frame ({', '.join(sorted(planned_frames))})")
+    used = families_used(design)
+    asked = {"shape": bool([s for s in plan.shapes if s not in ("rectangle", "circle")]),
+             "draw": bool(plan.draw), "effect": bool(plan.effects),
+             "gradient": bool(plan.gradient)}
+    missing = [k for k, wanted in asked.items() if wanted and k not in used]
+    if missing:
+        errors.append(f"the plan asks for {', '.join(missing)} — use "
+                      + "; ".join(FEATURE_FAMILIES[k] for k in missing))
+    def norm(t: str) -> str:
+        return " ".join(_WORDS.findall(t.lower()))
+
+    shown = {norm(e.text or "") for _, e in texts}
+    for t in plan.texts:
+        if t.role == "item" and norm(t.text) not in shown:
+            errors.append(f"list item {t.text!r} from the plan is missing — every item "
+                          "goes in the list, word for word")
+    excluded = set(plan.exclude)
+    for _, e in texts:
+        text = e.text or ""
+        if "price" in excluded and CURRENCY.search(text):
+            errors.append(f"{e.text_type} {text!r}: the brief rules out prices")
+        if excluded & {"discount", "offer_badge", "promo_claims"} and PERCENT.search(text):
+            errors.append(f"{e.text_type} {text!r}: the brief rules out discounts/offers")
+        if "offer_badge" in excluded and e.text_type == "badge":
+            errors.append(f"badge {text!r}: the brief rules out offer badges")
+        if "button" in excluded and e.text_type == "cta":
+            errors.append(f"cta {text!r}: the brief rules out a button / call to action")
+        if "contact" in excluded and e.text_type in ("website", "phone", "email", "address"):
+            errors.append(f"{e.text_type} {text!r}: the brief wants no contact details")
+    return errors
+
+
+def validate(design: Design, v: Variant, *, creative: bool = False, plan=None) -> list[str]:
+    """`creative` adds the richness rules asked of AI-designed layouts; `plan` (the art
+    director's DesignPlan) adds "build what was planned": photo count, logo or not,
+    planned features, and nothing the brief ruled out."""
     els, pal = design.elements, v.palette
     errors: list[str] = []
     texts = [(i, e) for i, e in enumerate(els) if e.kind == "text"]
@@ -315,15 +367,18 @@ def validate(design: Design, v: Variant, *, creative: bool = False) -> list[str]
     def name(e: Element) -> str:
         return f"{e.text_type} {e.text!r}" if e.kind == "text" else e.kind
 
-    if len(logos) != 1:
+    logo_wanted = True if plan is None else plan.logo
+    if logo_wanted and len(logos) != 1:
         errors.append(f"needs exactly one logo, has {len(logos)}")
+    elif not logo_wanted and logos:
+        errors.append("the brief wants no logo — remove the logo element")
     headlines = [e for _, e in texts if e.text_type == "headline"]
     if len(headlines) != 1:
         errors.append(f"needs exactly one headline, has {len(headlines)}")
     photos = sum(e.kind == "photo" for e in els)
-    if not 1 <= photos <= 2:
-        errors.append(f"{photos} photos — use 1 or 2 (the photo slot is what makes a "
-                      "generated design fit the brief)")
+    if not 1 <= photos <= MAX_PHOTOS:
+        errors.append(f"{photos} photos — use 1 to {MAX_PHOTOS} (the photo slots are what "
+                      "make a generated design fit the brief)")
     if not 3 <= len(texts) <= MAX_TEXTS:
         errors.append(f"{len(texts)} text boxes — keep between 3 and {MAX_TEXTS}")
     if any(e.kind == "dots" for e in els):
@@ -421,6 +476,28 @@ def validate(design: Design, v: Variant, *, creative: bool = False) -> list[str]
         if e.kind == "photo" and min(e.w, e.h) < 200:
             errors.append(f"photo {e.w:.0f}x{e.h:.0f} is too small to read")
 
+    # a photo must stay visible: shapes drawn over it may overlap its edge (a badge),
+    # not cover most of it
+    for p, photo in enumerate(els):
+        if photo.kind != "photo":
+            continue
+        pts = [pt for pt in _samples((photo.x, photo.y, photo.x + photo.w, photo.y + photo.h),
+                                     8, 8) if covers(photo, *pt)]
+        hidden = sum(1 for px, py in pts
+                     if any(s.kind == "shape" and covers(s, px, py)
+                            and (s.opacity is None or s.opacity > 0.6)
+                            for s in els[p + 1:]))
+        if pts and hidden / len(pts) > 0.5:
+            errors.append(f"photo at ({photo.x:.0f},{photo.y:.0f}) is mostly hidden under a "
+                          "shape drawn on top of it — move the shape before the photo in "
+                          "the list, or shrink or move it")
+
+    small = [e for _, e in texts if e.text_type == "item" and (e.size or 0) < LIST_MIN_PX]
+    if small:
+        errors.append(f"list items are too small to read ({small[0].size:g}px) — give the "
+                      f"list element more room: about 70px of height per row, and wider "
+                      f"columns")
+
     # lines and hand-drawn strokes decorate around text — never through it
     for e in els:
         if e.kind not in STROKES:
@@ -442,10 +519,12 @@ def validate(design: Design, v: Variant, *, creative: bool = False) -> list[str]
             if e.text_type in FREE_TEXT and e is not headlines[0] and (e.size or 0) >= top:
                 errors.append(f"{name(e)} is as large as the headline — the loader would "
                               "take it for the headline")
+    if plan is not None:
+        errors += _plan_problems(design, plan, texts)
     if creative:
         errors += _richness(els, texts, extents, name)
         used = families_used(design)
-        if len(used) < MIN_FAMILIES:
+        if plan is None and len(used) < MIN_FAMILIES:
             missing = "; ".join(f"{k}: {v}" for k, v in FEATURE_FAMILIES.items()
                                 if k not in used)
             errors.append(f"the design only uses circles and rectangles"

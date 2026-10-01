@@ -1,0 +1,1901 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "e6edbfa8-5a98-4bef-91ba-8e0aca14961d",
+          "ad981deb-afe5-4d1f-aade-2aabf1f90020",
+          "60d9ba81-efbd-40d3-bb84-1776d54c2871",
+          "baed584f-8f75-46f7-be99-dfe505ae1173",
+          "933b02ca-c4a1-4d2d-8c9b-88505ae8fbfe",
+          "6fc924d4-7823-45d4-94d6-77b5b053b81b",
+          "fcb4a5d0-d26e-4700-b0f0-b6d4aa6a7f01",
+          "db775d94-7c26-457d-907c-6c27059bec0e",
+          "f8fbc001-1872-4fc7-b722-9e851469152a",
+          "58715246-1f85-415b-8558-94e3fe4d2786",
+          "c364e7bc-fc4a-4757-b833-c74b6a52366d",
+          "810875e0-cb89-4240-9bc6-46484141ecc3",
+          "010fbd14-80b7-4d54-b756-c3ef1a31bd1a",
+          "a5916fb1-9c7a-440b-8e33-a45160728ae3",
+          "683fb7f1-1264-448f-9e70-94a29c6b891f",
+          "e2a3bcbd-a988-46be-8520-8657f8a2ee47",
+          "56b880ab-471f-400d-bbf7-df85c97b4394",
+          "d7a4f41e-7c28-49ba-986d-a793efcd4286",
+          "5a5223e2-b54e-449e-8ae9-f7aa64a00d2c",
+          "4d4f7a9b-7e86-475a-bba8-a0139df6c5e5",
+          "1d1f6b08-0597-4bf9-a738-374271a517ac",
+          "8361cef6-d210-406e-9d9f-895093243eee",
+          "ddbf956d-6ea0-4aee-ac2e-a1e6bf51db48",
+          "59f466c7-6a8f-46d7-9f17-ecffe666b163",
+          "2254bbc4-448a-4f07-93dc-e8428f53d4c1",
+          "b51d349e-69c5-4cab-83c5-53891e1a3fe6",
+          "a415edd4-26bb-4654-884f-e99668eb2781",
+          "961d4459-c0b7-45de-af3d-45fa72b068ed",
+          "5e18cb33-5682-4845-a8a2-80a411a7eee4",
+          "8896d0ec-9405-45d4-834d-5c16012a84ab",
+          "59fe69be-2b3c-4859-8173-6b7a515fd7e1",
+          "7a67056f-972b-45e7-bb20-e4f95e6fae6a",
+          "88f4aa5f-6f83-4257-af6d-a27baf12687c",
+          "50b6d332-5f1a-4cf1-bed3-868f1c3151ec",
+          "f4b3b265-5429-47b8-bd07-dbd63fae8eab",
+          "3516aa40-5a1d-4610-98ec-da39b63cfe6e"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(20, 15, 14)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "e6edbfa8-5a98-4bef-91ba-8e0aca14961d": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 0.0,
+            "y": 295.0
+          },
+          "boxSize": {
+            "width": 20.0,
+            "height": 355.0
+          },
+          "rotate": 0,
+          "color": {
+            "colors": [
+              {
+                "color": "rgba(169, 33, 32, 1)",
+                "percent": 20.0
+              },
+              {
+                "color": "rgba(214, 154, 70, 1)",
+                "percent": 100.0
+              }
+            ],
+            "style": "linear",
+            "angle": 180.0
+          },
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ad981deb-afe5-4d1f-aade-2aabf1f90020": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89
+          },
+          "position": {
+            "x": 65.0,
+            "y": 55.0
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "60d9ba81-efbd-40d3-bb84-1776d54c2871": {
+        "type": {
+          "type": null,
+          "resolvedName": "LineLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "style": "solid",
+          "boxSize": {
+            "width": 95.0,
+            "height": 5.0
+          },
+          "color": "rgb(214, 154, 70)",
+          "position": {
+            "x": 70.0,
+            "y": 178.0
+          },
+          "scale": 1,
+          "rotate": 0,
+          "arrowStart": "none",
+          "arrowEnd": "none"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "baed584f-8f75-46f7-be99-dfe505ae1173": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "IGNITE YOUR TASTE BUDS"
+        },
+        "child": [],
+        "props": {
+          "effect": {
+            "name": "shadow",
+            "settings": {
+              "offset": 30,
+              "direction": -45,
+              "blur": 12,
+              "transparency": 40,
+              "color": "rgb(169, 33, 32)"
+            }
+          },
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "94.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Anton",
+                  "lineHeight": "0.98",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "IGNITE YOUR TASTE BUDS",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 800.0,
+            "height": 184.24
+          },
+          "position": {
+            "x": 215.0,
+            "y": 38.0
+          },
+          "fontSizes": [
+            94.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "933b02ca-c4a1-4d2d-8c9b-88505ae8fbfe": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "An exciting fusion of spicy flavors, premium cheese, and freshly baked perfection."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "23.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "An exciting fusion of spicy flavors, premium cheese, and freshly baked perfection.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 930.0,
+            "height": 55.2
+          },
+          "position": {
+            "x": 70.0,
+            "y": 232.0
+          },
+          "fontSizes": [
+            23.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "6fc924d4-7823-45d4-94d6-77b5b053b81b": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 37.2 118.8 v 0.5 v -0.5 Z m -0.1 3 Z m 0.1 -2.4 v -0.1 v 0.1 Z m 0.6 0.1 c -0.2 0.1 -0.3 0.2 -0.4 0.2 c 0.1 0 0.2 -0.1 0.4 -0.2 Z m 1.5 -0.4 Z m -2.2 0.7 v 0.1 c 0 0.1 0 0.1 -0.1 0.2 l 0.1 -0.1 c -0.1 0.1 0 0.1 0 -0.2 Z m 295.8 -72.4 c -0.1 0.8 -0.3 1.5 -0.5 2.2 l -0.6 2.1 l -0.6 2.1 c -0.2 0.7 -0.4 1.3 -0.6 2 c -0.4 1.3 -0.9 2.6 -1.4 3.9 c -0.5 1.2 -1 2.4 -1.6 3.6 c -0.5 1.2 -1.1 2.3 -1.7 3.5 c -0.6 1.1 -1.2 2.3 -1.8 3.3 c -1.2 2.1 -2.5 4.2 -3.9 6.1 c -2.7 3.9 -5.6 7.5 -8.8 10.8 c -0.8 0.8 -1.6 1.6 -2.4 2.5 l -2.5 2.4 c -0.4 0.4 -0.9 0.8 -1.2 1.1 l -1.2 1 c -0.8 0.7 -1.5 1.3 -2.3 1.9 c -6.3 5 -13.1 9.3 -20.2 12.9 c -3.6 1.8 -7.2 3.4 -10.9 4.8 s -7.5 2.6 -11.4 3.7 c -1.9 0.5 -3.9 1 -5.8 1.4 l -3 0.6 l -2.9 0.5 c -1.9 0.3 -3.9 0.6 -5.8 0.8 s -3.9 0.5 -5.7 0.6 c -7.6 0.6 -14.9 0.6 -21.8 0.3 s -13.5 -0.9 -19.7 -1.4 c -1.5 -0.3 -2.5 -0.3 -3.2 -0.1 s -1.2 0.6 -1.7 1 c -1 0.8 -2 1.7 -4.9 0.9 l -2.2 -0.6 l -2.1 -0.6 c -1.4 -0.4 -2.8 -0.8 -4.1 -1.2 c 1.9 3.5 -1.6 5.3 -4.3 4.5 c -1.5 -0.3 -3 -0.6 -4.6 -0.9 c -1.5 -0.3 -2.9 -0.6 -4.4 -0.9 l -8.1 -1.8 c -5.1 -1.1 -9.7 -2.2 -13.6 -3.1 c -3.9 -1 -7 -1.8 -9.5 -2.8 s -4.2 -2 -5.7 -3.5 c -0.6 -0.4 -1 -0.7 -1.6 -1.1 c -0.5 -0.3 -1 -0.6 -1.5 -0.8 c -1.1 -0.4 -2.5 -0.6 -4.1 -0.2 c 0.3 1.4 0 1.5 -0.5 1.8 c -0.4 0.3 -0.9 0.8 -1.5 0.3 c -0.4 -1.3 -0.4 -1.3 -0.9 -2.6 c -0.2 -0.7 -0.6 -0.9 -1 -0.9 c -0.4 -0.1 -0.9 0.1 -1.3 0.3 l -1 -2.6 c -0.4 0.5 -0.8 0.8 -1.3 1 s -1.1 0.3 -1.6 0.5 s -1.1 0.4 -1.5 0.8 s -1.6 0.7 -2.3 -0.6 c -0.1 0.5 -0.3 0.7 -0.7 0.9 c -0.3 0.2 -0.8 0.3 -1.2 0.5 c -0.8 0.3 -1.6 0.9 -1.3 2.3 c -0.8 -1.1 -0.8 -1.1 -1.6 -2.3 c 0.8 1.1 1.6 2.3 0.7 3 c -0.7 0.5 -1.2 1.1 -1.7 1.6 c -0.4 0.5 -0.7 1 -0.8 1.4 c -0.2 0.4 -0.3 0.7 -0.3 0.9 v 0.3 c -1.4 1.2 -3.7 3 -5.7 4.6 c -0.5 0.4 -1 0.8 -1.5 1.1 s -0.9 0.6 -1.3 0.9 c -0.8 0.4 -1.4 0.7 -1.7 0.5 c -0.3 1.6 -1.5 2 -2.7 2.5 s -2.4 1.1 -2.7 2.8 c -1.8 -1.1 -3.1 -2.9 -4.5 -4.3 s -2.8 -2.4 -4.9 -1.7 c -1.8 0.9 -4.8 1.8 -8.3 2.7 c -1.7 0.5 -3.6 0.9 -5.6 1.4 l -1.5 0.3 c -0.2 0.1 -0.5 0.1 -0.7 0.2 H 57.8 c 1.9 1 -8 -4 -14.3 -7.1 c -0.7 -0.1 -2.1 -0.2 -3.3 -0.1 c -0.3 0 -0.7 0.1 -1 0.1 l 0.3 -0.1 h -0.2 c -0.6 -0.1 -1.3 -0.8 -1.7 -1.6 l -0.3 -0.6 c 0 0.6 -0.1 1.2 -0.1 2 c 0 -0.6 0.1 -1.3 0.1 -2 c -0.1 -0.3 -0.2 -0.6 -0.3 -0.8 c -0.1 -0.5 -0.2 -1.2 -0.3 -1.8 c -0.3 -2.5 -0.5 -4.9 -0.8 -7.1 c -0.2 -2.1 -0.4 -3.8 -0.7 -4.7 c 0.6 -1 -0.5 -4.6 -2.2 -8.4 s -4 -7.8 -6.3 -9.4 c 1.6 -2.3 3.2 -4.5 2.1 -5.3 c -2.2 -1.7 -5.5 0.4 -8.6 3.5 s -6 7.2 -8 9.4 c -3.7 0.7 -7.2 -4.5 -8 -8.6 c 0 0 -0.5 -1 -1.2 -2.6 c -0.7 -1.7 -1.6 -4 -2.2 -6.8 C -0.5 69 -0.6 61.7 3.1 55.8 s 8.1 -12 13.3 -17.9 s 11.3 -11.7 18 -16.9 c 6.8 -5.2 14.2 -9.7 21.8 -13.3 C 63.9 4.1 71.8 1.5 79.5 0 c 2.1 0 5.2 0.1 8.3 0.4 c 1.5 0.1 3.1 0.3 4.5 0.4 s 2.7 0.3 3.7 0.4 c 7.8 -0.5 15.7 -0.5 23.7 0 s 15.7 1.7 22.8 3.2 c 14.3 3 26.6 7.4 37.2 11.5 c 5.3 2.1 10.3 4.1 14.8 6 c 4.2 1.8 8.4 3.5 12.6 5.3 c 7.5 3.1 13.9 5.6 19.2 7.6 c 1.1 0 2.3 0 3.3 -0.1 h 1.5 c 0.4 0 0.9 0.1 1.2 0.2 c 0.7 0.2 1.3 0.6 1.6 1.2 c 0.5 0.8 1 1.5 1.6 2.3 c 0.6 0.7 1.2 1.3 1.8 1.9 c 1.2 1.1 2.6 2 4.1 2.4 c 2.9 0.9 6.2 0.3 8.7 -2 c 1.4 2.4 3.4 2.9 5.4 3.1 c 1.1 -0.4 2.2 -1 3.3 -1.8 c 0.3 -0.2 0.5 -0.4 0.8 -0.6 s 0.4 -0.4 0.6 -0.6 c 0.4 -0.4 0.8 -0.8 1.1 -1.2 c 1.4 -1.7 2.3 -3.7 3 -5 c 0.1 0.2 0.2 0.4 0.2 0.6 s 0.1 0.4 0.1 0.5 c 0 0.3 0 0.7 -0.1 1 c -0.2 0.6 -0.5 1.1 -0.9 1.6 c 0.2 0.9 1.4 1.1 2.6 1.1 c 1.2 0.1 2.5 0 2.7 1 c -0.3 1.6 -1.5 3.3 -3.1 4.5 c -1.5 1.2 -3.4 2.5 -4.8 3.5 l 1.7 2.2 c 1.1 -0.8 2.1 -1.7 3 -2.5 c 0.8 -0.8 1.6 -1.5 2.3 -2.3 c 1.4 -1.6 2.8 -3.2 4.1 -5.3 c 1.9 -1.7 3.7 -2.6 5.3 -2.8 c 1.6 -0.3 2.9 0.1 3.2 1.3 c -0.1 4.1 -2.4 8.5 -5.6 12.1 c -3.2 3.5 -7.3 6.4 -10.9 8.7 c 1.8 -1.2 2.6 -0.1 3.4 1.1 c 0.9 -0.6 -3.2 2.4 -8.8 5.2 c -5.6 2.7 -11.6 4.7 -18.3 5.7 l 0.4 2.8 c 1.6 -0.2 3.1 -0.5 4.7 -0.9 c 0.3 1.4 0.9 4.1 1.2 5.4 c -1.5 0.5 -3.3 1 -5.3 1.4 c -2 0.5 -4.1 0.7 -6.2 1 c -4.4 0.5 -8.9 0.7 -12.9 0.9 c -2 0.1 -3.9 0.2 -5.5 0.4 c -0.8 0.1 -1.6 0.2 -2.3 0.4 c -0.7 0.1 -1.4 0.3 -1.9 0.6 c -2.3 0.9 -3.4 2.5 -2.6 5.1 c 1.8 0.3 3.5 0.6 5.3 0.8 c -0.2 1.4 -0.6 4.1 -0.6 4.1 c 5.4 1.4 11.9 2.6 18.7 3.1 l 2.6 0.1 h 5.2 c 0.9 0 1.7 -0.1 2.6 -0.1 c 3.4 -0.1 6.9 -0.5 10.1 -1 c 0 0 0.7 2.7 1.1 4 c -3.2 0.8 -6.6 1.6 -9.9 2 c 2.5 -0.3 4.6 -0.5 6.4 -0.5 c 0.9 0 1.8 0 2.6 0.1 s 1.5 0.2 2.3 0.3 c 1.4 0.3 2.6 0.5 3.8 0.8 c 1.1 0.3 2.1 0.5 3.1 0.5 c 5.9 0.9 14.9 -1.9 23.9 -7.6 c 2.3 -1.4 4.5 -3 6.7 -4.7 c 1.1 -0.8 2.2 -1.7 3.3 -2.6 c 0.5 -0.5 1.1 -0.9 1.6 -1.4 s 1.1 -0.9 1.7 -1.5 c 4.8 -4.3 9.1 -9.1 13.1 -14.2 c 0.6 -0.9 1.2 -1.5 1.8 -1.8 c 0.6 -0.4 1.1 -0.5 1.6 -0.5 c 1 0 1.9 0.5 2.5 0.9 c 2.2 -4.1 4.1 -8.2 5.9 -12.4 c 0.4 -1.1 0.9 -2.2 1.3 -3.3 c 0.2 -0.5 0.4 -1.1 0.6 -1.6 c 0.2 -0.6 0.4 -1.1 0.6 -1.7 c 0.4 -1.2 0.8 -2.3 1.2 -3.4 c 0.4 -1.2 0.7 -2.4 1 -3.7 l 0.5 -1.9 c 0.2 -0.6 0.3 -1.3 0.4 -2 c 0.3 -1.3 0.5 -2.6 0.7 -4 c 0.2 -1 1.5 10.2 1.2 11.7 Z m -290.7 71 l -3.6 -1.8 c 0.2 0.1 1.2 0.6 3.5 1.7 c 0.1 0 0.1 0 0.1 0.1 Z m -3.8 0.9 c -0.2 0.1 -0.3 0.1 -0.4 0.1 s -0.1 0.1 -0.2 0.1 c 0.4 -0.2 0.9 -0.3 1.4 -0.4 h -0.3 c -0.1 0.1 -0.3 0.1 -0.5 0.2 Z m -1.2 0.6 v -0.7 v 0.5 v -0.2 v 0.4 c 0 0.1 -0.1 0.1 0 0 c -0.1 0.1 0 0.1 0 0 c -0.1 1 -0.1 1.7 -0.1 1.9 c 0 -0.1 0 -0.7 0.1 -1.9 c 0 0 0.1 -0.1 0.2 -0.1 h 0.1 c -0.2 0 -0.3 0.1 -0.3 0.1 Z",
+          "position": {
+            "x": 460.0,
+            "y": 292.0
+          },
+          "boxSize": {
+            "width": 550.0,
+            "height": 211.27
+          },
+          "rotate": 0,
+          "scale": 1.6518748779865147,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1788847795_9f9b4c2d-8cd4-44cd-929f-337f0e2270ba.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1788847795_9f9b4c2d-8cd4-44cd-929f-337f0e2270ba.png",
+            "boxSize": {
+              "width": 332.955,
+              "height": 192.95834816462735
+            },
+            "position": {
+              "x": 0.0,
+              "y": -32.52917408231367
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fcb4a5d0-d26e-4700-b0f0-b6d4aa6a7f01": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 85.0,
+            "y": 330.0
+          },
+          "boxSize": {
+            "width": 330.0,
+            "height": 330.0
+          },
+          "rotate": 0,
+          "color": "rgb(169, 33, 32)",
+          "scale": 5.0625,
+          "border": {
+            "color": "rgb(214, 154, 70)",
+            "style": "solid",
+            "weight": 4.0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "db775d94-7c26-457d-907c-6c27059bec0e": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Dragon Fire Pizza",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "24.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Dragon Fire Pizza",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 280.0,
+            "height": 31.2
+          },
+          "position": {
+            "x": 110.0,
+            "y": 407.0
+          },
+          "fontSizes": [
+            24.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f8fbc001-1872-4fc7-b722-9e851469152a": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "50% OFF",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "82.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "50% OFF",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 300.0,
+            "height": 90.2
+          },
+          "position": {
+            "x": 100.0,
+            "y": 452.0
+          },
+          "fontSizes": [
+            82.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "58715246-1f85-415b-8558-94e3fe4d2786": {
+        "type": {
+          "type": null,
+          "resolvedName": "DrawLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "path": "M 41.38,26.83 L 25.38,18.16 M 50.37,21.71 L 51.05,3.52 M 58.19,26.12 L 73.40,16.12",
+          "color": "rgb(214, 154, 70)",
+          "width": 5.0,
+          "position": {
+            "x": 200.0,
+            "y": 580.0
+          },
+          "boxSize": {
+            "width": 100.0,
+            "height": 35.0
+          },
+          "rotate": 0,
+          "scale": 1,
+          "transparency": 1
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c364e7bc-fc4a-4757-b833-c74b6a52366d": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Launch Date: 15 December 2026",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "24.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.05",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Launch Date: 15 December 2026",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 360.0,
+            "height": 25.2
+          },
+          "position": {
+            "x": 70.0,
+            "y": 296.0
+          },
+          "fontSizes": [
+            24.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "810875e0-cb89-4240-9bc6-46484141ecc3": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "octagon",
+          "position": {
+            "x": 435.0,
+            "y": 613.0
+          },
+          "boxSize": {
+            "width": 23.0,
+            "height": 23.0
+          },
+          "rotate": 18.0,
+          "color": "rgb(214, 154, 70)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "010fbd14-80b7-4d54-b756-c3ef1a31bd1a": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70.0,
+            "y": 674.0
+          },
+          "boxSize": {
+            "width": 940.0,
+            "height": 43.0
+          },
+          "rotate": 0,
+          "color": "rgb(255, 243, 223)",
+          "scale": 5.0625,
+          "roundedCorners": 25
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a5916fb1-9c7a-440b-8e33-a45160728ae3": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "DRAGON50 - Valid only on launch day"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(20, 15, 14)",
+                  "indent": 0,
+                  "fontSize": "25.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "DRAGON50 - Valid only on launch day",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(20, 15, 14)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(20, 15, 14)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 900.0,
+            "height": 27.5
+          },
+          "position": {
+            "x": 90.0,
+            "y": 681.0
+          },
+          "fontSizes": [
+            25.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "683fb7f1-1264-448f-9e70-94a29c6b891f": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 50.0,
+            "y": 741.3
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(169, 33, 32)",
+          "scale": 5.0625,
+          "roundedCorners": 15
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e2a3bcbd-a988-46be-8520-8657f8a2ee47": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Hand-tossed artisan pizza dough."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Hand-tossed artisan pizza dough.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 268.6666666666667,
+            "height": 57.2
+          },
+          "position": {
+            "x": 76.0,
+            "y": 730.0
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "56b880ab-471f-400d-bbf7-df85c97b4394": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 50.0,
+            "y": 811.6999999999999
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(169, 33, 32)",
+          "scale": 5.0625,
+          "roundedCorners": 15
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d7a4f41e-7c28-49ba-986d-a793efcd4286": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Premium mozzarella cheese."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Premium mozzarella cheese.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 268.6666666666667,
+            "height": 57.2
+          },
+          "position": {
+            "x": 76.0,
+            "y": 800.4
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "5a5223e2-b54e-449e-8ae9-f7aa64a00d2c": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 50.0,
+            "y": 882.0999999999999
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(169, 33, 32)",
+          "scale": 5.0625,
+          "roundedCorners": 15
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "4d4f7a9b-7e86-475a-bba8-a0139df6c5e5": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Spicy peri-peri chicken."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Spicy peri-peri chicken.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 268.6666666666667,
+            "height": 28.6
+          },
+          "position": {
+            "x": 76.0,
+            "y": 870.8
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1d1f6b08-0597-4bf9-a738-374271a517ac": {
+        "type": {
+          "type": null,
+          "resolvedName": "LineLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "style": "solid",
+          "boxSize": {
+            "width": 169.4,
+            "height": 2.0
+          },
+          "color": "rgb(214, 154, 70)",
+          "position": {
+            "x": 283.9666666666667,
+            "y": 813.7
+          },
+          "scale": 1,
+          "rotate": 90.0,
+          "arrowStart": "none",
+          "arrowEnd": "none"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "8361cef6-d210-406e-9d9f-895093243eee": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 392.6666666666667,
+            "y": 741.3
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(169, 33, 32)",
+          "scale": 5.0625,
+          "roundedCorners": 15
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "ddbf956d-6ea0-4aee-ac2e-a1e6bf51db48": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Roasted red bell peppers."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Roasted red bell peppers.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 268.6666666666667,
+            "height": 57.2
+          },
+          "position": {
+            "x": 418.6666666666667,
+            "y": 730.0
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "59f466c7-6a8f-46d7-9f17-ecffe666b163": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 392.6666666666667,
+            "y": 811.6999999999999
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(169, 33, 32)",
+          "scale": 5.0625,
+          "roundedCorners": 15
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "2254bbc4-448a-4f07-93dc-e8428f53d4c1": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Jalape\u00f1os."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Jalape\u00f1os.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 268.6666666666667,
+            "height": 28.6
+          },
+          "position": {
+            "x": 418.6666666666667,
+            "y": 800.4
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "b51d349e-69c5-4cab-83c5-53891e1a3fe6": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 392.6666666666667,
+            "y": 853.4999999999999
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(169, 33, 32)",
+          "scale": 5.0625,
+          "roundedCorners": 15
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a415edd4-26bb-4654-884f-e99668eb2781": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Fresh basil."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Fresh basil.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 268.6666666666667,
+            "height": 28.6
+          },
+          "position": {
+            "x": 418.6666666666667,
+            "y": 842.1999999999999
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "961d4459-c0b7-45de-af3d-45fa72b068ed": {
+        "type": {
+          "type": null,
+          "resolvedName": "LineLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "style": "solid",
+          "boxSize": {
+            "width": 169.4,
+            "height": 2.0
+          },
+          "color": "rgb(214, 154, 70)",
+          "position": {
+            "x": 626.6333333333333,
+            "y": 813.7
+          },
+          "scale": 1,
+          "rotate": 90.0,
+          "arrowStart": "none",
+          "arrowEnd": "none"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "5e18cb33-5682-4845-a8a2-80a411a7eee4": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 735.3333333333334,
+            "y": 741.3
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(169, 33, 32)",
+          "scale": 5.0625,
+          "roundedCorners": 15
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "8896d0ec-9405-45d4-834d-5c16012a84ab": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Signature smoky dragon sauce."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Signature smoky dragon sauce.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 268.6666666666667,
+            "height": 57.2
+          },
+          "position": {
+            "x": 761.3333333333334,
+            "y": 730.0
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "59fe69be-2b3c-4859-8173-6b7a515fd7e1": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 735.3333333333334,
+            "y": 811.6999999999999
+          },
+          "boxSize": {
+            "width": 12.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(169, 33, 32)",
+          "scale": 5.0625,
+          "roundedCorners": 15
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "7a67056f-972b-45e7-bb20-e4f95e6fae6a": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Golden, crispy crust."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Golden, crispy crust.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 268.6666666666667,
+            "height": 28.6
+          },
+          "position": {
+            "x": 761.3333333333334,
+            "y": 800.4
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "88f4aa5f-6f83-4257-af6d-a27baf12687c": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70.0,
+            "y": 945.0
+          },
+          "boxSize": {
+            "width": 940.0,
+            "height": 57.0
+          },
+          "rotate": 0,
+          "color": "rgb(169, 33, 32)",
+          "scale": 5.0625,
+          "roundedCorners": 35
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "50b6d332-5f1a-4cf1-bed3-868f1c3151ec": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "ORDER YOUR FIRE TODAY",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "28.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": 0.06,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "ORDER YOUR FIRE TODAY",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 890.0,
+            "height": 30.8
+          },
+          "position": {
+            "x": 95.0,
+            "y": 958.0
+          },
+          "fontSizes": [
+            28.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f4b3b265-5429-47b8-bd07-dbd63fae8eab": {
+        "type": {
+          "type": "address",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "24 MG Road, Pune, Maharashtra."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "21.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "24 MG Road, Pune, Maharashtra.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 600.0,
+            "height": 27.3
+          },
+          "position": {
+            "x": 70.0,
+            "y": 1020.0
+          },
+          "fontSizes": [
+            21.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3516aa40-5a1d-4610-98ec-da39b63cfe6e": {
+        "type": {
+          "type": "phoneNumber",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "+91 91234 56789"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 243, 223)",
+                  "indent": 0,
+                  "fontSize": "22.0px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.3",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "+91 91234 56789",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 243, 223)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 243, 223)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 320.0,
+            "height": 28.6
+          },
+          "position": {
+            "x": 690.0,
+            "y": 1019.4
+          },
+          "fontSizes": [
+            22.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    }
+  }
+]

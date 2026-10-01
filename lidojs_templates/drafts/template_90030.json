@@ -1,0 +1,788 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "3df7bf3b-0da2-47ef-bd2b-f0647cba5021",
+          "8ce757a7-5fc9-4e3a-b02c-d8202b1e977e",
+          "def4727a-fcdd-4755-860c-5c8cefbeb522",
+          "a55ff2c2-cb99-4ff6-a4af-f080597f4606",
+          "04658093-81d0-4534-a987-eb5b958a29d2",
+          "fc9cff01-74a6-40f9-9509-9d229b1a9c07",
+          "49b37ec3-d558-4b6f-b732-54006c27b5e8",
+          "0c021a53-0e1f-4cd7-a40c-eb880956f630",
+          "3a210cc1-9542-46d4-9f62-924897a2d25c",
+          "e46a41a7-2e72-4f2b-a457-bad10f51a6c7",
+          "f7745760-9c63-4c94-8751-bd82e335ca53",
+          "74da77ce-28fb-4c78-99a7-a7d1618f7b7f",
+          "91247168-4519-43b8-b76d-d4105716ba8a",
+          "9d308443-e260-42ab-b721-c59de8d50d19",
+          "29921f5c-964d-4169-9a0d-b95fb38007f9",
+          "fa7bf123-7ac8-414b-bedd-fcb0a965604b",
+          "e35968fb-9cbe-49bd-8d30-4af36ca64b77",
+          "43b888ea-6e5c-4854-93b1-85805bdd24ad",
+          "fdd901c5-cf63-4311-9ee6-406c1d39a0b9",
+          "68318363-7ea0-42f0-a04d-cd122560ffd1"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(17, 20, 21)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "3df7bf3b-0da2-47ef-bd2b-f0647cba5021": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 0 458.6 V 41.4 C 0 18.5 18.5 0 41.4 0 h 806 c 22.9 0 41.4 18.5 41.4 41.4 v 417.1 c 0 22.9 -18.5 41.4 -41.4 41.4 h -806 C 18.6 500 0 481.5 0 458.6 C 0 458.6 0 458.6 0 458.6 Z",
+          "position": {
+            "x": 565.0,
+            "y": 100.0
+          },
+          "boxSize": {
+            "width": 475.0,
+            "height": 267.16
+          },
+          "rotate": 0,
+          "scale": 0.5344284428442845,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1788847795_9f9b4c2d-8cd4-44cd-929f-337f0e2270ba.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1788847795_9f9b4c2d-8cd4-44cd-929f-337f0e2270ba.png",
+            "boxSize": {
+              "width": 888.8,
+              "height": 515.088765294772
+            },
+            "position": {
+              "x": 0.0,
+              "y": -7.5943826473859986
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "8ce757a7-5fc9-4e3a-b02c-d8202b1e977e": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 988.3 211.7 C 984.1 165.4 953.8 124.5 915.7 97.8 C 877.6 71.1 832.4 56.8 787.4 45.3 C 658.1 12.4 523.6 0 390.4 8.7 C 306.7 9.7 290.6 21.1 208.8 38.7 C 159.1 49.3 107.6 64.4 72.2 100.8 C 0 175.1 31.5 308.6 111.7 374.1 C 191.9 439.6 302.1 452.8 405.7 454.1 C 531.1 455.7 657.2 443.5 778.6 411.8 C 829.6 398.5 880.9 381.1 922.1 348.3 C 963.2 315.4 993 264.2 988.3 211.7",
+          "position": {
+            "x": 40.0,
+            "y": 630.0
+          },
+          "boxSize": {
+            "width": 510.0,
+            "height": 238.85
+          },
+          "rotate": 0,
+          "scale": 0.5330334410548627,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790677227_301ac33f-bbfa-4819-a10a-ab89756ffee2.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790677227_301ac33f-bbfa-4819-a10a-ab89756ffee2.png",
+            "boxSize": {
+              "width": 956.788,
+              "height": 478.394
+            },
+            "position": {
+              "x": 0.0,
+              "y": -12.116000000000009
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "def4727a-fcdd-4755-860c-5c8cefbeb522": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "parallelogram",
+          "position": {
+            "x": -55.0,
+            "y": 535.0
+          },
+          "boxSize": {
+            "width": 1190.0,
+            "height": 48.0
+          },
+          "rotate": -3.0,
+          "color": {
+            "colors": [
+              {
+                "color": "rgba(57, 69, 61, 1)",
+                "percent": 0
+              },
+              {
+                "color": "rgba(213, 255, 50, 1)",
+                "percent": 100.0
+              }
+            ],
+            "style": "linear",
+            "angle": 90.0
+          },
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a55ff2c2-cb99-4ff6-a4af-f080597f4606": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_white.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89
+          },
+          "position": {
+            "x": 70.0,
+            "y": 55.0
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "04658093-81d0-4534-a987-eb5b958a29d2": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "No Excuses"
+        },
+        "child": [],
+        "props": {
+          "effect": {
+            "name": "shadow",
+            "settings": {
+              "offset": 30,
+              "direction": -45,
+              "blur": 12,
+              "transparency": 40,
+              "color": "rgb(57, 69, 61)"
+            }
+          },
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(247, 248, 240)",
+                  "indent": 0,
+                  "fontSize": "116.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.03",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "No Excuses",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(247, 248, 240)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(247, 248, 240)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 460.0,
+            "height": 238.96
+          },
+          "position": {
+            "x": 70.0,
+            "y": 190.0
+          },
+          "fontSizes": [
+            116.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fc9cff01-74a6-40f9-9509-9d229b1a9c07": {
+        "type": {
+          "type": null,
+          "resolvedName": "DrawLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "path": "M 5.41,9.65 C 15.92,9.71 47.38,9.99 68.46,10.04 C 89.54,10.08 110.81,10.01 131.89,9.93 C 152.96,9.85 173.89,9.74 194.92,9.56 C 215.94,9.38 236.97,9.05 258.05,8.84 C 279.13,8.63 300.28,8.44 321.37,8.29 C 342.47,8.14 374.07,8.01 384.61,7.95",
+          "color": "rgb(213, 255, 50)",
+          "width": 9.0,
+          "position": {
+            "x": 73.0,
+            "y": 447.0
+          },
+          "boxSize": {
+            "width": 390.0,
+            "height": 19.0
+          },
+          "rotate": 0,
+          "scale": 1,
+          "transparency": 1.0
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "49b37ec3-d558-4b6f-b732-54006c27b5e8": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 919.0,
+            "y": 43.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(213, 255, 50)",
+          "scale": 5.0625,
+          "transparency": 0.8
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "0c021a53-0e1f-4cd7-a40c-eb880956f630": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 940.0,
+            "y": 43.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(213, 255, 50)",
+          "scale": 5.0625,
+          "transparency": 0.8
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "3a210cc1-9542-46d4-9f62-924897a2d25c": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 961.0,
+            "y": 43.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(213, 255, 50)",
+          "scale": 5.0625,
+          "transparency": 0.8
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e46a41a7-2e72-4f2b-a457-bad10f51a6c7": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 982.0,
+            "y": 43.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(213, 255, 50)",
+          "scale": 5.0625,
+          "transparency": 0.8
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f7745760-9c63-4c94-8751-bd82e335ca53": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 1003.0,
+            "y": 43.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(213, 255, 50)",
+          "scale": 5.0625,
+          "transparency": 0.8
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "74da77ce-28fb-4c78-99a7-a7d1618f7b7f": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 919.0,
+            "y": 65.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(213, 255, 50)",
+          "scale": 5.0625,
+          "transparency": 0.8
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "91247168-4519-43b8-b76d-d4105716ba8a": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 940.0,
+            "y": 65.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(213, 255, 50)",
+          "scale": 5.0625,
+          "transparency": 0.8
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "9d308443-e260-42ab-b721-c59de8d50d19": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 961.0,
+            "y": 65.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(213, 255, 50)",
+          "scale": 5.0625,
+          "transparency": 0.8
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "29921f5c-964d-4169-9a0d-b95fb38007f9": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 982.0,
+            "y": 65.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(213, 255, 50)",
+          "scale": 5.0625,
+          "transparency": 0.8
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fa7bf123-7ac8-414b-bedd-fcb0a965604b": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 1003.0,
+            "y": 65.0
+          },
+          "boxSize": {
+            "width": 6.0,
+            "height": 6.0
+          },
+          "rotate": 0,
+          "color": "rgb(213, 255, 50)",
+          "scale": 5.0625,
+          "transparency": 0.8
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e35968fb-9cbe-49bd-8d30-4af36ca64b77": {
+        "type": {
+          "type": null,
+          "resolvedName": "LineLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "style": "solid",
+          "boxSize": {
+            "width": 78.0,
+            "height": 6.0
+          },
+          "color": "rgb(213, 255, 50)",
+          "position": {
+            "x": 605.0,
+            "y": 647.0
+          },
+          "scale": 1,
+          "rotate": 0,
+          "arrowStart": "none",
+          "arrowEnd": "none"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "43b888ea-6e5c-4854-93b1-85805bdd24ad": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "24-hour access and free personal training."
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(247, 248, 240)",
+                  "indent": 0,
+                  "fontSize": "34.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.25",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "24-hour access and free personal training.",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(247, 248, 240)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(247, 248, 240)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 395.0,
+            "height": 85.0
+          },
+          "position": {
+            "x": 605.0,
+            "y": 687.0
+          },
+          "fontSizes": [
+            34.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fdd901c5-cf63-4311-9ee6-406c1d39a0b9": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "parallelogram",
+          "position": {
+            "x": 580.0,
+            "y": 866.0
+          },
+          "boxSize": {
+            "width": 455.0,
+            "height": 86.0
+          },
+          "rotate": 0,
+          "color": "rgb(213, 255, 50)",
+          "scale": 5.0625
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "68318363-7ea0-42f0-a04d-cd122560ffd1": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Join at www.fitzone.com",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(17, 20, 21)",
+                  "indent": 0,
+                  "fontSize": "24.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Join at www.fitzone.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(17, 20, 21)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(17, 20, 21)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 350.0,
+            "height": 28.8
+          },
+          "position": {
+            "x": 630.0,
+            "y": 894.0
+          },
+          "fontSizes": [
+            24.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    }
+  }
+]

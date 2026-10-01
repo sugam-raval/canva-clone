@@ -223,7 +223,7 @@ class Gradient(BaseModel):
 
 
 class Element(BaseModel):
-    kind: Literal["shape", "photo", "logo", "text", "dots", "line", "draw"]
+    kind: Literal["shape", "photo", "logo", "text", "dots", "line", "draw", "list"]
     x: float
     y: float
     w: float  # line: its length
@@ -240,6 +240,10 @@ class Element(BaseModel):
     line_start: LineEnd | None = None  # line: end markers
     line_end: LineEnd | None = None
     draw: DrawPreset | None = None  # draw: which hand-drawn stroke fills x/y/w/h
+    items: list[str] | None = None  # list: every item, word for word (lists.py lays it out)
+    columns: int | None = None  # list: 1-3, or null = automatic from the item count
+    bullet: Literal["dot", "ring", "bar", "check", "number", "none"] | None = None
+    divider: Literal["line", "dotted", "none"] | None = None  # list: between columns/rows
     rows: int | None = None  # dots: a rows x cols grid of dots filling x/y/w/h
     cols: int | None = None
     dot: float | None = None  # dots: diameter of each dot in px

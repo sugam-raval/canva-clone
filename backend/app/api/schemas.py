@@ -177,6 +177,10 @@ class LidoDraftInfo(Base):
     colors: dict[str, str] = Field(default_factory=dict)
     features: list[str] = Field(default_factory=list)
     """The feature families this design was asked to use (gradient, frame, draw…)."""
+    plan: dict[str, Any] | None = None
+    """The art director's plan: photos and their subjects, texts, moods, layout…"""
+    plan_layout: str | None = None
+    fingerprint: str | None = None
     text_count: int | None = None
     photo_subjects: list[str] = Field(default_factory=list)
     """What each photo should show — the prompts a future image-generation step uses."""

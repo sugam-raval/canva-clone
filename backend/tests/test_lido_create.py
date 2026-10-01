@@ -92,11 +92,24 @@ class _FakeLLM:
     """Replays a pro recipe as the model's answer; the first answer carries a line break so
     the repair round is exercised."""
 
-    def __init__(self):
-        self.calls: list[str] = []
-        self.failures: dict[int, AdapterError] = {}  # call number (1-based) -> error
+    LAYOUTS = ("centre_stage", "split_half", "top_band")
 
-    async def complete_json(self, *, system, user, schema, **_):
+    def __init__(self):
+        self.calls: list[str] = []  # the designer's calls
+        self.plan_calls: list[dict] = []  # the art director's calls
+        self.failures: dict[int, AdapterError] = {}  # designer call number (1-based) -> error
+
+    async def complete_json(self, *, system, user, schema, **kwargs):
+        if schema.__name__ == "DesignPlan":
+            self.plan_calls.append({"user": user, **kwargs})
+            return LLMResult(parsed=schema(
+                texts=[{"role": "headline", "text": "Grand Night"}],
+                photos=[{"from_brief": "dinner party", "subject": "a dinner party",
+                         "role": "hero", "frame": "cutout"}],
+                logo=True, exclude=[], moods=["warm_handmade"],
+                layout=self.LAYOUTS[(len(self.plan_calls) - 1) % 3], custom_layout=None,
+                shapes=["rhombus"], draw=[], effects=[], gradient=None,
+                photo_theme="business", notes="warm and bold"), raw="", model="fake")
         self.calls.append(user)
         if len(self.calls) in self.failures:
             raise self.failures[len(self.calls)]
@@ -126,7 +139,13 @@ def api(tmp_path, monkeypatch):
     monkeypatch.setattr(drafts, "screenshot", lambda layers, out: False)
     monkeypatch.setattr(registry, "llm", lambda: fake)
     monkeypatch.setattr(get_settings(), "openai_api_key", "test-key")
+    for name, value in (("llm_model_fast", "gpt-4o-mini"), ("lido_plan_model", ""),
+                        ("lido_plan_reasoning_effort", ""), ("lido_layout_model", ""),
+                        ("lido_layout_reasoning_effort", "")):
+        monkeypatch.setattr(get_settings(), name, value)  # not whatever .env says
     monkeypatch.setattr(brief, "RETRY_DELAYS", (0.0, 0.0))
+    from app.lido_create import plan as plan_module
+    monkeypatch.setattr(plan_module, "FREE_SHARE", 0.0)  # only the forced free variation
     return TestClient(create_app()), fake, tmp_path
 
 
@@ -137,6 +156,10 @@ def test_prompt_becomes_a_saved_draft(api):
     [draft] = response.json()
 
     assert len(fake.calls) == 2  # first answer failed the checks, the repair passed
+    assert len(fake.plan_calls) == 1  # one art-director plan, on the fast model
+    assert fake.plan_calls[0]["model"] == "gpt-4o-mini"
+    assert draft["plan"]["photos"][0]["subject"] == "a dinner party"
+    assert draft["fingerprint"].startswith(draft["planLayout"])
     assert "Grand opening dinner party" in fake.calls[0]
     assert "line break" in fake.calls[1]
     assert draft["problems"] == [] and draft["attempts"] == 2
@@ -163,7 +186,9 @@ def test_variations_get_distinct_ids_and_directions(api):
     drafts_made = client.post("/v1/lido/drafts",
                               json={"prompt": "Launch party", "variations": 3}).json()
     assert len({d["id"] for d in drafts_made}) == 3
-    assert len({d["direction"] for d in drafts_made}) == 3
+    # each variation got its own plan and layout; the last one is a free invention
+    assert len({d["planLayout"] for d in drafts_made}) == 3
+    assert drafts_made[-1]["planLayout"] == "custom"
 
 
 def test_bad_ids_are_not_found(api):
@@ -366,3 +391,184 @@ def test_ai_designs_must_use_lidos_wider_vocabulary():
                for e in validate(plain, v, creative=True))
     assert families_used(_recipe_design("spotlight_launch", v)) >= {
         "gradient", "shape", "line", "draw", "frame", "effect"}
+
+
+# -- art director: the plan and the catalogue ---------------------------------------------
+
+
+def test_the_layout_catalogue_and_mood_map_only_use_real_names():
+    from app.lido_create.catalog import layouts, moods, problems
+
+    assert problems() == []
+    assert len(layouts()) >= 30 and len(moods()) >= 8
+    for count in range(1, 5):  # every photo count has layouts to pick from
+        assert any(lay.fits(count) for lay in layouts().values())
+
+
+def _plan(**overrides):
+    from app.lido_create.plan import DesignPlan
+
+    base = {"texts": [{"role": "headline", "text": "Summer Style Sale"}],
+            "photos": [{"from_brief": "model", "subject": "a model", "role": "hero",
+                        "frame": "rect"}],
+            "logo": True, "exclude": [], "moods": ["bold_loud"], "layout": "split_half",
+            "custom_layout": None, "shapes": [], "draw": [], "effects": [],
+            "gradient": None, "photo_theme": "fashion", "notes": ""}
+    return DesignPlan.model_validate({**base, **overrides})
+
+
+def test_the_design_must_build_the_plan():
+    v = _variant()
+    d = _recipe_design("split_offer", v)  # 1 photo, a logo, "50% Off", "$" free
+    assert validate(d, v, plan=_plan()) == []
+
+    three = _plan(photos=[{"from_brief": f"pose {i}", "subject": f"pose {i}",
+                           "role": "hero" if i == 0 else "supporting", "frame": "rect"}
+                          for i in range(3)])
+    assert any("exactly 3 photos" in e for e in validate(d, v, plan=three))
+    assert any("no logo" in e for e in validate(d, v, plan=_plan(logo=False)))
+    no_offers = validate(d, v, plan=_plan(exclude=["discount", "offer_badge"]))
+    assert any("rules out offer badges" in e for e in no_offers)  # "Free Consult" badge
+    assert any("frames" in e or "frame" in e
+               for e in validate(d, v, plan=_plan(photos=[
+                   {"from_brief": "x", "subject": "x", "role": "hero", "frame": "letter_A"}])))
+    assert any("draw" in e for e in validate(d, v, plan=_plan(draw=["underline"])))
+
+
+def test_a_plan_cleans_up_names_the_model_made_up():
+    from app.lido_create.plan import _clean
+
+    plan = _clean(_plan(photos=[{"from_brief": "x", "subject": "x", "role": "supporting",
+                                 "frame": "sparkly"}],
+                        shapes=["chevron", "unicorn"], layout="not_in_catalogue",
+                        exclude=["logo"]))
+    assert plan.photos[0].frame == "rounded" and plan.photos[0].role == "hero"
+    assert plan.shapes == ["chevron"]
+    assert plan.layout == "custom" and plan.logo is False
+    with_cta = _clean(_plan(texts=[{"role": "headline", "text": "Hi"},
+                                   {"role": "cta", "text": "Join"}], exclude=["button"]))
+    assert "button" not in with_cta.exclude  # a requested CTA beats a stray exclusion
+
+
+def test_photos_the_brief_never_asked_for_are_dropped():
+    from app.lido_create.plan import _clean
+
+    def photo(quote, role="supporting"):
+        return {"from_brief": quote, "subject": quote, "role": role, "frame": "circle"}
+
+    brief = "Launch post for our new organic face cream. Soft and elegant."
+    padded = _clean(_plan(photos=[photo("organic face cream", "hero"),
+                                  photo("natural ingredients like flowers"),
+                                  photo("hand applying the cream")]), brief)
+    assert [p.from_brief for p in padded.photos] == ["organic face cream"]
+    yoga = "Show Tree Pose (Vrikshasana), Warrior Pose and Lotus Pose."
+    poses = _clean(_plan(photos=[photo("Tree Pose (Vrikshasana)", "hero"),
+                                 photo("Warrior Pose"), photo("Lotus Pose")]), yoga)
+    assert len(poses.photos) == 3
+
+
+def test_two_photos_of_the_same_quoted_thing_become_one():
+    from app.lido_create.plan import _clean
+
+    def photo(quote, role="supporting"):
+        return {"from_brief": quote, "subject": quote, "role": role, "frame": "circle"}
+
+    brief = "Launch our new organic face cream. Show the before and after of a facial."
+    twice = _clean(_plan(photos=[photo("organic face cream", "hero"),
+                                 photo("organic face cream")]), brief)
+    assert len(twice.photos) == 1
+    pair = _clean(_plan(photos=[photo("before and after", "hero"),
+                                photo("before and after")]), brief)
+    assert len(pair.photos) == 2  # one quote naming two things backs two photos
+
+
+# -- the list block: every item, arranged by count ----------------------------------------
+
+
+@pytest.mark.parametrize(("count", "columns"), [(2, 1), (4, 1), (5, 2), (6, 2), (8, 3), (9, 3)])
+def test_a_list_keeps_every_item_and_picks_columns_by_count(count, columns):
+    from app.lido_create.ai import normalise
+
+    v = _variant()
+    items = [f"Feature number {i + 1}" for i in range(count)]
+    els = normalise([Element(kind="list", x=70, y=500, w=940, h=420, items=items,
+                             bullet="dot", divider="line", size=28)], v)
+    shown = [e for e in els if e.text_type == "item"]
+    assert [e.text for e in shown] == items  # all of them, in order, word for word
+    assert len({round(e.x) for e in shown}) == columns
+    dividers = [e for e in els if e.kind == "line"]
+    assert len(dividers) == (columns - 1 if columns > 1 else count - 1)
+    assert all(e.y + e.h <= 920 + 1 for e in shown)  # the block fits its area
+
+
+def test_a_long_list_shrinks_to_fit_instead_of_dropping_items():
+    from app.lido_create.ai import normalise
+
+    v = _variant()
+    items = [f"A rather long feature description {i}" for i in range(9)]
+    els = normalise([Element(kind="list", x=70, y=600, w=700, h=300, items=items,
+                             bullet="check", size=34)], v)
+    shown = [e for e in els if e.text_type == "item"]
+    assert len(shown) == 9 and shown[0].size < 34
+
+
+def test_the_plan_s_list_items_must_all_appear():
+    v = _variant()
+    d = _recipe_design("service_list", v)  # shows 3 items
+    shown = [e.text for e in d.elements if e.text_type == "item"]
+    plan = _plan(texts=[{"role": "headline", "text": "x"}]
+                 + [{"role": "item", "text": t} for t in [*shown, "Extra Service"]])
+    assert any("'Extra Service' from the plan is missing" in e
+               for e in validate(d, v, plan=plan))
+
+
+def test_text_left_on_a_photo_gets_a_card_under_it():
+    from app.lido_create.brief import back_text_on_photos
+
+    v = _variant()
+    c = Canvas(v)
+    c.photo(0, 0, 1080, 1080)  # a full-bleed photo...
+    c.logo(70, 50)
+    c.headline("Smile Brighter", x=70, y=400, w=700, max_lines=1, start=80, smallest=60)
+    d = Design(recipe="t", theme="business", palette="x", fonts="x", elements=c.els)
+    assert any("sits on a photo" in e for e in validate(d, v))
+    fixed = back_text_on_photos(d, v)
+    assert not any("headline" in e and "sits on a photo" in e for e in validate(fixed, v))
+    card = fixed.elements[2]
+    assert card.kind == "shape" and card.color == "bg"  # ink text on a bg-coloured card
+
+
+def test_a_logo_on_top_of_the_headline_moves_to_a_free_corner():
+    from app.lido_create.brief import relocate_logo
+
+    v = _variant()
+    c = Canvas(v)
+    c.photo(540, 300, 500, 500)
+    hl = c.headline("Grand Opening", x=70, y=60, w=600, max_lines=1, start=80, smallest=60)
+    c.logo(hl.x + 20, hl.y)  # right on top of the headline
+    d = Design(recipe="t", theme="business", palette="x", fonts="x", elements=c.els)
+    assert any("logo overlaps" in e for e in validate(d, v))
+    moved = relocate_logo(d, v)
+    assert not any("logo" in e for e in validate(moved, v))
+
+
+@pytest.mark.parametrize(("layout_model", "layout_effort", "expected"), [
+    ("", "", {"model": None}),  # LLM_MODEL with LLM_REASONING_EFFORT
+    ("gpt-6-astra", "", {"model": None}),  # naming LLM_MODEL keeps its reasoning
+    ("gpt-6-astra", "medium", {"model": "gpt-6-astra", "reasoning_effort": "medium"}),
+    ("gpt-6-luna", "low", {"model": "gpt-6-luna", "reasoning_effort": "low"}),
+    ("gpt-4o", "", {"model": "gpt-4o"}),  # a plain model, no reasoning
+])
+def test_layout_model_settings(monkeypatch, layout_model, layout_effort, expected):
+    from app.config import get_settings
+    from app.lido_create.models import layout_call, plan_call
+
+    s = get_settings()
+    monkeypatch.setattr(s, "llm_model", "gpt-6-astra")
+    monkeypatch.setattr(s, "llm_model_fast", "gpt-4o-mini")
+    monkeypatch.setattr(s, "lido_layout_model", layout_model)
+    monkeypatch.setattr(s, "lido_layout_reasoning_effort", layout_effort)
+    monkeypatch.setattr(s, "lido_plan_model", "")
+    monkeypatch.setattr(s, "lido_plan_reasoning_effort", "")
+    assert layout_call() == expected
+    assert plan_call() == {"model": "gpt-4o-mini"}

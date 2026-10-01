@@ -1,0 +1,74 @@
+{
+  "id": "template_90033",
+  "createdAt": "2026-10-01T09:43:54.987059+00:00",
+  "source": "brief",
+  "layout": "brief:Ember & Ivory",
+  "theme": "food",
+  "palette": "custom",
+  "fonts": "modern-serif",
+  "mirrored": false,
+  "textCount": 4,
+  "photoSubjects": [
+    "Photorealistic freshly baked wood-fired Italian pizza prominently filling the foreground on a rustic wooden table, with richly melted cheese, fresh basil leaves, tomatoes, mushrooms and a crispy golden blistered crust, subtle rising steam and a few flying ingredients, illuminated by warm restaurant lighting against an inviting softly blurred restaurant interior, with exceptionally detailed appetizing food textures."
+  ],
+  "hasPreview": true,
+  "problems": [],
+  "prompt": "Create a photorealistic advertisement for a premium Italian restaurant featuring a freshly baked wood-fired pizza with melted cheese, basil leaves, tomatoes, mushrooms, and crispy golden crust. Show the pizza on a rustic wooden table with warm restaurant lighting, subtle steam, flying ingredients, and an inviting blurred restaurant background. Add the headline \u201cNEW FLAVOR, SAME PASSION\u201d, supporting text \u201cWood-Fired Italian Pizza\u201d, and a prominent offer badge \u201c30% OFF TODAY\u201d. Make the food highly detailed, appetizing, and realistic.",
+  "name": "Ember & Ivory",
+  "idea": "An immersive, warmly lit pizza photograph meets a dark espresso editorial panel. Ivory serif lettering, a champagne-gold seam badge and restrained rules create a premium, inviting restaurant advertisement.",
+  "direction": null,
+  "attempts": 1,
+  "colors": {
+    "bg": "#241a16",
+    "ink": "#fff3df",
+    "accent": "#ddb77b",
+    "on_accent": "#241a16",
+    "soft": "#59402c"
+  },
+  "features": [],
+  "plan": {
+    "texts": [
+      {
+        "role": "headline",
+        "text": "NEW FLAVOR, SAME PASSION"
+      },
+      {
+        "role": "subhead",
+        "text": "Wood-Fired Italian Pizza"
+      },
+      {
+        "role": "badge",
+        "text": "30% OFF TODAY"
+      }
+    ],
+    "photos": [
+      {
+        "from_brief": "a freshly baked wood-fired pizza with melted cheese, basil leaves, tomatoes, mushrooms, and crispy golden crust",
+        "subject": "A freshly baked wood-fired pizza on a rustic wooden table, with warm lighting and subtle steam, showing flying ingredients and an inviting blurred restaurant background",
+        "role": "hero",
+        "frame": "rect"
+      }
+    ],
+    "logo": true,
+    "exclude": [],
+    "moods": [
+      "elegant_refined",
+      "warm_handmade"
+    ],
+    "layout": "top_band",
+    "custom_layout": null,
+    "shapes": [
+      "rectangle"
+    ],
+    "draw": [],
+    "effects": [
+      "hollow"
+    ],
+    "gradient": "a subtle radial glow, often on a dark background",
+    "photo_theme": "food",
+    "notes": "Ensure the photo captures the texture, warmth, and inviting qualities of the pizza. Balance the headline and badge visually with ample spacing to avoid crowding."
+  },
+  "fingerprint": "top_band (1 photos; frames rect, gradient, hollow)",
+  "planLayout": "top_band",
+  "photoSource": "corpus-cache"
+}
