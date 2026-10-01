@@ -19,12 +19,26 @@ extra instructions from the user. Those override the defaults below.
   or the `bgImage`-typed child of ROOT) and download it into your scratchpad directory with
   a browser user agent (the asset host rejects bare requests), then view it with Read:
   `curl -sL -A "Mozilla/5.0" -o <scratchpad>/bg_<id>.png "<url>"`
+  When ROOT has no image and no `bgImage` child, the background is usually the first,
+  full-canvas ImageLayer child (see "Background as a plain full-canvas ImageLayer" in step 2).
+- **Logo layer:** the layer whose `type.type == "logo"`. If no layer is typed `logo`,
+  **stop and ask the user which layer is the logo** (list the image/frame layers with
+  their id, position and size) before changing anything. Never guess it from the picture.
+- **Embedded images.** Some exports carry every image as a `data:image/...;base64,` URI
+  (the file is then several MB on one line). Truncate URLs when printing (`url[:80]`), and
+  decode each image into the scratchpad to view it:
+  `base64.b64decode(url.split(',', 1)[1])` → `<scratchpad>/l_<layer8>.png`.
 
 ## Defaults — the user doesn't need to repeat these
 
 - Never run `make lido-*` or `scripts/enrich_lido_templates.py` for drafting. Only the
   read-only checks below. Don't push to the database; tell the user the command at the end.
-- The logo layer is never changed: locked, never regenerated.
+- The logo layer is always a Quick Hub placeholder from `https://assets.quickhub.ai/qh-assets/`.
+  Any variant is fine; pick the one that reads best where the logo sits:
+  `logo_black.png` / `logo_white.png` (127×103, stacked) or `logo_black_horizontal.png` /
+  `logo_white_horizontal.png` (768×215, wide). Black on light areas, white on dark ones;
+  horizontal for a wide, short box, stacked for a squarer one. It is locked and never
+  regenerated; at fill time the brand's own logo file is swapped in.
 - The background is regenerated for any user prompt, in any domain. Its prompt follows the
   layout, not the sample's look: keep the structure (panels, seams, where the main subject
   sits and how big it is, the areas kept clear for text, shapes that text sits on). The
@@ -47,13 +61,14 @@ for lid in r['child']:
     l = L[lid]; p = l['props']
     print('\n==', lid, l['type'])
     print('  pos', p.get('position'), 'box', p.get('boxSize'), 'scale', p.get('scale'), 'fontSizes', p.get('fontSizes'))
-    if p.get('image'): print('  image', p['image'].get('url'))
+    if p.get('image'): print('  image', (p['image'].get('url') or '')[:100])
     if p.get('clipPath'): print('  clipPath', str(p['clipPath'])[:60])
     for para in (p.get('doc') or {}).get('content', []):
         a = para.get('attrs', {})
         print('  attrs', {k: a.get(k) for k in ('fontFamily','fontSize','textAlign','textTransform','lineHeight','letterSpacing')})
         for n in para.get('content', []): print('    text', repr(n.get('text')), 'marks', n.get('marks'))
     if p.get('effect'): print('  effect', p['effect'])
+    print('  rotate', p.get('rotate'), 'shape', p.get('shape'), 'color', p.get('color'))
 "
 ```
 
@@ -81,6 +96,30 @@ for s in t.meta.slots:
 - **Background on a nested child.** If ROOT has no image and a child with
   `type.type == "bgImage"` carries it, copy the child's whole `image` object onto
   `ROOT.props.image` (the app's preview only draws ROOT) and leave the child as it is.
+- **Background as a plain full-canvas ImageLayer.** If ROOT has no image and the first
+  child is an untyped ImageLayer covering the whole canvas (the background photo, as in
+  template_101), move it onto ROOT: copy its `image` object to `ROOT.props.image` with
+  `boxSize` = the canvas, `position` 0/0, `rotate` 0; set `ROOT.type.type = "bgImage"`;
+  then remove the child from `ROOT.child` and from `layers`. Left in place it would be
+  classified as a `photo`, and would cover any regenerated background (template_100 was
+  done the same way).
+- **Logo layer → Quick Hub FrameLayer.** Once the logo layer is known (typed `logo`, or
+  the one the user named), always rewrite it to the corpus standard, whatever it held
+  before (an embedded `data:` logo, a sample brand's logo, an ImageLayer):
+  - `type` = `{"type": "logo", "resolvedName": "FrameLayer", "fixedText": null, "replacableText": null}`
+  - `props` = `{"position", "boxSize", "scale": 1, "rotate": 0, "image": {"url": URL,
+    "thumb": URL, "boxSize": <same as props.boxSize>, "position": {"x": 0, "y": 0}, "rotate": 0}}`
+    with URL = the chosen Quick Hub variant (see Defaults).
+  - Size: keep that variant's ratio (127:103 stacked, 768:215 horizontal), fitted inside the old box (height-limited if
+    the old box is wider, width-limited if taller), centered on the old box's center.
+  - In meta, the slot gets `"resolved_name": "FrameLayer"`, `"role": "logo"`,
+    `locked: true`, the matching `position`/`box_size`, and `reference_url` = the same URL.
+- **Fake-centered text.** A visually centered column (title, subtitle, tagline all sitting
+  around x ≈ canvas/2 in the screenshot) whose layers are `textAlign: left` will look off
+  center as soon as copy of another length goes in. Switch those paragraphs'
+  `attrs.textAlign` to `center` and give each box a width it can grow into, centered on
+  the sample's measured midpoint (`x_new = x + text_width/2 - new_width/2`; measure the
+  doc's raw text, nbsp's included). The sample still renders in the same place.
 - **Oversized text boxes.** A leftover default width (often 536.3px), a box past the canvas
   edge (`x + width > canvas`), or a box far wider than the space the text visibly has
   (e.g. a 70px badge): narrow it to the visible space from the screenshot. Keep the
@@ -92,6 +131,9 @@ for s in t.meta.slots:
   using the same anchor rule.
 - **Broken sample text.** `type.replacableText` is the fallback copy when a fill fails.
   Fix it when it doesn't match the doc text (e.g. `newcoffee` for "new" / "coffee").
+- **Incomplete `type` objects.** Every layer's `type` must have all four keys like the
+  rest of the corpus: `{"type", "resolvedName", "fixedText", "replacableText"}`. Fill the
+  missing ones with `null`, and keep any values already set (`bgImage`, `logo`, ...).
 - Change nothing else in `layers`.
 
 ## 3. Work out the roles (they are recomputed, don't fight them)
@@ -105,8 +147,18 @@ them to match what it computes:
 - Free text = TextLayers typed `bodyText`/`title`/`static`/untyped, whose text isn't an
   email/URL/phone. Headline = the largest `fontSizes[0]` among them (ties: file order).
   Subhead = the next largest that isn't `static`. Other `static` text → `label`, else `body`.
-- Typed `phoneNumber`/`email`/`address`/`website` → that contact role. FrameLayer →
-  `logo` (typed `logo`, or "logo" in the image file name), else `photo`. A RootLayer child → `background`.
+- **Ranking ignores `scale`.** The headline is picked by raw `fontSizes[0]`, but the
+  rendered size is `fontSizes[0] × scale`. A short big title with a large `scale` can lose
+  to a longer line, so the real headline gets `subhead` (template_101). Don't change the
+  layers to fix it; say the real role in both slots' `notes`.
+- Typed `phoneNumber`/`email`/`address`/`website` → that contact role; untyped text that
+  looks like a URL/email/phone gets it too. FrameLayer or ImageLayer → `logo` (typed
+  `logo`, or "logo" in the image file name), else `photo`. A RootLayer child → `background`.
+- Every non-logo ImageLayer is a `photo` slot and `_verify` demands an image spec for it.
+  Small fixed ImageLayers (icons inside circles, map pins, gradient/fade overlays) get
+  `locked: true` and `{"kind": "decorative_shape", "generate": false, "transparent": true,
+  "prompt": null, "reference_url": null, "notes": "<what it is>. Fixed: never regenerate."}`.
+  Locking also keeps them out of `reserved_overlay_areas`.
 
 When a role is wrong for the design (a name split over three layers, a badge tagged
 `subhead`), say what the slot really is in its `notes`.
@@ -116,7 +168,13 @@ Only these fields persist from the file: `name`, `kind`, `tags`, `description`,
 
 ## 4. Write `meta`
 
-Append `"meta"` after `"layers"` with Edit (not a script). Slots go in the layers' file
+Append `"meta"` after `"layers"` with Edit (not a script). If the file is too big for
+Edit (embedded images), hand-write the whole meta block with Write into
+`<scratchpad>/meta_<id>.json` and merge it with a two-line script
+(`d[0]['meta'] = json.load(...)`; dump with `indent=2, ensure_ascii=False`). Print the
+loader's computed slot fields first so you copy them exactly. Leave
+`background_image_url` `null` when the background is a `data:` URI (the loader
+recomputes it). The logo's `reference_url` is always the Quick Hub URL. Slots go in the layers' file
 order, one per ROOT child.
 
 - **name** (2–4 words), **kind** (`post`/`story`/`poster`/`banner`/`thumbnail`/`ad`/
@@ -188,7 +246,7 @@ order, one per ROOT child.
    "notes": "Brand logo — reuse the asset exactly as supplied. Never regenerate, recolor, re-crop, or let a filler touch this layer; only ever swap in a different brand's own logo file."}
   ```
 
-  and a slot `notes` naming the variant (white/black) and where it sits.
+  and a slot `notes` saying it is the Quick Hub placeholder (which variant) and where it sits.
 - **Photo frames** (`role: photo`): an ordinary photo in a masked frame gets
   `kind: background_photo`, `transparent: false`, a prompt with `(this template: ...)`,
   and a note that the mask crops at render time, so the source stays a full rectangle.
