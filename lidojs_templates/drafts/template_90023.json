@@ -1,0 +1,1158 @@
+[
+  {
+    "layers": {
+      "ROOT": {
+        "type": {
+          "type": "bgImage",
+          "resolvedName": "RootLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [
+          "6c4d2c30-851e-455e-859d-565b4327c738",
+          "27032d00-7522-4236-8e8c-fb8bf08f597a",
+          "33ae1ec0-def4-4aff-80ba-492846739c04",
+          "1e0fb178-3888-4af4-8f63-b407292238a4",
+          "94722940-abba-4a81-9638-3b8857b2ec18",
+          "493dfff9-6550-4e12-bb27-b3adc9be2994",
+          "6645ade6-5582-4bf7-9d8c-66a95c2645b8",
+          "a8b1ad3b-ec12-425f-867f-f67d4e31c8c1",
+          "5ecd17f7-3f46-44b4-8fac-bc0239d94166",
+          "9e8da07d-a9f0-43ca-824a-cd173267e62c",
+          "c72d2fc2-d1a4-4171-bacb-0c031347dd9f",
+          "df4e11bc-3178-4db3-86c4-5f6d5cdb867c",
+          "63cbbf64-365e-4b63-8ef0-cb8f59de106f",
+          "fd356961-0dfe-442b-a3ec-bdb575acf4f4",
+          "279308e2-02c9-4886-861f-a222be0cb1c8",
+          "d0d050d9-cc02-4ff7-8743-bdf02f396121",
+          "d205d3bb-f8f9-41d3-82df-3e2baa3f274f",
+          "f0d1162e-1b47-4f77-90dc-976e3b2cf8f1",
+          "8949821a-c1c1-45b1-96d8-824ff49db205",
+          "e05c4315-acbb-47af-b009-37a12cb66e46",
+          "14f76bb7-2cb2-49aa-8877-c8d30ddb2b0d",
+          "1496b942-f327-45d3-89a0-8a609fe1be95",
+          "84b6d3d4-90d7-4486-90f3-14cfdf246dc2"
+        ],
+        "props": {
+          "boxSize": {
+            "width": 1080,
+            "height": 1080
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "rotate": 0,
+          "color": "rgb(255, 234, 88)",
+          "image": null,
+          "video": null
+        },
+        "locked": false,
+        "parent": null
+      },
+      "6c4d2c30-851e-455e-859d-565b4327c738": {
+        "type": {
+          "type": null,
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "clipPath": "M 33.333 0 L 466.667 0 Q 500.0 0 500.0 33.333 L 500.0 643.137 Q 500.0 676.4706 466.667 676.4706 L 33.333 676.4706 Q 0 676.4706 0 643.137 L 0 33.333 Q 0 0 33.333 0 Z",
+          "position": {
+            "x": 500.0,
+            "y": 180.0
+          },
+          "boxSize": {
+            "width": 510.0,
+            "height": 690.0
+          },
+          "rotate": 0,
+          "scale": 1.02,
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-social/user-image/1790665656_d0667c02-6541-4997-a94d-2e40aa042932.png",
+            "thumb": "https://assets.quickhub.ai/qh-social/user-image/1790665656_d0667c02-6541-4997-a94d-2e40aa042932.png",
+            "boxSize": {
+              "width": 500.0,
+              "height": 748.6413043478261
+            },
+            "position": {
+              "x": 0.0,
+              "y": -28.868281739130452
+            },
+            "rotate": 0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "27032d00-7522-4236-8e8c-fb8bf08f597a": {
+        "type": {
+          "type": "logo",
+          "resolvedName": "FrameLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "image": {
+            "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+            "rotate": 0,
+            "boxSize": {
+              "width": 110,
+              "height": 89
+            },
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "scale": 1,
+          "style": {
+            "width": "110px",
+            "height": "89px",
+            "display": "flex",
+            "overflow": "hidden",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          "rotate": 0,
+          "boxSize": {
+            "width": 110,
+            "height": 89
+          },
+          "position": {
+            "x": 70.0,
+            "y": 55.0
+          },
+          "imageStyle": {
+            "width": "100%",
+            "height": "100%",
+            "display": "block",
+            "objectFit": "contain"
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "33ae1ec0-def4-4aff-80ba-492846739c04": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Kids summer camp registration"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(18, 55, 155)",
+                  "indent": 0,
+                  "fontSize": "24.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Kids summer camp registration",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(18, 55, 155)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(18, 55, 155)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 520.0,
+            "height": 28.8
+          },
+          "position": {
+            "x": 226.0,
+            "y": 84.0
+          },
+          "fontSizes": [
+            24.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1e0fb178-3888-4af4-8f63-b407292238a4": {
+        "type": {
+          "type": null,
+          "resolvedName": "DrawLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "path": "M 4.50,40.50 L 21.50,4.50 L 38.50,40.50 L 55.50,4.50 L 72.50,40.50 L 89.50,4.50 L 106.50,40.50 L 123.50,4.50 L 140.50,40.50",
+          "color": "rgb(23, 75, 204)",
+          "width": 7.0,
+          "position": {
+            "x": 845.0,
+            "y": 75.0
+          },
+          "boxSize": {
+            "width": 145.0,
+            "height": 45.0
+          },
+          "rotate": 0,
+          "scale": 1,
+          "transparency": 1
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "94722940-abba-4a81-9638-3b8857b2ec18": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "FUN SUMMER CAMP"
+        },
+        "child": [],
+        "props": {
+          "effect": {
+            "name": "shadow",
+            "settings": {
+              "offset": 30,
+              "direction": -45,
+              "blur": 12,
+              "transparency": 40,
+              "color": "rgb(228, 203, 56)"
+            }
+          },
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(18, 55, 155)",
+                  "indent": 0,
+                  "fontSize": "102.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.03",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "FUN SUMMER CAMP",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(18, 55, 155)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(18, 55, 155)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 410.0,
+            "height": 315.18
+          },
+          "position": {
+            "x": 70.0,
+            "y": 198.0
+          },
+          "fontSizes": [
+            102.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "493dfff9-6550-4e12-bb27-b3adc9be2994": {
+        "type": {
+          "type": null,
+          "resolvedName": "DrawLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "path": "M 4.00,12.36 C 4.68,13.57 6.70,19.59 8.06,19.64 C 9.41,19.70 10.76,15.06 12.11,12.69 C 13.47,10.33 14.82,5.46 16.17,5.46 C 17.52,5.46 18.88,10.31 20.23,12.69 C 21.58,15.07 22.93,19.86 24.28,19.74 C 25.64,19.63 26.99,14.30 28.34,12.01 C 29.69,9.72 31.05,5.93 32.40,6.01 C 33.75,6.08 35.10,10.22 36.45,12.48 C 37.81,14.75 39.16,19.57 40.51,19.59 C 41.86,19.62 43.22,15.00 44.57,12.62 C 45.92,10.25 47.27,5.31 48.62,5.35 C 49.98,5.38 51.33,10.46 52.68,12.83 C 54.03,15.21 55.39,19.66 56.74,19.58 C 58.09,19.49 59.44,14.73 60.80,12.34 C 62.15,9.95 63.50,5.20 64.85,5.22 C 66.20,5.23 67.56,10.14 68.91,12.42 C 70.26,14.70 71.61,18.88 72.97,18.88 C 74.32,18.89 75.67,14.65 77.02,12.45 C 78.38,10.25 79.73,5.70 81.08,5.68 C 82.43,5.66 83.78,10.09 85.14,12.33 C 86.49,14.58 87.84,19.08 89.19,19.16 C 90.55,19.24 91.90,15.02 93.25,12.81 C 94.60,10.60 95.95,5.90 97.31,5.90 C 98.66,5.90 100.01,10.58 101.36,12.79 C 102.72,15.00 104.07,19.22 105.42,19.14 C 106.77,19.07 108.12,14.56 109.48,12.35 C 110.83,10.15 112.18,5.86 113.53,5.90 C 114.89,5.95 116.24,10.30 117.59,12.60 C 118.94,14.91 120.30,19.82 121.65,19.75 C 123.00,19.68 124.35,14.46 125.70,12.19 C 127.06,9.92 128.41,6.08 129.76,6.15 C 131.11,6.22 132.47,10.47 133.82,12.60 C 135.17,14.73 136.52,19.02 137.88,18.94 C 139.23,18.87 140.58,14.38 141.93,12.15 C 143.28,9.92 144.64,5.43 145.99,5.56 C 147.34,5.69 148.69,10.61 150.05,12.91 C 151.40,15.21 152.75,19.51 154.10,19.39 C 155.45,19.26 156.81,14.50 158.16,12.15 C 159.51,9.79 160.86,5.23 162.22,5.25 C 163.57,5.27 164.92,10.00 166.27,12.26 C 167.62,14.53 168.98,18.72 170.33,18.83 C 171.68,18.95 173.03,15.22 174.39,12.95 C 175.74,10.68 177.09,5.35 178.44,5.20 C 179.80,5.05 181.15,9.73 182.50,12.03 C 183.85,14.34 185.20,18.98 186.56,19.05 C 187.91,19.12 189.26,14.65 190.61,12.48 C 191.97,10.31 193.32,5.96 194.67,6.04 C 196.02,6.12 197.38,10.77 198.73,12.96 C 200.08,15.15 201.43,19.22 202.78,19.16 C 204.14,19.10 205.49,14.82 206.84,12.61 C 208.19,10.39 209.55,5.83 210.90,5.86 C 212.25,5.89 213.60,10.62 214.95,12.81 C 216.31,15.01 217.66,19.09 219.01,19.02 C 220.36,18.95 221.72,14.62 223.07,12.41 C 224.42,10.19 225.77,5.67 227.12,5.73 C 228.48,5.78 229.83,10.47 231.18,12.74 C 232.53,15.01 233.89,19.43 235.24,19.36 C 236.59,19.30 237.94,14.68 239.30,12.34 C 240.65,9.99 242.00,5.21 243.35,5.29 C 244.70,5.38 246.06,10.50 247.41,12.87 C 248.76,15.23 250.11,19.49 251.47,19.49 C 252.82,19.48 254.17,15.11 255.52,12.85 C 256.88,10.59 258.23,6.07 259.58,5.94 C 260.93,5.82 262.28,9.82 263.64,12.08 C 264.99,14.35 266.34,19.41 267.69,19.54 C 269.05,19.68 270.40,15.13 271.75,12.91 C 273.10,10.69 274.45,6.21 275.81,6.20 C 277.16,6.18 278.51,10.66 279.86,12.82 C 281.22,14.98 282.57,19.15 283.92,19.14 C 285.27,19.13 286.62,15.05 287.98,12.76 C 289.33,10.47 290.68,5.46 292.03,5.40 C 293.39,5.34 294.74,10.05 296.09,12.40 C 297.44,14.75 298.80,19.41 300.15,19.49 C 301.50,19.57 302.85,15.19 304.20,12.86 C 305.56,10.54 306.91,5.57 308.26,5.55 C 309.61,5.53 310.97,10.54 312.32,12.77 C 313.67,15.00 315.02,18.99 316.38,18.92 C 317.73,18.84 319.08,14.42 320.43,12.30 C 321.78,10.18 323.14,6.06 324.49,6.18 C 325.84,6.29 327.19,10.72 328.55,12.96 C 329.90,15.21 331.25,19.67 332.60,19.66 C 333.95,19.65 335.31,15.29 336.66,12.90 C 338.01,10.50 339.36,5.37 340.72,5.29 C 342.07,5.22 343.42,10.20 344.77,12.46 C 346.12,14.72 347.48,18.92 348.83,18.84 C 350.18,18.77 351.53,14.12 352.89,12.01 C 354.24,9.89 355.59,6.00 356.94,6.15 C 358.30,6.31 360.32,11.81 361.00,12.95",
+          "color": "rgb(23, 75, 204)",
+          "width": 6.0,
+          "position": {
+            "x": 70.0,
+            "y": 546.0
+          },
+          "boxSize": {
+            "width": 365.0,
+            "height": 25.0
+          },
+          "rotate": 0,
+          "scale": 1,
+          "transparency": 1
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "6645ade6-5582-4bf7-9d8c-66a95c2645b8": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 70.0,
+            "y": 617.0
+          },
+          "boxSize": {
+            "width": 40.0,
+            "height": 40.0
+          },
+          "rotate": 0,
+          "color": "rgb(255, 234, 88)",
+          "scale": 5.0625,
+          "border": {
+            "color": "rgb(23, 75, 204)",
+            "style": "solid",
+            "weight": 2.0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "a8b1ad3b-ec12-425f-867f-f67d4e31c8c1": {
+        "type": {
+          "type": null,
+          "resolvedName": "DrawLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "path": "M 3.50,12.50 L 10.50,21.50 L 23.50,3.50",
+          "color": "rgb(23, 75, 204)",
+          "width": 5.0,
+          "position": {
+            "x": 78.0,
+            "y": 623.0
+          },
+          "boxSize": {
+            "width": 27.0,
+            "height": 25.0
+          },
+          "rotate": 0,
+          "scale": 1,
+          "transparency": 1
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "5ecd17f7-3f46-44b4-8fac-bc0239d94166": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Swimming"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(18, 55, 155)",
+                  "indent": 0,
+                  "fontSize": "30.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Swimming",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(18, 55, 155)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(18, 55, 155)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 310.0,
+            "height": 36.0
+          },
+          "position": {
+            "x": 134.0,
+            "y": 619.0
+          },
+          "fontSizes": [
+            30.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "9e8da07d-a9f0-43ca-824a-cd173267e62c": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 70.0,
+            "y": 689.0
+          },
+          "boxSize": {
+            "width": 40.0,
+            "height": 40.0
+          },
+          "rotate": 0,
+          "color": "rgb(255, 234, 88)",
+          "scale": 5.0625,
+          "border": {
+            "color": "rgb(23, 75, 204)",
+            "style": "solid",
+            "weight": 2.0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "c72d2fc2-d1a4-4171-bacb-0c031347dd9f": {
+        "type": {
+          "type": null,
+          "resolvedName": "DrawLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "path": "M 3.50,12.50 L 10.50,21.50 L 23.50,3.50",
+          "color": "rgb(23, 75, 204)",
+          "width": 5.0,
+          "position": {
+            "x": 78.0,
+            "y": 695.0
+          },
+          "boxSize": {
+            "width": 27.0,
+            "height": 25.0
+          },
+          "rotate": 0,
+          "scale": 1,
+          "transparency": 1
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "df4e11bc-3178-4db3-86c4-5f6d5cdb867c": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Art"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(18, 55, 155)",
+                  "indent": 0,
+                  "fontSize": "30.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Art",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(18, 55, 155)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(18, 55, 155)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 310.0,
+            "height": 36.0
+          },
+          "position": {
+            "x": 134.0,
+            "y": 691.0
+          },
+          "fontSizes": [
+            30.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "63cbbf64-365e-4b63-8ef0-cb8f59de106f": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "circle",
+          "position": {
+            "x": 70.0,
+            "y": 761.0
+          },
+          "boxSize": {
+            "width": 40.0,
+            "height": 40.0
+          },
+          "rotate": 0,
+          "color": "rgb(255, 234, 88)",
+          "scale": 5.0625,
+          "border": {
+            "color": "rgb(23, 75, 204)",
+            "style": "solid",
+            "weight": 2.0
+          }
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "fd356961-0dfe-442b-a3ec-bdb575acf4f4": {
+        "type": {
+          "type": null,
+          "resolvedName": "DrawLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "path": "M 3.50,12.50 L 10.50,21.50 L 23.50,3.50",
+          "color": "rgb(23, 75, 204)",
+          "width": 5.0,
+          "position": {
+            "x": 78.0,
+            "y": 767.0
+          },
+          "boxSize": {
+            "width": 27.0,
+            "height": 25.0
+          },
+          "rotate": 0,
+          "scale": 1,
+          "transparency": 1
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "279308e2-02c9-4886-861f-a222be0cb1c8": {
+        "type": {
+          "type": "bodyText",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "Games"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(18, 55, 155)",
+                  "indent": 0,
+                  "fontSize": "30.0px",
+                  "listType": "",
+                  "textAlign": "left",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Games",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(18, 55, 155)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(18, 55, 155)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 310.0,
+            "height": 36.0
+          },
+          "position": {
+            "x": 134.0,
+            "y": 763.0
+          },
+          "fontSizes": [
+            30.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d0d050d9-cc02-4ff7-8743-bdf02f396121": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 705.0,
+            "y": 776.0
+          },
+          "boxSize": {
+            "width": 305.0,
+            "height": 119.0
+          },
+          "rotate": 0,
+          "color": "rgb(23, 75, 204)",
+          "scale": 5.0625,
+          "roundedCorners": 122
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "d205d3bb-f8f9-41d3-82df-3e2baa3f274f": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Early Bird",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "24.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "Early Bird",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 255.0,
+            "height": 28.8
+          },
+          "position": {
+            "x": 730.0,
+            "y": 791.0
+          },
+          "fontSizes": [
+            24.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "f0d1162e-1b47-4f77-90dc-976e3b2cf8f1": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "20% Off",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "48.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Anton",
+                  "lineHeight": "1.1",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "20% Off",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Anton",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 255.0,
+            "height": 52.8
+          },
+          "position": {
+            "x": 730.0,
+            "y": 825.0
+          },
+          "fontSizes": [
+            48.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "8949821a-c1c1-45b1-96d8-824ff49db205": {
+        "type": {
+          "type": null,
+          "resolvedName": "DrawLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "path": "M 18.39,45.61 L 7.98,38.38 M 23.39,42.70 L 22.25,30.08 M 29.59,45.59 L 39.98,38.33",
+          "color": "rgb(255, 234, 88)",
+          "width": 7.0,
+          "position": {
+            "x": 640.0,
+            "y": 803.0
+          },
+          "boxSize": {
+            "width": 48.0,
+            "height": 54.0
+          },
+          "rotate": 0,
+          "scale": 1,
+          "transparency": 1
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "e05c4315-acbb-47af-b009-37a12cb66e46": {
+        "type": {
+          "type": null,
+          "resolvedName": "LineLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "style": "solid",
+          "boxSize": {
+            "width": 362.0,
+            "height": 4.0
+          },
+          "color": "rgb(23, 75, 204)",
+          "position": {
+            "x": 70.0,
+            "y": 869.0
+          },
+          "scale": 1,
+          "rotate": 0,
+          "arrowStart": "circle",
+          "arrowEnd": "arrow"
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "14f76bb7-2cb2-49aa-8877-c8d30ddb2b0d": {
+        "type": {
+          "type": null,
+          "resolvedName": "ShapeLayer",
+          "fixedText": null,
+          "replacableText": null
+        },
+        "child": [],
+        "props": {
+          "shape": "rectangle",
+          "position": {
+            "x": 70.0,
+            "y": 930.0
+          },
+          "boxSize": {
+            "width": 365.0,
+            "height": 80.0
+          },
+          "rotate": 0,
+          "color": "rgb(23, 75, 204)",
+          "scale": 5.0625,
+          "roundedCorners": 202
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "1496b942-f327-45d3-89a0-8a609fe1be95": {
+        "type": {
+          "type": "static",
+          "resolvedName": "TextLayer",
+          "fixedText": "Register now",
+          "replacableText": ""
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(255, 255, 255)",
+                  "indent": 0,
+                  "fontSize": "28.0px",
+                  "listType": "",
+                  "textAlign": "center",
+                  "fontFamily": "Oswald",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0.04,
+                  "textTransform": "uppercase"
+                },
+                "content": [
+                  {
+                    "text": "Register now",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(255, 255, 255)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Oswald",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUFoZAaRliE.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(255, 255, 255)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 315.0,
+            "height": 33.6
+          },
+          "position": {
+            "x": 95.0,
+            "y": 951.0
+          },
+          "fontSizes": [
+            28.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      },
+      "84b6d3d4-90d7-4486-90f3-14cfdf246dc2": {
+        "type": {
+          "type": "website",
+          "resolvedName": "TextLayer",
+          "fixedText": "",
+          "replacableText": "www.yourwebsite.com"
+        },
+        "child": [],
+        "props": {
+          "doc": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "color": "rgb(18, 55, 155)",
+                  "indent": 0,
+                  "fontSize": "27.0px",
+                  "listType": "",
+                  "textAlign": "right",
+                  "fontFamily": "Montserrat",
+                  "lineHeight": "1.2",
+                  "marginLeft": null,
+                  "letterSpacing": 0,
+                  "textTransform": "none"
+                },
+                "content": [
+                  {
+                    "text": "www.yourwebsite.com",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "color",
+                        "attrs": {
+                          "color": "rgb(18, 55, 155)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "fonts": [
+            {
+              "name": "Montserrat",
+              "fonts": [
+                {
+                  "urls": [
+                    "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+                  ]
+                }
+              ]
+            }
+          ],
+          "scale": 1,
+          "colors": [
+            "rgb(18, 55, 155)"
+          ],
+          "rotate": 0,
+          "boxSize": {
+            "width": 510.0,
+            "height": 32.4
+          },
+          "position": {
+            "x": 500.0,
+            "y": 953.0
+          },
+          "fontSizes": [
+            27.0
+          ]
+        },
+        "locked": false,
+        "parent": "ROOT"
+      }
+    }
+  }
+]

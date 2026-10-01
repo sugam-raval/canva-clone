@@ -15,7 +15,16 @@ from fastapi.testclient import TestClient
 from app.adapters.base import AdapterError, LLMResult
 from app.lido_create import brief, drafts
 from app.lido_create.check import validate
-from app.lido_create.kit import FONT_SETS, PALETTES, THEMES_BY_NAME, Canvas, Design, Photo, Variant
+from app.lido_create.kit import (
+    FONT_SETS,
+    PALETTES,
+    THEMES_BY_NAME,
+    Canvas,
+    Design,
+    Element,
+    Photo,
+    Variant,
+)
 from app.lido_create.lido import to_lido
 from app.lido_create.recipes import RECIPES, mirror
 
@@ -32,7 +41,7 @@ def _recipe_design(name: str, v: Variant) -> Design:
     c = Canvas(v)
     RECIPES[name].build(c)
     return Design(recipe=name, theme=v.theme.name, palette=v.palette.name,
-                  fonts=v.fonts.name, elements=c.els)
+                  fonts=v.fonts.name, background=c.background, elements=c.els)
 
 
 @pytest.mark.parametrize("name", list(RECIPES))
@@ -99,7 +108,7 @@ class _FakeLLM:
             name="test_layout", idea="A centred invite.",
             colors=brief.BriefColors(bg="#241640", ink="#ffffff", accent="#ff6b6b",
                                      on_accent="#241640", soft="#ffde96"),
-            fonts=v.fonts.name, photo_theme="business",
+            fonts=v.fonts.name, photo_theme="business", background=None,
             elements=[e.model_copy(update={"subject": "a dinner party"} if e.kind == "photo"
                                    else {}) for e in design.elements])
         return LLMResult(parsed=parsed, raw="", model="fake")
@@ -245,3 +254,115 @@ def test_creative_checks_flag_plain_layouts_and_unbulleted_items():
     # drop the bullet bars (22px wide shapes beside the items): now the items fail
     rich.elements = [e for e in rich.elements if not (e.kind == "shape" and e.w == 22)]
     assert any("bullet marker" in e for e in validate(rich, v, creative=True))
+
+
+# -- Lido's full feature set (docs/LIDO_CAPABILITIES.md) ---------------------------------
+
+
+def test_every_lido_shape_has_a_real_outline():
+    from app.lido_create.shapes import SHAPES, shape_contains
+
+    assert len(SHAPES) == 20
+    for name in SHAPES:
+        assert shape_contains(name, 0.5, 0.5), f"{name}: centre should be inside"
+    assert not shape_contains("triangle", 0.05, 0.05)  # the empty top-left corner
+    assert not shape_contains("arrowRight", 0.95, 0.05)  # beside the arrow's tip
+    assert shape_contains("arrowRight", 0.99, 0.5)  # the tip itself
+    assert not shape_contains("cross", 0.1, 0.1)
+
+
+def test_frames_keep_their_aspect_and_hit_test_their_outline():
+    from app.lido_create.shapes import frame_contains, frames
+
+    lib = frames()
+    assert len(lib) == 41 and "letter_A" in lib and "brush_band" in lib
+    assert frame_contains("circle", 0.5, 0.5) and not frame_contains("circle", 0.02, 0.02)
+    assert not frame_contains("ring", 0.5, 0.5)  # the donut's hole
+    assert not frame_contains("letter_A", 0.05, 0.1)  # beside the A's apex
+    c = Canvas(_variant())
+    photo = c.photo(100, 100, 400, 999, frame="brush_band")
+    assert photo.h == pytest.approx(400 / lib["brush_band"].aspect, abs=0.01)
+
+
+def test_lines_and_drawings_may_not_cross_text():
+    v = _variant()
+    d = _recipe_design("spotlight_launch", v)
+    assert validate(d, v, creative=True) == []
+    headline = next(e for e in d.elements if e.text_type == "headline")
+    d.elements.append(Element(kind="line", x=headline.x, y=headline.y + headline.h / 2,
+                              w=headline.w, h=4, color="accent"))
+    assert any("line crosses headline" in e for e in validate(d, v))
+
+
+def test_text_on_a_gradient_must_read_at_its_weakest_point():
+    from app.lido_create.kit import Gradient
+
+    v = _variant()
+    d = _recipe_design("split_offer", v)
+    assert validate(d, v) == []
+    # the canvas fades from navy to white: the white text on it fails where it's pale
+    d.background = Gradient(style="linear", angle=90, start="bg", end="ink")
+    errors = " | ".join(validate(d, v))
+    assert "weakest point" in errors
+
+
+def test_new_features_are_written_the_way_lido_stores_them():
+    from app.lido_create.kit import Gradient
+
+    v = _variant()
+    c = Canvas(v)
+    c.background = Gradient(style="radial", start="soft", end="bg")
+    c.shape(10, 10, 200, 80, "accent", kind="chevron",
+            gradient=Gradient(style="linear", angle=45), stroke="ink", stroke_width=3,
+            stroke_style="dashed")
+    c.line(10, 200, 300, style="dotted", end="arrow")
+    c.draw("circle", 10, 300, 200, 90)
+    c.photo(300, 300, 300, 1, frame="letter_A")
+    c.text("Hello", "headline", x=10, y=600, w=400, font="display", size=80, effect="hollow")
+    d = Design(recipe="t", theme="business", palette="navy-amber", fonts=v.fonts.name,
+               background=c.background, elements=c.els)
+    layers = to_lido(d, v, photos=[PHOTOS[0]])[0]["layers"]
+    by = {lr["type"]["resolvedName"]: lr["props"] for lr in layers.values()}
+
+    root = by["RootLayer"]["color"]
+    assert root["style"] == "radial" and len(root["colors"]) == 2
+    shape = by["ShapeLayer"]
+    assert shape["shape"] == "chevron" and shape["color"]["angle"] == 45
+    assert shape["color"]["colors"][1]["color"].endswith(", 0)")  # fades to transparent
+    assert shape["border"]["style"] == "shortDashes"
+    assert by["LineLayer"]["style"] == "dots" and by["LineLayer"]["arrowEnd"] == "arrow"
+    assert by["DrawLayer"]["path"].startswith("M ") and by["DrawLayer"]["width"] == 6
+    frame = next(lr["props"] for lr in layers.values()
+                 if lr["type"]["resolvedName"] == "FrameLayer" and lr["type"]["type"] != "logo")
+    assert frame["scale"] == pytest.approx(300 / frames_lib()["letter_A"].w)
+    assert by["TextLayer"]["effect"]["name"] == "hollow"
+
+
+def frames_lib():
+    from app.lido_create.shapes import frames
+    return frames()
+
+
+def test_mirroring_turns_asymmetric_shapes_and_line_ends():
+    v = _variant()
+    c = Canvas(v)
+    c.shape(0, 0, 100, 50, "accent", kind="arrowRight")
+    c.shape(0, 100, 100, 50, "accent", kind="chevron")
+    c.line(0, 300, 200, end="arrow")
+    m = mirror(Design(recipe="t", theme="business", palette="x", fonts="x", elements=c.els))
+    arrow, chevron, line = m.elements
+    assert arrow.shape == "arrowLeft"
+    assert chevron.rotate == 180
+    assert (line.line_start, line.line_end) == ("arrow", "none")
+
+
+def test_ai_designs_must_use_lidos_wider_vocabulary():
+    from app.lido_create.check import families_used
+
+    v = _variant()
+    plain = _recipe_design("split_offer", v)  # circles and rectangles only
+    assert families_used(plain) == set()
+    assert any("only uses circles and rectangles" in e
+               for e in validate(plain, v, creative=True))
+    assert families_used(_recipe_design("spotlight_launch", v)) >= {
+        "gradient", "shape", "line", "draw", "frame", "effect"}

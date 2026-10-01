@@ -1,5 +1,13 @@
 # Roadmap: more variety in AI-designed templates
 
+> **Progress (2026-09-30):**
+> - **Step 0 is done:** see [LIDO_CAPABILITIES.md](LIDO_CAPABILITIES.md).
+> - **Step 1 is done:** the registry is `backend/app/lido_create/shapes.py`.
+> - **Step 2 is done:** all 20 native shapes, lines and 41 frames. Way B wasn't needed.
+> - **Step 3 is done:** gradients are native in Lido, including palette recolouring.
+> - **Step 5 is partly done:** rotating "signature elements" and a feature-family check.
+> - **Next:** Step 4 (the component library), the rest of Step 5, and Step 6.
+
 This is the step-by-step plan to make the AI designer (the **Design new template** tab
 and `make lido-create AI=1`) produce more varied and more creative templates, closer
 to Canva AI.

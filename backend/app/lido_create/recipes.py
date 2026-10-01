@@ -11,7 +11,8 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 
-from app.lido_create.kit import Canvas, Design, Element, M, W
+from app.lido_create.kit import Canvas, Design, Element, Gradient, M, W
+from app.lido_create.shapes import frames
 
 
 def _bottom(e: Element) -> float:
@@ -182,11 +183,11 @@ def _offer_badge(c: Canvas, lead: str, text: str, cx: float, cy: float,
 
 def fresh_promo(c: Canvas) -> None:
     """Pro product promo: script line over a huge caps headline, reverse-colour band,
-    the subject straight on the background, multi-line offer badge, outlined price
-    tag, dot-grid textures, a corner diamond, label + value contacts with ring
+    the subject straight on the background, multi-line offer badge, a dashed coupon
+    price tag, dot-grid textures, a corner rhombus, label + value contacts with ring
     markers."""
     t = c.v.theme
-    c.shape(880, -110, 280, 280, "accent", rotate=45, bleed=True)
+    c.shape(822, -168, 396, 396, "accent", kind="rhombus", bleed=True)
     c.dots(70, 400, 4, 4, gap=22, dot=8)
     c.dots(930, 760, 4, 3, gap=22, dot=8)
     c.logo(M, 50)
@@ -199,7 +200,8 @@ def fresh_promo(c: Canvas) -> None:
     top = band.y + band.h + 50
     c.photo(250, top, 580, 945 - top, clip="cutout")
     _offer_badge(c, "Up to", t.badge, 925, 535)
-    c.shape(M, 560, 200, 120, "bg", radius=18, stroke="accent", stroke_width=3)
+    c.shape(M, 560, 200, 120, "bg", radius=18, stroke="accent", stroke_width=3,
+            stroke_style="dashed")  # a coupon-style dashed tag
     only = c.text("Only", "caption", x=M, y=0, w=200, size=18, color="accent",
                   align="center", upper=True, ls=0.2)
     price = c.text(t.price, "badge", x=M + 10, y=0, w=180, font="display", color="ink",
@@ -213,9 +215,9 @@ def fresh_promo(c: Canvas) -> None:
 
 
 def geo_agency(c: Canvas) -> None:
-    """Pro service promo: script line + accent caps headline, a corner disc holding the
-    logo, a hexagon photo, an accent panel with an arrow tip holding a bulleted list,
-    dot grids, then label + value contacts either side of a button."""
+    """Pro service promo: script line + accent caps headline, an accent line under the
+    intro, a corner disc holding the logo, a hexagon photo, an arrow-tag panel holding a
+    bulleted list, dot grids, then label + value contacts either side of a button."""
     t = c.v.theme
     c.shape(760, -170, 500, 500, "accent", circle=True, bleed=True)
     c.dots(930, 420, 3, 3, gap=22, dot=9)  # in the corner the hexagon leaves free
@@ -224,10 +226,10 @@ def geo_agency(c: Canvas) -> None:
                color="ink", fit_from=72, smallest=48)
     hl = c.headline(t.headline, x=M, y=_bottom(s), w=600, max_lines=2, start=100,
                     smallest=76, color="accent")
-    c.text(t.body, "body", x=M, y=_bottom(hl) + 16, w=420, max_lines=3, size=22,
-           fit_from=22, smallest=18)
-    c.shape(0, 640, 400, 200, "accent")
-    c.shape(300, 669, 142, 142, "accent", rotate=45)
+    body = c.text(t.body, "body", x=M, y=_bottom(hl) + 16, w=420, max_lines=3, size=22,
+                  fit_from=22, smallest=18)
+    c.line(M, _bottom(body) + 26, 90, thickness=5)
+    c.shape(0, 640, 470, 200, "accent", kind="arrowPentagon")
     c.photo(430, 400, 580, 520, clip="hexagon", focus=0.35)
     for i, item in enumerate(t.items):
         y = 668 + i * 50
@@ -240,6 +242,40 @@ def geo_agency(c: Canvas) -> None:
     cap, _ = c.contact_block("website", "Visit our website", x=682, y=950, w=280,
                              align="right")
     c.bullet(976, cap.y + 6, "ring", 34)
+
+
+def spotlight_launch(c: Canvas) -> None:
+    """Pro launch post: radial spotlight background, a hollow outline word over a solid
+    headline with a marker underline, the photo in a brush-stroke frame, a price tag in
+    an arrow-tag shape breaking the photo's edge, a hand-drawn arrow, slanted accent
+    bands, dotted lines with circle ends either side of the button."""
+    t = c.v.theme
+    c.background = Gradient(style="radial", start="soft", end="bg", end_at=75)
+    c.shape(800, 44, 230, 24, "accent", kind="parallelogram")
+    c.shape(850, 82, 180, 24, "accent", kind="parallelogram", opacity=0.5)
+    c.logo(M, 50)
+    k = c.text(t.script, "kicker", x=140, y=165, w=800, font="display", size=64,
+               color="accent", align="center", upper=True, effect="hollow", fit_from=64,
+               smallest=56)
+    hl = c.headline(t.headline, x=90, y=_bottom(k) + 4, w=900, max_lines=2, start=110,
+                    smallest=72, align="center")
+    c.draw("underline", 380, _bottom(hl) + 4, 320, 26, width=8)
+    top = _bottom(hl) + 52
+    aspect = frames()["brush_band"].aspect
+    pw = min(600.0, (930 - top) * aspect)
+    ph = pw / aspect
+    c.photo((W - pw) / 2, top, pw, ph, frame="brush_band")
+    tag = c.shape(690, top + ph - 100, 290, 84, "accent", kind="arrowPentagon")
+    price = c.text(t.price, "badge", x=710, y=0, w=226, font="display", color="on_accent",
+                   align="center", fit_from=50, smallest=30)
+    price.y = round(tag.y + (tag.h - price.h) / 2, 2)
+    c.draw("arrow", 110, top + ph - 200, 150, 120, width=6)
+    c.dots(930, top + 20, 3, 4, gap=22, dot=8)
+    pill, _ = c.button(t.cta, x=0, y=972, h=68, center_x=W / 2)
+    mid = pill.y + pill.h / 2
+    c.line(M, mid, pill.x - M - 30, thickness=3, style="dotted", end="circle")
+    c.line(pill.x + pill.w + 30, mid, W - M - (pill.x + pill.w + 30), thickness=3,
+           style="dotted", start="circle")
 
 
 @dataclass(frozen=True)
@@ -264,18 +300,37 @@ RECIPES = {r.name: r for r in [
     Recipe("offset_frame", offset_frame, True),
     Recipe("fresh_promo", fresh_promo, False),
     Recipe("geo_agency", geo_agency, True),
+    Recipe("spotlight_launch", spotlight_launch, False),
 ]}
+
+# Asymmetric Lido shapes and what each becomes in a mirror image.
+_MIRRORED_SHAPE = {"arrowRight": "arrowLeft", "arrowLeft": "arrowRight",
+                   "parallelogram": "parallelogramUpsideDown",
+                   "parallelogramUpsideDown": "parallelogram"}
+_FLIP_BY_TURNING = {"chevron", "arrowPentagon"}  # symmetric top/bottom: turn 180 instead
 
 
 def mirror(design: Design) -> Design:
     """Left/right flip of the whole layout (text alignment flips with it)."""
     flipped = design.model_copy(deep=True)
     flipped.mirrored = not design.mirrored
+    if flipped.background is not None and flipped.background.style == "linear":
+        a = flipped.background.angle
+        flipped.background.angle = (360 - (180 if a is None else a)) % 360
     swap = {"left": "right", "right": "left", "center": "center"}
     for e in flipped.elements:
         e.x = round(W - e.x - e.w, 2)
         if e.rotate:
             e.rotate = -e.rotate
+        if e.shape in _MIRRORED_SHAPE:
+            e.shape = _MIRRORED_SHAPE[e.shape]  # type: ignore[assignment]
+        elif e.shape in _FLIP_BY_TURNING:
+            e.rotate = ((e.rotate or 0) + 180) % 360
+        if e.kind == "line":
+            e.line_start, e.line_end = e.line_end, e.line_start
+        for g in (e.gradient,):
+            if g is not None and g.style == "linear":
+                g.angle = (360 - (180 if g.angle is None else g.angle)) % 360
         if e.kind == "text":
             e.align = swap[e.align or "left"]
     return flipped

@@ -15,7 +15,9 @@ from __future__ import annotations
 import math
 import re
 
-from app.lido_create.kit import RGB, Design, Element, H, Palette, Variant, W, line_count
+from app.lido_create.draw import draw_path
+from app.lido_create.kit import RGB, Design, Element, Gradient, H, Palette, Variant, W, line_count
+from app.lido_create.shapes import frame_contains, shape_contains
 
 EDGE = 30  # minimum distance from text/logo to the canvas edge
 # Emoji, pictographs and bullet/check marks: the template fonts have no glyphs for them.
@@ -23,7 +25,9 @@ UNDRAWABLE = re.compile("[\u2022\u2023\u25a0-\u25ff\u2600-\u27bf\u2b00-\u2bff"
                         "\U0001f000-\U0001faff]")
 FREE_TEXT = {"headline", "kicker", "body", "item", "cta", "badge", "caption"}
 MAX_TEXTS = 12
-# Crop shapes as polygons in the unit square (the same outlines lido.clip_path draws).
+HOLLOW_MIN_PX = 56  # outline-only letters are only readable when big
+STROKES = ("line", "draw")  # thin marks: never a text's backdrop, never through text
+# Procedural photo crops as polygons in the unit square (lido.clip_path draws the same).
 POLYGONS = {
     "hexagon": ((0.25, 0), (0.75, 0), (1, 0.5), (0.75, 1), (0.25, 1), (0, 0.5)),
     "diamond": ((0.5, 0), (1, 0.5), (0.5, 1), (0, 0.5)),
@@ -40,22 +44,34 @@ def _in_polygon(points, x: float, y: float) -> bool:
     return inside
 
 
+def _unrotate(e: Element, px: float, py: float) -> tuple[float, float]:
+    """The point in the element's own, unrotated frame."""
+    if not e.rotate:
+        return px, py
+    cx, cy = e.x + e.w / 2, e.y + e.h / 2
+    a = math.radians(-e.rotate)
+    dx, dy = px - cx, py - cy
+    return cx + dx * math.cos(a) - dy * math.sin(a), cy + dx * math.sin(a) + dy * math.cos(a)
+
+
 def covers(e: Element, px: float, py: float) -> bool:
-    if e.rotate:  # test the point in the shape's own, unrotated frame
-        cx, cy = e.x + e.w / 2, e.y + e.h / 2
-        a = math.radians(-e.rotate)
-        dx, dy = px - cx, py - cy
-        px, py = cx + dx * math.cos(a) - dy * math.sin(a), cy + dx * math.sin(a) + dy * math.cos(a)
+    px, py = _unrotate(e, px, py)
     if not (e.x <= px <= e.x + e.w and e.y <= py <= e.y + e.h):
         return False
-    if e.clip in POLYGONS:
-        return _in_polygon(POLYGONS[e.clip], (px - e.x) / e.w, (py - e.y) / e.h)
-    if e.shape == "circle" or e.clip in ("circle", "blob"):
-        rx, ry = e.w / 2, e.h / 2
-        return ((px - e.x - rx) / rx) ** 2 + ((py - e.y - ry) / ry) ** 2 <= 1
-    if e.clip == "arch" and py < e.y + e.w / 2:
-        r = e.w / 2
-        return (px - e.x - r) ** 2 + (py - e.y - r) ** 2 <= r * r
+    u, v = (px - e.x) / (e.w or 1), (py - e.y) / (e.h or 1)
+    if e.kind == "photo":
+        if e.frame:
+            return frame_contains(e.frame, u, v)
+        if e.clip in POLYGONS:
+            return _in_polygon(POLYGONS[e.clip], u, v)
+        if e.clip in ("circle", "blob"):
+            return (u - 0.5) ** 2 + (v - 0.5) ** 2 <= 0.25
+        if e.clip == "arch" and py < e.y + e.w / 2:
+            r = e.w / 2
+            return (px - e.x - r) ** 2 + (py - e.y - r) ** 2 <= r * r
+        return True
+    if e.kind == "shape":
+        return shape_contains(e.shape or "rectangle", u, v)
     return True
 
 
@@ -82,23 +98,86 @@ def _blend(top: RGB, under: RGB, alpha: float) -> RGB:
     return tuple(round(t * alpha + u * (1 - alpha)) for t, u in zip(top, under))  # type: ignore[return-value]
 
 
-def background_at(els: list[Element], index: int, px: float, py: float,
-                  palette: Palette) -> RGB | str:
-    """Colour directly under point (px, py) beneath element `index` — or 'photo'."""
+def gradient_at(g: Gradient, box: tuple[float, float, float, float], px: float,
+                py: float, palette: Palette, base: str) -> tuple[RGB, float]:
+    """(colour, opacity) of a gradient fill at a point — CSS geometry: a linear angle
+    of 0 runs towards the top, 90 to the right; radial spreads from the centre to the
+    farthest corner."""
+    x0, y0, w, h = box
+    cx, cy = x0 + w / 2, y0 + h / 2
+    if g.style == "radial":
+        t = math.hypot((px - cx) / (w / 2 or 1), (py - cy) / (h / 2 or 1)) / math.sqrt(2)
+    else:
+        a = math.radians(180 if g.angle is None else g.angle)
+        dx, dy = math.sin(a), -math.cos(a)
+        length = abs(w * dx) + abs(h * dy) or 1
+        t = ((px - cx) * dx + (py - cy) * dy) / length + 0.5
+    s0, s1 = (g.start_at or 0) / 100, (100 if g.end_at is None else g.end_at) / 100
+    k = 0.0 if t <= s0 else 1.0 if t >= s1 or s1 <= s0 else (t - s0) / (s1 - s0)
+    start = palette.color(g.start or base)
+    end = palette.color(g.end) if g.end else start
+    end_alpha = 1.0 if g.end else 0.0
+    return _blend(end, start, k), 1.0 + (end_alpha - 1.0) * k
+
+
+def _paint(e: Element, px: float, py: float, palette: Palette) -> tuple[RGB, float]:
+    """An element's own colour and opacity at a point, before what's beneath shows."""
+    alpha = 1.0 if e.opacity is None else e.opacity
+    if e.gradient is not None:
+        rgb, ga = gradient_at(e.gradient, (e.x, e.y, e.w, e.h), *_unrotate(e, px, py),
+                              palette, e.color or "accent")
+        return rgb, alpha * ga
+    return palette.color(e.color or "accent"), alpha
+
+
+def surface_at(els: list[Element], index: int, px: float, py: float, palette: Palette,
+               background: Gradient | None = None) -> tuple[tuple, RGB | str]:
+    """(which surfaces, colour) directly under (px, py) beneath element `index`. The
+    surface id says which layers make up the colour, so a text over the edge between
+    two of them is caught even when the colours happen to be close."""
     for j in range(index - 1, -1, -1):
         e = els[j]
-        if e.kind in ("text", "logo") or not covers(e, px, py):
+        if e.kind in ("text", "logo", *STROKES) or not covers(e, px, py):
             continue
         if e.kind == "photo":
-            return "photo"
-        color = palette.color(e.color or "accent")
-        if e.opacity is not None and e.opacity < 1:
-            under = background_at(els, j, px, py, palette)
-            if under == "photo":
-                return "photo"
-            color = _blend(color, under, e.opacity)  # type: ignore[arg-type]
-        return color
-    return palette.bg
+            return ("photo",), "photo"
+        rgb, alpha = _paint(e, px, py, palette)
+        if alpha >= 0.999:
+            # solid layers of the same colour read as one surface (a panel and its arrow
+            # tip); a gradient is its own surface
+            return ((j,) if e.gradient else ("solid", e.color)), rgb
+        under_id, under = surface_at(els, j, px, py, palette, background)
+        if under == "photo":
+            return (j, *under_id), "photo"
+        return (j, *under_id), _blend(rgb, under, alpha)  # type: ignore[arg-type]
+    if background is not None:
+        rgb, alpha = gradient_at(background, (0, 0, W, H), px, py, palette, "bg")
+        return ("canvas",), _blend(rgb, (255, 255, 255), alpha)
+    return ("canvas",), palette.bg
+
+
+def background_at(els: list[Element], index: int, px: float, py: float,
+                  palette: Palette, background: Gradient | None = None) -> RGB | str:
+    """Colour directly under point (px, py) beneath element `index` — or 'photo'."""
+    return surface_at(els, index, px, py, palette, background)[1]
+
+
+def stroke_points(e: Element) -> list[tuple[float, float]]:
+    """Points along a line's or hand-drawn stroke's centre, in canvas pixels."""
+    if e.kind == "line":
+        cx, cy = e.x + e.w / 2, e.y + e.h / 2
+        a = math.radians(e.rotate or 0)
+        return [(cx + (t - 0.5) * e.w * math.cos(a), cy + (t - 0.5) * e.w * math.sin(a))
+                for t in (i / 24 for i in range(25))]
+    if e.kind == "draw":
+        _, pts = draw_path(e.draw or "underline", e.w, e.h, e.stroke_width or 6,
+                           seed=draw_seed(e))
+        return [(e.x + x, e.y + y) for x, y in pts]
+    return []
+
+
+def draw_seed(e: Element) -> int:
+    return int(e.x * 7 + e.y * 13 + e.w)
 
 
 def luminance(c: RGB) -> float:
@@ -132,6 +211,41 @@ def rotated_extent(e: Element) -> tuple[float, float, float, float]:
     return cx - hw, cy - hh, cx + hw, cy + hh
 
 
+# The feature families beyond plain circles and rectangles; AI designs must use a few.
+FEATURE_FAMILIES = {
+    "shape": "a Lido shape beyond rectangle/circle (chevron, arrow, parallelogram, "
+             "hexagon, triangle, arrow-tag…)",
+    "gradient": "a gradient (radial spotlight, deepening background, fading panel)",
+    "border": "a dashed or dotted outline (coupon box, dotted frame)",
+    "line": "lines (dividers, corner brackets, a pointer with an arrow end)",
+    "draw": "a hand-drawn accent (underline a key word, circle the price, arrow at the "
+            "product)",
+    "frame": "a photo frame from FRAMES (brush stroke, torn paper, scallop, gem, letter…)",
+    "effect": "a text effect (hollow outline word, lift or shadow on the headline)",
+}
+MIN_FAMILIES = 2
+
+
+def families_used(design: Design) -> set[str]:
+    used = set()
+    if design.background is not None:
+        used.add("gradient")
+    for e in design.elements:
+        if e.kind == "shape" and e.shape not in (None, "rectangle", "circle"):
+            used.add("shape")
+        if e.gradient is not None:
+            used.add("gradient")
+        if e.kind == "shape" and e.stroke and e.stroke_style in ("dashed", "dotted"):
+            used.add("border")
+        if e.kind in ("line", "draw"):
+            used.add(e.kind)
+        if e.kind == "photo" and e.frame:
+            used.add("frame")
+        if e.kind == "text" and e.effect:
+            used.add("effect")
+    return used
+
+
 def _richness(els: list[Element], texts, extents, name) -> list[str]:
     """What separates a designed template from a wireframe — enforced on AI designs."""
     errors = []
@@ -153,7 +267,8 @@ def _richness(els: list[Element], texts, extents, name) -> list[str]:
         if e.w <= uw + 200 and e.h <= uh + 150:
             backing.add(j)
     shapes = [(j, e) for j, e in enumerate(els) if e.kind == "shape" and j not in backing]
-    big = sum(1 for _, e in shapes if min(e.w, e.h) >= 24 or max(e.w, e.h) >= 80)
+    big = sum(1 for _, e in shapes if min(e.w, e.h) >= 24 or max(e.w, e.h) >= 80) \
+        + sum(1 for e in els if e.kind in STROKES)
     textures = 1 if any(max(e.w, e.h) < 24 for _, e in shapes) else 0
     if big + textures < 3:
         errors.append(f"the design looks bare: only {big + textures} decorative element(s) "
@@ -237,10 +352,18 @@ def validate(design: Design, v: Variant, *, creative: bool = False) -> list[str]
         if e.color == "soft":
             errors.append(f"{name(e)}: 'soft' is a decoration colour, never text")
 
-        # what sits under it: one flat colour, readable
-        seen: set = set()
+        if e.effect == "hollow" and (e.size or 0) < HOLLOW_MIN_PX:
+            errors.append(f"{name(e)}: hollow (outline) letters need at least "
+                          f"{HOLLOW_MIN_PX}px to read — use it on big display text only")
+
+        # what sits under it: one surface (a flat colour or one gradient), readable at
+        # every point
+        surfaces: set = set()
+        colours: list = []
         for px, py in _samples(extents[i]):
-            seen.add(background_at(els, i, px, py, pal))
+            sid, rgb = surface_at(els, i, px, py, pal, design.background)
+            surfaces.add(sid)
+            colours.append(rgb)
             for j in range(i + 1, len(els)):
                 if els[j].kind in ("shape", "photo", "logo") and covers(els[j], px, py):
                     errors.append(f"{name(e)}: a {els[j].kind} is drawn on top of it")
@@ -253,19 +376,21 @@ def validate(design: Design, v: Variant, *, creative: bool = False) -> list[str]
             if s.kind == "shape" and max(s.w, s.h) < 60 \
                     and _overlap(rotated_extent(s), box, pad=0) \
                     and not all(covers(s, px, py) for px, py in _samples(box)):
-                seen.add(("small shape", j))
-        if "photo" in seen:
+                surfaces.add(("small shape", j))
+        if "photo" in colours:
             errors.append(f"{name(e)}: sits on a photo — put it on a flat colour")
-        elif len(seen) > 1:
+        elif len(surfaces) > 1:
             errors.append(f"{name(e)}: straddles the edge of a shape (sits on "
-                          f"{len(seen)} different colours)")
-        elif seen:
-            under = next(iter(seen))
+                          f"{len(surfaces)} different surfaces)")
+        elif colours:
             need = 3.0 if (e.size or 0) >= 36 else 4.5
-            ratio = contrast(pal.color(e.color or "ink"), under)  # type: ignore[arg-type]
+            ink = pal.color(e.color or "ink")
+            ratio = min(contrast(ink, c) for c in colours)  # type: ignore[arg-type]
             if ratio < need:
-                errors.append(f"{name(e)}: contrast {ratio:.1f}:1 against what's behind it, "
-                              f"needs {need}:1")
+                where = " at its weakest point (the gradient fades there)" \
+                    if len(set(colours)) > 1 else ""
+                errors.append(f"{name(e)}: contrast {ratio:.1f}:1 against what's behind "
+                              f"it{where}, needs {need}:1")
 
     for a in range(len(texts)):
         for b in range(a + 1, len(texts)):
@@ -278,8 +403,9 @@ def validate(design: Design, v: Variant, *, creative: bool = False) -> list[str]
         if box[0] < EDGE - 10 or box[1] < EDGE - 10 or box[2] > W - EDGE + 10 \
                 or box[3] > H - EDGE + 10:
             errors.append("logo is too close to the canvas edge")
-        under = {background_at(els, li, px, py, pal) for px, py in _samples(box, 3, 3)}
-        if "photo" in under or len(under) > 1:
+        under = {surface_at(els, li, px, py, pal, design.background)[0]
+                 for px, py in _samples(box, 3, 3)}
+        if ("photo",) in under or len(under) > 1:
             errors.append("logo must sit on one flat colour (it's swapped for the brand's "
                           "own logo and needs a predictable backdrop)")
         for i, e in texts:
@@ -289,11 +415,26 @@ def validate(design: Design, v: Variant, *, creative: bool = False) -> list[str]
     for e in els:
         x0, y0, x1, y1 = rotated_extent(e)
         off = x0 < -1 or y0 < -1 or x1 > W + 1 or y1 > H + 1
-        if e.kind in ("shape", "photo") and not e.bleed and off:
+        if e.kind in ("shape", "photo", *STROKES) and not e.bleed and off:
             errors.append(f"{e.kind} at ({e.x:.0f},{e.y:.0f}) runs off the canvas "
                           "without bleed")
         if e.kind == "photo" and min(e.w, e.h) < 200:
             errors.append(f"photo {e.w:.0f}x{e.h:.0f} is too small to read")
+
+    # lines and hand-drawn strokes decorate around text — never through it
+    for e in els:
+        if e.kind not in STROKES:
+            continue
+        pts = stroke_points(e)
+        for i, t in texts:
+            x0, y0, x1, y1 = extents[i]
+            if any(x0 + 3 < px < x1 - 3 and y0 + 3 < py < y1 - 3 for px, py in pts):
+                what = f"hand-drawn {e.draw}" if e.kind == "draw" else "line"
+                errors.append(f"{what} crosses {name(t)} — put it under, beside or "
+                              "around the text")
+    if design.background is not None and design.background.end is None:
+        errors.append("a background gradient must end in a colour role (a transparent "
+                      "canvas has nothing behind it)")
 
     if headlines:
         top = headlines[0].size or 0
@@ -303,4 +444,11 @@ def validate(design: Design, v: Variant, *, creative: bool = False) -> list[str]
                               "take it for the headline")
     if creative:
         errors += _richness(els, texts, extents, name)
+        used = families_used(design)
+        if len(used) < MIN_FAMILIES:
+            missing = "; ".join(f"{k}: {v}" for k, v in FEATURE_FAMILIES.items()
+                                if k not in used)
+            errors.append(f"the design only uses circles and rectangles"
+                          f"{' plus ' + ', '.join(sorted(used)) if used else ''} — use at "
+                          f"least {MIN_FAMILIES} of these feature families: {missing}")
     return list(dict.fromkeys(errors))

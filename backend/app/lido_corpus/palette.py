@@ -74,6 +74,34 @@ def parse_color(value: str | None) -> RGB | None:
     return None
 
 
+def gradient_stops(value) -> list[RGB]:
+    """The stop colours of a Lido gradient ({colors: [{color, percent}], style, angle});
+    [] for a flat colour."""
+    if not isinstance(value, dict):
+        return []
+    return [rgb for stop in value.get("colors") or []
+            if (rgb := parse_color((stop or {}).get("color"))) is not None]
+
+
+def _alpha(value: str) -> float:
+    m = re.match(r"^rgba\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*([\d.]+)\s*\)$", value or "")
+    return float(m.group(1)) if m else 1.0
+
+
+def recolor_gradient(value: dict, mapping: dict[RGB, RGB]) -> dict:
+    """The same gradient with every stop recoloured, keeping each stop's transparency
+    (a colour fading to transparent stays a fade)."""
+    out = {**value, "colors": []}
+    for stop in value.get("colors") or []:
+        old = parse_color(stop.get("color"))
+        if old is None or old not in mapping:
+            out["colors"].append(dict(stop))
+            continue
+        r, g, b = mapping[old]
+        out["colors"].append({**stop, "color": f"rgba({r}, {g}, {b}, {_alpha(stop['color']):g})"})
+    return out
+
+
 def parse_palette(values: list[str] | None) -> list[RGB]:
     """The user's colours, validated: at most MAX_COLORS, duplicates removed, order kept
     (the first colour is the primary). Raises ValueError on a colour it can't read."""
@@ -446,6 +474,11 @@ def plan_theme(template: LidoTemplateFile, palette: list[RGB]) -> ThemePlan:
             fill = parse_color(props.get("color"))
             if fill is not None:
                 usage[fill] = usage.get(fill, 0.0) + max(box.w * box.h, 1.0)
+            for stop in gradient_stops(props.get("color")):
+                # a gradient counts once per stop, at half weight: it covers the area
+                # between them
+                usage[stop] = usage.get(stop, 0.0) + max(box.w * box.h, 1.0) / 2
+            fill = fill or next(iter(gradient_stops(props.get("color"))), None)
             border = parse_color((props.get("border") or {}).get("color"))
             if border is not None:
                 usage[border] = usage.get(border, 0.0) + (box.w + box.h) * 2
@@ -453,10 +486,17 @@ def plan_theme(template: LidoTemplateFile, palette: list[RGB]) -> ThemePlan:
         elif kind == "TextLayer":
             for rgb, w in _visible_colors(props).items():
                 usage[rgb] = usage.get(rgb, 0.0) + w
-    root_color = parse_color(template.layers[BACKGROUND_LAYER_ID].props.get("color")) \
-        if BACKGROUND_LAYER_ID in template.layers else None
-    if root_color is not None:
-        usage.setdefault(root_color, 1.0)
+        elif kind in ("LineLayer", "DrawLayer"):
+            stroke = parse_color(props.get("color"))
+            if stroke is not None:
+                box = _box(props)
+                usage[stroke] = usage.get(stroke, 0.0) + (box.w + box.h) * 2
+    root_props = template.layers[BACKGROUND_LAYER_ID].props \
+        if BACKGROUND_LAYER_ID in template.layers else {}
+    for root_color in [parse_color(root_props.get("color")),
+                       *gradient_stops(root_props.get("color"))]:
+        if root_color is not None:
+            usage.setdefault(root_color, 1.0)
 
     # A shape with text on it keeps the opposite side of that text (a mid-tone red
     # panel under white text is a dark panel as far as the design is concerned).
@@ -565,9 +605,14 @@ def apply_theme(layers: dict[str, dict], plan: ThemePlan) -> None:
         props = layer.get("props") or {}
         kind = (layer.get("type") or {}).get("resolvedName")
         if kind == "RootLayer" and "color" in props:
+            props["color"] = recolor_gradient(props["color"], plan.color_map) \
+                if isinstance(props["color"], dict) else _recolor(props["color"], plan.color_map)
+        elif kind in ("LineLayer", "DrawLayer") and "color" in props:
             props["color"] = _recolor(props["color"], plan.color_map)
         elif kind == "ShapeLayer":
-            if lid in plan.shapes:
+            if isinstance(props.get("color"), dict):
+                props["color"] = recolor_gradient(props["color"], plan.color_map)
+            elif lid in plan.shapes:
                 props["color"] = to_css(plan.shapes[lid])
             border = props.get("border")
             if isinstance(border, dict) and "color" in border:

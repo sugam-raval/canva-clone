@@ -98,6 +98,9 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
               <div><strong>Colours:</strong> <Swatches colors={draft.colors} /></div>
             )}
             {draft.fonts && <div><strong>Fonts:</strong> {draft.fonts}</div>}
+            {draft.features && draft.features.length > 0 && (
+              <div><strong>Signature elements:</strong> {draft.features.join(', ')}</div>
+            )}
             {draft.textCount != null && <div><strong>Text boxes:</strong> {draft.textCount}</div>}
           </div>
           <div style={{ marginTop: 10 }}>

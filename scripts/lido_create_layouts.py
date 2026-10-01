@@ -57,7 +57,7 @@ def build(recipe: str, v: Variant, mirrored: bool) -> Design:
     c = Canvas(v)
     RECIPES[recipe].build(c)
     d = Design(recipe=recipe, theme=v.theme.name, palette=v.palette.name,
-               fonts=v.fonts.name, elements=c.els)
+               fonts=v.fonts.name, background=c.background, elements=c.els)
     return mirror(d) if mirrored else d
 
 

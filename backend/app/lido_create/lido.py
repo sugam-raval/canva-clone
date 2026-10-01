@@ -5,24 +5,28 @@ from __future__ import annotations
 
 import uuid
 
-from app.lido_create.check import background_at, luminance
+from app.lido_create.check import background_at, draw_seed, luminance
+from app.lido_create.draw import draw_path
 from app.lido_create.kit import (
     FONT_URLS,
     LOGOS,
     Design,
     Element,
+    Gradient,
     H,
+    Palette,
     Photo,
     Variant,
     W,
     line_count,
     pick_photo,
 )
+from app.lido_create.shapes import BORDER_STYLES, LINE_STYLES, TEXT_EFFECTS, frames
 
 SHAPE_SCALE = W / (640 / 3)  # the `scale` Lido writes for a shape drawn on a fresh canvas
-# Lido's `roundedCorners` is not in pixels; on the existing previews a value of ~4x the
-# visible radius matches. Approximate — check buttons in the editor.
-ROUNDED_PER_PX = 4
+# Lido draws a corner radius of roundedCorners / scale pixels (measured on the editor's
+# own rendering, lidojs_templates/lido_core/), so px -> roundedCorners multiplies by it.
+ROUNDED_PER_PX = SHAPE_SCALE
 
 LIDO_TEXT_TYPE = {"headline": "bodyText", "kicker": "bodyText", "body": "bodyText",
                   "item": "bodyText", "cta": "static", "badge": "static", "caption": "static",
@@ -38,6 +42,20 @@ def rgb(c) -> str:
     return f"rgb({c[0]}, {c[1]}, {c[2]})"
 
 
+def rgba(c, alpha: float) -> str:
+    return f"rgba({c[0]}, {c[1]}, {c[2]}, {alpha:g})"
+
+
+def lido_gradient(g: Gradient, base: str, palette: Palette) -> dict:
+    """A Gradient as Lido stores it: `color` becomes {colors: [2 stops], style, angle}."""
+    start = palette.color(g.start or base)
+    end = palette.color(g.end) if g.end else start
+    return {"colors": [{"color": rgba(start, 1), "percent": g.start_at or 0},
+                       {"color": rgba(end, 1 if g.end else 0),
+                        "percent": 100 if g.end_at is None else g.end_at}],
+            "style": g.style, "angle": 180 if g.angle is None else g.angle}
+
+
 def _layer(type_: str | None, resolved: str, props: dict, fixed=None, replace=None) -> dict:
     return {"type": {"type": type_, "resolvedName": resolved, "fixedText": fixed,
                      "replacableText": replace},
@@ -51,7 +69,15 @@ def _text(e: Element, v: Variant) -> dict:
     lh = e.line_height or 1.3
     kind = LIDO_TEXT_TYPE[e.text_type or "body"]
     static = kind == "static"
-    return _layer(kind, "TextLayer", {
+    extra = {}
+    if e.effect:
+        name, settings = TEXT_EFFECTS[e.effect]
+        settings = dict(settings)
+        if e.effect == "shadow":
+            settings["color"] = rgb(v.palette.color(e.effect_color)) if e.effect_color \
+                else "rgb(0, 0, 0)"
+        extra["effect"] = {"name": name, "settings": settings}
+    return _layer(kind, "TextLayer", {**extra,
         "doc": {"type": "doc", "content": [{
             "type": "paragraph",
             "attrs": {"color": color, "indent": 0, "fontSize": f"{e.size}px",
@@ -70,14 +96,16 @@ def _text(e: Element, v: Variant) -> dict:
 
 
 def _shape(e: Element, v: Variant) -> dict:
-    props = {"shape": "circle" if e.shape == "circle" else "rectangle",
+    color = lido_gradient(e.gradient, e.color or "accent", v.palette) if e.gradient \
+        else rgb(v.palette.color(e.color or "accent"))
+    props = {"shape": e.shape or "rectangle",
              "position": {"x": e.x, "y": e.y}, "boxSize": {"width": e.w, "height": e.h},
-             "rotate": e.rotate or 0, "color": rgb(v.palette.color(e.color or "accent")),
-             "scale": SHAPE_SCALE}
+             "rotate": e.rotate or 0, "color": color, "scale": SHAPE_SCALE}
     if e.stroke and e.stroke_width:
-        props["border"] = {"color": rgb(v.palette.color(e.stroke)), "style": "solid",
+        props["border"] = {"color": rgb(v.palette.color(e.stroke)),
+                           "style": BORDER_STYLES[e.stroke_style or "solid"],
                            "weight": e.stroke_width}
-    if e.radius and e.shape != "circle":
+    if e.radius and e.shape in (None, "rectangle"):
         props["roundedCorners"] = round(e.radius * ROUNDED_PER_PX)
     if e.opacity is not None and e.opacity < 1:
         props["transparency"] = e.opacity
@@ -143,19 +171,46 @@ def _cutout(e: Element, p: Photo) -> dict:
     })
 
 
+def _line(e: Element, v: Variant) -> dict:
+    return _layer(None, "LineLayer", {
+        "style": LINE_STYLES[e.stroke_style or "solid"],
+        "boxSize": {"width": e.w, "height": e.h},
+        "color": rgb(v.palette.color(e.color or "accent")),
+        "position": {"x": e.x, "y": e.y}, "scale": 1, "rotate": e.rotate or 0,
+        "arrowStart": e.line_start or "none", "arrowEnd": e.line_end or "none",
+    })
+
+
+def _draw(e: Element, v: Variant) -> dict:
+    path, _ = draw_path(e.draw or "underline", e.w, e.h, e.stroke_width or 6,
+                        seed=draw_seed(e))
+    return _layer(None, "DrawLayer", {
+        "path": path, "color": rgb(v.palette.color(e.color or "accent")),
+        "width": e.stroke_width or 6,
+        "position": {"x": e.x, "y": e.y}, "boxSize": {"width": e.w, "height": e.h},
+        "rotate": e.rotate or 0, "scale": 1,
+        "transparency": 1 if e.opacity is None else e.opacity,
+    })
+
+
 def _photo(e: Element, p: Photo) -> dict:
     if e.clip == "cutout":
         if p.cutout:
             return _cutout(e, p)
         e = e.model_copy(update={"clip": "blob"})  # a placeholder photo, not a cutout
-    cw = 500.0
-    ch = 500.0 if e.clip == "circle" else round(500.0 * e.h / e.w, 4)
+    if e.frame:  # a Lido frame outline, used as drawn: its natural size is its bounds
+        f = frames()[e.frame]
+        cw, ch, path = f.w, f.h, f.path
+    else:
+        cw = 500.0
+        ch = 500.0 if e.clip == "circle" else round(500.0 * e.h / e.w, 4)
+        path = None
     scale = e.w / cw
     s = max(cw / p.w, ch / p.h)  # cover: fill the frame, crop the overflow
     bw, bh = p.w * s, p.h * s
     focus = 0.5 if e.focus is None else e.focus
     return _layer(None, "FrameLayer", {
-        "clipPath": clip_path(e.clip or "rect", cw, ch, (e.radius or 0) / scale),
+        "clipPath": path or clip_path(e.clip or "rect", cw, ch, (e.radius or 0) / scale),
         "position": {"x": e.x, "y": e.y}, "boxSize": {"width": e.w, "height": e.h},
         "rotate": 0, "scale": scale,
         "image": {"url": p.url, "thumb": p.url, "boxSize": {"width": bw, "height": bh},
@@ -164,7 +219,8 @@ def _photo(e: Element, p: Photo) -> dict:
 
 
 def _logo(e: Element, index: int, design: Design, v: Variant) -> dict:
-    under = background_at(design.elements, index, e.x + e.w / 2, e.y + e.h / 2, v.palette)
+    under = background_at(design.elements, index, e.x + e.w / 2, e.y + e.h / 2, v.palette,
+                          design.background)
     dark = under == "photo" or luminance(under) < 0.4  # type: ignore[arg-type]
     url = LOGOS["white" if dark else "black"]
     return _layer("logo", "FrameLayer", {
@@ -189,7 +245,10 @@ def to_lido(design: Design, v: Variant, photos: list[Photo] | None = None) -> li
                  "replacableText": None},
         "child": [],
         "props": {"boxSize": {"width": W, "height": H}, "position": {"x": 0, "y": 0},
-                  "rotate": 0, "color": rgb(v.palette.bg), "image": None, "video": None},
+                  "rotate": 0,
+                  "color": lido_gradient(design.background, "bg", v.palette)
+                  if design.background else rgb(v.palette.bg),
+                  "image": None, "video": None},
         "locked": False, "parent": None,
     }}
     for i, e in enumerate(design.elements):
@@ -200,6 +259,10 @@ def to_lido(design: Design, v: Variant, photos: list[Photo] | None = None) -> li
         elif e.kind == "photo":
             layer = _photo(e, queue.pop(0) if queue
                            else pick_photo(v, e.w, e.h, cutout=e.clip == "cutout"))
+        elif e.kind == "line":
+            layer = _line(e, v)
+        elif e.kind == "draw":
+            layer = _draw(e, v)
         else:
             layer = _logo(e, i, design, v)
         lid = str(uuid.uuid4())

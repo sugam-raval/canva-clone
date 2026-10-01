@@ -133,6 +133,8 @@ export interface LidoDraftInfo {
   fonts?: string | null
   mirrored?: boolean
   colors: Record<string, string>
+  /** Feature families this design was asked to use (gradient, frame, draw, line…). */
+  features?: string[]
   textCount?: number | null
   /** What each photo should show — the prompts future image generation will use. */
   photoSubjects: string[]

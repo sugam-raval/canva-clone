@@ -175,6 +175,7 @@ async def create_from_prompt(prompt: str, *, variations: int = 1,
             save_draft, r.design, r.variant, tid, photos=chosen,
             info={"source": "brief", "prompt": prompt, "name": r.name, "idea": r.idea,
                   "direction": r.direction, "attempts": r.attempts, "colors": r.colors,
+                  "features": r.features,
                   "photoSource": source.name, "problems": r.errors})
         saved.append({**record, "document": json.loads(_paths(tid)[0].read_text())})
     return saved

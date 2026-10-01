@@ -21,7 +21,7 @@ from pydantic import BaseModel
 from app.adapters.base import AdapterError
 from app.lido_corpus.palette import parse_color, to_hex
 from app.lido_create.ai import EXAMPLE_RECIPES, SYSTEM, example, normalise
-from app.lido_create.check import validate
+from app.lido_create.check import FEATURE_FAMILIES, validate
 from app.lido_create.kit import (
     FONT_SETS,
     FONT_SETS_BY_NAME,
@@ -30,6 +30,7 @@ from app.lido_create.kit import (
     THEMES_BY_NAME,
     Design,
     Element,
+    Gradient,
     Palette,
     Photo,
     Variant,
@@ -117,6 +118,7 @@ class BriefDesign(BaseModel):
     colors: BriefColors
     fonts: FontSetName
     photo_theme: ThemeName
+    background: Gradient | None  # a gradient canvas (with an end colour), or null
     elements: list[Element]
 
 
@@ -142,6 +144,7 @@ class BriefResult:
     direction: str | None
     attempts: int
     colors: dict[str, str] = field(default_factory=dict)
+    features: list[str] = field(default_factory=list)
 
 
 def _palette(colors: BriefColors) -> Palette:
@@ -173,10 +176,15 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
         raise RuntimeError("designing from a prompt needs OPENAI_API_KEY in backend/.env")
 
     rng = rng or random.Random()
+    # a different trio of feature families per design, so results spread across Lido's
+    # whole vocabulary instead of settling on circles and rectangles
+    features = rng.sample(sorted(FEATURE_FAMILIES), 3)
     system = SYSTEM + BRIEF_RULES + "\n" + _catalogue()
     brief = f'CLIENT BRIEF:\n"""\n{prompt.strip()}\n"""'
     steer = (f"Creative direction for this version: {direction}." if direction
              else "Choose the composition that best serves this brief.")
+    steer += ("\nSignature elements for this version — work all three into the design: "
+              + "; ".join(FEATURE_FAMILIES[f] for f in features) + ".")
     user = (f"{brief}\n\n{steer}\n\n"
             "Two existing pro layouts, to show the format and the level of detail "
             "expected — match their richness, do not copy their composition:\n"
@@ -200,11 +208,12 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
                     THEMES_BY_NAME[ai.photo_theme], rng, photos)
         ai.elements = normalise(ai.elements, v)
         design = Design(recipe=f"brief:{ai.name}", theme=ai.photo_theme, palette="custom",
-                        fonts=ai.fonts, elements=ai.elements)
+                        fonts=ai.fonts, background=ai.background, elements=ai.elements)
         errors = validate(design, v, creative=True)
         result = BriefResult(design, v, errors, ai.name, ai.idea, direction, attempt,
                              {r: to_hex(v.palette.color(r))
-                              for r in ("bg", "ink", "accent", "on_accent", "soft")})
+                              for r in ("bg", "ink", "accent", "on_accent", "soft")},
+                             features)
         if not errors:
             break
         user = (f"{brief}\n\nYour design:\n{ai.model_dump_json(exclude_none=True)}\n\n"

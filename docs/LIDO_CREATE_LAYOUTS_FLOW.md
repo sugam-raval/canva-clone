@@ -525,3 +525,45 @@ the example was the plain `split_offer`, and the AI copied its plainness.
 
 The hand-made recipes are exempt (`make lido-create` still uses all 10), but only the
 two pro recipes and `service_list` would pass the creative checks.
+
+---
+
+## 14. Lido's full feature set in the generator
+
+All of what the Lido editor can draw ([LIDO_CAPABILITIES.md](LIDO_CAPABILITIES.md)) is
+now available to recipes and the AI:
+
+| Feature | Element fields (`kit.py`) | Where it lives |
+|---|---|---|
+| 20 shapes | `shape: "chevron"`, … | `shapes.py` `SHAPES` (outline, AI hint) |
+| Gradients | `gradient: {style, angle, start, end, start_at, end_at}`; `Design.background` for the canvas | writer `lido_gradient`, checks `gradient_at` |
+| Dashed / dotted outlines | `stroke`, `stroke_width`, `stroke_style` | writer `_shape` |
+| Lines | `kind: "line"`, `line_start`, `line_end`, `stroke_style` | writer `_line` |
+| Hand-drawn strokes | `kind: "draw"`, `draw: "underline"`, … | `draw.py` |
+| 41 photo frames | photo `frame: "brush_band"`, `"letter_A"`, … | `shapes.py` `frames()`, `data/frames.json` |
+| Text effects | text `effect: shadow / lift / hollow`, `effect_color` | writer `_text` |
+
+**The checks for these:**
+- **Gradient contrast:** text on a gradient must be readable at its **weakest** point.
+- **Lines and strokes:** they may never run through text.
+- **Hollow letters:** need 56 px or more.
+- **Canvas gradient:** must end in a colour.
+- **Same-colour layers:** a panel and its arrow tip count as one surface.
+
+**The variety push:**
+- **Signature elements:** every AI design is given 3 randomly chosen "signature
+  elements" (from shape, gradient, border, line, draw, frame, effect).
+- **Creative check:** the design must use at least 2 of these families, or it goes back
+  for repair.
+
+In testing, all 6 AI designs used all 3 of their assigned families.
+
+**New pro recipe and example:** `spotlight_launch` uses the new features: a radial
+spotlight, a hollow word, a marker underline, a brush frame, an arrow-tag price, a
+drawn arrow, slanted bands and dotted lines.
+
+**The AI's examples:**
+- The AI sees two of the three pro recipes (`fresh_promo`, `geo_agency`,
+  `spotlight_launch`).
+- `fresh_promo` now uses a rhombus and a dashed coupon tag.
+- `geo_agency` now uses an arrow-tag panel and an accent line.

@@ -201,3 +201,47 @@ def test_prompt_block_is_only_built_with_a_theme():
         PROMPT, template, texts, images,
         theme=plan_theme(template, parse_palette([NAVY])))
     assert "COLOUR PALETTE" not in plain and "COLOUR PALETTE" in themed
+
+
+def test_gradients_lines_and_hand_drawn_strokes_follow_the_palette():
+    """New Lido decoration (docs/LIDO_CAPABILITIES.md) recolours like flat shapes do: a
+    gradient keeps its fade (each stop's transparency), lines and drawings take the
+    mapped colour."""
+    from app.lido_corpus.loader import derive_meta
+    from app.lido_corpus.model import LidoLayer, LidoTemplateFile
+
+    def layer(resolved, props, type_=None):
+        return {"type": {"type": type_, "resolvedName": resolved}, "child": [],
+                "props": {"position": {"x": 0, "y": 0},
+                          "boxSize": {"width": 300, "height": 200}, **props},
+                "locked": False, "parent": "ROOT"}
+
+    fade = {"style": "linear", "angle": 90,
+            "colors": [{"color": "rgba(235, 71, 61, 1)", "percent": 0},
+                       {"color": "rgba(235, 71, 61, 0)", "percent": 100}]}
+    raw = {
+        "ROOT": {"type": {"resolvedName": "RootLayer"}, "child": ["s", "l", "d"],
+                 "props": {"boxSize": {"width": 1080, "height": 1080},
+                           "position": {"x": 0, "y": 0}, "color": {
+                               "style": "radial", "angle": 180,
+                               "colors": [{"color": "rgb(20, 20, 20)", "percent": 0},
+                                          {"color": "rgba(60, 60, 60, 1)", "percent": 100}]}},
+                 "locked": False, "parent": None},
+        "s": layer("ShapeLayer", {"shape": "chevron", "color": fade}),
+        "l": layer("LineLayer", {"color": "rgb(235, 71, 61)", "style": "dots"}),
+        "d": layer("DrawLayer", {"color": "#eb473d", "path": "M 0,0 L 10,10", "width": 6}),
+    }
+    layers = {k: LidoLayer.model_validate(v) for k, v in raw.items()}
+    template = LidoTemplateFile(layers=layers, meta=derive_meta("template_1", layers))
+    plan = plan_theme(template, parse_palette([NAVY, CREAM]))
+    apply_theme(raw, plan)
+
+    stops = raw["s"]["props"]["color"]["colors"]
+    assert parse_color(stops[0]["color"]) != (235, 71, 61)
+    assert parse_color(stops[0]["color"]) == parse_color(stops[1]["color"])
+    assert stops[0]["color"].endswith(", 1)") and stops[1]["color"].endswith(", 0)")
+    assert raw["s"]["props"]["color"]["style"] == "linear"
+    assert parse_color(raw["l"]["props"]["color"]) == parse_color(stops[0]["color"])
+    assert parse_color(raw["d"]["props"]["color"]) == parse_color(stops[0]["color"])
+    root = raw["ROOT"]["props"]["color"]
+    assert root["style"] == "radial" and len(root["colors"]) == 2

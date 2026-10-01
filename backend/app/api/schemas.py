@@ -175,6 +175,8 @@ class LidoDraftInfo(Base):
     fonts: str | None = None
     mirrored: bool = False
     colors: dict[str, str] = Field(default_factory=dict)
+    features: list[str] = Field(default_factory=list)
+    """The feature families this design was asked to use (gradient, frame, draw…)."""
     text_count: int | None = None
     photo_subjects: list[str] = Field(default_factory=list)
     """What each photo should show — the prompts a future image-generation step uses."""

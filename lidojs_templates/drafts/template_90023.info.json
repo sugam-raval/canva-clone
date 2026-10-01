@@ -1,0 +1,34 @@
+{
+  "id": "template_90023",
+  "createdAt": "2026-10-01T05:29:50.484609+00:00",
+  "source": "brief",
+  "layout": "brief:summer_doodle_club",
+  "theme": "education",
+  "palette": "custom",
+  "fonts": "condensed-poster",
+  "mirrored": false,
+  "textCount": 9,
+  "photoSubjects": [
+    "A diverse group of happy children enjoying outdoor games at summer camp on a sunny green lawn, with candid laughter, bright blue and yellow clothing, and warm natural lighting."
+  ],
+  "hasPreview": true,
+  "problems": [],
+  "prompt": "Kids summer camp registration. Headline \"FUN SUMMER CAMP\". Playful hand-drawn doodles: a squiggle divider, a zigzag accent, sparkle lines next to \"Early Bird 20% Off\", and hand-drawn tick marks next to 3 activities: Swimming, Art, Games. Bright yellow and blue.",
+  "name": "summer_doodle_club",
+  "idea": "A sunny yellow poster with an oversized blue headline beside a tall camp photograph. Hand-drawn activity ticks and playful doodles lead toward an overlapping early-bird label and a clear registration footer.",
+  "direction": null,
+  "attempts": 1,
+  "colors": {
+    "bg": "#ffea58",
+    "ink": "#12379b",
+    "accent": "#174bcc",
+    "on_accent": "#ffffff",
+    "soft": "#e4cb38"
+  },
+  "features": [
+    "line",
+    "draw",
+    "effect"
+  ],
+  "photoSource": "corpus-cache"
+}

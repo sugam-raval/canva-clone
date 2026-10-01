@@ -8,7 +8,8 @@ import json
 
 from pydantic import BaseModel
 
-from app.lido_create.check import validate
+from app.lido_create.check import FEATURE_FAMILIES, validate
+from app.lido_create.draw import DRAW_PRESETS
 from app.lido_create.kit import (
     FONT_SETS,
     PALETTES,
@@ -16,38 +17,53 @@ from app.lido_create.kit import (
     Canvas,
     Design,
     Element,
+    Gradient,
     Variant,
     line_count,
 )
 from app.lido_create.recipes import RECIPES
+from app.lido_create.shapes import FRAME_HINTS, SHAPES, frames
 
 
 class AIDesign(BaseModel):
     name: str  # short snake_case name for the layout idea
     idea: str  # the composition in one sentence
+    background: Gradient | None  # a gradient canvas, or null for the flat bg colour
     elements: list[Element]
 
 
-SYSTEM = """You are a senior social-media designer. You lay out ONE square 1080x1080 post
+SYSTEM_TEMPLATE = """You are a senior social-media designer. You lay out ONE square 1080x1080 post
 template as a list of elements with pixel coordinates. The template will later be filled
 automatically for any business, so it must be generic in its decoration, but it must look
 like a polished, professionally designed template — never a plain wireframe.
 
 ELEMENTS (drawn in list order: first = back, last = front)
-- shape: shape "rectangle" (radius = corner radius px, 0 for sharp) or "circle";
-  color = a palette role; optional opacity 0-1; rotate = degrees clockwise around its
-  centre (45 on a square makes a diamond); stroke + stroke_width = an outline (the fill
-  is still drawn — fill with the colour behind it for an outline-only look);
-  bleed=true if it may run off the canvas.
+- shape: shape = one of the SHAPES below; color = a palette role; radius = corner
+  radius px (rectangle only); opacity 0-1; rotate = degrees clockwise around its centre;
+  gradient = a fill that changes across the shape (see GRADIENTS) instead of a flat
+  colour; stroke + stroke_width + stroke_style (solid | dashed | dotted) = an outline
+  (the fill is still drawn — fill with the colour behind it for an outline-only
+  look); bleed=true if it may run off the canvas.
+- line: a straight line — x/y = its left end, w = length, h = thickness (2-8px),
+  rotate, color, stroke_style solid | dashed | dotted, line_start / line_end = none |
+  arrow | triangle | bar | circle | square | diamond | outlineCircle | outlineSquare |
+  outlineDiamond. For dividers, underlines, pointers, frames made of lines.
+- draw: a hand-drawn marker stroke filling x/y/w/h — draw = one of DRAW below, color,
+  stroke_width (4-14px), opacity. Casual, human accents: circle a price, underline a
+  word, point an arrow at the product.
 - dots: a dot-grid texture — x/y/w/h is the area, rows x cols dots (max 8 x 8) of
   diameter dot (6-12px), color, optional opacity. One element, not many circles.
-- photo: clip "rect" | "rounded" (radius px) | "circle" (w = h) | "arch" | "hexagon" |
-  "diamond" | "blob" (organic) | "leaf" (two rounded corners) | "cutout" (a transparent
-  subject with no frame, floating directly on the background); focus 0-1 (0.3 keeps faces, 0.5 centre); subject = one sentence on what it
-  shows. The picture itself is supplied automatically.
+- photo: frame = one of FRAMES below (the photo is cut to that outline and keeps its
+  aspect ratio — h follows w), or clip "rect" | "rounded" (radius px) | "circle" (w = h)
+  | "arch" | "hexagon" | "diamond" | "blob" | "leaf" | "cutout" (a transparent subject
+  with no frame, floating directly on the background); focus 0-1 (0.3 keeps faces, 0.5
+  centre); subject = one sentence on what it shows. The picture is supplied
+  automatically.
 - logo: exactly one, w 110, h 89. It must sit on one flat colour, never on a photo.
 - text: text (placeholder copy), text_type, font role, size px, align, max_lines,
-  uppercase, letter_spacing (em, 0-0.3), line_height. Set h to 0 — it is measured.
+  uppercase, letter_spacing (em, 0-0.3), line_height, effect = shadow | lift (soft
+  glow) | hollow (outline-only letters, display text of 56px or more) with
+  effect_color for the shadow. Set h to 0 — it is measured.
   text_type: headline (exactly one, the largest free text on the canvas), kicker, body,
   item (list lines), cta (button label), badge (offer/price/date label), caption (small
   caps label like "CALL US", "UP TO", "ONLY"), website, phone, email, address (at most
@@ -55,6 +71,21 @@ ELEMENTS (drawn in list order: first = back, last = front)
   font roles: display (headlines/badges/prices), body (everything small), button
   (button labels, uppercase), script (a short decorative phrase — always smaller in px
   than the headline).
+
+SHAPES
+{shapes}
+
+FRAMES (photo outlines): {frames}; letter_A ... letter_Z (the photo fills one big
+letter — for a bold initial or a one-letter word).
+
+DRAW (hand-drawn strokes): {draws}
+
+GRADIENTS: {{style: linear | radial, angle (linear, CSS degrees: 0 = towards the top,
+90 = right, 180 = down, 45 = up-right), start (colour role, default the element's
+color), end (colour role; leave empty to fade the start colour out to transparent),
+start_at / end_at (0-100, where the fade begins and ends)}}. The whole canvas can have a
+gradient too (background, with an end colour). Use them for depth: a spotlight
+(radial) behind the headline, a panel that fades out, a dark-to-deep background.
 
 COLOUR ROLES: bg (the canvas colour), ink (text on bg), accent (buttons, badges, big
 shapes), on_accent (text ON accent), soft (decoration only — never text).
@@ -70,6 +101,7 @@ RULES THAT ARE CHECKED (your layout is rejected if any fails)
 - 1 or 2 photos, each at least 200px on each side, given real prominence
   (roughly a third of the canvas or more); 3 to 12 text boxes
 - at least 3 decorative elements that no text sits on
+- lines and hand-drawn strokes never run through text (under, beside or around it)
 - no shape behind a photo: photos sit directly on the background (no stage circle,
   blob, ring or offset block under them); decoration goes around photos, and badges
   may overlap a photo's edge only when drawn on top of it
@@ -93,7 +125,18 @@ PRO TEMPLATE TECHNIQUES — use several in every design
   website, with a small ring marker beside it, in a bottom row; often split left/right
   around a centred button.
 - Framing: an outlined rounded rectangle inset 30-40px around the whole canvas, or a
-  thick band along one edge.
+  thick band along one edge; or thin lines forming corner brackets.
+- Depth with gradients: a radial spotlight behind the headline or product, a panel
+  fading out towards the photo, a background running from bg to a deeper tone.
+- Shape language: parallelogram bands for energy, chevrons and arrows for flow and
+  steps, a starburst look from rotated squares, hexagon/pentagon tiles, a cross or small
+  triangles as sparkle accents.
+- Hand-drawn accents: a marker underline under the key word, a loose circle around the
+  price, a curved arrow pointing at the product, sparkle lines beside the offer.
+- Type effects (use sparingly, one per design): a hollow outline word paired with a
+  solid one, a soft lift under a big headline on a busy panel, a shadow on bold type.
+- Frames: a brush-stroke or torn-paper frame for a casual, crafted look; a scallop
+  badge or gem for a playful one; one big letter frame for a bold brand initial.
 
 GOOD DESIGN
 - 70px side margin grid; clear hierarchy (headline 3-4x body size, body ~22-28px)
@@ -103,6 +146,13 @@ GOOD DESIGN
 - decorations are simple shapes, nothing industry-specific
 - leave room: real copy may be 30-40% longer than the placeholder
 """
+
+
+SYSTEM = SYSTEM_TEMPLATE.format(
+    shapes="\n".join(f"- {s.name}: {s.hint}" for s in SHAPES.values()),
+    frames=", ".join(f"{name} ({hint})" for name, hint in FRAME_HINTS.items()),
+    draws="; ".join(f"{name} = {hint}" for name, hint in DRAW_PRESETS.items()),
+)
 
 
 def compact(els: list[Element]) -> list[dict]:
@@ -140,10 +190,12 @@ def compact(els: list[Element]) -> list[dict]:
 def example(recipe: str, v: Variant) -> str:
     c = Canvas(v)
     RECIPES[recipe].build(c)
-    return json.dumps({"name": recipe, "elements": compact(c.els)}, separators=(",", ":"))
+    background = c.background.model_dump(exclude_none=True) if c.background else None
+    return json.dumps({"name": recipe, "background": background, "elements": compact(c.els)},
+                      separators=(",", ":"))
 
 
-EXAMPLE_RECIPES = ("fresh_promo", "geo_agency")
+EXAMPLE_RECIPES = ("fresh_promo", "geo_agency", "spotlight_launch")
 
 
 def expand_dots(e: Element) -> list[Element]:
@@ -176,8 +228,14 @@ def normalise(els: list[Element], v: Variant) -> list[Element]:
             e.h = round(len(lines) * e.size * e.line_height, 2)
         elif e.kind == "logo":
             e.w, e.h = 110, 89
+        elif e.kind == "photo" and e.frame:
+            e.h = round(e.w / frames()[e.frame].aspect, 2)  # a frame keeps its outline
+            e.clip = None
         elif e.kind == "photo" and e.clip == "circle":
             e.h = e.w  # the circle crop is always round
+        elif e.kind == "draw":
+            e.draw = e.draw or "underline"
+            e.stroke_width = e.stroke_width or 6
         out.append(e)
     return out
 
@@ -217,7 +275,9 @@ async def invent(v: Variant, *, hint: str | None, avoid: list[str],
                else "")
             + f"\n\nTwo existing layouts in the exact element format:\n{examples}\n\n"
             + f"Dress the new layout in:\n{_dress(v)}\n\n"
-            + "Invent ONE new layout for it. "
+            + "Signature elements for this version — work all three into the design: "
+            + "; ".join(FEATURE_FAMILIES[f] for f in v.rng.sample(sorted(FEATURE_FAMILIES), 3))
+            + ".\n\nInvent ONE new layout for it. "
             + (f"Brief for the idea: {hint}" if hint else "Surprise me with the idea."))
 
     llm = get_llm()
@@ -228,7 +288,7 @@ async def invent(v: Variant, *, hint: str | None, avoid: list[str],
         ai: AIDesign = result.parsed
         ai.elements = normalise(ai.elements, v)
         design = Design(recipe=f"ai:{ai.name}", theme=v.theme.name, palette=v.palette.name,
-                        fonts=v.fonts.name, elements=ai.elements)
+                        fonts=v.fonts.name, background=ai.background, elements=ai.elements)
         errors = validate(design, v, creative=True)
         print(f"    ai attempt {attempt + 1}: {ai.name!r} — "
               + ("passes" if not errors else f"{len(errors)} problem(s)"))

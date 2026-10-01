@@ -19,6 +19,8 @@ from pydantic import BaseModel
 
 from app.lido_corpus.loader import DEFAULT_CORPUS_DIR
 from app.lido_corpus.textfit import TextMeasure, font_file, too_wide_words, wrap
+from app.lido_create.draw import DRAW_PRESETS
+from app.lido_create.shapes import LINE_ENDS, SHAPES, frames
 
 CORPUS_DIR = DEFAULT_CORPUS_DIR
 DRAFTS_DIR = CORPUS_DIR / "drafts"
@@ -33,6 +35,12 @@ TextType = Literal["headline", "kicker", "body", "item", "cta", "badge", "captio
                    "website", "phone", "email", "address"]
 ClipShape = Literal["rect", "rounded", "circle", "arch", "hexagon", "diamond", "blob",
                     "leaf", "cutout"]
+ShapeName = Literal[tuple(SHAPES)]  # type: ignore[valid-type]
+FrameName = Literal[tuple(frames())]  # type: ignore[valid-type]
+DrawPreset = Literal[tuple(DRAW_PRESETS)]  # type: ignore[valid-type]
+LineEnd = Literal[LINE_ENDS]  # type: ignore[valid-type]
+StrokeStyle = Literal["solid", "dashed", "dotted"]
+TextEffect = Literal["shadow", "lift", "hollow"]
 
 # --------------------------------------------------------------------------------------
 # Palettes: bg (ROOT colour), ink (text on bg), accent (buttons/badges), on_accent (text
@@ -202,23 +210,41 @@ LOGO_RATIO = 103 / 127  # both logo files are 127 x 103
 # --------------------------------------------------------------------------------------
 
 
+class Gradient(BaseModel):
+    """A Lido gradient fill: two stops. `start` defaults to the element's own colour
+    (the canvas colour for a background); no `end` means the start colour fading to
+    transparent. Angle is CSS-style: 0 = towards the top, 90 = right, 180 = bottom."""
+    style: Literal["linear", "radial"]
+    angle: float | None = None
+    start: ColorRole | None = None
+    end: ColorRole | None = None
+    start_at: float | None = None  # percent along the gradient, 0-100
+    end_at: float | None = None
+
+
 class Element(BaseModel):
-    kind: Literal["shape", "photo", "logo", "text", "dots"]
+    kind: Literal["shape", "photo", "logo", "text", "dots", "line", "draw"]
     x: float
     y: float
-    w: float
-    h: float
+    w: float  # line: its length
+    h: float  # line: its thickness
     color: ColorRole | None = None
-    shape: Literal["rectangle", "circle"] | None = None
+    shape: ShapeName | None = None
+    gradient: Gradient | None = None  # shapes: fill with a gradient instead of flat colour
     radius: float | None = None  # corner radius in px (rectangles, "rounded" photo clips)
     opacity: float | None = None
     rotate: float | None = None  # shapes: degrees clockwise, around the shape's centre
     stroke: ColorRole | None = None  # shapes: outline colour (fill still drawn)
-    stroke_width: float | None = None  # shapes: outline width in px
+    stroke_width: float | None = None  # shapes: outline width in px; draw: marker width
+    stroke_style: StrokeStyle | None = None  # shape outline / line style
+    line_start: LineEnd | None = None  # line: end markers
+    line_end: LineEnd | None = None
+    draw: DrawPreset | None = None  # draw: which hand-drawn stroke fills x/y/w/h
     rows: int | None = None  # dots: a rows x cols grid of dots filling x/y/w/h
     cols: int | None = None
     dot: float | None = None  # dots: diameter of each dot in px
     clip: ClipShape | None = None  # photos; "cutout" = transparent subject, no crop
+    frame: FrameName | None = None  # photos: a Lido frame outline (keeps its aspect)
     focus: float | None = None  # 0 = keep the top of the photo, 0.5 = centre
     text: str | None = None
     text_type: TextType | None = None
@@ -229,6 +255,8 @@ class Element(BaseModel):
     uppercase: bool | None = None
     letter_spacing: float | None = None  # em
     line_height: float | None = None
+    effect: TextEffect | None = None  # text: shadow, lift (soft glow) or hollow (outline)
+    effect_color: ColorRole | None = None  # text: the shadow's colour
     bleed: bool | None = None  # allowed to run off the canvas (decoration or photo)
     subject: str | None = None  # photos: what the picture should show (for generation)
 
@@ -239,6 +267,7 @@ class Design(BaseModel):
     palette: str
     fonts: str
     mirrored: bool = False
+    background: Gradient | None = None  # a gradient canvas instead of the flat bg colour
     elements: list[Element]
 
 
@@ -347,6 +376,7 @@ class Canvas:
     def __init__(self, v: Variant):
         self.v = v
         self.els: list[Element] = []
+        self.background: Gradient | None = None  # a gradient canvas, when a recipe sets one
 
     # -- text --------------------------------------------------------------------------
 
@@ -366,7 +396,8 @@ class Canvas:
              font: str = "body", size: float = 26, color: str = "ink", align: str = "left",
              max_lines: int = 1, upper: bool = False, ls: float = 0.0,
              lh: float | None = None, fit_from: float | None = None,
-             smallest: float | None = None) -> Element:
+             smallest: float | None = None, effect: str | None = None,
+             effect_color: str | None = None) -> Element:
         """A text box whose height is exactly its wrapped lines. `fit_from` shrinks the
         size from that value until the copy fits `max_lines`."""
         if lh is None:
@@ -377,7 +408,8 @@ class Canvas:
                             upper, ls)
         e = Element(kind="text", x=x, y=y, w=w, h=0, text=text, text_type=text_type,
                     font=font, size=size, color=color, align=align, max_lines=max_lines,
-                    uppercase=upper, letter_spacing=ls, line_height=lh)
+                    uppercase=upper, letter_spacing=ls, line_height=lh, effect=effect,
+                    effect_color=effect_color)
         lines, _ = line_count(self.v.fonts, e)
         e.h = round(len(lines) * size * lh, 2)
         self.els.append(e)
@@ -424,11 +456,33 @@ class Canvas:
     def shape(self, x: float, y: float, w: float, h: float, color: str, *,
               circle: bool = False, radius: float = 0, opacity: float | None = None,
               bleed: bool = False, rotate: float = 0, stroke: str | None = None,
-              stroke_width: float | None = None) -> Element:
+              stroke_width: float | None = None, kind: str | None = None,
+              gradient: Gradient | None = None,
+              stroke_style: str | None = None) -> Element:
+        """`kind` is any Lido shape name (shapes.SHAPES); `circle=True` is shorthand."""
         e = Element(kind="shape", x=x, y=y, w=w, h=h, color=color,
-                    shape="circle" if circle else "rectangle", radius=radius or None,
+                    shape=kind or ("circle" if circle else "rectangle"), radius=radius or None,
                     opacity=opacity, bleed=bleed or None, rotate=rotate or None,
-                    stroke=stroke, stroke_width=stroke_width if stroke else None)
+                    stroke=stroke, stroke_width=stroke_width if stroke else None,
+                    stroke_style=stroke_style if stroke else None, gradient=gradient)
+        self.els.append(e)
+        return e
+
+    def line(self, x: float, y: float, length: float, *, color: str = "accent",
+             thickness: float = 4, rotate: float = 0, style: str = "solid",
+             start: str = "none", end: str = "none") -> Element:
+        """A Lido line from (x, y) rightwards, rotated around its middle."""
+        e = Element(kind="line", x=x, y=y - thickness / 2, w=length, h=thickness,
+                    color=color, rotate=rotate or None, stroke_style=style,
+                    line_start=start, line_end=end)
+        self.els.append(e)
+        return e
+
+    def draw(self, preset: str, x: float, y: float, w: float, h: float, *,
+             color: str = "accent", width: float = 6, opacity: float | None = None) -> Element:
+        """A hand-drawn marker stroke (draw.DRAW_PRESETS) filling the box."""
+        e = Element(kind="draw", x=x, y=y, w=w, h=h, color=color, draw=preset,
+                    stroke_width=width, opacity=opacity)
         self.els.append(e)
         return e
 
@@ -464,10 +518,15 @@ class Canvas:
         return cap, value
 
     def photo(self, x: float, y: float, w: float, h: float, *, clip: str = "rect",
-              radius: float = 0, focus: float = 0.4, bleed: bool = False) -> Element:
-        """clip="cutout" is a transparent subject that floats over the design unframed."""
-        e = Element(kind="photo", x=x, y=y, w=w, h=h, clip=clip, radius=radius or None,
-                    focus=focus, bleed=bleed or None)
+              radius: float = 0, focus: float = 0.4, bleed: bool = False,
+              frame: str | None = None) -> Element:
+        """clip="cutout" is a transparent subject that floats over the design unframed.
+        `frame` is a Lido frame outline (shapes.frames()); it keeps its own aspect, so h
+        is recomputed from w."""
+        if frame:
+            h = round(w / frames()[frame].aspect, 2)
+        e = Element(kind="photo", x=x, y=y, w=w, h=h, clip=None if frame else clip,
+                    radius=radius or None, focus=focus, bleed=bleed or None, frame=frame)
         self.els.append(e)
         return e
 
