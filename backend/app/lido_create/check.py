@@ -31,6 +31,8 @@ MAX_PHOTOS = 4
 CURRENCY = re.compile(r"[$€£₹¥]\s?\d|\d\s?(?:[$€£₹¥]|usd|eur|inr|rs\.?)(?:\W|$)", re.IGNORECASE)
 PERCENT = re.compile(r"\d\s?%")
 _WORDS = re.compile(r"[\w$€£₹%]+")
+HIDES = 0.6  # a flat layer over a photo this opaque (or more) hides that part of it
+HIDES_FADE = 0.8  # a gradient (fade) layer only hides the photo where nearly opaque
 STROKES = ("line", "draw")  # thin marks: never a text's backdrop, never through text
 # Procedural photo crops as polygons in the unit square (lido.clip_path draws the same).
 POLYGONS = {
@@ -500,9 +502,11 @@ def validate(design: Design, v: Variant, *, creative: bool = False, plan=None) -
             continue
         pts = [pt for pt in _samples((photo.x, photo.y, photo.x + photo.w, photo.y + photo.h),
                                      8, 8) if covers(photo, *pt)]
+        # measured where it is: a fade overlay (solid at one edge, transparent at the
+        # other) only hides the photo where it is nearly opaque
         hidden = sum(1 for px, py in pts
                      if any(s.kind == "shape" and covers(s, px, py)
-                            and (s.opacity is None or s.opacity > 0.6)
+                            and _paint(s, px, py, pal)[1] > (HIDES_FADE if s.gradient else HIDES)
                             for s in els[p + 1:]))
         if pts and hidden / len(pts) > 0.5:
             errors.append(f"photo at ({photo.x:.0f},{photo.y:.0f}) is mostly hidden under a "

@@ -173,7 +173,9 @@ class BriefResult:
 # How to fix each kind of failed check — sent with the failures, so a repair round
 # changes the right thing instead of nudging elements around.
 FIX_HINTS = {
-    "sits on a photo": "Text can't sit on a photo. Add a solid card, band or panel shape "
+    "sits on a photo": "Text can't sit on a photo (nor on the fading part of a photo fade — "
+                       "move it into the fade's solid part, or raise its start_at). Add a "
+                       "solid card, band or panel shape "
                        "over that part of the photo (after the photo, before the text in "
                        "the list) and keep the text on it — or move the text or the photo "
                        "so they don't overlap.",

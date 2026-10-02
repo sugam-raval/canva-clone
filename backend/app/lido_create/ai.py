@@ -147,6 +147,15 @@ PRO TEMPLATE TECHNIQUES — use several in every design
   around a centred button.
 - Framing: an outlined rounded rectangle inset 30-40px around the whole canvas, or a
   thick band along one edge; or thin lines forming corner brackets.
+- Photo fade (scrim): a full-bleed photo with ONE fade layer drawn right after it — a
+  rectangle covering the whole canvas (x -6, y -4, w 1092, h 1088, bleed), color = the
+  canvas role (usually bg), gradient {{style linear, angle 180, start bg, end null,
+  start_at 30-40, end_at 100}}: solid canvas colour across the top start_at% of the post,
+  then fading to transparent so the photo melts into it. Logo, headline, copy and button
+  sit entirely inside the solid part (for start_at 35 that is y 30 to about 360 minus a
+  little room) — never in the fading part, which still shows the photo. Fade from the
+  bottom with angle 0 (solid bottom, text at the bottom), or from a side with angle 90
+  (solid left) / 270 (solid right). Calm, premium, interiors, real estate, beauty.
 - Depth with gradients: a radial spotlight behind the headline or product, a panel
   fading out towards the photo, a background running from bg to a deeper tone.
 - Shape language: parallelogram bands for energy, chevrons and arrows for flow and

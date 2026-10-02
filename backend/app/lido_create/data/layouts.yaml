@@ -198,3 +198,8 @@
   photos: [1, 2]
   suits: [awareness, cause, message, calm]
   idea: Generous margins all round like a printed poster; the photo in the upper middle, headline and a short message below, lots of empty space.
+
+- name: photo_fade
+  photos: [1, 1]
+  suits: [single hero, calm, premium, interior, lifestyle, real estate, beauty, story]
+  idea: "One photo fills the whole post; a fade layer over it in the canvas colour is solid across the top third and melts into the photo below (or solid along the bottom or one side), so the photo dissolves into a calm flat area. Logo, headline, copy and button sit in that solid part only. Describe a photo whose subject sits in the other part, with calm empty space where the fade goes."

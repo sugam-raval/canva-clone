@@ -983,3 +983,48 @@ def test_outlined_bullets_are_a_thin_edge_filled_with_what_the_list_sits_on():
         assert len(edges) == 2 and all(e.color == "bg" and e.stroke == "accent"
                                        and e.stroke_width and e.stroke_width < 4
                                        for e in edges), bullet
+
+
+def _faded(text_y: float, start_at: float = 36, angle: float = 180):
+    from app.lido_create.ai import normalise
+    from app.lido_create.kit import Gradient
+
+    v = _variant()
+    els = normalise([
+        Element(kind="photo", x=0, y=0, w=1080, h=1080, clip="rect", bleed=True, subject="a room"),
+        Element(kind="shape", shape="rectangle", x=-6, y=-4, w=1092, h=1088, color="bg",
+                bleed=True, gradient=Gradient(style="linear", angle=angle, start="bg",
+                                              end=None, start_at=start_at, end_at=100)),
+        Element(kind="logo", x=485, y=40, w=110, h=89),
+        Element(kind="text", text="Calm Living", text_type="headline", x=140, y=text_y, w=800,
+                h=0, size=78, font="display", align="center", color="ink"),
+        Element(kind="text", text="New collection", text_type="kicker", x=140, y=text_y + 110,
+                w=800, h=0, size=26, font="body", align="center", color="ink"),
+        Element(kind="text", text="Shop now", text_type="cta", x=140, y=text_y + 160,
+                w=800, h=0, size=26, font="body", align="center", color="ink"),
+    ], v)
+    return Design(recipe="t", theme="business", palette=v.palette.name, fonts=v.fonts.name,
+                  elements=els), v
+
+
+def test_a_photo_fade_keeps_the_photo_visible_and_holds_text_in_its_solid_part():
+    d, v = _faded(text_y=140)  # all text inside the solid top 36%
+    errors = validate(d, v)
+    assert not any("mostly hidden" in e or "sits on a photo" in e for e in errors), errors
+    fade = to_lido(d, v)[0]["layers"]
+    stops = next(lr["props"]["color"]["colors"] for lr in fade.values()
+                 if isinstance(lr["props"].get("color"), dict))
+    assert stops[0]["percent"] == 36 and stops[1]["color"].endswith(", 0)")  # fades out
+
+
+def test_text_in_the_fading_part_of_a_photo_fade_is_caught():
+    d, v = _faded(text_y=330)  # the lower lines reach into the fading part
+    assert any("sits on a photo" in e for e in validate(d, v))
+
+
+def test_the_designer_and_art_director_know_the_photo_fade():
+    from app.lido_create.ai import SYSTEM
+    from app.lido_create.catalog import layouts
+
+    assert "Photo fade (scrim)" in SYSTEM and "{style linear" in SYSTEM
+    assert layouts()["photo_fade"].fits(1)

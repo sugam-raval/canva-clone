@@ -28,6 +28,26 @@ knobs; `expand()` turns it into full-bleed gradient shapes under everything else
 To add a style: write its geometry in `expand()`, describe it in `STYLES`, list its
 sides in `SIDES`, then add it to the moods that suit it.
 
+## Photo fade (scrim)
+
+A full-bleed photo with one fade layer over it: a canvas-sized rectangle in the canvas
+colour, solid up to `start_at` (30-40%) and fading to transparent by 100%, so the photo
+melts into a calm flat area that holds the logo, headline, copy and button — the look
+of a Lido layer like:
+
+```json
+{"shape": "rectangle", "color": {"style": "linear", "angle": 180, "colors": [
+  {"color": "rgb(221, 213, 206)", "percent": 29}, {"color": "rgba(…, 0)", "percent": 100}]}}
+```
+
+- `angle` 180 fades from the top, 0 from the bottom, 90 from the left, 270 from the
+  right. The designer writes it as a normal shape with `gradient: {style: linear,
+  angle, start: bg, end: null, start_at, end_at: 100}` (technique in `ai.py`); the art
+  director can pick it as the `photo_fade` layout (`data/layouts.yaml`).
+- Checks: text on the fading part still "sits on a photo" (it must stay in the solid
+  part); the photo counts as hidden only where a fade is more than 80% opaque
+  (`check.HIDES_FADE`), so the photo below the fade stays the hero.
+
 ## Icons — beside contact lines, and as list bullets
 
 `backend/app/lido_create/data/doodles.yaml` (18 icons: 16 contact/info icons and 2
