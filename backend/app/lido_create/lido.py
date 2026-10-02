@@ -6,6 +6,7 @@ from __future__ import annotations
 import uuid
 
 from app.lido_create.check import background_at, draw_seed, luminance
+from app.lido_create.doodles import doodle_path
 from app.lido_create.draw import draw_path
 from app.lido_create.kit import (
     FONT_URLS,
@@ -182,8 +183,11 @@ def _line(e: Element, v: Variant) -> dict:
 
 
 def _draw(e: Element, v: Variant) -> dict:
-    path, _ = draw_path(e.draw or "underline", e.w, e.h, e.stroke_width or 6,
-                        seed=draw_seed(e))
+    if e.doodle:  # a line-art object from the doodle library
+        path, _ = doodle_path(e.doodle, e.w, e.h, e.stroke_width or 3, seed=draw_seed(e))
+    else:
+        path, _ = draw_path(e.draw or "underline", e.w, e.h, e.stroke_width or 6,
+                            seed=draw_seed(e))
     return _layer(None, "DrawLayer", {
         "path": path, "color": rgb(v.palette.color(e.color or "accent")),
         "width": e.stroke_width or 6,

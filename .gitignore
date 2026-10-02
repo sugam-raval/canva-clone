@@ -28,3 +28,4 @@ backend/assets_local/
 
 # Local editor/agent settings
 .claude/settings.local.json
+lidojs_templates/doodles/

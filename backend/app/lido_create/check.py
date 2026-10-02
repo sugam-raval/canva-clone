@@ -135,6 +135,16 @@ def _paint(e: Element, px: float, py: float, palette: Palette) -> tuple[RGB, flo
     return palette.color(e.color or "accent"), alpha
 
 
+def seamless(e: Element) -> bool:
+    """A radial glow on a circle that has fully faded before the circle's rim (a radial
+    reaches the rim at ~71%): it has no visible edge, so text across its boundary is not
+    straddling anything — only its colour (checked for contrast) matters."""
+    g = e.gradient
+    return (e.kind == "shape" and e.shape == "circle" and g is not None
+            and g.style == "radial" and g.end is None and (100 if g.end_at is None
+                                                           else g.end_at) <= 70)
+
+
 def surface_at(els: list[Element], index: int, px: float, py: float, palette: Palette,
                background: Gradient | None = None) -> tuple[tuple, RGB | str]:
     """(which surfaces, colour) directly under (px, py) beneath element `index`. The
@@ -152,9 +162,10 @@ def surface_at(els: list[Element], index: int, px: float, py: float, palette: Pa
             # tip); a gradient is its own surface
             return ((j,) if e.gradient else ("solid", e.color)), rgb
         under_id, under = surface_at(els, j, px, py, palette, background)
+        own = () if seamless(e) else (j,)
         if under == "photo":
-            return (j, *under_id), "photo"
-        return (j, *under_id), _blend(rgb, under, alpha)  # type: ignore[arg-type]
+            return (*own, *under_id), "photo"
+        return (*own, *under_id), _blend(rgb, under, alpha)  # type: ignore[arg-type]
     if background is not None:
         rgb, alpha = gradient_at(background, (0, 0, W, H), px, py, palette, "bg")
         return ("canvas",), _blend(rgb, (255, 255, 255), alpha)
@@ -174,6 +185,10 @@ def stroke_points(e: Element) -> list[tuple[float, float]]:
         a = math.radians(e.rotate or 0)
         return [(cx + (t - 0.5) * e.w * math.cos(a), cy + (t - 0.5) * e.w * math.sin(a))
                 for t in (i / 24 for i in range(25))]
+    if e.kind == "draw" and e.doodle:
+        from app.lido_create.doodles import doodle_path
+        _, pts = doodle_path(e.doodle, e.w, e.h, e.stroke_width or 3, seed=draw_seed(e))
+        return [(e.x + x, e.y + y) for x, y in pts]
     if e.kind == "draw":
         _, pts = draw_path(e.draw or "underline", e.w, e.h, e.stroke_width or 6,
                            seed=draw_seed(e))
@@ -271,7 +286,9 @@ def _richness(els: list[Element], texts, extents, name) -> list[str]:
         e = els[j]
         if e.w <= uw + 200 and e.h <= uh + 150:
             backing.add(j)
-    shapes = [(j, e) for j, e in enumerate(els) if e.kind == "shape" and j not in backing]
+    # backdrop layers are the background itself, not decoration the designer added
+    shapes = [(j, e) for j, e in enumerate(els)
+              if e.kind == "shape" and j not in backing and not e.backdrop]
     big = sum(1 for _, e in shapes if min(e.w, e.h) >= 24 or max(e.w, e.h) >= 80) \
         + sum(1 for e in els if e.kind in STROKES)
     textures = 1 if any(max(e.w, e.h) < 24 for _, e in shapes) else 0
@@ -284,7 +301,7 @@ def _richness(els: list[Element], texts, extents, name) -> list[str]:
             continue
         area = photo.w * photo.h
         for s in els[:p]:
-            if s.kind != "shape":
+            if s.kind != "shape" or s.backdrop:  # photos may sit on the backdrop
                 continue
             x0, y0, x1, y1 = rotated_extent(s)
             ox = max(0.0, min(x1, photo.x + photo.w) - max(x0, photo.x))

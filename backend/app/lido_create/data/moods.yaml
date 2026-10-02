@@ -13,6 +13,7 @@
 #   draw:      hand-drawn strokes that fit (draw.py DRAW_PRESETS), may be empty
 #   effects:   text effects that fit (shadow, lift, hollow), may be empty
 #   gradient:  how a gradient is used in this mood, or "none"
+#   backdrops: layered gradient backgrounds that fit (backdrops.py STYLES), may be empty
 #   avoid:     what would feel wrong in this mood
 #   feel:      one line on spacing, weight and attitude
 # After editing, check it: see docs/CREATIVE_LAYOUT_PLAN.md section 8.
@@ -24,6 +25,7 @@
   draw: [squiggle, underline]
   effects: [lift]
   gradient: a soft dawn glow — radial, or a gentle vertical fade between two light tones
+  backdrops: [corner_glow, horizon_arc, spotlight]
   avoid: sharp geometry, loud badges, zigzags, hollow text, heavy shadows, crowding
   feel: airy, lots of empty space, soft rounded forms, light weight, slow rhythm
 
@@ -34,6 +36,7 @@
   draw: [circle, sparkle, underline]
   effects: [hollow, shadow]
   gradient: optional — a strong band or a punchy two-colour background, never washed out
+  backdrops: [diagonal_split, split_half, diagonal_bands]
   avoid: timid small type, lots of empty space, pastel softness
   feel: loud, high contrast, huge numbers or words, one dominant element, slanted energy
 
@@ -44,6 +47,7 @@
   draw: [zigzag, sparkle, squiggle, check, arrow]
   effects: [shadow]
   gradient: none, or a bright two-colour background
+  backdrops: [diagonal_bands, split_half, horizon_arc]
   avoid: thin elegant lines, dark moody palettes, stiff grids
   feel: bouncy, tilted tiles, bright colours, doodles around the edges (text stays clear)
 
@@ -54,6 +58,7 @@
   draw: []
   effects: [hollow]
   gradient: a subtle radial glow, often on a dark background
+  backdrops: [spotlight, corner_glow]
   avoid: doodles, zigzags, cartoon colours, crowded layouts, many shapes
   feel: restrained, thin lines, serif type, generous space, one precious accent colour
 
@@ -64,6 +69,7 @@
   draw: [circle, underline, arrow, squiggle]
   effects: [lift]
   gradient: optional — a warm fade on a panel
+  backdrops: [split_half, horizon_arc, corner_glow]
   avoid: cold geometric precision, neon colours
   feel: friendly, casual hand-drawn accents, a bit of texture, warm tones
 
@@ -74,6 +80,7 @@
   draw: []
   effects: [shadow, hollow]
   gradient: a radial spotlight behind the hero, or a deep dark-to-darker background
+  backdrops: [spotlight, corner_glow, diagonal_split]
   avoid: hand-drawn doodles, brush strokes, script fonts
   feel: precise, geometric, thin lines with arrow ends, dark and glowing
 
@@ -84,6 +91,7 @@
   draw: []
   effects: []
   gradient: none, or a very subtle linear tint
+  backdrops: [split_half, diagonal_split]
   avoid: doodles, brush strokes, hollow text, playful tilts
   feel: structured grid, clean lines, calm confidence, lots of alignment
 
@@ -94,6 +102,7 @@
   draw: [sparkle, zigzag]
   effects: [hollow, shadow, lift]
   gradient: a full-canvas gradient background between two strong colours
+  backdrops: [diagonal_bands, corner_glow, spotlight]
   avoid: corporate stiffness, dull muted tones
   feel: energetic, big type, slanted bands, sparkle accents
 
@@ -104,6 +113,7 @@
   draw: [squiggle, arrow, underline]
   effects: [lift]
   gradient: a sky-like or leafy vertical fade
+  backdrops: [horizon_arc, corner_glow, split_half]
   avoid: hard boxed grids, neon, heavy black
   feel: open, organic edges, soft textures, a sense of air and growth
 
@@ -114,5 +124,6 @@
   draw: [underline]
   effects: [hollow, lift]
   gradient: none, or one soft tint
+  backdrops: [split_half]
   avoid: clutter, many colours, doodles everywhere
   feel: type-led, big white space, a strong headline and one striking photo, script plus caps pairing

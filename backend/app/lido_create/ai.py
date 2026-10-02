@@ -57,8 +57,15 @@ ELEMENTS (drawn in list order: first = back, last = front)
 - list: ONE element for any list (features, services, steps, menu entries, schedule
   rows) — items = EVERY item, word for word (never drop, merge or shorten any);
   x/y/w/h = the area it fills; columns = null for automatic (1-4 items → 1 column,
-  5-6 → 2 columns of 3, 7-9 → 3 columns of 3); bullet = dot | ring | bar | check |
-  number | none; divider = line | dotted | none (between columns, or between rows in
+  5-6 → 2 columns of 3, 7-9 → 3 columns of 3); bullet = dot (classic) | dash (a short
+  "–", minimal and editorial) | ring | square (modern) | diamond (premium, elegant) |
+  triangle (menus, services) | check (benefits) | check_circle (features, what's
+  included) | arrow_circle (steps, services) | plus (extras, add-ons) | number (steps
+  in order) | check_ring (tick in a circle outline — elegant benefits) | check_square
+  (white tick on a filled square) | arrow_square | plus_circle | target (dot in a circle
+  outline) | diamond_outline (premium) | number_ring (number in a circle outline) |
+  glow_dot (a dot with a soft halo — calm, beauty) | none — pick the one that suits the
+  list and the mood; divider = line | dotted | none (between columns, or between rows in
   one column); size = starting font size (it shrinks to fit); color = text colour
   (on_accent when the list sits on an accent panel); font. The code lays it out
   evenly, so give it a generous area: about 70px of height per row.

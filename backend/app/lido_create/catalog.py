@@ -15,6 +15,7 @@ from pathlib import Path
 
 import yaml
 
+from app.lido_create.backdrops import STYLES as BACKDROP_STYLES
 from app.lido_create.draw import DRAW_PRESETS
 from app.lido_create.shapes import SHAPES, TEXT_EFFECTS, frames
 
@@ -45,6 +46,7 @@ class Mood:
     gradient: str
     avoid: str
     feel: str
+    backdrops: tuple[str, ...] = ()
 
 
 def _list(value) -> tuple[str, ...]:
@@ -79,7 +81,8 @@ def moods() -> dict[str, Mood]:
     return {m["name"]: Mood(m["name"], _list(m.get("when")), _list(m.get("frames")),
                             _list(m.get("shapes")), _list(m.get("draw")),
                             _list(m.get("effects")), str(m.get("gradient") or "none"),
-                            str(m.get("avoid") or ""), str(m.get("feel") or ""))
+                            str(m.get("avoid") or ""), str(m.get("feel") or ""),
+                            _list(m.get("backdrops")))
             for m in raw}
 
 
@@ -98,6 +101,8 @@ def problems() -> list[str]:
         found += [f"mood {m.name}: unknown draw {d!r}" for d in m.draw if d not in DRAW_PRESETS]
         found += [f"mood {m.name}: unknown effect {e!r}" for e in m.effects
                   if e not in TEXT_EFFECTS]
+        found += [f"mood {m.name}: unknown backdrop {b!r}" for b in m.backdrops
+                  if b not in BACKDROP_STYLES]
     return found
 
 
@@ -115,5 +120,6 @@ def mood_guide() -> str:
             f"- {m.name} — when: {', '.join(m.when)}. frames: {', '.join(m.frames) or '-'}; "
             f"shapes: {', '.join(m.shapes) or '-'}; draw: {', '.join(m.draw) or 'none'}; "
             f"effects: {', '.join(m.effects) or 'none'}; gradient: {m.gradient}; "
+            f"backdrops: {', '.join(m.backdrops) or 'none'}; "
             f"avoid: {m.avoid}; feel: {m.feel}")
     return "\n".join(lines)

@@ -138,6 +138,15 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
             {draft.features && draft.features.length > 0 && (
               <div><strong>Signature elements:</strong> {draft.features.join(', ')}</div>
             )}
+            {draft.backdrop && (
+              <div>
+                <strong>Background:</strong> {String(draft.backdrop.style).replace(/_/g, ' ')}
+                {draft.backdrop.side ? ` (${draft.backdrop.side})` : ''}
+              </div>
+            )}
+            {draft.contactIcons && draft.contactIcons.length > 0 && (
+              <div><strong>Contact icons:</strong> {draft.contactIcons.join(', ')}</div>
+            )}
             {draft.plan && (
               <>
                 <div>

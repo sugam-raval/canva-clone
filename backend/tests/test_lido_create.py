@@ -6,6 +6,7 @@ through the API), not any model's taste."""
 
 from __future__ import annotations
 
+import json
 import random
 
 import pytest
@@ -99,6 +100,7 @@ class _FakeLLM:
         self.calls: list[str] = []  # the designer's calls
         self.plan_calls: list[dict] = []  # the art director's calls
         self.failures: dict[int, AdapterError] = {}  # designer call number (1-based) -> error
+        self.plan_extra: dict = {}  # extra plan fields (backdrop…)
 
     async def complete_json(self, *, system, user, schema, **kwargs):
         if schema.__name__ == "DesignPlan":
@@ -110,7 +112,8 @@ class _FakeLLM:
                 logo=True, exclude=[], moods=["warm_handmade"],
                 layout=self.LAYOUTS[(len(self.plan_calls) - 1) % 3], custom_layout=None,
                 shapes=["rhombus"], draw=[], effects=[], gradient=None,
-                photo_theme="business", notes="warm and bold"), raw="", model="fake")
+                photo_theme="business", notes="warm and bold", **self.plan_extra),
+                raw="", model="fake")
         self.calls.append(user)
         if len(self.calls) in self.failures:
             raise self.failures[len(self.calls)]
@@ -815,3 +818,168 @@ def test_layout_model_settings(monkeypatch, layout_model, layout_effort, expecte
     monkeypatch.setattr(s, "lido_plan_reasoning_effort", "")
     assert layout_call() == expected
     assert plan_call() == {"model": "gpt-4o-mini"}
+
+
+# -- backdrops and contact icons -------------------------------------------------------
+
+
+@pytest.mark.parametrize("style", ["split_half", "diagonal_split", "diagonal_bands",
+                                   "corner_glow", "spotlight", "horizon_arc"])
+def test_every_backdrop_expands_into_bleeding_backdrop_layers_with_text_areas(style):
+    from app.lido_create.backdrops import Backdrop, brief_for, expand
+
+    ex = expand(Backdrop(style=style, angle=50, split=0.95))  # out of range: clamped
+    assert ex.layers and all(e.bleed and e.backdrop and e.kind == "shape" for e in ex.layers)
+    assert ex.base is None or ex.base.end is not None  # a canvas gradient must end in a colour
+    for palette in (None, PALETTES[0], PALETTES[5]):
+        text = brief_for(ex, palette)
+        assert "Text areas:" in text and "- the plain canvas" in text
+
+
+def test_backdrop_layers_are_hidden_from_the_models_schema_and_cleared_on_its_elements():
+    from app.adapters.openai_schema import response_format
+
+    schema = json.dumps(response_format(brief.BriefDesign))
+    assert '"backdrop"' not in schema and '"doodle"' not in schema
+
+
+def test_a_photo_may_sit_on_the_backdrop_and_a_glow_has_no_edge_to_straddle():
+    from app.lido_create.backdrops import Backdrop, expand
+    from app.lido_create.check import seamless
+
+    v = _variant()
+    d = _recipe_design("fresh_promo", v)
+    glow = expand(Backdrop(style="corner_glow"))
+    assert all(seamless(e) for e in glow.layers)
+    on_glow = d.model_copy(update={"background": glow.base,
+                                   "elements": [*glow.layers, *d.elements]})
+    assert not any("behind a photo" in e or "straddles" in e
+                   for e in validate(on_glow, v, creative=True))
+
+
+def test_the_icon_library_loads_clean_and_every_icon_draws_inside_its_box():
+    from app.lido_create.doodles import doodle_path, info_icon, library, problems
+
+    assert problems() == []
+    assert len(library()) >= 10
+    for kind in ("website", "phone", "email", "address"):
+        assert info_icon(kind) is not None
+    for name in library():
+        path, pts = doodle_path(name, 80, 60, 4, seed=3)
+        assert path.startswith("M ")
+        assert all(-2 <= x <= 82 and -2 <= y <= 62 for x, y in pts), name
+
+
+def test_arc_flags_packed_without_spaces_are_read_right():
+    from app.lido_create.svgpath import flatten
+
+    packed = flatten("M15 4a1.5 1.5 0 00-2.5-1.5l-9 9", strokes=True)
+    spaced = flatten("M15 4a1.5 1.5 0 0 0 -2.5 -1.5l-9 9", strokes=True)
+    assert packed == spaced and max(x for s in packed for x, _ in s) <= 16
+
+
+def test_contact_icons_sit_beside_their_lines_without_adding_problems():
+    from app.lido_create.decorate import add_contact_icons
+
+    v = _variant()
+    d = _recipe_design("fresh_promo", v)
+    before = validate(d, v, creative=True)
+    d2, added = add_contact_icons(d, v)
+    assert added and len(validate(d2, v, creative=True)) <= len(before)
+    for kind in added:
+        i, text = next((i, e) for i, e in enumerate(d2.elements) if e.text_type == kind)
+        icon = d2.elements[i + 1]
+        assert icon.kind == "draw" and icon.doodle and icon.color == (text.color or "ink")
+        assert icon.x + icon.w <= text_extent_x0(text, v) and abs(
+            (icon.y + icon.h / 2) - (text.y + (text.size or 24) * (text.line_height or 1.3) / 2)) < 2
+
+
+def text_extent_x0(e, v):
+    from app.lido_create.check import text_extent
+    return text_extent(e, v)[0]
+
+
+def test_a_planned_backdrop_reaches_the_saved_draft(api):
+    client, fake, _ = api
+    fake.plan_extra = {"backdrop": {"style": "corner_glow", "side": "left"}}
+    response = client.post("/v1/lido/drafts", json={"prompt": "Pizza night"})
+    assert response.status_code == 200, response.text
+    [draft] = response.json()
+    assert "BACKDROP" in fake.calls[0] and "glows bleed in from" in fake.calls[0]
+    assert "Text areas:" in fake.calls[0]
+    assert draft["backdrop"]["style"] == "corner_glow"
+    assert "doodles" not in draft and "doodles" not in draft["plan"]
+    layers = list(draft["document"][0]["layers"].values())
+    circles = [lr for lr in layers if lr["props"].get("shape") == "circle"
+               and isinstance(lr["props"].get("color"), dict)
+               and lr["props"]["color"].get("style") == "radial"]
+    assert len(circles) >= 2  # the two corner glows
+    assert isinstance(layers[0]["props"]["color"], dict)  # the canvas fade under them
+
+
+def test_a_brief_with_a_price_cannot_rule_prices_out():
+    from app.lido_create.plan import DesignPlan, _clean
+
+    plan = DesignPlan(texts=[{"role": "headline", "text": "Pizza night"}], photos=[],
+                      logo=True, exclude=["price", "logo"], moods=["playful_bright"],
+                      layout="centre_stage", custom_layout=None, shapes=[], draw=[],
+                      effects=[], gradient=None, photo_theme="food", notes="")
+    assert "price" not in _clean(plan, "2 large pizzas for $19.99").exclude
+    assert "price" in _clean(plan.model_copy(update={"exclude": ["price"]}), "no prices").exclude
+
+
+@pytest.mark.parametrize("bullet", ["dot", "dash", "ring", "square", "diamond", "triangle",
+                                    "check", "check_circle", "arrow_circle", "plus",
+                                    "number", "bar", "check_ring", "check_square",
+                                    "arrow_square", "plus_circle", "target",
+                                    "diamond_outline", "number_ring", "glow_dot"])
+def test_every_bullet_style_is_a_small_marker_centred_on_the_first_line(bullet):
+    from app.lido_create.lists import expand_list
+
+    v = _variant()
+    els = expand_list(Element(kind="list", x=100, y=300, w=600, h=300, bullet=bullet,
+                              items=["Fresh ingredients", "Free delivery", "Open late"],
+                              size=26, color="ink"), v)
+    items = [e for e in els if e.text_type == "item"]
+    marks = [e for e in els if e.text_type != "item"]
+    assert len(items) == 3 and marks
+    for item in items:
+        mine = [m for m in marks if abs(m.y + m.h / 2 - (item.y + 26 * 1.3 / 2)) < 2
+                or m.text_type == "caption"]
+        assert mine, f"no marker on {item.text!r}"
+        first = item.size * item.line_height
+        for m in (m for m in mine if m.kind != "text"):
+            assert m.x + m.w < item.x  # left of its item
+            assert max(m.w, m.h) <= 26 * 1.2  # a bullet supports the text
+            assert abs(m.y + m.h / 2 - (item.y + first / 2)) < 1.5
+    d = Design(recipe="t", theme="business", palette=v.palette.name, fonts=v.fonts.name,
+               elements=els)
+    assert not any("bullet marker" in e for e in validate(d, v))
+    assert all(lr["props"]["path"] for lr in to_lido(d, v)[0]["layers"].values()
+               if lr["type"]["resolvedName"] == "DrawLayer")
+
+
+def test_solid_bullets_draw_their_glyph_in_the_hole_colour():
+    from app.lido_create.lists import expand_list
+
+    v = _variant()
+    for bullet, glyph in (("check_circle", "tick"), ("arrow_circle", "chevron")):
+        els = expand_list(Element(kind="list", x=100, y=300, w=600, h=200, bullet=bullet,
+                                  items=["One", "Two"], size=26, color="on_accent"), v)
+        drawn = [e for e in els if e.kind == "draw"]
+        circles = [e for e in els if e.shape == "circle"]
+        assert {e.doodle for e in drawn} == {glyph}
+        assert {e.color for e in circles} == {"on_accent"} and {e.color for e in drawn} == {"accent"}
+
+
+def test_outlined_bullets_are_a_thin_edge_filled_with_what_the_list_sits_on():
+    from app.lido_create.lists import expand_list
+
+    v = _variant()
+    for bullet in ("check_ring", "target", "diamond_outline", "number_ring"):
+        els = expand_list(Element(kind="list", x=100, y=300, w=600, h=200, bullet=bullet,
+                                  items=["One", "Two"], size=26, color="ink"), v)
+        edges = [e for e in els if e.stroke]
+        assert len(edges) == 2 and all(e.color == "bg" and e.stroke == "accent"
+                                       and e.stroke_width and e.stroke_width < 4
+                                       for e in edges), bullet

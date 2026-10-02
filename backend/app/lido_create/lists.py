@@ -4,6 +4,11 @@ out by code, so none is ever dropped and the columns always line up.
 The designer writes ONE `list` element — the area (x/y/w/h), every item word for word,
 and the style (bullet, divider, size, colour) — and `expand_list` turns it into real
 elements: one text per item, a bullet beside each, dividers between columns (or rows).
+Bullets are markers like real social-post templates use — dot, dash, ring, square,
+diamond, triangle, check, check_circle, arrow_circle, plus, number, and fancier
+two-part ones (check_ring, check_square, arrow_square, plus_circle, target,
+diamond_outline, number_ring, glow_dot) — sized from the text and centred on each
+item's first line (`bullet_marks`).
 
     1-4 items -> 1 column      5-6 -> 2 columns of 3      7-9 -> 3 columns of 3
                                                           (2 columns when the area is
@@ -45,6 +50,112 @@ def _bullet_colors(e: Element) -> tuple[str, str]:
     return "accent", "bg"
 
 
+# Each marker's size as a share of the font size: (width, height). Small, solid and
+# consistent — a bullet supports the text, it doesn't compete with it.
+MARKS = {"dot": (0.34, 0.34), "dash": (0.62, 0.13), "ring": (0.44, 0.44),
+         "square": (0.36, 0.36), "diamond": (0.46, 0.46), "triangle": (0.4, 0.44),
+         "check": (0.62, 0.5), "check_circle": (0.82, 0.82), "arrow_circle": (0.82, 0.82),
+         "plus": (0.44, 0.44), "number": (1.15, 1.15),
+         "check_ring": (0.82, 0.82), "check_square": (0.78, 0.78),
+         "arrow_square": (0.78, 0.78), "plus_circle": (0.78, 0.78), "target": (0.56, 0.56),
+         "diamond_outline": (0.6, 0.6), "number_ring": (1.15, 1.15), "glow_dot": (0.62, 0.62)}
+
+
+def marker_width(bullet: str, size: float) -> float:
+    if bullet == "none":
+        return 0.0
+    return round(MARKS.get("dash" if bullet == "bar" else bullet, MARKS["dot"])[0] * size, 1)
+
+
+def bullet_marks(bullet: str, x: float, line_y: float, line_h: float, size: float,
+                 mark: str, hole: str, number: int) -> list[Element]:
+    """The elements of one bullet, its left edge at x, centred on the line that starts
+    at line_y and is line_h tall."""
+    kind = "dash" if bullet == "bar" else bullet
+    if kind == "none":
+        return []
+    mw, mh = (k * size for k in MARKS.get(kind, MARKS["dot"]))
+    y = line_y + (line_h - mh) / 2
+    if kind == "dot":
+        return [Element(kind="shape", shape="circle", x=x, y=y, w=mw, h=mh, color=mark)]
+    if kind == "dash":
+        return [Element(kind="shape", shape="rectangle", x=x, y=y, w=mw, h=mh, color=mark,
+                        radius=mh / 2)]
+    if kind == "ring":
+        k = mw * 0.5  # the hole, in the colour the list sits on
+        return [Element(kind="shape", shape="circle", x=x, y=y, w=mw, h=mh, color=mark),
+                Element(kind="shape", shape="circle", x=x + (mw - k) / 2, y=y + (mh - k) / 2,
+                        w=k, h=k, color=hole)]
+    if kind == "square":
+        return [Element(kind="shape", shape="rectangle", x=x, y=y, w=mw, h=mh, color=mark,
+                        radius=mw * 0.18)]
+    if kind == "diamond":
+        return [Element(kind="shape", shape="rhombus", x=x, y=y, w=mw, h=mh, color=mark)]
+    if kind == "triangle":  # Lido's triangle points up: turned a quarter, it points right
+        return [Element(kind="shape", shape="triangle", x=x + (mw - mh) / 2,
+                        y=y + (mh - mw) / 2, w=mh, h=mw, color=mark, rotate=90)]
+    if kind == "plus":
+        return [Element(kind="shape", shape="cross", x=x, y=y, w=mw, h=mh, color=mark)]
+    if kind == "check":
+        return [Element(kind="draw", draw="check", x=x, y=y, w=mw, h=mh, color=mark,
+                        stroke_width=round(max(3.0, size * 0.13), 1))]
+    line = round(max(1.6, size * 0.075), 1)  # outline weight for the outlined markers
+
+    def outline(shape: str, ox: float, oy: float, ow: float, oh: float) -> Element:
+        """An outlined shape: filled with what the list sits on, edged in the mark."""
+        return Element(kind="shape", shape=shape, x=ox, y=oy, w=ow, h=oh, color=hole,
+                       stroke=mark, stroke_width=line)
+
+    def glyph(name: str, colour: str, share: float = 0.6) -> Element:
+        g = mw * share
+        return Element(kind="draw", doodle=name, x=x + (mw - g) / 2, y=y + (mh - g) / 2,
+                       w=g, h=g, color=colour, stroke_width=round(max(2.0, size * 0.09), 1))
+
+    if kind == "check_ring":
+        return [outline("circle", x, y, mw, mh), glyph("tick", mark, 0.58)]
+    if kind in ("check_square", "arrow_square"):
+        return [Element(kind="shape", shape="rectangle", x=x, y=y, w=mw, h=mh, color=mark,
+                        radius=mw * 0.24),
+                glyph("tick" if kind == "check_square" else "chevron", hole)]
+    if kind == "plus_circle":
+        k = mw * 0.46
+        return [Element(kind="shape", shape="circle", x=x, y=y, w=mw, h=mh, color=mark),
+                Element(kind="shape", shape="cross", x=x + (mw - k) / 2, y=y + (mh - k) / 2,
+                        w=k, h=k, color=hole)]
+    if kind == "target":
+        k = mw * 0.42
+        return [outline("circle", x, y, mw, mh),
+                Element(kind="shape", shape="circle", x=x + (mw - k) / 2, y=y + (mh - k) / 2,
+                        w=k, h=k, color=mark)]
+    if kind == "diamond_outline":
+        k = mw * 0.4
+        return [outline("rhombus", x, y, mw, mh),
+                Element(kind="shape", shape="rhombus", x=x + (mw - k) / 2, y=y + (mh - k) / 2,
+                        w=k, h=k, color=mark)]
+    if kind == "glow_dot":
+        k = mw * 0.5
+        return [Element(kind="shape", shape="circle", x=x, y=y, w=mw, h=mh, color=mark,
+                        opacity=0.25),
+                Element(kind="shape", shape="circle", x=x + (mw - k) / 2, y=y + (mh - k) / 2,
+                        w=k, h=k, color=mark)]
+    if kind == "number_ring":
+        return [outline("circle", x, y, mw, mh),
+                Element(kind="text", text_type="caption", text=str(number), font="button",
+                        size=round(size * 0.6), color=mark, align="center", x=x,
+                        y=y + mh * 0.18, w=mw, h=0, max_lines=1, line_height=1.2)]
+    if kind in ("check_circle", "arrow_circle"):
+        glyph = mw * 0.62
+        return [Element(kind="shape", shape="circle", x=x, y=y, w=mw, h=mh, color=mark),
+                Element(kind="draw", doodle="tick" if kind == "check_circle" else "chevron",
+                        x=x + (mw - glyph) / 2, y=y + (mh - glyph) / 2, w=glyph, h=glyph,
+                        color=hole, stroke_width=round(max(2.0, size * 0.09), 1))]
+    # number
+    return [Element(kind="shape", shape="circle", x=x, y=y, w=mw, h=mh, color=mark),
+            Element(kind="text", text_type="caption", text=str(number), font="button",
+                    size=round(size * 0.62), color=hole, align="center", x=x,
+                    y=y + mh * 0.17, w=mw, h=0, max_lines=1, line_height=1.2)]
+
+
 def _fit(e: Element, v: Variant, items: list[str], cols: int, bullet: str):
     """The largest size (from the requested one down) at which every item fits."""
     font, lh = e.font or "body", e.line_height or 1.3
@@ -52,8 +163,8 @@ def _fit(e: Element, v: Variant, items: list[str], cols: int, bullet: str):
     col_w = (e.w - GAP * (cols - 1)) / cols
     size = float(e.size or 26)
     while True:
-        bsz = round(size * 0.55)
-        indent = 0 if bullet == "none" else (size * 1.5 if bullet == "number" else bsz + 14)
+        bsz = marker_width(bullet, size)
+        indent = 0 if bullet == "none" else bsz + max(10.0, size * 0.55)
         m = measure(v.fonts, font, size, bool(e.uppercase), e.letter_spacing or 0)
         text_w = col_w - indent
         heights, ok = [], text_w > 40
@@ -75,7 +186,7 @@ def expand_list(e: Element, v: Variant) -> list[Element]:
         return []
     bullet = e.bullet or "dot"
     cols = max(1, min(e.columns or columns_for(len(items), e.w), 3, len(items)))
-    size, bsz, indent, col_w, per, heights, gap, tallest = _fit(e, v, items, cols, bullet)
+    size, _, indent, col_w, per, heights, gap, tallest = _fit(e, v, items, cols, bullet)
     lh = e.line_height or 1.3
     mark, hole = _bullet_colors(e)
     divider = e.divider or "none"
@@ -87,27 +198,7 @@ def expand_list(e: Element, v: Variant) -> list[Element]:
         for row, (i, item) in enumerate(chunk):
             h = heights[i]
             first = size * lh  # bullets centre on the item's first line
-            if bullet in ("dot", "ring"):
-                out.append(Element(kind="shape", shape="circle", x=x, y=y + (first - bsz) / 2,
-                                   w=bsz, h=bsz, color=mark))
-                if bullet == "ring":
-                    k = bsz * 0.46
-                    out.append(Element(kind="shape", shape="circle", x=x + (bsz - k) / 2,
-                                       y=y + (first - k) / 2, w=k, h=k, color=hole))
-            elif bullet == "bar":
-                out.append(Element(kind="shape", shape="rectangle", x=x,
-                                   y=y + first / 2 - 3, w=bsz, h=6, color=mark, radius=3))
-            elif bullet == "check":
-                out.append(Element(kind="draw", draw="check", x=x, y=y + (first - bsz) / 2,
-                                   w=bsz, h=bsz, color=mark, stroke_width=max(3, size / 8)))
-            elif bullet == "number":
-                d = size * 1.15
-                out.append(Element(kind="shape", shape="circle", x=x, y=y + (first - d) / 2,
-                                   w=d, h=d, color=mark))
-                out.append(Element(kind="text", text_type="caption", text=str(i + 1),
-                                   font="button", size=round(size * 0.62), color=hole,
-                                   align="center", x=x, y=y + (first - d) / 2 + d * 0.17,
-                                   w=d, h=0, max_lines=1, line_height=1.2))
+            out += bullet_marks(bullet, x, y, first, size, mark, hole, i + 1)
             out.append(Element(kind="text", text_type="item", text=item, x=x + indent, y=y,
                                w=col_w - indent, h=h, font=e.font or "body", size=size,
                                color=e.color or "ink", align="left", max_lines=2,

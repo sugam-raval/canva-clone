@@ -29,6 +29,8 @@ from app.lido_corpus.palette import (
     to_hex,
 )
 from app.lido_create.ai import EXAMPLE_RECIPES, SYSTEM, example, normalise
+from app.lido_create.backdrops import brief_for, random_backdrop
+from app.lido_create.backdrops import expand as expand_backdrop
 from app.lido_create.check import FEATURE_FAMILIES, validate
 from app.lido_create.kit import (
     FONT_SETS,
@@ -163,6 +165,9 @@ class BriefResult:
     attempts: int
     colors: dict[str, str] = field(default_factory=dict)
     features: list[str] = field(default_factory=list)
+    # what code added around the designer's work: the backdrop it was drawn on, the
+    # contact lines that got an icon (camelCase: stored as is)
+    extras: dict = field(default_factory=dict)
 
 
 # How to fix each kind of failed check — sent with the failures, so a repair round
@@ -364,7 +369,12 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
         steer += ("\nSignature elements for this version — work all three into the design: "
                   + "; ".join(FEATURE_FAMILIES[f] for f in features) + ".")
     # what every repair round must still respect, with or without a plan
-    fixed = _brand_rules(palette) if palette is not None else ""
+    # the backdrop: the plan's, or (designing without a plan) often a random one
+    backdrop = plan.backdrop if plan is not None else random_backdrop(rng)
+    expanded = expand_backdrop(backdrop) if backdrop is not None else None
+    fixed = "\n".join(part for part in (
+        _brand_rules(palette) if palette is not None else "",
+        brief_for(expanded, palette) if expanded is not None else "") if part)
     if fixed:
         steer += "\n" + fixed
     if logo and plan is None:
@@ -400,6 +410,11 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
         # on this, so "move the list" is one change, not twenty
         as_written = ai.model_dump_json(exclude_none=True)
         ai.elements = normalise(ai.elements, v)
+        for e in ai.elements:  # only code marks backdrop layers and draws icons
+            e.backdrop, e.doodle = None, None
+        if expanded is not None:
+            ai.background = expanded.base
+            ai.elements = [*(e.model_copy() for e in expanded.layers), *ai.elements]
         design = Design(recipe=f"brief:{ai.name}", theme=ai.photo_theme,
                         palette=palette.name if palette else "custom",
                         fonts=ai.fonts, background=ai.background, elements=ai.elements)
@@ -425,4 +440,21 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
                 log.info("lido.brief.auto_fixed", fix=fix.__name__,
                          before=len(result.errors), after=len(errors))
                 result.design, result.errors = patched, errors
+    return _decorate(result, plan, rng, backdrop)
+
+
+def _decorate(result: BriefResult, plan: DesignPlan | None, rng: random.Random,
+              backdrop) -> BriefResult:
+    """Contact icons, placed by code once the design is built (each kept only if it
+    adds no problem)."""
+    from app.lido_create.decorate import add_contact_icons
+
+    extras: dict = {"backdrop": backdrop.model_dump() if backdrop is not None else None}
+    if plan is None or (plan.contact_icons and "contact" not in plan.exclude):
+        result.design, extras["contactIcons"] = add_contact_icons(
+            result.design, result.variant, plan)
+    result.errors = validate(result.design, result.variant, creative=True, plan=plan)
+    result.extras = extras
+    log.info("lido.brief.decorated", backdrop=backdrop.style if backdrop else None,
+             icons=extras.get("contactIcons"))
     return result

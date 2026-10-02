@@ -19,7 +19,11 @@ from typing import Literal
 import structlog
 from pydantic import BaseModel
 
+from app.lido_create.backdrops import STYLES as BACKDROP_STYLES
+from app.lido_create.backdrops import Backdrop
+from app.lido_create.backdrops import clean as clean_backdrop
 from app.lido_create.catalog import CLIPS, MAX_PHOTOS, layout_menu, layouts, mood_guide, moods
+from app.lido_create.check import CURRENCY
 from app.lido_create.draw import DRAW_PRESETS
 from app.lido_create.kit import THEMES
 from app.lido_create.lists import MAX_ITEMS
@@ -64,6 +68,8 @@ class DesignPlan(BaseModel):
     gradient: str | None  # how to use a gradient, or null for none
     photo_theme: ThemeName
     notes: str  # the art direction in 1-2 sentences: spacing, weight, attitude
+    backdrop: Backdrop | None = None  # a layered gradient background, or null
+    contact_icons: bool = True  # a small icon beside each website/phone/email/address
 
 
 SYSTEM = f"""You are the ART DIRECTOR of a design studio. You read a client's brief for ONE
@@ -106,6 +112,14 @@ DECIDE
 8. photo_theme — the closest theme ({", ".join(t.name for t in THEMES)}) for placeholder
    photos.
 9. notes — 1-2 sentences of art direction (spacing, weight, attitude).
+10. backdrop — a layered gradient background from the chosen mood's backdrops: style;
+   side (split_half: left/right/top/bottom; diagonal_split and horizon_arc: top/bottom;
+   corner_glow: left/right; spotlight: center/left/right/top/bottom); angle 10-30 (the
+   tilt of diagonals, negative tilts the other way); split 0.35-0.65 (where the split,
+   bands or arc sit); tone accent | soft. Most designs gain depth from one; use null for
+   a plain canvas when the mood lists no backdrops or the brief wants it minimal.
+11. contact_icons — true (a small icon beside each website/phone/email/address line)
+   unless the brief asks for no icons.
 
 LAYOUT CATALOGUE
 {{menu}}
@@ -119,6 +133,7 @@ with no frame, e.g. a product)
 shapes: {", ".join(SHAPES)}
 draw: {", ".join(DRAW_PRESETS)}
 effects: {", ".join(TEXT_EFFECTS)}
+backdrops: {"; ".join(f"{k} = {v}" for k, v in BACKDROP_STYLES.items())}
 """
 
 
@@ -162,6 +177,10 @@ def _clean(plan: DesignPlan, brief: str = "") -> DesignPlan:
     plan.shapes = [s for s in plan.shapes if s in SHAPES]
     plan.draw = [d for d in plan.draw if d in DRAW_PRESETS]
     plan.effects = [e for e in plan.effects if e in TEXT_EFFECTS]
+    if brief and CURRENCY.search(brief) and "price" in plan.exclude:
+        plan.exclude.remove("price")  # the brief gives a price: it can't rule prices out
+    if plan.backdrop is not None:
+        plan.backdrop = clean_backdrop(plan.backdrop)
     if plan.layout != "custom" and plan.layout not in layouts():
         plan.layout, plan.custom_layout = "custom", plan.custom_layout or plan.layout
     if any(t.role == "cta" for t in plan.texts) and "button" in plan.exclude:
@@ -205,6 +224,8 @@ def fingerprint(plan: DesignPlan) -> str:
     if plan.gradient:
         feats.append("gradient")
     feats += plan.draw[:2] + plan.effects[:1]
+    if plan.backdrop:
+        feats.append(f"backdrop {plan.backdrop.style}")
     return f"{plan.layout} ({len(plan.photos)} photos; {', '.join(feats)})"
 
 
@@ -279,4 +300,7 @@ def plan_brief(plan: DesignPlan) -> str:
         f"- Mood: {'; '.join(mood_lines)}\n"
         f"- Features to use: {'; '.join(f for f in feats if f) or 'your choice'}\n"
         f"- Do NOT add: {', '.join(plan.exclude) or 'nothing excluded'}\n"
-        f"- Art direction: {plan.notes}")
+        f"- Art direction: {plan.notes}"
+        + ("\n- Contact icons: a small icon is added beside each website/phone/email/"
+           "address line — leave about 50px free to the left of those lines"
+           if plan.contact_icons else ""))

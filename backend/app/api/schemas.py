@@ -204,6 +204,10 @@ class LidoDraftInfo(Base):
     attempts: int | None = None
     problems: list[str] = Field(default_factory=list)
     """Design checks still failing after the repair rounds; empty when it passes."""
+    backdrop: dict[str, Any] | None = None
+    """The layered gradient background it was drawn on (style, side, angle, split…)."""
+    contact_icons: list[str] = Field(default_factory=list)
+    """The contact lines that got an icon beside them (website, phone, email, address)."""
     brand_palette: list[str] | None = None
     """The brand colours it was asked to use (LidoDraftRequest.palette), if any."""
     logo_url: str | None = None

@@ -157,6 +157,10 @@ export interface LidoDraftInfo {
   attempts?: number | null
   /** Design checks still failing after repairs; empty when the design passes. */
   problems: string[]
+  /** The layered gradient background it was drawn on (style, side, angle, split, tone). */
+  backdrop?: { style: string; side?: string | null; angle?: number | null; split?: number | null; tone?: string | null } | null
+  /** The contact lines that got an icon beside them. */
+  contactIcons?: string[]
   /** The brand colours it was asked to use (#rrggbb, first = primary), if any. */
   brandPalette?: string[] | null
   /** The client logo it shows, if one was given. */

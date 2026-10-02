@@ -9,7 +9,7 @@ UV      := VIRTUAL_ENV=$(PWD)/$(VENV) uv pip install --python $(PWD)/$(VENV)/bin
 .DEFAULT_GOAL := help
 .PHONY: help setup install infra infra-down db-reset db-upgrade api web dev \
         test lint fmt clean check lido-meta lido-sync lido-add lido-create \
-        lido-draft-export
+        lido-draft-export lido-doodles
 
 help: ## Show this help
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | \
@@ -79,6 +79,9 @@ lido-create: ## Generate new template drafts for review (saved to the lido_draft
 	  $(if $(SEED),--seed $(SEED)) $(if $(IDEA),--idea "$(IDEA)") \
 	  $(if $(THEME),--theme $(THEME)) $(if $(PALETTE),--palette $(PALETTE)) \
 	  $(if $(FONTS),--fonts $(FONTS))
+
+lido-doodles: ## Check the icon library and draw every icon on a sheet (lidojs_templates/doodles/)
+	$(PY) scripts/doodle_sheet.py
 
 lido-draft-export: ## Write a reviewed draft into lidojs_templates/ for lido-add (ID=<draft id> [NAME=template_N])
 	$(PY) scripts/lido_drafts.py export $(ID) $(if $(NAME),--name $(NAME)) $(if $(FORCE),--force)
