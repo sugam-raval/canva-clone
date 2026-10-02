@@ -422,8 +422,15 @@ class OpenAILLM:
         # even when LLM_REASONING_EFFORT is set for the default llm_model.
         # `reasoning_effort` only raises/lowers effort for a model already configured as
         # a reasoning model; it never pushes a non-reasoning llm_model onto that path.
+        # An explicit model WITH an explicit `reasoning_effort` is a deliberate request
+        # for that reasoning model at that effort (e.g. LIDO_LAYOUT_MODEL +
+        # LIDO_LAYOUT_REASONING_EFFORT), so it takes the reasoning path.
         global_effort = (settings.llm_reasoning_effort or "").strip() or None
-        effort = (reasoning_effort or global_effort) if model is None and global_effort else None
+        if model is not None and reasoning_effort:
+            effort = reasoning_effort
+        else:
+            effort = (reasoning_effort or global_effort) if model is None and global_effort \
+                else None
         model = model or settings.llm_model
         # A model that only exists on the Responses API (gpt-5-pro) needs that path
         # even with no effort configured — otherwise every call 404s on chat.completions

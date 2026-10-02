@@ -1,0 +1,205 @@
+# The layout catalogue: a menu of post structures the art director picks from.
+#
+# Each entry describes HOW a 1080 x 1080 post is arranged: where the photo(s) and the
+# text sit. It never says which frames, colours, fonts or decoration to use; the AI
+# picks those from the brief's mood. So one layout gives many different designs.
+#
+# To add a layout, copy an entry and change it:
+#   name:   short_snake_case, unique
+#   photos: [min, max]  how many photos it works with (1 to 4)
+#   suits:  when it fits — kinds of message and feelings (never a business type:
+#           any business can use any layout)
+#   idea:   the structure in 1-3 sentences, with rough positions. Write it for a
+#           designer: "left half", "top third", "stepping diagonally"...
+#           Text never sits on a photo (the checks reject it): when text goes over a
+#           photo area, say it sits on a solid card, band or strip.
+#           If the text contains a colon followed by a space (": "), wrap the whole
+#           text in double quotes, or YAML reads it as a new field.
+#
+# The art director also always has the option to invent its own layout ("custom"), and
+# about 1 in 4 designs is invented freely without this list.
+
+- name: split_half
+  photos: [1, 1]
+  suits: [single hero, offer, bold, announcement]
+  idea: Photo fills one half (left or right, full height); headline, copy and button stacked in the other half.
+
+- name: magazine_cover
+  photos: [1, 1]
+  suits: [single hero, editorial, premium, launch]
+  idea: One photo fills most of the post (about the lower 70%); a huge headline sits in the solid strip above it like a magazine title; small copy and button on a solid card or band over the photo's bottom corner.
+
+- name: centre_stage
+  photos: [1, 1]
+  suits: [single hero, launch, reveal, details around it]
+  idea: The photo sits in the middle as the hero; headline above it; small badges, labels and features orbit around it; button below.
+
+- name: floating_card
+  photos: [1, 1]
+  suits: [single hero, story, calm, information on a card]
+  idea: Full-bleed photo background; a solid rounded card floats over its lower half or one side, holding the headline, copy and button.
+
+- name: diagonal_split
+  photos: [1, 1]
+  suits: [energy, motion, bold, offer]
+  idea: A slanted band (rotated rectangle or parallelogram) divides the post; photo on one side, text on the other; the slant gives motion.
+
+- name: big_type_hero
+  photos: [1, 1]
+  suits: [announcement, message-led, bold, minimal]
+  idea: The headline is enormous and fills the top two-thirds; the photo is a medium accent tucked in a lower corner, its top edge just below the last line (never under the text).
+
+- name: letter_frame
+  photos: [1, 1]
+  suits: [brand, initial, launch, playful]
+  idea: One huge letter frame (the brand or key word's initial) holds the photo and fills one side; the headline and copy sit beside it.
+
+- name: arch_window
+  photos: [1, 1]
+  suits: [single hero, calm, elegant]
+  idea: The photo is in a tall arch in the centre; headline centred above it; a small pill or label overlaps the arch's base; contact line at the bottom.
+
+- name: corner_photo
+  photos: [1, 1]
+  suits: [information, list, clean, professional]
+  idea: The photo is a large circle or blob bleeding off one corner; a clean text column on the opposite side with a feature list and button.
+
+- name: top_band
+  photos: [1, 1]
+  suits: [single hero, offer, information below]
+  idea: Photo across the top 55-60% of the post; a solid colour panel below with headline, copy and button; an offer badge sits on the seam.
+
+- name: frame_in_frame
+  photos: [1, 1]
+  suits: [premium, elegant, minimal]
+  idea: An inset outline frame runs around the whole post; inside it the photo sits off-centre in its own frame with the text balancing it.
+
+- name: spotlight_column
+  photos: [1, 1]
+  suits: [launch, reveal, premium, symmetrical]
+  idea: "A centred vertical column — kicker, headline, photo in a soft spotlight glow, then price or button; symmetrical and calm."
+
+- name: z_pattern
+  photos: [2, 2]
+  suits: [two-part story, comparison, process]
+  idea: Reading flows in a Z — headline top-left, photo 1 top-right, photo 2 bottom-left, copy and button bottom-right.
+
+- name: before_after
+  photos: [2, 2]
+  suits: [comparison, transformation, results]
+  idea: Two photos side by side of equal size, each with a small label pill ("Before", "After"); headline above, button below.
+
+- name: overlap_pair
+  photos: [2, 2]
+  suits: [pair, story, lifestyle, depth]
+  idea: A large photo and a smaller photo overlapping its corner at a different depth; headline in the free space beside them.
+
+- name: duo_stack
+  photos: [2, 2]
+  suits: [two items, details, information]
+  idea: Two photos stacked vertically on one side (big over small); the text column runs the full height on the other side.
+
+- name: twin_frames
+  photos: [2, 2]
+  suits: [two items, people, information]
+  idea: Two matching frames side by side across the top half; wide headline and copy below; button and contact in the bottom row.
+
+- name: hero_and_inset
+  photos: [2, 2]
+  suits: [one main view plus a detail, story]
+  idea: One hero photo fills most of the post; a small inset photo in a circle or badge frame overlaps its edge; text on a card or band.
+
+- name: staggered_trio
+  photos: [3, 3]
+  suits: [three items, sequence, flow, calm]
+  idea: Three photos stepping diagonally from top-left to bottom-right (or the reverse), each slightly overlapping the next; headline in the open corner.
+
+- name: filmstrip
+  photos: [3, 4]
+  suits: [collection, sequence, highlights, variety]
+  idea: A horizontal row of 3-4 equal small photos like film frames across the middle; headline above the strip, copy and button below.
+
+- name: hero_plus_two
+  photos: [3, 3]
+  suits: [one main item plus extras, range, collection]
+  idea: One large photo on one side and two smaller photos stacked on the other; the headline spans the top or the bottom.
+
+- name: orbit_trio
+  photos: [3, 3]
+  suits: [group, community, playful, three items]
+  idea: Three round or organic frames arranged in a loose triangle around the centred headline, like they orbit it.
+
+- name: polaroid_stack
+  photos: [2, 3]
+  suits: [memories, casual, story, warm]
+  idea: Two or three photos with thick light borders, slightly rotated and overlapping like printed photos on a table; headline beside or above the stack.
+
+- name: triptych
+  photos: [3, 3]
+  suits: [three steps, three items, sequence, editorial]
+  idea: Three tall equal panels side by side filling the middle band of the post, each with a tiny caption below; headline across the top, button at the bottom.
+
+- name: arch_trio
+  photos: [3, 3]
+  suits: [three items, elegant, calm]
+  idea: Three arch-shaped photos in a row, the middle one taller; headline centred above, copy and button centred below.
+
+- name: grid_four
+  photos: [4, 4]
+  suits: [collection, catalogue, variety, four items]
+  idea: A 2x2 grid of photos fills most of the post with thin gaps; the headline sits on a band or card crossing the centre of the grid.
+
+- name: mosaic_four
+  photos: [4, 4]
+  suits: [collection, story, variety, editorial]
+  idea: Four photos of different sizes fitted together like a magazine mosaic on one side; the text column on the other side.
+
+- name: corner_cluster
+  photos: [3, 4]
+  suits: [collection, playful, small items]
+  idea: Three or four small round or organic frames clustered in one corner at different sizes; the headline and copy take the rest of the space.
+
+- name: centre_band
+  photos: [1, 2]
+  suits: [announcement, bold, minimal]
+  idea: A thick solid band across the middle of the post holds the headline; photos sit above and/or below the band.
+
+- name: offset_column
+  photos: [1, 1]
+  suits: [clean, information, professional]
+  idea: A tall photo on one side with a solid colour block offset beside it (not behind it); text column on the other side.
+
+- name: badge_burst
+  photos: [1, 1]
+  suits: [offer, discount, loud]
+  idea: The offer is the hero — a huge badge or burst shape in the centre with the discount; the photo is smaller beside it; headline above.
+
+- name: steps_flow
+  photos: [1, 3]
+  suits: [process, how it works, steps]
+  idea: Three numbered steps run left to right as a flow (chevrons, arrows or lines connecting them); headline above; one photo or one small photo per step.
+
+- name: quote_card
+  photos: [1, 1]
+  suits: [testimonial, quote, inspiration]
+  idea: A large quotation as the hero text in the centre, with a big quote mark; a round portrait photo and a name line below it.
+
+- name: menu_list
+  photos: [1, 2]
+  suits: [list, prices, options, services]
+  idea: A clean list of 4-5 items with prices or details in a column, dotted leader lines between name and price; photo on the other side.
+
+- name: date_hero
+  photos: [1, 1]
+  suits: [event, deadline, countdown, opening]
+  idea: A huge date (day number) is the hero element, with month and time beside it; event name above; photo as a supporting accent.
+
+- name: framed_poster
+  photos: [1, 2]
+  suits: [awareness, cause, message, calm]
+  idea: Generous margins all round like a printed poster; the photo in the upper middle, headline and a short message below, lots of empty space.
+
+- name: photo_fade
+  photos: [1, 1]
+  suits: [single hero, calm, premium, interior, lifestyle, real estate, beauty, story]
+  idea: "One photo fills the whole post; a fade layer over it in the canvas colour is solid across the top third and melts into the photo below (or solid along the bottom or one side), so the photo dissolves into a calm flat area. Logo, headline, copy and button sit in that solid part only. Describe a photo whose subject sits in the other part, with calm empty space where the fade goes."

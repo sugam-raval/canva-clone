@@ -8,6 +8,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { api, ApiError } from '../lib/api'
+import { BrandInputs } from '../lib/BrandInputs'
 import { LidoPreview } from '../lib/lidoRender'
 import type { LidoDraftInfo } from '../lib/lidoTypes'
 
@@ -54,7 +55,7 @@ function Swatches({ colors }: { colors: Record<string, string> }) {
 
 function Preview({ draft, big }: { draft: LidoDraftInfo; big?: boolean }) {
   if (draft.previewUrl) {
-    return <img src={draft.previewUrl} alt={draft.name ?? draft.id}
+    return <img src={draft.previewUrl} alt={draft.name ?? `Draft ${draft.id}`}
       style={{ width: '100%', display: 'block', borderRadius: big ? 6 : 0 }} />
   }
   const layers = draft.document?.[0]?.layers
@@ -67,9 +68,31 @@ function download(draft: LidoDraftInfo) {
   const blob = new Blob([JSON.stringify(draft.document, null, 2)], { type: 'application/json' })
   const link = document.createElement('a')
   link.href = URL.createObjectURL(blob)
-  link.download = `${draft.id}.json`
+  link.download = `draft_${draft.id}.json`
   link.click()
   URL.revokeObjectURL(link.href)
+}
+
+const seconds = (ms: number) => `${(ms / 1000).toFixed(1)}s`
+
+/** "47.3s — plan 3.1s · design 35.2s · photos 6.0s · save 3.0s" (null if not recorded). */
+function timingNote(draft: LidoDraftInfo): string | null {
+  if (draft.generationMs == null) return null
+  const t = draft.timing ?? {}
+  const steps = ([['plan', t.planMs], ['design', t.designMs], ['photos', t.photosMs], ['save', t.saveMs]] as const)
+    .filter(([, ms]) => ms != null)
+    .map(([label, ms]) => `${label} ${seconds(ms as number)}`)
+  return seconds(draft.generationMs) + (steps.length ? ` — ${steps.join(' · ')}` : '')
+}
+
+function photoNote(draft: LidoDraftInfo): string {
+  if (draft.photoSource !== 'generated') {
+    return 'Photo subjects (placeholder photos from the corpus — set LIDO_DRAFT_PHOTOS=generate to render them)'
+  }
+  const missed = draft.photoFallbacks ?? 0
+  return missed
+    ? `Photo subjects (generated; ${missed} failed and kept a placeholder)`
+    : 'Photo subjects (each photo generated from its subject)'
 }
 
 function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () => void }) {
@@ -83,9 +106,9 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
       </div>
       <div>
         <div className="progress" style={{ marginTop: 0 }}>
-          <div style={{ fontWeight: 600 }}>{draft.name || draft.layout || draft.id}</div>
+          <div style={{ fontWeight: 600 }}>{draft.name || draft.layout || `Draft ${draft.id}`}</div>
           <div style={{ fontSize: 12, color: 'var(--muted)' }}>
-            {draft.id} · {draft.source}{draft.attempts ? ` · ${draft.attempts} attempt(s)` : ''}
+            #{draft.id} · {draft.source}{draft.attempts ? ` · ${draft.attempts} attempt(s)` : ''}
           </div>
           {draft.idea && <div style={{ fontSize: 13, marginTop: 8 }}>{draft.idea}</div>}
           {draft.direction && (
@@ -95,11 +118,53 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
           )}
           <div style={{ fontSize: 12, marginTop: 10, display: 'grid', gap: 4 }}>
             {Object.keys(draft.colors).length > 0 && (
-              <div><strong>Colours:</strong> <Swatches colors={draft.colors} /></div>
+              <div>
+                <strong>Colours:</strong> <Swatches colors={draft.colors} />
+                {draft.brandPalette && draft.brandPalette.length > 0 && (
+                  <span style={{ color: 'var(--muted)' }}> (from your brand colours)</span>
+                )}
+              </div>
             )}
+            {draft.logoUrl && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <strong>Logo:</strong>
+                <img src={draft.logoUrl} alt="Brand logo"
+                  style={{ height: 22, width: 22, objectFit: 'contain', background: '#fff', borderRadius: 4 }} />
+                <span style={{ color: 'var(--muted)' }}>your logo</span>
+              </div>
+            )}
+            {timingNote(draft) && <div><strong>Time to design:</strong> {timingNote(draft)}</div>}
             {draft.fonts && <div><strong>Fonts:</strong> {draft.fonts}</div>}
             {draft.features && draft.features.length > 0 && (
               <div><strong>Signature elements:</strong> {draft.features.join(', ')}</div>
+            )}
+            {draft.backdrop && (
+              <div>
+                <strong>Background:</strong> {String(draft.backdrop.style).replace(/_/g, ' ')}
+                {draft.backdrop.side ? ` (${draft.backdrop.side})` : ''}
+              </div>
+            )}
+            {draft.contactIcons && draft.contactIcons.length > 0 && (
+              <div><strong>Contact icons:</strong> {draft.contactIcons.join(', ')}</div>
+            )}
+            {draft.plan && (
+              <>
+                <div>
+                  <strong>Layout:</strong> {draft.plan.layout === 'custom'
+                    ? `custom (invented) — ${draft.plan.custom_layout ?? ''}`
+                    : draft.plan.layout.replace(/_/g, ' ')}
+                </div>
+                <div><strong>Mood:</strong> {draft.plan.moods.join(', ').replace(/_/g, ' ')}</div>
+                {!draft.logoUrl && (
+                  <div><strong>Logo:</strong> {draft.plan.logo ? 'yes' : 'no (the prompt asked)'}</div>
+                )}
+                {draft.plan.exclude.length > 0 && (
+                  <div><strong>Left out:</strong> {draft.plan.exclude.join(', ').replace(/_/g, ' ')}</div>
+                )}
+                {draft.plan.notes && (
+                  <div style={{ color: 'var(--muted)' }}>Art direction: {draft.plan.notes}</div>
+                )}
+              </>
             )}
             {draft.textCount != null && <div><strong>Text boxes:</strong> {draft.textCount}</div>}
           </div>
@@ -118,7 +183,7 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
         {draft.photoSubjects.length > 0 && (
           <div className="progress">
             <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 6 }}>
-              Photo subjects (placeholder photos for now — these become the image prompts)
+              {photoNote(draft)}
             </div>
             <div className="log">
               {draft.photoSubjects.map((s, i) => <div key={i}>{i + 1}. {s}</div>)}
@@ -137,15 +202,15 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
 
         <div className="progress">
           <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 6 }}>Saved as</div>
-          <code style={{ fontSize: 11 }}>lidojs_templates/drafts/{draft.id}.json</code>
+          <code style={{ fontSize: 11 }}>draft #{draft.id} (lido_drafts)</code>
           <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
             <button onClick={() => download(draft)} disabled={!draft.document}>Download JSON</button>
             <button className="danger" onClick={onDelete}>Delete</button>
           </div>
           <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 8 }}>
-            To use it: move the JSON into <code>lidojs_templates/</code> and its PNG into{' '}
-            <code>lidojs_templates/previews/</code>, then{' '}
-            <code>make lido-add TEMPLATE={draft.id} KIND=post</code>.
+            To use it: <code>make lido-draft-export ID={draft.id}</code> (writes it into{' '}
+            <code>lidojs_templates/</code> and prints its <code>template_N</code> name), then{' '}
+            <code>make lido-add TEMPLATE=template_N KIND=post</code>.
           </div>
         </div>
       </div>
@@ -156,8 +221,11 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
 export function DraftStudio() {
   const [prompt, setPrompt] = useState('')
   const [variations, setVariations] = useState(1)
+  const [palette, setPalette] = useState<string[]>([])
+  const [logoUrl, setLogoUrl] = useState('')
   const [running, setRunning] = useState(false)
   const [elapsed, setElapsed] = useState(0)
+  const [tookMs, setTookMs] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [created, setCreated] = useState<LidoDraftInfo[]>([])
   const [selected, setSelected] = useState<LidoDraftInfo | null>(null)
@@ -180,10 +248,14 @@ export function DraftStudio() {
     if (prompt.trim().length < 3 || running) return
     setRunning(true)
     setElapsed(0)
+    setTookMs(null)
     setError(null)
     setCreated([])
+    const started = performance.now()
     try {
-      const drafts = await api.lidoDraftCreate(prompt.trim(), variations)
+      const drafts = await api.lidoDraftCreate(prompt.trim(), variations,
+        { palette, logoUrl: logoUrl.trim() || undefined })
+      setTookMs(performance.now() - started)
       setCreated(drafts)
       setSelected(drafts[0] ?? null)
       refresh()
@@ -194,7 +266,7 @@ export function DraftStudio() {
     }
   }
 
-  const open = async (id: string) => {
+  const open = async (id: number) => {
     setError(null)
     try {
       setSelected(await api.lidoDraft(id))
@@ -203,7 +275,7 @@ export function DraftStudio() {
     }
   }
 
-  const remove = async (id: string) => {
+  const remove = async (id: number) => {
     if (!window.confirm(`Delete draft ${id}? This removes its JSON and preview.`)) return
     try {
       await api.lidoDraftDelete(id)
@@ -246,12 +318,22 @@ export function DraftStudio() {
           <button className="primary" onClick={design} disabled={running || prompt.trim().length < 3}>
             {running ? <span className="spinner" /> : 'Design template'}
           </button>
+          {tookMs != null && !running && (
+            <span className="badge" title="Total wait, from clicking Design template to the result">
+              Done in {seconds(tookMs)}
+            </span>
+          )}
           {running && (
             <span style={{ fontSize: 12, color: 'var(--muted)' }}>
               Designing with AI… {elapsed}s (usually 30–120 s; each variation runs in parallel)
             </span>
           )}
         </div>
+        <BrandInputs
+          palette={palette} onPalette={setPalette} logoUrl={logoUrl} onLogoUrl={setLogoUrl}
+          disabled={running} emptyLabel="the designer picks"
+          logoTitle="Every design gets a logo showing this image"
+        />
         <div className="examples">
           {EXAMPLES.map((example) => (
             <button key={example.label} onClick={() => setPrompt(example.prompt)} disabled={running}>
@@ -269,7 +351,7 @@ export function DraftStudio() {
             <div key={d.id} className="card" onClick={() => setSelected(d)}
               style={{ width: 150, borderColor: selected?.id === d.id ? 'var(--accent)' : undefined }}>
               <div className="thumb" style={{ aspectRatio: '1' }}><Preview draft={d} /></div>
-              <div className="meta"><div className="title">{d.name || d.id}</div></div>
+              <div className="meta"><div className="title">{d.name || `Draft ${d.id}`}</div></div>
             </div>
           ))}
         </div>
@@ -289,9 +371,10 @@ export function DraftStudio() {
               style={{ borderColor: selected?.id === d.id ? 'var(--accent)' : undefined }}>
               <div className="thumb" style={{ aspectRatio: '1' }}><Preview draft={d} /></div>
               <div className="meta">
-                <div className="title">{d.name || d.layout || d.id}</div>
+                <div className="title">{d.name || d.layout || `Draft ${d.id}`}</div>
                 <div className="sub">
-                  {d.id} · {d.source}{d.problems.length ? ` · ${d.problems.length} issue(s)` : ''}
+                  #{d.id} · {d.source}{d.generationMs != null ? ` · ${seconds(d.generationMs)}` : ''}
+                  {d.problems.length ? ` · ${d.problems.length} issue(s)` : ''}
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 """Data access for the Lido.js (template) flow. Plain SQL against
-infra/initdb/001_schema.sql (templates + vectors) and 002_lido_generations.sql (history).
+infra/initdb/001_schema.sql (templates + vectors), 002_lido_generations.sql (history) and
+006_lido_drafts.sql (draft templates awaiting review).
 """
 
 from __future__ import annotations
@@ -215,3 +216,88 @@ async def get_lido_generation(session: AsyncSession, design_id: str) -> dict | N
         {"id": design_id},
     )).mappings().first()
     return _generation_row(row) if row else None
+
+
+# --------------------------------------------------------------------------------------
+# Draft templates (lido_drafts)
+# --------------------------------------------------------------------------------------
+
+
+async def insert_lido_draft(session: AsyncSession, *, source: str, prompt: str, name: str,
+                            fingerprint: str | None, preview_url: str | None,
+                            info: dict[str, Any], document: list[dict],
+                            created_at=None) -> int:
+    """Insert one draft and return its id. `created_at` None means now."""
+    return int((await session.execute(
+        text("""
+            insert into lido_drafts
+                (source, prompt, name, fingerprint, preview_url, info, document, created_at)
+            values (:source, :prompt, :name, :fingerprint, :preview_url,
+                    cast(:info as jsonb), cast(:document as jsonb),
+                    coalesce(:created_at, now()))
+            returning id
+        """),
+        {"source": source, "prompt": prompt, "name": name, "fingerprint": fingerprint,
+         "preview_url": preview_url, "info": json.dumps(info),
+         "document": json.dumps(document), "created_at": created_at},
+    )).scalar_one())
+
+
+async def set_lido_draft_preview(session: AsyncSession, draft_id: int, url: str) -> None:
+    await session.execute(text("update lido_drafts set preview_url = :url where id = :id"),
+                          {"url": url, "id": draft_id})
+
+
+async def set_lido_draft_timing(session: AsyncSession, draft_id: int,
+                                timing: dict[str, int]) -> None:
+    """How long it took to design (`timing["totalMs"]` also goes to generation_ms)."""
+    await session.execute(
+        text("update lido_drafts set generation_ms = :total, timing = cast(:timing as jsonb) "
+             "where id = :id"),
+        {"total": timing.get("totalMs"), "timing": json.dumps(timing), "id": draft_id})
+
+
+async def find_imported_draft(session: AsyncSession, imported_from: str) -> int | None:
+    """The id of the draft imported from an old `template_<n>` file, if any."""
+    return (await session.execute(
+        text("select id from lido_drafts where info->>'importedFrom' = :name limit 1"),
+        {"name": imported_from},
+    )).scalar()
+
+
+_DRAFT_COLUMNS = ("id, source, prompt, name, fingerprint, preview_url, info, generation_ms, "
+                  "timing, created_at")
+
+
+async def list_lido_drafts(session: AsyncSession, *, limit: int | None = 60) -> list[dict]:
+    """Newest first, without `document`."""
+    rows = (await session.execute(
+        text(f"select {_DRAFT_COLUMNS} from lido_drafts "
+             "order by created_at desc, id desc limit :limit"),
+        {"limit": limit},
+    )).mappings().all()
+    return [dict(r) for r in rows]
+
+
+async def get_lido_draft(session: AsyncSession, draft_id: int) -> dict | None:
+    row = (await session.execute(
+        text(f"select {_DRAFT_COLUMNS}, document from lido_drafts where id = :id"),
+        {"id": draft_id},
+    )).mappings().first()
+    return dict(row) if row else None
+
+
+async def delete_lido_draft(session: AsyncSession, draft_id: int) -> bool:
+    row = (await session.execute(
+        text("delete from lido_drafts where id = :id returning id"), {"id": draft_id},
+    )).first()
+    return row is not None
+
+
+async def recent_draft_fingerprints(session: AsyncSession, limit: int = 10) -> list[str]:
+    rows = (await session.execute(
+        text("select fingerprint from lido_drafts where fingerprint is not null "
+             "order by created_at desc limit :limit"),
+        {"limit": limit},
+    )).scalars().all()
+    return list(rows)

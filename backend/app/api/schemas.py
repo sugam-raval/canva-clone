@@ -18,6 +18,21 @@ class Base(BaseModel):
                               extra="forbid")
 
 
+def checked_palette(value: list[str] | None) -> list[str] | None:
+    """Up to 4 readable colours as #rrggbb (first = primary); empty means none."""
+    if not value:
+        return None
+    return [to_hex(c) for c in parse_palette(value)]
+
+
+def checked_logo_url(value: str | None) -> str | None:
+    if not value:
+        return None
+    if not value.startswith(("http://", "https://")):
+        raise ValueError("logo_url must be an http(s) URL")
+    return value
+
+
 class LidoGenerateRequest(Base):
     """Generate a design from a Lido template — simpler prompt interface than DesignBrief.
 
@@ -43,21 +58,8 @@ class LidoGenerateRequest(Base):
     normally `locked` against every other kind of write. Omitted: the template's own
     logo (if any) is left as-is. Ignored if the template has no logo slot."""
 
-    @field_validator("palette")
-    @classmethod
-    def _valid_palette(cls, value: list[str] | None) -> list[str] | None:
-        if not value:
-            return None
-        return [to_hex(c) for c in parse_palette(value)]
-
-    @field_validator("logo_url")
-    @classmethod
-    def _valid_logo_url(cls, value: str | None) -> str | None:
-        if not value:
-            return None
-        if not value.startswith(("http://", "https://")):
-            raise ValueError("logo_url must be an http(s) URL")
-        return value
+    _valid_palette = field_validator("palette")(checked_palette)
+    _valid_logo_url = field_validator("logo_url")(checked_logo_url)
 
 
 class LidoSlotFillInfo(Base):
@@ -156,12 +158,23 @@ class LidoDraftRequest(Base):
     is designed in a different creative direction and saved to lidojs_templates/drafts/."""
     prompt: str = Field(min_length=3, max_length=4000)
     variations: int = Field(default=1, ge=1, le=3)
+    palette: list[str] | None = Field(default=None, max_length=4)
+    """Optional brand colours, the same as `LidoGenerateRequest.palette`: up to 4
+    (#rrggbb), the first primary. Every variation is drawn in exactly these instead of
+    colours the designer picks. Omitted or empty: the designer chooses."""
+    logo_url: str | None = None
+    """Optional brand logo image URL (http/https). Every variation then gets a logo
+    element showing it. Omitted: the stock placeholder logo, if the design has one."""
+
+    _valid_palette = field_validator("palette")(checked_palette)
+    _valid_logo_url = field_validator("logo_url")(checked_logo_url)
 
 
 class LidoDraftInfo(Base):
     """One draft template awaiting review. `document` is only sent when a single draft
     is requested (or just created); the list omits it."""
-    id: str
+    id: int
+    """`lido_drafts.id`."""
     created_at: datetime
     source: str = "recipe"
     """"brief" (designed from a prompt), "ai" (CLI --ai), "recipe" (CLI) or "manual"."""
@@ -177,13 +190,34 @@ class LidoDraftInfo(Base):
     colors: dict[str, str] = Field(default_factory=dict)
     features: list[str] = Field(default_factory=list)
     """The feature families this design was asked to use (gradient, frame, draw…)."""
+    plan: dict[str, Any] | None = None
+    """The art director's plan: photos and their subjects, texts, moods, layout…"""
+    plan_layout: str | None = None
+    fingerprint: str | None = None
     text_count: int | None = None
     photo_subjects: list[str] = Field(default_factory=list)
-    """What each photo should show — the prompts a future image-generation step uses."""
+    """What each photo should show — the prompts photo generation uses."""
     photo_source: str | None = None
+    """corpus-cache (placeholder photos) or generated (rendered from photo_subjects)."""
+    photo_fallbacks: int = 0
+    """Photos that failed to generate and kept a cached placeholder instead."""
     attempts: int | None = None
     problems: list[str] = Field(default_factory=list)
     """Design checks still failing after the repair rounds; empty when it passes."""
+    backdrop: dict[str, Any] | None = None
+    """The layered gradient background it was drawn on (style, side, angle, split…)."""
+    contact_icons: list[str] = Field(default_factory=list)
+    """The contact lines that got an icon beside them (website, phone, email, address)."""
+    brand_palette: list[str] | None = None
+    """The brand colours it was asked to use (LidoDraftRequest.palette), if any."""
+    logo_url: str | None = None
+    """The client logo it shows, if one was given."""
+    generation_ms: int | None = None
+    """How long designing it took, request start → this draft saved (null: unknown)."""
+    timing: dict[str, int] = Field(default_factory=dict)
+    """The same step by step, in ms: planMs, designMs, photosMs, saveMs, totalMs."""
+    imported_from: str | None = None
+    """The template_<n> file it was imported from (scripts/lido_drafts.py import)."""
     has_preview: bool = False
     preview_url: str | None = None
     document: list[dict[str, Any]] | None = None

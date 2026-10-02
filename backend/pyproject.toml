@@ -17,6 +17,7 @@ dependencies = [
   "pillow>=11.0",
   "numpy>=1.26,<2.2",
   "structlog>=24.4",
+  "pyyaml>=6.0",  # the editable layout catalogue and mood map (app/lido_create/data)
 ]
 
 [project.optional-dependencies]

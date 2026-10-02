@@ -96,7 +96,7 @@ make lido-create [AI=1]
    - takes each photo frame's image URL (skipping logos), plus that template's `tags`
      and `name`
    - downloads each photo **once** to read its width and height, then caches the size
-     in `drafts/.photo_cache.json` (later runs skip the download). It sends a normal
+     in `lidojs_templates/.photo_cache.v2.json` (later runs skip the download). It sends a normal
      browser user-agent header, because the CDN returns 403 to Python's default one.
    - skips images under 300px (logos, icons) and transparent cutouts
    - each photo gets **one** theme: the first match in the order fashion → interior →
@@ -326,7 +326,7 @@ assign roles later:
 
 `save()` in the entry script:
 
-1. Writes `drafts/template_<id>.json`.
+1. Stores the draft as one `lido_drafts` row and gets its `id` back.
 2. **Preview** (`render.py`):
    - `html()` draws the layers as plain HTML: text as `div`s (wrapping like the Lido
      editor), shapes as coloured `div`s, photo frames as SVG with the same `clipPath`
@@ -334,23 +334,19 @@ assign roles later:
    - `screenshot()` opens that page in headless Chrome and screenshots it. The window
      is 300px taller than the canvas (Chrome's viewport is a bit shorter than its window
      size), then the image is cropped to exactly 1080 × 1080.
-   - Result: `drafts/previews/template_<id>.png`.
-3. Prints one line: `template_90006  split_offer  food  navy-amber  modern-serif  mirrored 6 texts`.
+   - The screenshot is taken in a temp folder and uploaded to the object store
+     (`public/lido-generated/drafts/<id>/preview.png`); nothing stays on disk.
+3. Prints one line: `draft 36    split_offer  food  navy-amber  modern-serif  mirrored 6 texts`.
 
 ---
 
 ## 9. Step 6: finish
 
-- `overview.png`: every preview from this run on one contact sheet, 4 per row.
-- `.history.json`: updated with the new combinations (recipe mode only).
-- The paths are printed.
-
-Then it's your turn to review. Moving a keeper into the corpus hands it to the normal
-pipeline:
+Then it's your turn to review, in the **Design new template** tab. Exporting a keeper
+into the corpus hands it to the normal pipeline:
 
 ```bash
-mv lidojs_templates/drafts/template_N.json lidojs_templates/
-mv lidojs_templates/drafts/previews/template_N.png lidojs_templates/previews/
+make lido-draft-export ID=<draft id>          # prints the template_N name it was given
 make lido-add TEMPLATE=template_N KIND=post
 ```
 
@@ -366,7 +362,7 @@ reads the preview PNG), verifies it and adds the template to the database. Nothi
 
 ```
 collecting placeholder photos from the corpus...          ← step 1 (cache hit, instant)
-writing to lidojs_templates/drafts/
+saving drafts to the database (lido_drafts)...
   asking the LLM for layout 1/1 (fashion, sky-cobalt, tall-caps)...   ← 5.1 dress chosen
     ai attempt 1: 'diagonal_lookbook' — passes            ← 5.2–5.4 + step 3
   template_90006  ai:diagonal_lookbook fashion  sky-cobalt  tall-caps  6 texts   ← steps 4–5
@@ -402,7 +398,7 @@ the LLM, and you would see `ai attempt 2: … — passes` on the next line.
 | AI (`AI=1`) | 1, or up to 3 with repairs | ~30–60 s per call |
 
 The first run downloads each corpus photo and font once. Later runs use the caches
-(`drafts/.photo_cache.json`, `lidojs_templates/fonts/`).
+(`lidojs_templates/.photo_cache.v2.json`, `lidojs_templates/fonts/`).
 
 ---
 
@@ -425,9 +421,9 @@ UI prompt ──► POST /v1/lido/drafts {prompt, variations 1–3}
                  │  check.validate() → failures sent back for repair (≤ 2 rounds)
                  ▼
         photos.resolve_photos(source)               app/lido_create/photos.py
-                 │  CachedPhotos today: a corpus photo per frame
+                 │  LIDO_DRAFT_PHOTOS: cache (a corpus photo per frame) or generate
                  ▼
-        drafts.save_draft()  →  template_<id>.json + previews/<id>.png + <id>.info.json
+        drafts.save_draft()  →  one lido_drafts row; preview PNG to the object store
                  ▼
 UI shows the preview, idea, colours, fonts, photo subjects and check status,
 and lists every draft (GET /v1/lido/drafts) with open / download / delete.
@@ -460,8 +456,7 @@ and lists every draft (GET /v1/lido/drafts) with open / download / delete.
 | POST | `/v1/lido/drafts` | `{prompt, variations}` → the new drafts, each with its document |
 | GET | `/v1/lido/drafts` | Every draft, newest first (no documents) |
 | GET | `/v1/lido/drafts/{id}` | One draft with its document |
-| GET | `/v1/lido/drafts/{id}/preview.png` | Its screenshot |
-| DELETE | `/v1/lido/drafts/{id}` | Removes its JSON, info file and preview |
+| DELETE | `/v1/lido/drafts/{id}` | Removes its `lido_drafts` row (the preview and photos stay in the object store: an exported copy still points at them) |
 
 A request takes ~30–120 s: one LLM call per variation, in parallel, plus any repairs.
 

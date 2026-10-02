@@ -1,83 +1,168 @@
-"""Draft storage: generated templates waiting for review in `lidojs_templates/drafts/`.
+"""Draft storage: generated templates waiting for review, in the `lido_drafts` table
+(infra/initdb/006_lido_drafts.sql). Nothing is written to disk.
 
-Each draft is three files, all named after the template:
+Each draft is one row, known everywhere by the table's own `id`:
 
-    template_<id>.json              the raw Lido export (what gets moved into the corpus)
-    previews/template_<id>.png      a screenshot of it (best effort: needs Chrome)
-    template_<id>.info.json         how it was made — prompt, idea, colours, fonts,
-                                    photo subjects, check results — for the UI
+    document     the raw Lido export (what gets exported into the corpus)
+    preview_url  a screenshot of it (best effort: needs Chrome), uploaded to the object
+                 store under public/lido-generated/drafts/<id>/
+    info         how it was made — prompt, idea, colours, fonts, photo subjects, check
+                 results — for the review UI
 
-The folder is never read by matching; a draft only becomes a real template when it is
-moved into `lidojs_templates/` and onboarded with `make lido-add`.
+Drafts are never read by matching; a draft only becomes a real template when it is
+exported into `lidojs_templates/` (`make lido-draft-export ID=<id>`, which gives it a
+free `template_<n>` name) and onboarded with `make lido-add`.
 """
 
 from __future__ import annotations
 
 import asyncio
-import json
 import random
-import re
+import tempfile
+import time
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any, Protocol
 
 import structlog
+from botocore.exceptions import BotoCoreError, ClientError
 
-from app.lido_create.brief import DIRECTIONS, design_from_brief
-from app.lido_create.kit import CORPUS_DIR, DRAFTS_DIR, Design, Photo, Variant, photo_pool
+from app.db import repo
+from app.db.session import session_scope
+from app.lido_corpus.generated import upload_asset
+from app.lido_corpus.palette import parse_palette
+from app.lido_create.brief import DIRECTIONS, brand_palette, design_from_brief
+from app.lido_create.kit import Design, Photo, Variant, photo_pool
 from app.lido_create.lido import to_lido
-from app.lido_create.photos import CachedPhotos, PhotoSource, resolve_photos
+from app.lido_create.photos import GENERATED_TAG, PhotoSource, configured_source, resolve_photos
 from app.lido_create.render import screenshot
 
 log = structlog.get_logger(__name__)
 
-FIRST_ID = 90001  # generated templates live in their own id range, clear of real exports
-DRAFT_NAME = re.compile(r"template_(\d+)")
-_id_lock = asyncio.Lock()
+ASSET_FOLDER = "drafts"  # previews land in public/lido-generated/drafts/<id>/
 
 
 def photo_source() -> PhotoSource:
-    """The one place that decides where new templates' photos come from."""
-    return CachedPhotos()
+    """The one place that decides where new templates' photos come from
+    (LIDO_DRAFT_PHOTOS: cache | generate — see `photos.configured_source`)."""
+    return configured_source()
 
 
-def used_ids() -> set[int]:
-    ids = set()
-    # the drafts folder normally sits inside the corpus; scanned on its own too in case
-    # it has been pointed elsewhere
-    for p in [*CORPUS_DIR.rglob("template_*"), *DRAFTS_DIR.rglob("template_*")]:
-        m = DRAFT_NAME.fullmatch(p.name.split(".")[0])
-        if m:
-            ids.add(int(m.group(1)))
-    return ids
+# --------------------------------------------------------------------------------------
+# Where drafts are kept: the database. Behind a small interface so tests can keep them
+# in memory.
+# --------------------------------------------------------------------------------------
 
 
-def next_ids(count: int, start: int = FIRST_ID) -> list[int]:
-    taken, out, n = used_ids(), [], start
-    while len(out) < count:
-        if n not in taken:
-            out.append(n)
-        n += 1
-    return out
+class DraftStore(Protocol):
+    async def insert(self, row: dict[str, Any]) -> int: ...
+
+    async def set_preview(self, draft_id: int, url: str) -> None: ...
+
+    async def set_timing(self, draft_id: int, timing: dict[str, int]) -> None: ...
+
+    async def list(self, limit: int | None) -> list[dict[str, Any]]: ...
+
+    async def get(self, draft_id: int) -> dict[str, Any] | None: ...
+
+    async def delete(self, draft_id: int) -> bool: ...
+
+    async def fingerprints(self, limit: int) -> list[str]: ...
 
 
-def _paths(tid: int, out: Path | None = None) -> tuple[Path, Path, Path]:
-    out = out or DRAFTS_DIR  # read at call time, so tests can point it elsewhere
-    return (out / f"template_{tid}.json", out / "previews" / f"template_{tid}.png",
-            out / f"template_{tid}.info.json")
+class DbDraftStore:
+    """`lido_drafts` in Postgres. Each call is its own transaction: a draft is saved the
+    moment it is made, whatever happens to the other variations of the same request."""
+
+    async def insert(self, row: dict[str, Any]) -> int:
+        async with session_scope() as s:
+            return await repo.insert_lido_draft(s, **row)
+
+    async def set_preview(self, draft_id: int, url: str) -> None:
+        async with session_scope() as s:
+            await repo.set_lido_draft_preview(s, draft_id, url)
+
+    async def set_timing(self, draft_id: int, timing: dict[str, int]) -> None:
+        async with session_scope() as s:
+            await repo.set_lido_draft_timing(s, draft_id, timing)
+
+    async def list(self, limit: int | None) -> list[dict[str, Any]]:
+        async with session_scope() as s:
+            return await repo.list_lido_drafts(s, limit=limit)
+
+    async def get(self, draft_id: int) -> dict[str, Any] | None:
+        async with session_scope() as s:
+            return await repo.get_lido_draft(s, draft_id)
+
+    async def delete(self, draft_id: int) -> bool:
+        async with session_scope() as s:
+            return await repo.delete_lido_draft(s, draft_id)
+
+    async def fingerprints(self, limit: int) -> list[str]:
+        async with session_scope() as s:
+            return await repo.recent_draft_fingerprints(s, limit)
 
 
-def save_draft(design: Design, v: Variant, tid: int, *, out: Path | None = None,
-               photos: list[Photo] | None = None, preview: bool = True,
-               info: dict | None = None) -> dict:
-    """Write the template, its preview and its info file; return the info."""
-    doc = to_lido(design, v, photos)
-    path, png, info_path = _paths(tid, out)
-    png.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(doc, indent=2) + "\n")
-    shot = preview and screenshot(doc[0]["layers"], png)
+_STORE = DbDraftStore()
+
+
+def store() -> DraftStore:
+    return _STORE
+
+
+def _record(row: dict[str, Any]) -> dict[str, Any]:
+    """A stored row as the review UI's record (the camelCase LidoDraftInfo fields)."""
+    created = row["created_at"]
     record = {
-        "id": f"template_{tid}",
-        "createdAt": datetime.now(UTC).isoformat(),
+        **(row.get("info") or {}),
+        "id": row["id"],
+        "createdAt": created.isoformat() if isinstance(created, datetime) else created,
+        "source": row["source"],
+        "prompt": row["prompt"] or None,
+        "name": row["name"] or None,
+        "fingerprint": row["fingerprint"],
+        "previewUrl": row["preview_url"],
+        "hasPreview": bool(row["preview_url"]),
+        "generationMs": row.get("generation_ms"),
+        "timing": row.get("timing") or {},
+    }
+    record.setdefault("problems", [])
+    if "document" in row:
+        record["document"] = row["document"]
+    return record
+
+
+# --------------------------------------------------------------------------------------
+# Saving, reading, deleting
+# --------------------------------------------------------------------------------------
+
+
+def upload_preview(draft_id: int, data: bytes) -> str | None:
+    """Upload a draft's screenshot; its public URL, or None when the store is down.
+    Blocking (boto3); call it off the event loop."""
+    try:
+        return upload_asset(f"{ASSET_FOLDER}/{draft_id}", "preview", data)
+    except (BotoCoreError, ClientError, OSError) as exc:
+        log.warning("lido.drafts.preview_upload_failed", draft=draft_id, error=str(exc)[:300])
+        return None
+
+
+def _preview(doc: list[dict], draft_id: int) -> str | None:
+    """Screenshot the document and upload it; None without Chrome or an object store."""
+    with tempfile.TemporaryDirectory() as tmp:
+        png = Path(tmp) / "preview.png"
+        if not screenshot(doc[0]["layers"], png):
+            return None
+        return upload_preview(draft_id, png.read_bytes())
+
+
+def _ms_since(start: float) -> int:
+    return round((time.perf_counter() - start) * 1000)
+
+
+def design_info(design: Design) -> dict[str, Any]:
+    """What a design itself says about how it was made."""
+    return {
         "source": design.recipe.split(":")[0] if ":" in design.recipe else "recipe",
         "layout": design.recipe,
         "theme": design.theme,
@@ -87,95 +172,163 @@ def save_draft(design: Design, v: Variant, tid: int, *, out: Path | None = None,
         "textCount": sum(e.kind == "text" for e in design.elements),
         "photoSubjects": [e.subject for e in design.elements
                           if e.kind == "photo" and e.subject],
-        "hasPreview": bool(shot),
         "problems": [],
-        **(info or {}),
     }
-    info_path.write_text(json.dumps(record, indent=2) + "\n")
-    return record
 
 
-def _record(tid: int, out: Path | None) -> dict:
-    path, png, info_path = _paths(tid, out)
-    if info_path.is_file():
-        record = json.loads(info_path.read_text())
-    else:  # made before info files existed, or copied in by hand
-        record = {"id": path.stem, "source": "manual", "problems": [],
-                  "createdAt": datetime.fromtimestamp(path.stat().st_mtime, UTC).isoformat()}
-    record["hasPreview"] = png.is_file()
-    return record
+async def save_draft(design: Design, v: Variant, *, photos: list[Photo] | None = None,
+                     logo_url: str | None = None, preview: bool = True,
+                     info: dict | None = None, timing: dict[str, int] | None = None,
+                     started: float | None = None) -> dict:
+    """Store the template as a new draft, then its preview (stored under the draft's
+    id, so it is taken once the row exists); return its record (with the document).
+
+    `timing`: how long the steps before this took (ms); with `started` (the request's
+    `time.perf_counter()`), the save time and the total are added and stored too."""
+    drafts = store()
+    save_started = time.perf_counter()
+    doc = to_lido(design, v, photos, logo_url=logo_url)
+    meta = {**design_info(design), **(info or {})}
+    source = meta.pop("source")
+    prompt, name, fingerprint = meta.pop("prompt", ""), meta.pop("name", ""), \
+        meta.pop("fingerprint", None)
+    row = {"source": source, "prompt": prompt or "", "name": name or "",
+           "fingerprint": fingerprint, "preview_url": None, "info": meta,
+           "document": doc, "created_at": datetime.now(UTC)}
+    draft_id = await drafts.insert(row)
+    if preview and (url := await asyncio.to_thread(_preview, doc, draft_id)):
+        await drafts.set_preview(draft_id, url)
+        row["preview_url"] = url
+    if timing is not None and started is not None:
+        timing = {**timing, "saveMs": _ms_since(save_started), "totalMs": _ms_since(started)}
+        await drafts.set_timing(draft_id, timing)
+        log.info("lido.drafts.timing", draft=draft_id, **timing)
+        row.update(timing=timing, generation_ms=timing["totalMs"])
+    return _record({**row, "id": draft_id})
 
 
-def list_drafts(out: Path | None = None) -> list[dict]:
-    """Every draft, newest first."""
-    folder = out or DRAFTS_DIR
-    records = [_record(int(m.group(1)), out) for p in folder.glob("template_*.json")
-               if (m := DRAFT_NAME.fullmatch(p.stem))]
-    return sorted(records, key=lambda r: r.get("createdAt", ""), reverse=True)
+async def list_drafts(limit: int | None = 60) -> list[dict]:
+    """Every draft (up to `limit`), newest first, without documents."""
+    return [_record(r) for r in await store().list(limit)]
 
 
-def draft_id(name: str) -> int:
-    m = DRAFT_NAME.fullmatch(name)
-    if not m:
-        raise ValueError(f"not a draft id: {name!r}")
-    return int(m.group(1))
+async def get_draft(draft_id: int) -> dict | None:
+    row = await store().get(draft_id)
+    return _record(row) if row else None
 
 
-def get_draft(name: str, out: Path | None = None) -> dict | None:
-    tid = draft_id(name)
-    path = _paths(tid, out)[0]
-    if not path.is_file():
-        return None
-    return {**_record(tid, out), "document": json.loads(path.read_text())}
+async def delete_draft(draft_id: int) -> bool:
+    """Remove the row. Its preview and photos stay in the object store: the document may
+    already have been exported into the corpus, which still points at them."""
+    return await store().delete(draft_id)
 
 
-def preview_path(name: str, out: Path | None = None) -> Path | None:
-    png = _paths(draft_id(name), out)[1]
-    return png if png.is_file() else None
+async def recent_fingerprints(limit: int = 10) -> list[str]:
+    """The notebook: one line per recent prompt-designed draft, newest first."""
+    return await store().fingerprints(limit)
 
 
-def delete_draft(name: str, out: Path | None = None) -> bool:
-    found = False
-    for p in _paths(draft_id(name), out):
-        if p.is_file():
-            p.unlink()
-            found = True
-    return found
+# --------------------------------------------------------------------------------------
+# Designing from a prompt
+# --------------------------------------------------------------------------------------
+
+
+def _fallbacks(source: PhotoSource, photos: list[Photo]) -> int:
+    """How many photos a generating source had to fill from the cache instead."""
+    if source.name != "generated":
+        return 0
+    return sum(GENERATED_TAG not in p.tags for p in photos)
+
+
+def _with_logo(plan):
+    """The client gave a logo: the plan places one, whatever the brief seemed to say."""
+    plan.logo = True
+    plan.exclude = [x for x in plan.exclude if x != "logo"]
+    return plan
+
+
+async def _plans(prompt: str, variations: int, rng: random.Random,
+                 logo: bool = False) -> list:
+    """One art-director plan per variation, made one after another so each knows which
+    layouts the others took. A failed plan falls back to designing without one."""
+    from app.lido_create.plan import make_plan
+
+    recent = await recent_fingerprints()
+    plans: list = []
+    taken: list[str] = []
+    for i in range(variations):
+        try:
+            # with several variations, at least one is a free invention
+            free = True if variations > 1 and i == variations - 1 else None
+            plan = await make_plan(prompt, recent=recent, avoid_layouts=taken, free=free,
+                                   rng=random.Random(rng.random()))
+            taken.append(plan.layout)
+            plans.append(_with_logo(plan) if logo else plan)
+        except Exception as exc:  # noqa: BLE001 — the designer can still work without it
+            log.warning("lido.drafts.plan_failed", error=str(exc)[:300])
+            plans.append(None)
+    return plans
 
 
 async def create_from_prompt(prompt: str, *, variations: int = 1,
-                             source: PhotoSource | None = None) -> list[dict]:
-    """Design `variations` templates from one prompt (in parallel, each in a different
-    creative direction when there's more than one) and save them as drafts."""
+                             source: PhotoSource | None = None,
+                             palette: list[str] | None = None,
+                             logo_url: str | None = None) -> list[dict]:
+    """Design `variations` templates from one prompt and save them as drafts: the art
+    director plans each one (fast), then the designers build them in parallel.
+
+    `palette`: up to 4 brand colours (#rrggbb, first = primary), the same palette "fill a
+    template" takes; every variation is drawn in exactly these (`brief.brand_palette`
+    maps them onto the design's colour roles) instead of colours the model picks.
+    `logo_url`: the client's logo, placed in every variation's logo element (each one
+    gets a logo)."""
+    from app.lido_create.plan import fingerprint
+
+    started = time.perf_counter()
     source = source or photo_source()
     photos = await asyncio.to_thread(photo_pool)
     if not photos:
         raise RuntimeError("no placeholder photos found in lidojs_templates/")
     rng = random.Random()
-    directions: list[str | None] = ([None] if variations == 1
-                                    else rng.sample(DIRECTIONS, variations))
+    brand = brand_palette(parse_palette(palette)) if palette else None
+    plan_started = time.perf_counter()
+    plans = await _plans(prompt, variations, rng, logo=bool(logo_url))
+    plan_ms = _ms_since(plan_started)
+    fallback_directions = rng.sample(DIRECTIONS, variations)
+
+    async def timed(job):
+        t0 = time.perf_counter()
+        return await job, _ms_since(t0)
+
     outcomes = await asyncio.gather(*(
-        design_from_brief(prompt, photos, direction=d, rng=random.Random(rng.random()))
-        for d in directions), return_exceptions=True)
-    results = [o for o in outcomes if not isinstance(o, BaseException)]
+        timed(design_from_brief(prompt, photos, plan=plan, rng=random.Random(rng.random()),
+                                direction=None if plan else fallback_directions[i],
+                                palette=brand, logo=bool(logo_url)))
+        for i, plan in enumerate(plans)), return_exceptions=True)
+    done = [(o[0], plans[i], o[1]) for i, o in enumerate(outcomes)
+            if not isinstance(o, BaseException)]
     failures = [o for o in outcomes if isinstance(o, BaseException)]
-    if not results:
+    if not done:
         raise failures[0]  # every variation failed: report why
     for exc in failures:  # some did: keep the ones that worked
         log.warning("lido.drafts.variation_failed", error=str(exc)[:300])
 
+    # every photo of every variation at once: generated ones take a while each
+    chosen_all = await asyncio.gather(*(timed(resolve_photos(r.design, r.variant, source))
+                                        for r, _, _ in done))
     saved = []
-    for r in results:
-        chosen = await resolve_photos(r.design, r.variant, source)
-        async with _id_lock:
-            tid = next_ids(1)[0]
-            # claim the id before the slow screenshot, so a parallel request can't take it
-            _paths(tid)[0].write_text("[]")
-        record = await asyncio.to_thread(
-            save_draft, r.design, r.variant, tid, photos=chosen,
+    for (r, plan, design_ms), (chosen, photos_ms) in zip(done, chosen_all):
+        plan_info = {"plan": plan.model_dump(), "fingerprint": fingerprint(plan),
+                     "planLayout": plan.layout} if plan else {}
+        brand_info = {"brandPalette": palette} if palette else {}
+        saved.append(await save_draft(
+            r.design, r.variant, photos=chosen, logo_url=logo_url,
             info={"source": "brief", "prompt": prompt, "name": r.name, "idea": r.idea,
                   "direction": r.direction, "attempts": r.attempts, "colors": r.colors,
-                  "features": r.features,
-                  "photoSource": source.name, "problems": r.errors})
-        saved.append({**record, "document": json.loads(_paths(tid)[0].read_text())})
+                  "features": r.features, **plan_info, **r.extras,
+                  **brand_info, "logoUrl": logo_url,
+                  "photoSource": source.name, "photoFallbacks": _fallbacks(source, chosen),
+                  "problems": r.errors},
+            timing={"planMs": plan_ms, "designMs": design_ms, "photosMs": photos_ms},
+            started=started))
     return saved

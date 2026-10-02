@@ -6,6 +6,7 @@ from __future__ import annotations
 import uuid
 
 from app.lido_create.check import background_at, draw_seed, luminance
+from app.lido_create.doodles import doodle_path
 from app.lido_create.draw import draw_path
 from app.lido_create.kit import (
     FONT_URLS,
@@ -182,8 +183,11 @@ def _line(e: Element, v: Variant) -> dict:
 
 
 def _draw(e: Element, v: Variant) -> dict:
-    path, _ = draw_path(e.draw or "underline", e.w, e.h, e.stroke_width or 6,
-                        seed=draw_seed(e))
+    if e.doodle:  # a line-art object from the doodle library
+        path, _ = doodle_path(e.doodle, e.w, e.h, e.stroke_width or 3, seed=draw_seed(e))
+    else:
+        path, _ = draw_path(e.draw or "underline", e.w, e.h, e.stroke_width or 6,
+                            seed=draw_seed(e))
     return _layer(None, "DrawLayer", {
         "path": path, "color": rgb(v.palette.color(e.color or "accent")),
         "width": e.stroke_width or 6,
@@ -212,17 +216,22 @@ def _photo(e: Element, p: Photo) -> dict:
     return _layer(None, "FrameLayer", {
         "clipPath": path or clip_path(e.clip or "rect", cw, ch, (e.radius or 0) / scale),
         "position": {"x": e.x, "y": e.y}, "boxSize": {"width": e.w, "height": e.h},
-        "rotate": 0, "scale": scale,
+        "rotate": e.rotate or 0, "scale": scale,
         "image": {"url": p.url, "thumb": p.url, "boxSize": {"width": bw, "height": bh},
                   "position": {"x": (cw - bw) / 2, "y": (ch - bh) * focus}, "rotate": 0},
     })
 
 
-def _logo(e: Element, index: int, design: Design, v: Variant) -> dict:
-    under = background_at(design.elements, index, e.x + e.w / 2, e.y + e.h / 2, v.palette,
-                          design.background)
-    dark = under == "photo" or luminance(under) < 0.4  # type: ignore[arg-type]
-    url = LOGOS["white" if dark else "black"]
+def _logo(e: Element, index: int, design: Design, v: Variant,
+          logo_url: str | None = None) -> dict:
+    """The client's logo when given (fitted inside the box, any aspect), else the stock
+    placeholder in whichever of black/white reads on what's behind it."""
+    url = logo_url
+    if url is None:
+        under = background_at(design.elements, index, e.x + e.w / 2, e.y + e.h / 2,
+                              v.palette, design.background)
+        dark = under == "photo" or luminance(under) < 0.4  # type: ignore[arg-type]
+        url = LOGOS["white" if dark else "black"]
     return _layer("logo", "FrameLayer", {
         "image": {"url": url, "thumb": url, "rotate": 0,
                   "boxSize": {"width": e.w, "height": e.h}, "position": {"x": 0, "y": 0}},
@@ -236,9 +245,11 @@ def _logo(e: Element, index: int, design: Design, v: Variant) -> dict:
     })
 
 
-def to_lido(design: Design, v: Variant, photos: list[Photo] | None = None) -> list[dict]:
+def to_lido(design: Design, v: Variant, photos: list[Photo] | None = None,
+            logo_url: str | None = None) -> list[dict]:
     """`photos` fills the photo elements in order (see `photos.resolve_photos`); without
-    it each one gets a cached corpus photo."""
+    it each one gets a cached corpus photo. `logo_url` is the client's logo for the logo
+    element; without it the stock placeholder is used."""
     queue = list(photos or [])
     layers: dict[str, dict] = {"ROOT": {
         "type": {"type": "bgImage", "resolvedName": "RootLayer", "fixedText": None,
@@ -264,7 +275,7 @@ def to_lido(design: Design, v: Variant, photos: list[Photo] | None = None) -> li
         elif e.kind == "draw":
             layer = _draw(e, v)
         else:
-            layer = _logo(e, i, design, v)
+            layer = _logo(e, i, design, v, logo_url)
         lid = str(uuid.uuid4())
         layers[lid] = layer
         layers["ROOT"]["child"].append(lid)

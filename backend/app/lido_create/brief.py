@@ -19,22 +19,37 @@ import structlog
 from pydantic import BaseModel
 
 from app.adapters.base import AdapterError
-from app.lido_corpus.palette import parse_color, to_hex
+from app.lido_corpus.palette import (
+    BLACK,
+    WHITE,
+    contrast,
+    luminance,
+    parse_color,
+    pick_readable,
+    to_hex,
+)
 from app.lido_create.ai import EXAMPLE_RECIPES, SYSTEM, example, normalise
+from app.lido_create.backdrops import brief_for, random_backdrop
+from app.lido_create.backdrops import expand as expand_backdrop
 from app.lido_create.check import FEATURE_FAMILIES, validate
 from app.lido_create.kit import (
     FONT_SETS,
     FONT_SETS_BY_NAME,
     PALETTES,
+    RGB,
     THEMES,
     THEMES_BY_NAME,
     Design,
     Element,
     Gradient,
+    H,
     Palette,
     Photo,
     Variant,
+    W,
 )
+from app.lido_create.models import describe, layout_call
+from app.lido_create.plan import DesignPlan, plan_brief
 
 log = structlog.get_logger(__name__)
 
@@ -73,8 +88,13 @@ YOU ARE DESIGNING FROM A CLIENT BRIEF
   action and contact details exactly when they give them (shorten only if they cannot
   fit). Where the brief gives none, use a neutral placeholder (www.yourwebsite.com,
   +123-456-7890). Keep copy short: real templates hold short lines.
-- At most 12 text boxes in total. When the brief lists many features, keep the 3-4
-  most important as bulleted items and drop the rest.
+- Lists: put every item the brief (or the plan) lists into ONE list element — all of
+  them, word for word, never dropped or merged. Up to 9 items; the list element picks
+  the columns (1-4 → one column, 5-6 → 2 x 3, 7-9 → 3 x 3) and draws the bullets and
+  dividers. Choose its bullet and divider style to suit the mood.
+- When a DESIGN PLAN is given, it overrides everything else: its photo count, frames,
+  text, logo choice, features and "do not add" list are fixed; your job is to build it
+  beautifully.
 - Use the brief's details the way pro templates do: an offer or discount as a
   multi-line badge ("UP TO" + "30% OFF"), a price as a price tag ("ONLY" + price),
   contacts as caption + value blocks with ring markers, a tagline as a reverse band.
@@ -145,19 +165,172 @@ class BriefResult:
     attempts: int
     colors: dict[str, str] = field(default_factory=dict)
     features: list[str] = field(default_factory=list)
+    # what code added around the designer's work: the backdrop it was drawn on, the
+    # contact lines that got an icon (camelCase: stored as is)
+    extras: dict = field(default_factory=dict)
+
+
+# How to fix each kind of failed check — sent with the failures, so a repair round
+# changes the right thing instead of nudging elements around.
+FIX_HINTS = {
+    "sits on a photo": "Text can't sit on a photo (nor on the fading part of a photo fade — "
+                       "move it into the fade's solid part, or raise its start_at). Add a "
+                       "solid card, band or panel shape "
+                       "over that part of the photo (after the photo, before the text in "
+                       "the list) and keep the text on it — or move the text or the photo "
+                       "so they don't overlap.",
+    "straddles the edge": "Put the text entirely on one shape (or entirely off it): move "
+                          "it, or make the shape big enough to hold the whole text.",
+    "overlaps": "Two texts collide. Use the measured boxes below: move one so they "
+                "don't overlap, or shrink the size of the bigger one.",
+    "drawn on top of it": "Order matters: shapes and photos must come BEFORE the text in "
+                          "the elements list (earlier = further back).",
+    "contrast": "Pick a text colour role that reads on what's behind it (ink on bg, "
+                "on_accent on accent, bg on ink), or change the shape's colour.",
+    "wraps to": "Shorten the line, widen its box, or lower its size.",
+    "wider than": "A word doesn't fit: widen the box or lower the size.",
+    "photos": "Use exactly the number of photos the plan lists, one per subject.",
+    "missing": "Add the missing item to the list element's items, word for word.",
+    "behind a photo": "Remove or move the shape under the photo; decorate around it.",
+    "mostly hidden": "A shape covers the photo: put that shape earlier in the elements "
+                     "list (behind the photo) or move it off the photo.",
+    "too small to read": "Give the list element a bigger area (about 70px of height per "
+                         "row) — move or shrink other elements to make room.",
+    "crosses": "Move the line or drawing beside, under or around the text, not through it.",
+}
+
+
+def repair_notes(errors: list[str], design: Design) -> str:
+    hints = [h for key, h in FIX_HINTS.items() if any(key in e for e in errors)]
+    boxes = "\n".join(
+        f"  {e.text_type} {(e.text or '')[:40]!r}: x {e.x:.0f}-{e.x + e.w:.0f}, "
+        f"y {e.y:.0f}-{e.y + e.h:.0f}, size {e.size:g}"
+        for e in design.elements if e.kind == "text")
+    return (("How to fix:\n- " + "\n- ".join(hints) + "\n\n" if hints else "")
+            + "Measured text boxes in your design (real heights — the list element is "
+              f"already laid out here):\n{boxes}")
+
+
+def back_text_on_photos(design: Design, v: Variant) -> Design:
+    """Last resort for "text sits on a photo": slide a solid rounded card under it (in a
+    colour the text reads on), one card per cluster of nearby texts — the classic "text
+    card over a photo" look."""
+    from app.lido_create.check import _samples, surface_at, text_extent
+
+    els = design.elements
+    hits = []
+    for i, e in enumerate(els):
+        if e.kind != "text":
+            continue
+        box = text_extent(e, v)
+        if any(surface_at(els, i, px, py, v.palette, design.background)[1] == "photo"
+               for px, py in _samples(box)):
+            pad = max(16.0, (e.size or 20) * 0.45)
+            hits.append([i, box[0] - pad, box[1] - pad * 0.6, box[2] + pad, box[3] + pad * 0.6,
+                         e.color or "ink"])
+    if not hits:
+        return design
+    clusters: list[list] = []
+    for h in sorted(hits, key=lambda h: h[2]):
+        for c in clusters:  # join a card that is close by and shares the same text colour
+            if h[5] == c[5] and h[1] < c[3] + 40 and c[1] < h[3] + 40 and h[2] < c[4] + 40:
+                c[0] = min(c[0], h[0])
+                c[1:5] = [min(c[1], h[1]), min(c[2], h[2]), max(c[3], h[3]), max(c[4], h[4])]
+                break
+        else:
+            clusters.append(list(h))
+    out = list(els)
+    for i, x0, y0, x1, y1, ink in sorted(clusters, key=lambda c: -c[0]):
+        x0, y0 = max(x0, 0.0), max(y0, 0.0)
+        x1, y1 = min(x1, float(W)), min(y1, float(H))
+        if (x1 - x0) * (y1 - y0) > 0.15 * W * H:
+            continue  # a card that big would bury the photo: leave it to the checks
+        card = {"on_accent": "accent", "bg": "ink"}.get(ink, "bg")
+        out.insert(i, Element(kind="shape", shape="rectangle", x=x0, y=y0, w=x1 - x0,
+                              h=y1 - y0, color=card, radius=min(24.0, (y1 - y0) / 4)))
+    return design.model_copy(update={"elements": out})
+
+
+def relocate_logo(design: Design, v: Variant) -> Design:
+    """Last resort for a logo that collides with text or sits on a photo/edge: try the
+    four corners and keep the first spot that is free and on one flat colour."""
+    from app.lido_create.check import _overlap, _samples, surface_at, text_extent
+
+    els = list(design.elements)
+    li = next((i for i, e in enumerate(els) if e.kind == "logo"), None)
+    if li is None:
+        return design
+    logo = els[li]
+    texts = [text_extent(e, v) for e in els if e.kind == "text"]
+    for x, y in ((48, 48), (W - 48 - logo.w, 48), (48, H - 48 - logo.h),
+                 (W - 48 - logo.w, H - 48 - logo.h)):
+        box = (x, y, x + logo.w, y + logo.h)
+        if any(_overlap(box, t, pad=-8) for t in texts):
+            continue
+        moved = logo.model_copy(update={"x": x, "y": y})
+        trial = [*els[:li], moved, *els[li + 1:]]
+        under = {surface_at(trial, li, px, py, v.palette, design.background)[0]
+                 for px, py in _samples(box, 3, 3)}
+        if len(under) == 1 and ("photo",) not in under:
+            return design.model_copy(update={"elements": trial})
+    return design
+
+
+ROLES = ("bg", "ink", "accent", "on_accent", "soft")
+TEXT_CONTRAST = 4.5  # ink on bg and on_accent on accent: readable at any text size
+LIGHT_PRIMARY = 0.45  # relative luminance above which a lone primary gets a dark canvas
+
+
+def _mix(a: RGB, b: RGB, t: float) -> RGB:
+    return tuple(round(x + (y - x) * t) for x, y in zip(a, b, strict=True))  # type: ignore[return-value]
+
+
+def brand_palette(colors: list[RGB]) -> Palette:
+    """The user's brand colours (1–4, the first primary — the same palette "fill a
+    template" takes) as the five roles a design is drawn in, readable by construction:
+
+        accent     the primary colour (buttons, badges, highlights)
+        bg         the other colour that sets the primary off most; with none, a pale
+                   tint of it (a deep shade when the primary is itself light)
+        ink        the palette colour most readable on bg, else made readable
+        on_accent  text on the primary: bg when readable there, else black or white
+        soft       an unused palette colour, else a quiet blend of primary and bg
+    """
+    accent, others = colors[0], colors[1:]
+    if others:
+        bg = max(others, key=lambda c: contrast(c, accent))
+    else:
+        # a pale canvas, unless the primary is itself pale (yellow, pastels)
+        bg = _mix(accent, BLACK, 0.85) if luminance(accent) > LIGHT_PRIMARY \
+            else _mix(accent, WHITE, 0.92)
+    rest = [c for c in others if c != bg]
+    preferred = max(rest or [accent], key=lambda c: contrast(c, bg))
+    ink = pick_readable(preferred, bg, TEXT_CONTRAST, [*rest, accent])
+    on_accent = pick_readable(bg, accent, TEXT_CONTRAST, [c for c in colors if c != accent])
+    spare = [c for c in rest if c not in (ink, on_accent)]
+    soft = spare[0] if spare else _mix(accent, bg, 0.6)
+    return Palette("brand", bg=bg, ink=ink, accent=accent, on_accent=on_accent, soft=soft)
+
+
+def _brand_rules(palette: Palette) -> str:
+    roles = ", ".join(f"{r} {to_hex(palette.color(r))}" for r in ROLES)
+    return (f"BRAND COLOURS — fixed by the client, use exactly these and no others: {roles}. "
+            "Set `colors` to them as given; choose fills, text colours and gradients from "
+            "these roles only.")
 
 
 def _palette(colors: BriefColors) -> Palette:
     """The model's colours; any value that isn't a colour falls back to a known-good one."""
     fallback = PALETTES[0]
-    rgb = {role: parse_color(getattr(colors, role)) or fallback.color(role)
-           for role in ("bg", "ink", "accent", "on_accent", "soft")}
+    rgb = {role: parse_color(getattr(colors, role)) or fallback.color(role) for role in ROLES}
     return Palette("custom", **rgb)
 
 
-def _format_example(photos: list[Photo]) -> str:
+def _format_example(photos: list[Photo], rng: random.Random) -> str:
+    """Two of the pro example layouts, a different pair each time, so the designer
+    doesn't keep imitating the same one."""
     v = Variant(PALETTES[0], FONT_SETS[0], THEMES[0], random.Random(0), photos)
-    return "\n".join(example(r, v) for r in EXAMPLE_RECIPES)
+    return "\n".join(example(r, v) for r in rng.sample(EXAMPLE_RECIPES, 2))
 
 
 def _catalogue() -> str:
@@ -168,7 +341,15 @@ def _catalogue() -> str:
 
 async def design_from_brief(prompt: str, photos: list[Photo], *,
                             direction: str | None = None, repairs: int = 2,
-                            rng: random.Random | None = None) -> BriefResult:
+                            rng: random.Random | None = None,
+                            plan: DesignPlan | None = None,
+                            palette: Palette | None = None,
+                            logo: bool = False) -> BriefResult:
+    """Step 2 — the DESIGNER. With a `plan` (step 1, `plan.make_plan`) it builds exactly
+    that plan; without one it designs freely with a creative direction and three random
+    feature families. `palette` (the client's brand colours, `brand_palette`) replaces
+    the colours the model would pick; `logo` asks for a logo even without a plan (the
+    client gave one)."""
     from app.adapters.registry import llm as get_llm
     from app.config import get_settings
 
@@ -176,27 +357,44 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
         raise RuntimeError("designing from a prompt needs OPENAI_API_KEY in backend/.env")
 
     rng = rng or random.Random()
-    # a different trio of feature families per design, so results spread across Lido's
-    # whole vocabulary instead of settling on circles and rectangles
-    features = rng.sample(sorted(FEATURE_FAMILIES), 3)
     system = SYSTEM + BRIEF_RULES + "\n" + _catalogue()
     brief = f'CLIENT BRIEF:\n"""\n{prompt.strip()}\n"""'
-    steer = (f"Creative direction for this version: {direction}." if direction
-             else "Choose the composition that best serves this brief.")
-    steer += ("\nSignature elements for this version — work all three into the design: "
-              + "; ".join(FEATURE_FAMILIES[f] for f in features) + ".")
+    if plan is not None:
+        features: list[str] = []
+        steer = plan_brief(plan)
+    else:
+        # a different trio of feature families per design, so results spread across
+        # Lido's whole vocabulary instead of settling on circles and rectangles
+        features = rng.sample(sorted(FEATURE_FAMILIES), 3)
+        steer = (f"Creative direction for this version: {direction}." if direction
+                 else "Choose the composition that best serves this brief.")
+        steer += ("\nSignature elements for this version — work all three into the design: "
+                  + "; ".join(FEATURE_FAMILIES[f] for f in features) + ".")
+    # what every repair round must still respect, with or without a plan
+    # the backdrop: the plan's, or (designing without a plan) often a random one
+    backdrop = plan.backdrop if plan is not None else random_backdrop(rng)
+    expanded = expand_backdrop(backdrop) if backdrop is not None else None
+    fixed = "\n".join(part for part in (
+        _brand_rules(palette) if palette is not None else "",
+        brief_for(expanded, palette) if expanded is not None else "") if part)
+    if fixed:
+        steer += "\n" + fixed
+    if logo and plan is None:
+        steer += "\nInclude exactly one logo element: the client supplied their logo."
     user = (f"{brief}\n\n{steer}\n\n"
             "Two existing pro layouts, to show the format and the level of detail "
             "expected — match their richness, do not copy their composition:\n"
-            f"{_format_example(photos)}\n\n"
+            f"{_format_example(photos, rng)}\n\n"
             "Design the template: name, idea, colours, font set, photo theme, elements.")
 
     llm = get_llm()
+    options = layout_call()  # LIDO_LAYOUT_MODEL / LIDO_LAYOUT_REASONING_EFFORT
+    log.info("lido.brief.model", layout=describe(options))
     result: BriefResult | None = None
     for attempt in range(1, repairs + 2):
         try:
             reply = await _ask(llm, system=system, user=user, schema=BriefDesign,
-                               temperature=0.9, max_tokens=16000)
+                               temperature=0.9, max_tokens=16000, **options)
         except AdapterError:
             if result is None:
                 raise
@@ -204,21 +402,61 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
             log.warning("lido.brief.repair_unavailable", attempt=attempt)
             break
         ai: BriefDesign = reply.parsed
-        v = Variant(_palette(ai.colors), FONT_SETS_BY_NAME[ai.fonts],
+        if plan is not None:
+            ai.photo_theme = plan.photo_theme  # the art director chose the photos' theme
+        if palette is not None:  # the client's colours, whatever the model wrote
+            ai.colors = BriefColors(**{r: to_hex(palette.color(r)) for r in ROLES})
+        v = Variant(palette or _palette(ai.colors), FONT_SETS_BY_NAME[ai.fonts],
                     THEMES_BY_NAME[ai.photo_theme], rng, photos)
+        # the design as the model wrote it (a list is still ONE element): repairs work
+        # on this, so "move the list" is one change, not twenty
+        as_written = ai.model_dump_json(exclude_none=True)
         ai.elements = normalise(ai.elements, v)
-        design = Design(recipe=f"brief:{ai.name}", theme=ai.photo_theme, palette="custom",
+        for e in ai.elements:  # only code marks backdrop layers and draws icons
+            e.backdrop, e.doodle = None, None
+        if expanded is not None:
+            ai.background = expanded.base
+            ai.elements = [*(e.model_copy() for e in expanded.layers), *ai.elements]
+        design = Design(recipe=f"brief:{ai.name}", theme=ai.photo_theme,
+                        palette=palette.name if palette else "custom",
                         fonts=ai.fonts, background=ai.background, elements=ai.elements)
-        errors = validate(design, v, creative=True)
+        errors = validate(design, v, creative=True, plan=plan)
         result = BriefResult(design, v, errors, ai.name, ai.idea, direction, attempt,
-                             {r: to_hex(v.palette.color(r))
-                              for r in ("bg", "ink", "accent", "on_accent", "soft")},
+                             {r: to_hex(v.palette.color(r)) for r in ROLES},
                              features)
         if not errors:
             break
-        user = (f"{brief}\n\nYour design:\n{ai.model_dump_json(exclude_none=True)}\n\n"
+        user = (f"{brief}\n\n{steer if plan is not None else fixed}\n\n"
+                f"Your design:\n{as_written}\n\n"
                 "It fails these checks:\n- " + "\n- ".join(errors)
-                + "\n\nReturn the corrected design: keep the idea and the brief's copy, fix "
-                  "every problem (move or resize elements, shorten lines, reduce sizes).")
+                + "\n\n" + repair_notes(errors, design)
+                + "\n\nReturn the full corrected design: keep the idea and the brief's copy, "
+                  "fix every problem.")
     assert result is not None
+    # mechanical last resorts, each kept only if it leaves fewer problems
+    for trigger, fix in (("sits on a photo", back_text_on_photos), ("logo", relocate_logo)):
+        if any(trigger in e for e in result.errors):
+            patched = fix(result.design, result.variant)
+            errors = validate(patched, result.variant, creative=True, plan=plan)
+            if len(errors) < len(result.errors):
+                log.info("lido.brief.auto_fixed", fix=fix.__name__,
+                         before=len(result.errors), after=len(errors))
+                result.design, result.errors = patched, errors
+    return _decorate(result, plan, rng, backdrop)
+
+
+def _decorate(result: BriefResult, plan: DesignPlan | None, rng: random.Random,
+              backdrop) -> BriefResult:
+    """Contact icons, placed by code once the design is built (each kept only if it
+    adds no problem)."""
+    from app.lido_create.decorate import add_contact_icons
+
+    extras: dict = {"backdrop": backdrop.model_dump() if backdrop is not None else None}
+    if plan is None or (plan.contact_icons and "contact" not in plan.exclude):
+        result.design, extras["contactIcons"] = add_contact_icons(
+            result.design, result.variant, plan)
+    result.errors = validate(result.design, result.variant, creative=True, plan=plan)
+    result.extras = extras
+    log.info("lido.brief.decorated", backdrop=backdrop.style if backdrop else None,
+             icons=extras.get("contactIcons"))
     return result

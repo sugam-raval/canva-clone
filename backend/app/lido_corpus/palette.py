@@ -429,7 +429,7 @@ def _role_map(usage: dict[RGB, float], palette: list[RGB],
     return mapping
 
 
-def _pick_readable(preferred: RGB, backdrop: RGB, required: float,
+def pick_readable(preferred: RGB, backdrop: RGB, required: float,
                    palette: list[RGB]) -> RGB:
     """`preferred` if readable on `backdrop`; else the first readable palette colour;
     else the preferred hue pushed lighter/darker until readable; else black or white."""
@@ -531,7 +531,7 @@ def plan_theme(template: LidoTemplateFile, palette: list[RGB]) -> ThemePlan:
         for old, w in _visible_colors(props).items():
             new = plan.new_color(old)
             if tp.backdrop_shape and tp.backdrop_shape in plan.shapes:
-                new = _pick_readable(new, plan.shapes[tp.backdrop_shape], tp.required,
+                new = pick_readable(new, plan.shapes[tp.backdrop_shape], tp.required,
                                      plan.palette)
             elif new != old:
                 new = _keep_side(old, new, plan.palette)
@@ -578,7 +578,7 @@ def check_contrast(plan: ThemePlan, background: bytes | None,
         if backdrop is None:
             continue
         for run in tp.runs.values():
-            fixed = _pick_readable(run.new, backdrop, tp.required, plan.palette)
+            fixed = pick_readable(run.new, backdrop, tp.required, plan.palette)
             if fixed != run.new:
                 run.new = fixed
                 if tp.layer_id not in plan.contrast_fixed:

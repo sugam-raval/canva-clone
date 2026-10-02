@@ -16,6 +16,7 @@ from dataclasses import dataclass, field
 from typing import Literal
 
 from pydantic import BaseModel
+from pydantic.json_schema import SkipJsonSchema
 
 from app.lido_corpus.loader import DEFAULT_CORPUS_DIR
 from app.lido_corpus.textfit import TextMeasure, font_file, too_wide_words, wrap
@@ -23,8 +24,8 @@ from app.lido_create.draw import DRAW_PRESETS
 from app.lido_create.shapes import LINE_ENDS, SHAPES, frames
 
 CORPUS_DIR = DEFAULT_CORPUS_DIR
-DRAFTS_DIR = CORPUS_DIR / "drafts"
-PHOTO_CACHE = DRAFTS_DIR / ".photo_cache.v2.json"  # url -> [w, h, is_cutout] or null
+# a local download cache (url -> [w, h, is_cutout] or null), not data: safe to delete
+PHOTO_CACHE = CORPUS_DIR / ".photo_cache.v2.json"
 
 W = H = 1080
 M = 70  # side margin every left-aligned element starts at
@@ -41,6 +42,14 @@ DrawPreset = Literal[tuple(DRAW_PRESETS)]  # type: ignore[valid-type]
 LineEnd = Literal[LINE_ENDS]  # type: ignore[valid-type]
 StrokeStyle = Literal["solid", "dashed", "dotted"]
 TextEffect = Literal["shadow", "lift", "hollow"]
+# List bullets (lists.py draws them): solid markers like real social-post templates use.
+# "bar" is the older name of "dash".
+BulletStyle = Literal["dot", "dash", "ring", "square", "diamond", "triangle", "check",
+                      "check_circle", "arrow_circle", "plus", "number",
+                      # fancier two-part markers
+                      "check_ring", "check_square", "arrow_square", "plus_circle",
+                      "target", "diamond_outline", "number_ring", "glow_dot",
+                      "none", "bar"]
 
 # --------------------------------------------------------------------------------------
 # Palettes: bg (ROOT colour), ink (text on bg), accent (buttons/badges), on_accent (text
@@ -223,7 +232,7 @@ class Gradient(BaseModel):
 
 
 class Element(BaseModel):
-    kind: Literal["shape", "photo", "logo", "text", "dots", "line", "draw"]
+    kind: Literal["shape", "photo", "logo", "text", "dots", "line", "draw", "list"]
     x: float
     y: float
     w: float  # line: its length
@@ -240,6 +249,10 @@ class Element(BaseModel):
     line_start: LineEnd | None = None  # line: end markers
     line_end: LineEnd | None = None
     draw: DrawPreset | None = None  # draw: which hand-drawn stroke fills x/y/w/h
+    items: list[str] | None = None  # list: every item, word for word (lists.py lays it out)
+    columns: int | None = None  # list: 1-3, or null = automatic from the item count
+    bullet: BulletStyle | None = None  # list marker style (lists.py)
+    divider: Literal["line", "dotted", "none"] | None = None  # list: between columns/rows
     rows: int | None = None  # dots: a rows x cols grid of dots filling x/y/w/h
     cols: int | None = None
     dot: float | None = None  # dots: diameter of each dot in px
@@ -259,6 +272,11 @@ class Element(BaseModel):
     effect_color: ColorRole | None = None  # text: the shadow's colour
     bleed: bool | None = None  # allowed to run off the canvas (decoration or photo)
     subject: str | None = None  # photos: what the picture should show (for generation)
+    # Set by code, never by the model (hidden from the schema the model writes to):
+    # a layer of the backdrop (backdrops.py), and the icon a draw element shows
+    # (doodles.py) instead of a stroke preset.
+    backdrop: SkipJsonSchema[bool | None] = None
+    doodle: SkipJsonSchema[str | None] = None
 
 
 class Design(BaseModel):

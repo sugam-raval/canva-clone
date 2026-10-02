@@ -18,9 +18,12 @@ from app.lido_create.kit import (
     Design,
     Element,
     Gradient,
+    H,
     Variant,
+    W,
     line_count,
 )
+from app.lido_create.lists import expand_list
 from app.lido_create.recipes import RECIPES
 from app.lido_create.shapes import FRAME_HINTS, SHAPES, frames
 
@@ -51,15 +54,31 @@ ELEMENTS (drawn in list order: first = back, last = front)
 - draw: a hand-drawn marker stroke filling x/y/w/h — draw = one of DRAW below, color,
   stroke_width (4-14px), opacity. Casual, human accents: circle a price, underline a
   word, point an arrow at the product.
+- list: ONE element for any list (features, services, steps, menu entries, schedule
+  rows) — items = EVERY item, word for word (never drop, merge or shorten any);
+  x/y/w/h = the area it fills; columns = null for automatic (1-4 items → 1 column,
+  5-6 → 2 columns of 3, 7-9 → 3 columns of 3); bullet = dot (classic) | dash (a short
+  "–", minimal and editorial) | ring | square (modern) | diamond (premium, elegant) |
+  triangle (menus, services) | check (benefits) | check_circle (features, what's
+  included) | arrow_circle (steps, services) | plus (extras, add-ons) | number (steps
+  in order) | check_ring (tick in a circle outline — elegant benefits) | check_square
+  (white tick on a filled square) | arrow_square | plus_circle | target (dot in a circle
+  outline) | diamond_outline (premium) | number_ring (number in a circle outline) |
+  glow_dot (a dot with a soft halo — calm, beauty) | none — pick the one that suits the
+  list and the mood; divider = line | dotted | none (between columns, or between rows in
+  one column); size = starting font size (it shrinks to fit); color = text colour
+  (on_accent when the list sits on an accent panel); font. The code lays it out
+  evenly, so give it a generous area: about 70px of height per row.
 - dots: a dot-grid texture — x/y/w/h is the area, rows x cols dots (max 8 x 8) of
   diameter dot (6-12px), color, optional opacity. One element, not many circles.
 - photo: frame = one of FRAMES below (the photo is cut to that outline and keeps its
   aspect ratio — h follows w), or clip "rect" | "rounded" (radius px) | "circle" (w = h)
   | "arch" | "hexagon" | "diamond" | "blob" | "leaf" | "cutout" (a transparent subject
   with no frame, floating directly on the background); focus 0-1 (0.3 keeps faces, 0.5
-  centre); subject = one sentence on what it shows. The picture is supplied
-  automatically.
-- logo: exactly one, w 110, h 89. It must sit on one flat colour, never on a photo.
+  centre); rotate (a few degrees for a tilted, printed-photo look); subject = one
+  sentence on what it shows. The picture is supplied automatically.
+- logo: one, w 110, h 89 (none at all when the plan says no logo). It must sit on one
+  flat colour, never on a photo.
 - text: text (placeholder copy), text_type, font role, size px, align, max_lines,
   uppercase, letter_spacing (em, 0-0.3), line_height, effect = shadow | lift (soft
   glow) | hollow (outline-only letters, display text of 56px or more) with
@@ -98,14 +117,16 @@ RULES THAT ARE CHECKED (your layout is rejected if any fails)
 - every text sits entirely on ONE flat colour: never on a photo, never across a
   shape's edge, never over a dot grid. Put a label exactly on its pill/badge.
 - text/logo at least 30px from the canvas edge; shapes/photos inside unless bleed
-- 1 or 2 photos, each at least 200px on each side, given real prominence
-  (roughly a third of the canvas or more); 3 to 12 text boxes
+- 1 to 4 photos (exactly as many as the plan says), each at least 200px on each side;
+  together they get real prominence (roughly a third of the canvas or more); 3 to 24
+  text boxes
 - at least 3 decorative elements that no text sits on
 - lines and hand-drawn strokes never run through text (under, beside or around it)
 - no shape behind a photo: photos sit directly on the background (no stage circle,
   blob, ring or offset block under them); decoration goes around photos, and badges
-  may overlap a photo's edge only when drawn on top of it
-- every list item has a bullet marker shape beside it, centred on its first line
+  may overlap a photo's edge only when drawn on top of it. The one exception is a snug
+  border just around a photo (a polaroid mat, at most 40px wider on each side)
+- every list item has a bullet marker beside it (the list element does this for you)
 
 PRO TEMPLATE TECHNIQUES — use several in every design
 - Headline pairing: a script phrase (font script, accent) directly above or beside a
@@ -126,6 +147,15 @@ PRO TEMPLATE TECHNIQUES — use several in every design
   around a centred button.
 - Framing: an outlined rounded rectangle inset 30-40px around the whole canvas, or a
   thick band along one edge; or thin lines forming corner brackets.
+- Photo fade (scrim): a full-bleed photo with ONE fade layer drawn right after it — a
+  rectangle covering the whole canvas (x -6, y -4, w 1092, h 1088, bleed), color = the
+  canvas role (usually bg), gradient {{style linear, angle 180, start bg, end null,
+  start_at 30-40, end_at 100}}: solid canvas colour across the top start_at% of the post,
+  then fading to transparent so the photo melts into it. Logo, headline, copy and button
+  sit entirely inside the solid part (for start_at 35 that is y 30 to about 360 minus a
+  little room) — never in the fading part, which still shows the photo. Fade from the
+  bottom with angle 0 (solid bottom, text at the bottom), or from a side with angle 90
+  (solid left) / 270 (solid right). Calm, premium, interiors, real estate, beauty.
 - Depth with gradients: a radial spotlight behind the headline or product, a panel
   fading out towards the photo, a background running from bg to a deeper tone.
 - Shape language: parallelogram bands for energy, chevrons and arrows for flow and
@@ -210,6 +240,32 @@ def expand_dots(e: Element) -> list[Element]:
             for r in range(rows) for c in range(cols)]
 
 
+EDGE_MARGIN = 32  # a hair more than the checks' 30px, so a nudged box passes
+
+
+def _keep_inside(e: Element) -> None:
+    """Nudge a text box or the logo inside the safe margin (a slip of a few pixels
+    shouldn't cost a whole repair round)."""
+    e.w = min(e.w, W - 2 * EDGE_MARGIN)
+    e.x = min(max(e.x, EDGE_MARGIN), W - EDGE_MARGIN - e.w)
+    e.y = max(e.y, EDGE_MARGIN)
+
+
+def _shrink_to_fit(e: Element, v: Variant) -> None:
+    """Make a text fit its own line limit by stepping its size down (to 70% at most);
+    what still doesn't fit is left for the checks and the repair round."""
+    floor = (e.size or 26) * 0.7
+    while e.size > floor:
+        lines, wide = line_count(v.fonts, e)
+        if not wide and (not e.max_lines or len(lines) <= e.max_lines):
+            return
+        e.size = round(e.size - 2, 1)
+    lines, wide = line_count(v.fonts, e)
+    if not wide and e.max_lines and e.text_type in ("headline", "body", "kicker") \
+            and len(lines) <= 3:
+        e.max_lines = len(lines)  # its own limit was too tight; the overlap check guards
+
+
 def normalise(els: list[Element], v: Variant) -> list[Element]:
     """Fill what the model may leave loose (text heights are always measured) and
     expand shorthand elements. Returns the element list to use."""
@@ -218,16 +274,23 @@ def normalise(els: list[Element], v: Variant) -> list[Element]:
         if e.kind == "dots":
             out += expand_dots(e)
             continue
+        if e.kind == "list":
+            out += normalise(expand_list(e, v), v)
+            continue
         if e.kind == "text":
             e.font = e.font or "body"
             e.size = e.size or 26
             e.line_height = e.line_height or (v.fonts.display_lh if e.font == "display"
                                               else 1.3)
             e.align = e.align or "left"
+            _keep_inside(e)
+            _shrink_to_fit(e, v)
             lines, _ = line_count(v.fonts, e)
             e.h = round(len(lines) * e.size * e.line_height, 2)
+            e.y = min(e.y, H - EDGE_MARGIN - e.h)  # and the bottom edge, now h is known
         elif e.kind == "logo":
             e.w, e.h = 110, 89
+            _keep_inside(e)
         elif e.kind == "photo" and e.frame:
             e.h = round(e.w / frames()[e.frame].aspect, 2)  # a frame keeps its outline
             e.clip = None
@@ -286,6 +349,7 @@ async def invent(v: Variant, *, hint: str | None, avoid: list[str],
         result = await llm.complete_json(system=SYSTEM, user=user, schema=AIDesign,
                                          temperature=0.9, max_tokens=16000)
         ai: AIDesign = result.parsed
+        as_written = ai.model_dump_json(exclude_none=True)  # repairs edit this version
         ai.elements = normalise(ai.elements, v)
         design = Design(recipe=f"ai:{ai.name}", theme=v.theme.name, palette=v.palette.name,
                         fonts=v.fonts.name, background=ai.background, elements=ai.elements)
@@ -295,7 +359,7 @@ async def invent(v: Variant, *, hint: str | None, avoid: list[str],
         if not errors:
             break
         user = (f"Dress:\n{_dress(v)}\n\nYour layout:\n"
-                f"{ai.model_dump_json(exclude_none=True)}\n\n"
+                f"{as_written}\n\n"
                 "It fails these checks:\n- " + "\n- ".join(errors)
                 + "\n\nReturn the corrected layout (same idea, fix every problem; move or "
                   "resize elements, shorten copy or reduce sizes as needed).")

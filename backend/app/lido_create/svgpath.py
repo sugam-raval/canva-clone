@@ -63,9 +63,50 @@ def _arc(p0, rx, ry, phi, large, sweep, p1) -> list[Point]:
     return out
 
 
-def flatten(d: str) -> list[list[Point]]:
-    """The path as closed polylines, one per subpath."""
-    tokens = _TOKEN.findall(d)
+_NUMBER = re.compile(r"[-+]?(?:\d*\.\d+|\d+\.?)(?:[eE][-+]?\d+)?")
+_SEP = re.compile(r"[\s,]*")
+
+
+def _split_arc_flags(d: str) -> str:
+    """Arc flags are single digits and may be packed against what follows
+    ("a1.5 1.5 0 00-2.4 1" is flags 0, 0 then x -2.4): rewrite every arc's arguments
+    with plain separators, so the generic number tokenizer reads them right."""
+    out, i = [], 0
+    for m in re.finditer(r"[Aa]", d):
+        if m.start() < i:
+            continue
+        out.append(d[i:m.end()])
+        j, args = m.end(), []
+        while True:
+            group, k = [], j
+            for slot in range(7):
+                k = _SEP.match(d, k).end()
+                if slot in (3, 4):
+                    if k < len(d) and d[k] in "01":
+                        group.append(d[k])
+                        k += 1
+                        continue
+                    break
+                num = _NUMBER.match(d, k)
+                if not num:
+                    break
+                group.append(num.group())
+                k = num.end()
+            if len(group) < 7:
+                break
+            args.append(" ".join(group))
+            j = k
+        out.append(" " + " ".join(args) + " ")
+        i = j
+    out.append(d[i:])
+    return "".join(out)
+
+
+def flatten(d: str, *, strokes: bool = False) -> list[list[Point]]:
+    """The path as closed polylines, one per subpath. `strokes` is for drawing the path
+    as lines (doodles.py): a closed subpath ends back at its start, and two-point lines
+    are kept."""
+    tokens = _TOKEN.findall(_split_arc_flags(d) if "a" in d.lower() else d)
     subpaths: list[list[Point]] = []
     cur: list[Point] = []
     pos: Point = (0.0, 0.0)
@@ -79,6 +120,8 @@ def flatten(d: str) -> list[list[Point]]:
             i += 1
             if cmd in "Zz":
                 if cur:
+                    if strokes and cur[-1] != start:
+                        cur.append(start)
                     subpaths.append(cur)
                 cur, pos, last_ctrl = [], start, None
                 continue
@@ -134,7 +177,7 @@ def flatten(d: str) -> list[list[Point]]:
             pos, last_ctrl = end, None
     if cur:
         subpaths.append(cur)
-    return [s for s in subpaths if len(s) >= 3]
+    return [s for s in subpaths if len(s) >= (2 if strokes else 3)]
 
 
 def bounds(polys: list[list[Point]]) -> tuple[float, float, float, float]:

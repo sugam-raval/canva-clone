@@ -119,7 +119,8 @@ export interface LidoGenerationSummary {
 /** `/v1/lido/drafts` — a brand-new template designed from a prompt (or by the CLI),
  * waiting for review in lidojs_templates/drafts/. */
 export interface LidoDraftInfo {
-  id: string
+  /** The draft's row id (lido_drafts.id). */
+  id: number
   createdAt: string
   /** "brief" (from a prompt in this UI), "ai" / "recipe" (the CLI), "manual". */
   source: string
@@ -135,13 +136,41 @@ export interface LidoDraftInfo {
   colors: Record<string, string>
   /** Feature families this design was asked to use (gradient, frame, draw, line…). */
   features?: string[]
+  /** The art director's plan (step 1): photos, texts, moods, layout, exclusions. */
+  plan?: {
+    layout: string
+    custom_layout?: string | null
+    moods: string[]
+    exclude: string[]
+    logo: boolean
+    notes: string
+    photos: { subject: string; role: string; frame: string }[]
+  } | null
+  planLayout?: string | null
   textCount?: number | null
-  /** What each photo should show — the prompts future image generation will use. */
+  /** What each photo should show — the prompts photo generation uses. */
   photoSubjects: string[]
+  /** corpus-cache (placeholder photos) or generated (rendered from photoSubjects). */
   photoSource?: string | null
+  /** Photos that failed to generate and kept a cached placeholder instead. */
+  photoFallbacks?: number | null
   attempts?: number | null
   /** Design checks still failing after repairs; empty when the design passes. */
   problems: string[]
+  /** The layered gradient background it was drawn on (style, side, angle, split, tone). */
+  backdrop?: { style: string; side?: string | null; angle?: number | null; split?: number | null; tone?: string | null } | null
+  /** The contact lines that got an icon beside them. */
+  contactIcons?: string[]
+  /** The brand colours it was asked to use (#rrggbb, first = primary), if any. */
+  brandPalette?: string[] | null
+  /** The client logo it shows, if one was given. */
+  logoUrl?: string | null
+  /** How long designing it took, ms (request start → this draft saved); null if unknown. */
+  generationMs?: number | null
+  /** The same step by step, ms: planMs, designMs, photosMs, saveMs, totalMs. */
+  timing?: Record<string, number>
+  /** The template_<n> file it was imported from, for drafts made before the database. */
+  importedFrom?: string | null
   hasPreview: boolean
   previewUrl?: string | null
   /** Only on a single draft (or one just created), not in the list. */

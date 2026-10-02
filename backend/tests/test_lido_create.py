@@ -13,10 +13,12 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.adapters.base import AdapterError, LLMResult
+from app.lido_corpus.palette import parse_palette, to_hex
 from app.lido_create import brief, drafts
 from app.lido_create.check import validate
 from app.lido_create.kit import (
     FONT_SETS,
+    LOGOS,
     PALETTES,
     THEMES_BY_NAME,
     Canvas,
@@ -92,11 +94,26 @@ class _FakeLLM:
     """Replays a pro recipe as the model's answer; the first answer carries a line break so
     the repair round is exercised."""
 
-    def __init__(self):
-        self.calls: list[str] = []
-        self.failures: dict[int, AdapterError] = {}  # call number (1-based) -> error
+    LAYOUTS = ("centre_stage", "split_half", "top_band")
 
-    async def complete_json(self, *, system, user, schema, **_):
+    def __init__(self):
+        self.calls: list[str] = []  # the designer's calls
+        self.plan_calls: list[dict] = []  # the art director's calls
+        self.failures: dict[int, AdapterError] = {}  # designer call number (1-based) -> error
+        self.plan_extra: dict = {}  # extra plan fields (backdrop…)
+
+    async def complete_json(self, *, system, user, schema, **kwargs):
+        if schema.__name__ == "DesignPlan":
+            self.plan_calls.append({"user": user, **kwargs})
+            return LLMResult(parsed=schema(
+                texts=[{"role": "headline", "text": "Grand Night"}],
+                photos=[{"from_brief": "dinner party", "subject": "a dinner party",
+                         "role": "hero", "frame": "cutout"}],
+                logo=True, exclude=[], moods=["warm_handmade"],
+                layout=self.LAYOUTS[(len(self.plan_calls) - 1) % 3], custom_layout=None,
+                shapes=["rhombus"], draw=[], effects=[], gradient=None,
+                photo_theme="business", notes="warm and bold", **self.plan_extra),
+                raw="", model="fake")
         self.calls.append(user)
         if len(self.calls) in self.failures:
             raise self.failures[len(self.calls)]
@@ -114,6 +131,38 @@ class _FakeLLM:
         return LLMResult(parsed=parsed, raw="", model="fake")
 
 
+class _MemoryDrafts:
+    """`lido_drafts` in memory (drafts.DraftStore), so the tests need no database."""
+
+    def __init__(self):
+        self.rows: dict[int, dict] = {}
+        self.last_id = 0  # an identity column: ids are never reused
+
+    async def insert(self, row):
+        self.last_id += 1
+        self.rows[self.last_id] = {**row, "id": self.last_id}
+        return self.last_id
+
+    async def set_preview(self, draft_id, url):
+        self.rows[draft_id]["preview_url"] = url
+
+    async def set_timing(self, draft_id, timing):
+        self.rows[draft_id].update(timing=timing, generation_ms=timing["totalMs"])
+
+    async def list(self, limit):
+        rows = sorted(self.rows.values(), key=lambda r: r["created_at"], reverse=True)
+        return [{k: v for k, v in r.items() if k != "document"} for r in rows][:limit]
+
+    async def get(self, draft_id):
+        return self.rows.get(draft_id)
+
+    async def delete(self, draft_id):
+        return self.rows.pop(draft_id, None) is not None
+
+    async def fingerprints(self, limit):
+        return [r["fingerprint"] for r in await self.list(None) if r["fingerprint"]][:limit]
+
+
 @pytest.fixture
 def api(tmp_path, monkeypatch):
     from app.adapters import registry
@@ -121,22 +170,34 @@ def api(tmp_path, monkeypatch):
     from app.config import get_settings
 
     fake = _FakeLLM()
-    monkeypatch.setattr(drafts, "DRAFTS_DIR", tmp_path)
+    memory = _MemoryDrafts()
+    monkeypatch.setattr(drafts, "store", lambda: memory)
     monkeypatch.setattr(drafts, "photo_pool", lambda: PHOTOS)
     monkeypatch.setattr(drafts, "screenshot", lambda layers, out: False)
     monkeypatch.setattr(registry, "llm", lambda: fake)
     monkeypatch.setattr(get_settings(), "openai_api_key", "test-key")
+    for name, value in (("llm_model_fast", "gpt-4o-mini"), ("lido_plan_model", ""),
+                        ("lido_plan_reasoning_effort", ""), ("lido_layout_model", ""),
+                        ("lido_layout_reasoning_effort", ""), ("lido_draft_photos", "cache")):
+        monkeypatch.setattr(get_settings(), name, value)  # not whatever .env says
     monkeypatch.setattr(brief, "RETRY_DELAYS", (0.0, 0.0))
-    return TestClient(create_app()), fake, tmp_path
+    from app.lido_create import plan as plan_module
+    monkeypatch.setattr(plan_module, "FREE_SHARE", 0.0)  # only the forced free variation
+    monkeypatch.chdir(tmp_path)  # anything written locally would land here
+    return TestClient(create_app()), fake, memory
 
 
 def test_prompt_becomes_a_saved_draft(api):
-    client, fake, folder = api
+    client, fake, memory = api
     response = client.post("/v1/lido/drafts", json={"prompt": "Grand opening dinner party"})
     assert response.status_code == 200, response.text
     [draft] = response.json()
 
     assert len(fake.calls) == 2  # first answer failed the checks, the repair passed
+    assert len(fake.plan_calls) == 1  # one art-director plan, on the fast model
+    assert fake.plan_calls[0]["model"] == "gpt-4o-mini"
+    assert draft["plan"]["photos"][0]["subject"] == "a dinner party"
+    assert draft["fingerprint"].startswith(draft["planLayout"])
     assert "Grand opening dinner party" in fake.calls[0]
     assert "line break" in fake.calls[1]
     assert draft["problems"] == [] and draft["attempts"] == 2
@@ -147,15 +208,49 @@ def test_prompt_becomes_a_saved_draft(api):
     assert layers["ROOT"]["props"]["color"] == "rgb(36, 22, 64)"
 
     tid = draft["id"]
-    assert (folder / f"{tid}.json").is_file() and (folder / f"{tid}.info.json").is_file()
-    assert json.loads((folder / f"{tid}.json").read_text()) == draft["document"]
+    [row] = memory.rows.values()  # stored as one row, nothing on disk
+    assert row["id"] == tid == 1 and row["document"] == draft["document"]
+    assert row["prompt"] == "Grand opening dinner party" and row["source"] == "brief"
+    assert row["fingerprint"] == draft["fingerprint"] and row["info"]["colors"]
+    assert row["preview_url"] is None and not draft["hasPreview"]
 
     listed = client.get("/v1/lido/drafts").json()
     assert [d["id"] for d in listed] == [tid] and listed[0]["document"] is None
     assert client.get(f"/v1/lido/drafts/{tid}").json()["document"] == draft["document"]
-    assert client.get(f"/v1/lido/drafts/{tid}/preview.png").status_code == 404
     assert client.delete(f"/v1/lido/drafts/{tid}").status_code == 204
+    assert client.get(f"/v1/lido/drafts/{tid}").status_code == 404
     assert client.get("/v1/lido/drafts").json() == []
+
+
+def test_a_preview_is_uploaded_to_the_object_store(api, monkeypatch, tmp_path):
+    client, _, memory = api
+    uploads = []
+
+    def shoot(layers, out):
+        out.write_bytes(b"png")
+        return True
+
+    def upload(folder, name, data):
+        uploads.append((folder, name, data))
+        return f"https://store.test/{folder}/{name}.png"
+
+    monkeypatch.setattr(drafts, "screenshot", shoot)
+    monkeypatch.setattr(drafts, "upload_asset", upload)
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"}).json()
+    tid = draft["id"]
+    assert uploads == [(f"drafts/{tid}", "preview", b"png")]  # keyed by the row id
+    assert memory.rows[tid]["preview_url"] == draft["previewUrl"]
+    assert draft["hasPreview"] and draft["previewUrl"] == f"https://store.test/drafts/{tid}/preview.png"
+    assert client.get("/v1/lido/drafts").json()[0]["previewUrl"] == draft["previewUrl"]
+    assert list(tmp_path.iterdir()) == []  # the screenshot only passed through a temp dir
+
+
+def test_the_notebook_reads_recent_fingerprints_from_the_store(api):
+    client, fake, _ = api
+    client.post("/v1/lido/drafts", json={"prompt": "Grand opening"})
+    client.post("/v1/lido/drafts", json={"prompt": "Grand opening"})
+    first = client.get("/v1/lido/drafts").json()[-1]["fingerprint"]
+    assert first and first in fake.plan_calls[-1]["user"]
 
 
 def test_variations_get_distinct_ids_and_directions(api):
@@ -163,13 +258,189 @@ def test_variations_get_distinct_ids_and_directions(api):
     drafts_made = client.post("/v1/lido/drafts",
                               json={"prompt": "Launch party", "variations": 3}).json()
     assert len({d["id"] for d in drafts_made}) == 3
-    assert len({d["direction"] for d in drafts_made}) == 3
+    # each variation got its own plan and layout; the last one is a free invention
+    assert len({d["planLayout"] for d in drafts_made}) == 3
+    assert drafts_made[-1]["planLayout"] == "custom"
+
+
+class _FakeImages:
+    """Stands in for the image adapters: a solid PNG at the asked size, or a failure."""
+
+    name = "fake:images"
+
+    def __init__(self, fail: bool = False):
+        self.fail, self.prompts = fail, []
+
+    async def generate(self, *, prompt, negative_prompt="", width=1024, height=1024,
+                       quality="medium", **_):
+        import io
+
+        from PIL import Image
+
+        from app.adapters.base import ImageResult
+
+        self.prompts.append(prompt)
+        if self.fail:
+            raise AdapterError("image API 500")
+        out = io.BytesIO()
+        Image.new("RGB", (width, height), (200, 120, 90)).save(out, format="PNG")
+        return ImageResult(data=out.getvalue(), mime="image/png", width=width,
+                           height=height, model=self.name)
+
+
+def _generating(monkeypatch, images: _FakeImages) -> list[str]:
+    from app.config import get_settings
+    from app.lido_create import photos
+
+    uploads: list[str] = []
+
+    def upload(folder, name, data):
+        uploads.append(f"{folder}/{name}")
+        return f"https://store.test/{folder}/{name}.png"
+
+    monkeypatch.setattr(get_settings(), "lido_draft_photos", "generate")
+    monkeypatch.setattr(photos, "text_to_image", lambda: images)
+    monkeypatch.setattr(photos, "transparent_image", lambda: images)
+    monkeypatch.setattr(photos, "upload_asset", upload)
+    from app.lido_corpus import assets_ai  # the template flow's renderer, reused as is
+    monkeypatch.setattr(assets_ai, "get_text_to_image", lambda: images)
+    monkeypatch.setattr(assets_ai, "get_transparent_image", lambda: images)
+    return uploads
+
+
+def _photo_urls(draft: dict) -> list[str]:
+    return [lr["props"]["image"]["url"] for lr in draft["document"][0]["layers"].values()
+            if lr["type"]["resolvedName"] == "FrameLayer" and lr["type"]["type"] != "logo"]
+
+
+def test_photos_come_from_the_cache_by_default(api):
+    client, _, _ = api
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"}).json()
+    assert draft["photoSource"] == "corpus-cache" and draft["photoFallbacks"] == 0
+    assert all(u in {p.url for p in PHOTOS} for u in _photo_urls(draft))
+
+
+def test_photos_are_generated_from_their_subjects_when_configured(api, monkeypatch):
+    client, _, _ = api
+    images = _FakeImages()
+    uploads = _generating(monkeypatch, images)
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"}).json()
+    assert draft["photoSource"] == "generated" and draft["photoFallbacks"] == 0
+    assert images.prompts and images.prompts[0].startswith("a dinner party")
+    assert _photo_urls(draft) == [f"https://store.test/{u}.png" for u in uploads]
+
+
+def test_a_failed_photo_generation_keeps_a_cached_placeholder(api, monkeypatch):
+    client, _, _ = api
+    _generating(monkeypatch, _FakeImages(fail=True))
+    response = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"})
+    assert response.status_code == 200, response.text
+    [draft] = response.json()
+    urls = _photo_urls(draft)
+    assert draft["photoSource"] == "generated" and draft["photoFallbacks"] == len(urls) > 0
+    assert all(u in {p.url for p in PHOTOS} for u in urls)
+
+
+def test_generate_without_a_real_image_model_uses_the_cache(monkeypatch):
+    from app.adapters import stub_adapters as stub
+    from app.config import get_settings
+    from app.lido_create import photos
+
+    monkeypatch.setattr(get_settings(), "lido_draft_photos", "generate")
+    monkeypatch.setattr(photos, "text_to_image", stub.StubTextToImage)
+    monkeypatch.setattr(photos, "transparent_image", stub.StubTransparentImage)
+    assert photos.configured_source().name == "corpus-cache"
+    monkeypatch.setattr(photos, "text_to_image", _FakeImages)
+    monkeypatch.setattr(photos, "transparent_image", _FakeImages)
+    assert photos.configured_source().name == "generated"
+    monkeypatch.setattr(get_settings(), "lido_draft_photos", "cache")
+    assert photos.configured_source().name == "corpus-cache"
+
+
+def test_brand_colours_and_logo_are_used_like_fill_a_template(api):
+    client, fake, memory = api
+    logo = "https://brand.test/logo.png"
+    response = client.post("/v1/lido/drafts", json={
+        "prompt": "Grand opening", "palette": ["#0B3D2E", "#f2c14e", "#e4572e", "#f7f3e9"],
+        "logoUrl": logo})
+    assert response.status_code == 200, response.text
+    [draft] = response.json()
+    expected = brief.brand_palette(parse_palette(["#0b3d2e", "#f2c14e", "#e4572e", "#f7f3e9"]))
+    assert draft["colors"] == {r: to_hex(expected.color(r)) for r in brief.ROLES}
+    assert draft["colors"]["accent"] == "#0b3d2e"  # the first colour is the primary
+    assert "BRAND COLOURS" in fake.calls[0] and "#0b3d2e" in fake.calls[0]
+    assert draft["brandPalette"] == ["#0b3d2e", "#f2c14e", "#e4572e", "#f7f3e9"]
+    assert draft["logoUrl"] == logo and draft["plan"]["logo"] is True
+    layers = draft["document"][0]["layers"].values()
+    logos = [lr for lr in layers if lr["type"]["type"] == "logo"]
+    assert logos and all(lr["props"]["image"]["url"] == logo for lr in logos)
+    assert next(iter(memory.rows.values()))["info"]["logoUrl"] == logo
+
+
+def test_without_brand_inputs_the_designer_picks_and_the_stock_logo_stays(api):
+    client, fake, _ = api
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"}).json()
+    assert draft["colors"]["accent"] == "#ff6b6b" and "BRAND COLOURS" not in fake.calls[0]
+    assert draft.get("brandPalette") is None and draft["logoUrl"] is None
+    logos = [lr for lr in draft["document"][0]["layers"].values()
+             if lr["type"]["type"] == "logo"]
+    assert all(lr["props"]["image"]["url"] in LOGOS.values() for lr in logos)
+
+
+@pytest.mark.parametrize("body", [{"palette": ["not-a-colour"]},
+                                  {"palette": ["#111111"] * 2 + ["#222", "#333", "#444"]},
+                                  {"logoUrl": "ftp://brand.test/logo.png"}])
+def test_bad_brand_inputs_are_rejected(api, body):
+    client, fake, _ = api
+    response = client.post("/v1/lido/drafts", json={"prompt": "Grand opening", **body})
+    assert response.status_code == 422 and not fake.calls
+
+
+@pytest.mark.parametrize("colors", [["#0b3d2e"], ["#ffc857"], ["#e4572e"], ["#ffffff"],
+                                    ["#000000"], ["#ff0000", "#00ff00"],
+                                    ["#777777", "#787878", "#797979"],
+                                    ["#1d3557", "#457b9d", "#a8dadc", "#f1faee"]])
+def test_a_brand_palette_is_always_readable(colors):
+    from app.lido_corpus.palette import contrast
+
+    p = brief.brand_palette(parse_palette(colors))
+    assert p.accent == parse_palette(colors)[0]
+    assert contrast(p.ink, p.bg) >= brief.TEXT_CONTRAST
+    assert contrast(p.on_accent, p.accent) >= brief.TEXT_CONTRAST
+
+
+def test_a_given_logo_overrides_a_plan_without_one():
+    from app.lido_create.plan import DesignPlan
+
+    plan = DesignPlan(texts=[{"role": "headline", "text": "Hi"}], photos=[], logo=False,
+                      exclude=["logo", "button"], moods=["warm_handmade"],
+                      layout="centre_stage", custom_layout=None, shapes=[], draw=[],
+                      effects=[], gradient=None, photo_theme="business", notes="")
+    plan = drafts._with_logo(plan)
+    assert plan.logo is True and plan.exclude == ["button"]
+
+
+def test_how_long_it_took_is_saved_with_each_draft(api):
+    client, _, memory = api
+    made = client.post("/v1/lido/drafts", json={"prompt": "Launch party", "variations": 2}).json()
+    for draft in made:
+        t = draft["timing"]
+        assert set(t) == {"planMs", "designMs", "photosMs", "saveMs", "totalMs"}
+        assert all(isinstance(ms, int) and ms >= 0 for ms in t.values())
+        assert draft["generationMs"] == t["totalMs"] >= t["designMs"]
+        row = memory.rows[draft["id"]]  # stored, not just returned
+        assert row["generation_ms"] == t["totalMs"] and row["timing"] == t
+    # both variations share the planning step; the list shows the total too
+    assert made[0]["timing"]["planMs"] == made[1]["timing"]["planMs"]
+    listed = {d["id"]: d for d in client.get("/v1/lido/drafts").json()}
+    assert all(listed[d["id"]]["generationMs"] == d["generationMs"] for d in made)
 
 
 def test_bad_ids_are_not_found(api):
     client, _, _ = api
     assert client.get("/v1/lido/drafts/../../etc").status_code == 404
-    assert client.get("/v1/lido/drafts/template_1x").status_code == 404
+    assert client.get("/v1/lido/drafts/template_1").status_code == 404
+    assert client.get("/v1/lido/drafts/12345").status_code == 404
 
 
 def test_a_transient_api_failure_is_retried(api):
@@ -366,3 +637,394 @@ def test_ai_designs_must_use_lidos_wider_vocabulary():
                for e in validate(plain, v, creative=True))
     assert families_used(_recipe_design("spotlight_launch", v)) >= {
         "gradient", "shape", "line", "draw", "frame", "effect"}
+
+
+# -- art director: the plan and the catalogue ---------------------------------------------
+
+
+def test_the_layout_catalogue_and_mood_map_only_use_real_names():
+    from app.lido_create.catalog import layouts, moods, problems
+
+    assert problems() == []
+    assert len(layouts()) >= 30 and len(moods()) >= 8
+    for count in range(1, 5):  # every photo count has layouts to pick from
+        assert any(lay.fits(count) for lay in layouts().values())
+
+
+def _plan(**overrides):
+    from app.lido_create.plan import DesignPlan
+
+    base = {"texts": [{"role": "headline", "text": "Summer Style Sale"}],
+            "photos": [{"from_brief": "model", "subject": "a model", "role": "hero",
+                        "frame": "rect"}],
+            "logo": True, "exclude": [], "moods": ["bold_loud"], "layout": "split_half",
+            "custom_layout": None, "shapes": [], "draw": [], "effects": [],
+            "gradient": None, "photo_theme": "fashion", "notes": ""}
+    return DesignPlan.model_validate({**base, **overrides})
+
+
+def test_the_design_must_build_the_plan():
+    v = _variant()
+    d = _recipe_design("split_offer", v)  # 1 photo, a logo, "50% Off", "$" free
+    assert validate(d, v, plan=_plan()) == []
+
+    three = _plan(photos=[{"from_brief": f"pose {i}", "subject": f"pose {i}",
+                           "role": "hero" if i == 0 else "supporting", "frame": "rect"}
+                          for i in range(3)])
+    assert any("exactly 3 photos" in e for e in validate(d, v, plan=three))
+    assert any("no logo" in e for e in validate(d, v, plan=_plan(logo=False)))
+    no_offers = validate(d, v, plan=_plan(exclude=["discount", "offer_badge"]))
+    assert any("rules out offer badges" in e for e in no_offers)  # "Free Consult" badge
+    assert any("frames" in e or "frame" in e
+               for e in validate(d, v, plan=_plan(photos=[
+                   {"from_brief": "x", "subject": "x", "role": "hero", "frame": "letter_A"}])))
+    assert any("draw" in e for e in validate(d, v, plan=_plan(draw=["underline"])))
+
+
+def test_a_plan_cleans_up_names_the_model_made_up():
+    from app.lido_create.plan import _clean
+
+    plan = _clean(_plan(photos=[{"from_brief": "x", "subject": "x", "role": "supporting",
+                                 "frame": "sparkly"}],
+                        shapes=["chevron", "unicorn"], layout="not_in_catalogue",
+                        exclude=["logo"]))
+    assert plan.photos[0].frame == "rounded" and plan.photos[0].role == "hero"
+    assert plan.shapes == ["chevron"]
+    assert plan.layout == "custom" and plan.logo is False
+    with_cta = _clean(_plan(texts=[{"role": "headline", "text": "Hi"},
+                                   {"role": "cta", "text": "Join"}], exclude=["button"]))
+    assert "button" not in with_cta.exclude  # a requested CTA beats a stray exclusion
+
+
+def test_photos_the_brief_never_asked_for_are_dropped():
+    from app.lido_create.plan import _clean
+
+    def photo(quote, role="supporting"):
+        return {"from_brief": quote, "subject": quote, "role": role, "frame": "circle"}
+
+    brief = "Launch post for our new organic face cream. Soft and elegant."
+    padded = _clean(_plan(photos=[photo("organic face cream", "hero"),
+                                  photo("natural ingredients like flowers"),
+                                  photo("hand applying the cream")]), brief)
+    assert [p.from_brief for p in padded.photos] == ["organic face cream"]
+    yoga = "Show Tree Pose (Vrikshasana), Warrior Pose and Lotus Pose."
+    poses = _clean(_plan(photos=[photo("Tree Pose (Vrikshasana)", "hero"),
+                                 photo("Warrior Pose"), photo("Lotus Pose")]), yoga)
+    assert len(poses.photos) == 3
+
+
+def test_two_photos_of_the_same_quoted_thing_become_one():
+    from app.lido_create.plan import _clean
+
+    def photo(quote, role="supporting"):
+        return {"from_brief": quote, "subject": quote, "role": role, "frame": "circle"}
+
+    brief = "Launch our new organic face cream. Show the before and after of a facial."
+    twice = _clean(_plan(photos=[photo("organic face cream", "hero"),
+                                 photo("organic face cream")]), brief)
+    assert len(twice.photos) == 1
+    pair = _clean(_plan(photos=[photo("before and after", "hero"),
+                                photo("before and after")]), brief)
+    assert len(pair.photos) == 2  # one quote naming two things backs two photos
+
+
+# -- the list block: every item, arranged by count ----------------------------------------
+
+
+@pytest.mark.parametrize(("count", "columns"), [(2, 1), (4, 1), (5, 2), (6, 2), (8, 3), (9, 3)])
+def test_a_list_keeps_every_item_and_picks_columns_by_count(count, columns):
+    from app.lido_create.ai import normalise
+
+    v = _variant()
+    items = [f"Feature number {i + 1}" for i in range(count)]
+    els = normalise([Element(kind="list", x=70, y=500, w=940, h=420, items=items,
+                             bullet="dot", divider="line", size=28)], v)
+    shown = [e for e in els if e.text_type == "item"]
+    assert [e.text for e in shown] == items  # all of them, in order, word for word
+    assert len({round(e.x) for e in shown}) == columns
+    dividers = [e for e in els if e.kind == "line"]
+    assert len(dividers) == (columns - 1 if columns > 1 else count - 1)
+    assert all(e.y + e.h <= 920 + 1 for e in shown)  # the block fits its area
+
+
+def test_a_long_list_shrinks_to_fit_instead_of_dropping_items():
+    from app.lido_create.ai import normalise
+
+    v = _variant()
+    items = [f"A rather long feature description {i}" for i in range(9)]
+    els = normalise([Element(kind="list", x=70, y=600, w=700, h=300, items=items,
+                             bullet="check", size=34)], v)
+    shown = [e for e in els if e.text_type == "item"]
+    assert len(shown) == 9 and shown[0].size < 34
+
+
+def test_the_plan_s_list_items_must_all_appear():
+    v = _variant()
+    d = _recipe_design("service_list", v)  # shows 3 items
+    shown = [e.text for e in d.elements if e.text_type == "item"]
+    plan = _plan(texts=[{"role": "headline", "text": "x"}]
+                 + [{"role": "item", "text": t} for t in [*shown, "Extra Service"]])
+    assert any("'Extra Service' from the plan is missing" in e
+               for e in validate(d, v, plan=plan))
+
+
+def test_text_left_on_a_photo_gets_a_card_under_it():
+    from app.lido_create.brief import back_text_on_photos
+
+    v = _variant()
+    c = Canvas(v)
+    c.photo(0, 0, 1080, 1080)  # a full-bleed photo...
+    c.logo(70, 50)
+    c.headline("Smile Brighter", x=70, y=400, w=700, max_lines=1, start=80, smallest=60)
+    d = Design(recipe="t", theme="business", palette="x", fonts="x", elements=c.els)
+    assert any("sits on a photo" in e for e in validate(d, v))
+    fixed = back_text_on_photos(d, v)
+    assert not any("headline" in e and "sits on a photo" in e for e in validate(fixed, v))
+    card = fixed.elements[2]
+    assert card.kind == "shape" and card.color == "bg"  # ink text on a bg-coloured card
+
+
+def test_a_logo_on_top_of_the_headline_moves_to_a_free_corner():
+    from app.lido_create.brief import relocate_logo
+
+    v = _variant()
+    c = Canvas(v)
+    c.photo(540, 300, 500, 500)
+    hl = c.headline("Grand Opening", x=70, y=60, w=600, max_lines=1, start=80, smallest=60)
+    c.logo(hl.x + 20, hl.y)  # right on top of the headline
+    d = Design(recipe="t", theme="business", palette="x", fonts="x", elements=c.els)
+    assert any("logo overlaps" in e for e in validate(d, v))
+    moved = relocate_logo(d, v)
+    assert not any("logo" in e for e in validate(moved, v))
+
+
+@pytest.mark.parametrize(("layout_model", "layout_effort", "expected"), [
+    ("", "", {"model": None}),  # LLM_MODEL with LLM_REASONING_EFFORT
+    ("gpt-6-astra", "", {"model": None}),  # naming LLM_MODEL keeps its reasoning
+    ("gpt-6-astra", "medium", {"model": "gpt-6-astra", "reasoning_effort": "medium"}),
+    ("gpt-6-luna", "low", {"model": "gpt-6-luna", "reasoning_effort": "low"}),
+    ("gpt-4o", "", {"model": "gpt-4o"}),  # a plain model, no reasoning
+])
+def test_layout_model_settings(monkeypatch, layout_model, layout_effort, expected):
+    from app.config import get_settings
+    from app.lido_create.models import layout_call, plan_call
+
+    s = get_settings()
+    monkeypatch.setattr(s, "llm_model", "gpt-6-astra")
+    monkeypatch.setattr(s, "llm_model_fast", "gpt-4o-mini")
+    monkeypatch.setattr(s, "lido_layout_model", layout_model)
+    monkeypatch.setattr(s, "lido_layout_reasoning_effort", layout_effort)
+    monkeypatch.setattr(s, "lido_plan_model", "")
+    monkeypatch.setattr(s, "lido_plan_reasoning_effort", "")
+    assert layout_call() == expected
+    assert plan_call() == {"model": "gpt-4o-mini"}
+
+
+# -- backdrops and contact icons -------------------------------------------------------
+
+
+@pytest.mark.parametrize("style", ["split_half", "diagonal_split", "diagonal_bands",
+                                   "corner_glow", "spotlight", "horizon_arc"])
+def test_every_backdrop_expands_into_bleeding_backdrop_layers_with_text_areas(style):
+    from app.lido_create.backdrops import Backdrop, brief_for, expand
+
+    ex = expand(Backdrop(style=style, angle=50, split=0.95))  # out of range: clamped
+    assert ex.layers and all(e.bleed and e.backdrop and e.kind == "shape" for e in ex.layers)
+    assert ex.base is None or ex.base.end is not None  # a canvas gradient must end in a colour
+    for palette in (None, PALETTES[0], PALETTES[5]):
+        text = brief_for(ex, palette)
+        assert "Text areas:" in text and "- the plain canvas" in text
+
+
+def test_backdrop_layers_are_hidden_from_the_models_schema_and_cleared_on_its_elements():
+    from app.adapters.openai_schema import response_format
+
+    schema = json.dumps(response_format(brief.BriefDesign))
+    assert '"backdrop"' not in schema and '"doodle"' not in schema
+
+
+def test_a_photo_may_sit_on_the_backdrop_and_a_glow_has_no_edge_to_straddle():
+    from app.lido_create.backdrops import Backdrop, expand
+    from app.lido_create.check import seamless
+
+    v = _variant()
+    d = _recipe_design("fresh_promo", v)
+    glow = expand(Backdrop(style="corner_glow"))
+    assert all(seamless(e) for e in glow.layers)
+    on_glow = d.model_copy(update={"background": glow.base,
+                                   "elements": [*glow.layers, *d.elements]})
+    assert not any("behind a photo" in e or "straddles" in e
+                   for e in validate(on_glow, v, creative=True))
+
+
+def test_the_icon_library_loads_clean_and_every_icon_draws_inside_its_box():
+    from app.lido_create.doodles import doodle_path, info_icon, library, problems
+
+    assert problems() == []
+    assert len(library()) >= 10
+    for kind in ("website", "phone", "email", "address"):
+        assert info_icon(kind) is not None
+    for name in library():
+        path, pts = doodle_path(name, 80, 60, 4, seed=3)
+        assert path.startswith("M ")
+        assert all(-2 <= x <= 82 and -2 <= y <= 62 for x, y in pts), name
+
+
+def test_arc_flags_packed_without_spaces_are_read_right():
+    from app.lido_create.svgpath import flatten
+
+    packed = flatten("M15 4a1.5 1.5 0 00-2.5-1.5l-9 9", strokes=True)
+    spaced = flatten("M15 4a1.5 1.5 0 0 0 -2.5 -1.5l-9 9", strokes=True)
+    assert packed == spaced and max(x for s in packed for x, _ in s) <= 16
+
+
+def test_contact_icons_sit_beside_their_lines_without_adding_problems():
+    from app.lido_create.decorate import add_contact_icons
+
+    v = _variant()
+    d = _recipe_design("fresh_promo", v)
+    before = validate(d, v, creative=True)
+    d2, added = add_contact_icons(d, v)
+    assert added and len(validate(d2, v, creative=True)) <= len(before)
+    for kind in added:
+        i, text = next((i, e) for i, e in enumerate(d2.elements) if e.text_type == kind)
+        icon = d2.elements[i + 1]
+        assert icon.kind == "draw" and icon.doodle and icon.color == (text.color or "ink")
+        assert icon.x + icon.w <= text_extent_x0(text, v) and abs(
+            (icon.y + icon.h / 2) - (text.y + (text.size or 24) * (text.line_height or 1.3) / 2)) < 2
+
+
+def text_extent_x0(e, v):
+    from app.lido_create.check import text_extent
+    return text_extent(e, v)[0]
+
+
+def test_a_planned_backdrop_reaches_the_saved_draft(api):
+    client, fake, _ = api
+    fake.plan_extra = {"backdrop": {"style": "corner_glow", "side": "left"}}
+    response = client.post("/v1/lido/drafts", json={"prompt": "Pizza night"})
+    assert response.status_code == 200, response.text
+    [draft] = response.json()
+    assert "BACKDROP" in fake.calls[0] and "glows bleed in from" in fake.calls[0]
+    assert "Text areas:" in fake.calls[0]
+    assert draft["backdrop"]["style"] == "corner_glow"
+    assert "doodles" not in draft and "doodles" not in draft["plan"]
+    layers = list(draft["document"][0]["layers"].values())
+    circles = [lr for lr in layers if lr["props"].get("shape") == "circle"
+               and isinstance(lr["props"].get("color"), dict)
+               and lr["props"]["color"].get("style") == "radial"]
+    assert len(circles) >= 2  # the two corner glows
+    assert isinstance(layers[0]["props"]["color"], dict)  # the canvas fade under them
+
+
+def test_a_brief_with_a_price_cannot_rule_prices_out():
+    from app.lido_create.plan import DesignPlan, _clean
+
+    plan = DesignPlan(texts=[{"role": "headline", "text": "Pizza night"}], photos=[],
+                      logo=True, exclude=["price", "logo"], moods=["playful_bright"],
+                      layout="centre_stage", custom_layout=None, shapes=[], draw=[],
+                      effects=[], gradient=None, photo_theme="food", notes="")
+    assert "price" not in _clean(plan, "2 large pizzas for $19.99").exclude
+    assert "price" in _clean(plan.model_copy(update={"exclude": ["price"]}), "no prices").exclude
+
+
+@pytest.mark.parametrize("bullet", ["dot", "dash", "ring", "square", "diamond", "triangle",
+                                    "check", "check_circle", "arrow_circle", "plus",
+                                    "number", "bar", "check_ring", "check_square",
+                                    "arrow_square", "plus_circle", "target",
+                                    "diamond_outline", "number_ring", "glow_dot"])
+def test_every_bullet_style_is_a_small_marker_centred_on_the_first_line(bullet):
+    from app.lido_create.lists import expand_list
+
+    v = _variant()
+    els = expand_list(Element(kind="list", x=100, y=300, w=600, h=300, bullet=bullet,
+                              items=["Fresh ingredients", "Free delivery", "Open late"],
+                              size=26, color="ink"), v)
+    items = [e for e in els if e.text_type == "item"]
+    marks = [e for e in els if e.text_type != "item"]
+    assert len(items) == 3 and marks
+    for item in items:
+        mine = [m for m in marks if abs(m.y + m.h / 2 - (item.y + 26 * 1.3 / 2)) < 2
+                or m.text_type == "caption"]
+        assert mine, f"no marker on {item.text!r}"
+        first = item.size * item.line_height
+        for m in (m for m in mine if m.kind != "text"):
+            assert m.x + m.w < item.x  # left of its item
+            assert max(m.w, m.h) <= 26 * 1.2  # a bullet supports the text
+            assert abs(m.y + m.h / 2 - (item.y + first / 2)) < 1.5
+    d = Design(recipe="t", theme="business", palette=v.palette.name, fonts=v.fonts.name,
+               elements=els)
+    assert not any("bullet marker" in e for e in validate(d, v))
+    assert all(lr["props"]["path"] for lr in to_lido(d, v)[0]["layers"].values()
+               if lr["type"]["resolvedName"] == "DrawLayer")
+
+
+def test_solid_bullets_draw_their_glyph_in_the_hole_colour():
+    from app.lido_create.lists import expand_list
+
+    v = _variant()
+    for bullet, glyph in (("check_circle", "tick"), ("arrow_circle", "chevron")):
+        els = expand_list(Element(kind="list", x=100, y=300, w=600, h=200, bullet=bullet,
+                                  items=["One", "Two"], size=26, color="on_accent"), v)
+        drawn = [e for e in els if e.kind == "draw"]
+        circles = [e for e in els if e.shape == "circle"]
+        assert {e.doodle for e in drawn} == {glyph}
+        assert {e.color for e in circles} == {"on_accent"} and {e.color for e in drawn} == {"accent"}
+
+
+def test_outlined_bullets_are_a_thin_edge_filled_with_what_the_list_sits_on():
+    from app.lido_create.lists import expand_list
+
+    v = _variant()
+    for bullet in ("check_ring", "target", "diamond_outline", "number_ring"):
+        els = expand_list(Element(kind="list", x=100, y=300, w=600, h=200, bullet=bullet,
+                                  items=["One", "Two"], size=26, color="ink"), v)
+        edges = [e for e in els if e.stroke]
+        assert len(edges) == 2 and all(e.color == "bg" and e.stroke == "accent"
+                                       and e.stroke_width and e.stroke_width < 4
+                                       for e in edges), bullet
+
+
+def _faded(text_y: float, start_at: float = 36, angle: float = 180):
+    from app.lido_create.ai import normalise
+    from app.lido_create.kit import Gradient
+
+    v = _variant()
+    els = normalise([
+        Element(kind="photo", x=0, y=0, w=1080, h=1080, clip="rect", bleed=True, subject="a room"),
+        Element(kind="shape", shape="rectangle", x=-6, y=-4, w=1092, h=1088, color="bg",
+                bleed=True, gradient=Gradient(style="linear", angle=angle, start="bg",
+                                              end=None, start_at=start_at, end_at=100)),
+        Element(kind="logo", x=485, y=40, w=110, h=89),
+        Element(kind="text", text="Calm Living", text_type="headline", x=140, y=text_y, w=800,
+                h=0, size=78, font="display", align="center", color="ink"),
+        Element(kind="text", text="New collection", text_type="kicker", x=140, y=text_y + 110,
+                w=800, h=0, size=26, font="body", align="center", color="ink"),
+        Element(kind="text", text="Shop now", text_type="cta", x=140, y=text_y + 160,
+                w=800, h=0, size=26, font="body", align="center", color="ink"),
+    ], v)
+    return Design(recipe="t", theme="business", palette=v.palette.name, fonts=v.fonts.name,
+                  elements=els), v
+
+
+def test_a_photo_fade_keeps_the_photo_visible_and_holds_text_in_its_solid_part():
+    d, v = _faded(text_y=140)  # all text inside the solid top 36%
+    errors = validate(d, v)
+    assert not any("mostly hidden" in e or "sits on a photo" in e for e in errors), errors
+    fade = to_lido(d, v)[0]["layers"]
+    stops = next(lr["props"]["color"]["colors"] for lr in fade.values()
+                 if isinstance(lr["props"].get("color"), dict))
+    assert stops[0]["percent"] == 36 and stops[1]["color"].endswith(", 0)")  # fades out
+
+
+def test_text_in_the_fading_part_of_a_photo_fade_is_caught():
+    d, v = _faded(text_y=330)  # the lower lines reach into the fading part
+    assert any("sits on a photo" in e for e in validate(d, v))
+
+
+def test_the_designer_and_art_director_know_the_photo_fade():
+    from app.lido_create.ai import SYSTEM
+    from app.lido_create.catalog import layouts
+
+    assert "Photo fade (scrim)" in SYSTEM and "{style linear" in SYSTEM
+    assert layouts()["photo_fade"].fits(1)
