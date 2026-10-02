@@ -19,13 +19,22 @@ import structlog
 from pydantic import BaseModel
 
 from app.adapters.base import AdapterError
-from app.lido_corpus.palette import parse_color, to_hex
+from app.lido_corpus.palette import (
+    BLACK,
+    WHITE,
+    contrast,
+    luminance,
+    parse_color,
+    pick_readable,
+    to_hex,
+)
 from app.lido_create.ai import EXAMPLE_RECIPES, SYSTEM, example, normalise
 from app.lido_create.check import FEATURE_FAMILIES, validate
 from app.lido_create.kit import (
     FONT_SETS,
     FONT_SETS_BY_NAME,
     PALETTES,
+    RGB,
     THEMES,
     THEMES_BY_NAME,
     Design,
@@ -260,11 +269,53 @@ def relocate_logo(design: Design, v: Variant) -> Design:
     return design
 
 
+ROLES = ("bg", "ink", "accent", "on_accent", "soft")
+TEXT_CONTRAST = 4.5  # ink on bg and on_accent on accent: readable at any text size
+LIGHT_PRIMARY = 0.45  # relative luminance above which a lone primary gets a dark canvas
+
+
+def _mix(a: RGB, b: RGB, t: float) -> RGB:
+    return tuple(round(x + (y - x) * t) for x, y in zip(a, b, strict=True))  # type: ignore[return-value]
+
+
+def brand_palette(colors: list[RGB]) -> Palette:
+    """The user's brand colours (1–4, the first primary — the same palette "fill a
+    template" takes) as the five roles a design is drawn in, readable by construction:
+
+        accent     the primary colour (buttons, badges, highlights)
+        bg         the other colour that sets the primary off most; with none, a pale
+                   tint of it (a deep shade when the primary is itself light)
+        ink        the palette colour most readable on bg, else made readable
+        on_accent  text on the primary: bg when readable there, else black or white
+        soft       an unused palette colour, else a quiet blend of primary and bg
+    """
+    accent, others = colors[0], colors[1:]
+    if others:
+        bg = max(others, key=lambda c: contrast(c, accent))
+    else:
+        # a pale canvas, unless the primary is itself pale (yellow, pastels)
+        bg = _mix(accent, BLACK, 0.85) if luminance(accent) > LIGHT_PRIMARY \
+            else _mix(accent, WHITE, 0.92)
+    rest = [c for c in others if c != bg]
+    preferred = max(rest or [accent], key=lambda c: contrast(c, bg))
+    ink = pick_readable(preferred, bg, TEXT_CONTRAST, [*rest, accent])
+    on_accent = pick_readable(bg, accent, TEXT_CONTRAST, [c for c in colors if c != accent])
+    spare = [c for c in rest if c not in (ink, on_accent)]
+    soft = spare[0] if spare else _mix(accent, bg, 0.6)
+    return Palette("brand", bg=bg, ink=ink, accent=accent, on_accent=on_accent, soft=soft)
+
+
+def _brand_rules(palette: Palette) -> str:
+    roles = ", ".join(f"{r} {to_hex(palette.color(r))}" for r in ROLES)
+    return (f"BRAND COLOURS — fixed by the client, use exactly these and no others: {roles}. "
+            "Set `colors` to them as given; choose fills, text colours and gradients from "
+            "these roles only.")
+
+
 def _palette(colors: BriefColors) -> Palette:
     """The model's colours; any value that isn't a colour falls back to a known-good one."""
     fallback = PALETTES[0]
-    rgb = {role: parse_color(getattr(colors, role)) or fallback.color(role)
-           for role in ("bg", "ink", "accent", "on_accent", "soft")}
+    rgb = {role: parse_color(getattr(colors, role)) or fallback.color(role) for role in ROLES}
     return Palette("custom", **rgb)
 
 
@@ -284,10 +335,14 @@ def _catalogue() -> str:
 async def design_from_brief(prompt: str, photos: list[Photo], *,
                             direction: str | None = None, repairs: int = 2,
                             rng: random.Random | None = None,
-                            plan: DesignPlan | None = None) -> BriefResult:
+                            plan: DesignPlan | None = None,
+                            palette: Palette | None = None,
+                            logo: bool = False) -> BriefResult:
     """Step 2 — the DESIGNER. With a `plan` (step 1, `plan.make_plan`) it builds exactly
     that plan; without one it designs freely with a creative direction and three random
-    feature families."""
+    feature families. `palette` (the client's brand colours, `brand_palette`) replaces
+    the colours the model would pick; `logo` asks for a logo even without a plan (the
+    client gave one)."""
     from app.adapters.registry import llm as get_llm
     from app.config import get_settings
 
@@ -308,6 +363,12 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
                  else "Choose the composition that best serves this brief.")
         steer += ("\nSignature elements for this version — work all three into the design: "
                   + "; ".join(FEATURE_FAMILIES[f] for f in features) + ".")
+    # what every repair round must still respect, with or without a plan
+    fixed = _brand_rules(palette) if palette is not None else ""
+    if fixed:
+        steer += "\n" + fixed
+    if logo and plan is None:
+        steer += "\nInclude exactly one logo element: the client supplied their logo."
     user = (f"{brief}\n\n{steer}\n\n"
             "Two existing pro layouts, to show the format and the level of detail "
             "expected — match their richness, do not copy their composition:\n"
@@ -331,22 +392,24 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
         ai: BriefDesign = reply.parsed
         if plan is not None:
             ai.photo_theme = plan.photo_theme  # the art director chose the photos' theme
-        v = Variant(_palette(ai.colors), FONT_SETS_BY_NAME[ai.fonts],
+        if palette is not None:  # the client's colours, whatever the model wrote
+            ai.colors = BriefColors(**{r: to_hex(palette.color(r)) for r in ROLES})
+        v = Variant(palette or _palette(ai.colors), FONT_SETS_BY_NAME[ai.fonts],
                     THEMES_BY_NAME[ai.photo_theme], rng, photos)
         # the design as the model wrote it (a list is still ONE element): repairs work
         # on this, so "move the list" is one change, not twenty
         as_written = ai.model_dump_json(exclude_none=True)
         ai.elements = normalise(ai.elements, v)
-        design = Design(recipe=f"brief:{ai.name}", theme=ai.photo_theme, palette="custom",
+        design = Design(recipe=f"brief:{ai.name}", theme=ai.photo_theme,
+                        palette=palette.name if palette else "custom",
                         fonts=ai.fonts, background=ai.background, elements=ai.elements)
         errors = validate(design, v, creative=True, plan=plan)
         result = BriefResult(design, v, errors, ai.name, ai.idea, direction, attempt,
-                             {r: to_hex(v.palette.color(r))
-                              for r in ("bg", "ink", "accent", "on_accent", "soft")},
+                             {r: to_hex(v.palette.color(r)) for r in ROLES},
                              features)
         if not errors:
             break
-        user = (f"{brief}\n\n{steer if plan is not None else ''}\n\n"
+        user = (f"{brief}\n\n{steer if plan is not None else fixed}\n\n"
                 f"Your design:\n{as_written}\n\n"
                 "It fails these checks:\n- " + "\n- ".join(errors)
                 + "\n\n" + repair_notes(errors, design)

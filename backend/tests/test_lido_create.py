@@ -12,10 +12,12 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.adapters.base import AdapterError, LLMResult
+from app.lido_corpus.palette import parse_palette, to_hex
 from app.lido_create import brief, drafts
 from app.lido_create.check import validate
 from app.lido_create.kit import (
     FONT_SETS,
+    LOGOS,
     PALETTES,
     THEMES_BY_NAME,
     Canvas,
@@ -140,6 +142,9 @@ class _MemoryDrafts:
 
     async def set_preview(self, draft_id, url):
         self.rows[draft_id]["preview_url"] = url
+
+    async def set_timing(self, draft_id, timing):
+        self.rows[draft_id].update(timing=timing, generation_ms=timing["totalMs"])
 
     async def list(self, limit):
         rows = sorted(self.rows.values(), key=lambda r: r["created_at"], reverse=True)
@@ -347,6 +352,85 @@ def test_generate_without_a_real_image_model_uses_the_cache(monkeypatch):
     assert photos.configured_source().name == "generated"
     monkeypatch.setattr(get_settings(), "lido_draft_photos", "cache")
     assert photos.configured_source().name == "corpus-cache"
+
+
+def test_brand_colours_and_logo_are_used_like_fill_a_template(api):
+    client, fake, memory = api
+    logo = "https://brand.test/logo.png"
+    response = client.post("/v1/lido/drafts", json={
+        "prompt": "Grand opening", "palette": ["#0B3D2E", "#f2c14e", "#e4572e", "#f7f3e9"],
+        "logoUrl": logo})
+    assert response.status_code == 200, response.text
+    [draft] = response.json()
+    expected = brief.brand_palette(parse_palette(["#0b3d2e", "#f2c14e", "#e4572e", "#f7f3e9"]))
+    assert draft["colors"] == {r: to_hex(expected.color(r)) for r in brief.ROLES}
+    assert draft["colors"]["accent"] == "#0b3d2e"  # the first colour is the primary
+    assert "BRAND COLOURS" in fake.calls[0] and "#0b3d2e" in fake.calls[0]
+    assert draft["brandPalette"] == ["#0b3d2e", "#f2c14e", "#e4572e", "#f7f3e9"]
+    assert draft["logoUrl"] == logo and draft["plan"]["logo"] is True
+    layers = draft["document"][0]["layers"].values()
+    logos = [lr for lr in layers if lr["type"]["type"] == "logo"]
+    assert logos and all(lr["props"]["image"]["url"] == logo for lr in logos)
+    assert next(iter(memory.rows.values()))["info"]["logoUrl"] == logo
+
+
+def test_without_brand_inputs_the_designer_picks_and_the_stock_logo_stays(api):
+    client, fake, _ = api
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"}).json()
+    assert draft["colors"]["accent"] == "#ff6b6b" and "BRAND COLOURS" not in fake.calls[0]
+    assert draft.get("brandPalette") is None and draft["logoUrl"] is None
+    logos = [lr for lr in draft["document"][0]["layers"].values()
+             if lr["type"]["type"] == "logo"]
+    assert all(lr["props"]["image"]["url"] in LOGOS.values() for lr in logos)
+
+
+@pytest.mark.parametrize("body", [{"palette": ["not-a-colour"]},
+                                  {"palette": ["#111111"] * 2 + ["#222", "#333", "#444"]},
+                                  {"logoUrl": "ftp://brand.test/logo.png"}])
+def test_bad_brand_inputs_are_rejected(api, body):
+    client, fake, _ = api
+    response = client.post("/v1/lido/drafts", json={"prompt": "Grand opening", **body})
+    assert response.status_code == 422 and not fake.calls
+
+
+@pytest.mark.parametrize("colors", [["#0b3d2e"], ["#ffc857"], ["#e4572e"], ["#ffffff"],
+                                    ["#000000"], ["#ff0000", "#00ff00"],
+                                    ["#777777", "#787878", "#797979"],
+                                    ["#1d3557", "#457b9d", "#a8dadc", "#f1faee"]])
+def test_a_brand_palette_is_always_readable(colors):
+    from app.lido_corpus.palette import contrast
+
+    p = brief.brand_palette(parse_palette(colors))
+    assert p.accent == parse_palette(colors)[0]
+    assert contrast(p.ink, p.bg) >= brief.TEXT_CONTRAST
+    assert contrast(p.on_accent, p.accent) >= brief.TEXT_CONTRAST
+
+
+def test_a_given_logo_overrides_a_plan_without_one():
+    from app.lido_create.plan import DesignPlan
+
+    plan = DesignPlan(texts=[{"role": "headline", "text": "Hi"}], photos=[], logo=False,
+                      exclude=["logo", "button"], moods=["warm_handmade"],
+                      layout="centre_stage", custom_layout=None, shapes=[], draw=[],
+                      effects=[], gradient=None, photo_theme="business", notes="")
+    plan = drafts._with_logo(plan)
+    assert plan.logo is True and plan.exclude == ["button"]
+
+
+def test_how_long_it_took_is_saved_with_each_draft(api):
+    client, _, memory = api
+    made = client.post("/v1/lido/drafts", json={"prompt": "Launch party", "variations": 2}).json()
+    for draft in made:
+        t = draft["timing"]
+        assert set(t) == {"planMs", "designMs", "photosMs", "saveMs", "totalMs"}
+        assert all(isinstance(ms, int) and ms >= 0 for ms in t.values())
+        assert draft["generationMs"] == t["totalMs"] >= t["designMs"]
+        row = memory.rows[draft["id"]]  # stored, not just returned
+        assert row["generation_ms"] == t["totalMs"] and row["timing"] == t
+    # both variations share the planning step; the list shows the total too
+    assert made[0]["timing"]["planMs"] == made[1]["timing"]["planMs"]
+    listed = {d["id"]: d for d in client.get("/v1/lido/drafts").json()}
+    assert all(listed[d["id"]]["generationMs"] == d["generationMs"] for d in made)
 
 
 def test_bad_ids_are_not_found(api):

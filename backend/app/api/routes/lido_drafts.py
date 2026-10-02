@@ -48,14 +48,17 @@ def _draft_id(draft_id: str) -> int:
 @router.post("", response_model=list[LidoDraftInfo])
 async def create_drafts(body: LidoDraftRequest) -> list[LidoDraftInfo]:
     """Design `variations` new templates from the prompt: layout, decoration, colours,
-    fonts and copy all come from the prompt; photos are generated from each photo's
+    fonts and copy all come from the prompt — colours from `palette` and the logo from
+    `logoUrl` when given, as in "fill a template"; photos are generated from each photo's
     subject or taken from the corpus cache, as LIDO_DRAFT_PHOTOS says. Each is checked (text fit, overlaps, contrast…) and repaired by the model
     until it passes; anything still failing is reported in `problems`."""
     verdict = screen_prompt(body.prompt)
     if not verdict.allowed:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=verdict.reason)
     try:
-        records = await drafts.create_from_prompt(body.prompt, variations=body.variations)
+        records = await drafts.create_from_prompt(body.prompt, variations=body.variations,
+                                                  palette=body.palette,
+                                                  logo_url=body.logo_url)
     except AdapterError as exc:
         log.error("lido.drafts.llm_unavailable", error=str(exc))
         detail = (f"The AI service is temporarily unavailable ({_short(exc)}); tried "

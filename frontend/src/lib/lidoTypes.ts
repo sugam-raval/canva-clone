@@ -157,6 +157,14 @@ export interface LidoDraftInfo {
   attempts?: number | null
   /** Design checks still failing after repairs; empty when the design passes. */
   problems: string[]
+  /** The brand colours it was asked to use (#rrggbb, first = primary), if any. */
+  brandPalette?: string[] | null
+  /** The client logo it shows, if one was given. */
+  logoUrl?: string | null
+  /** How long designing it took, ms (request start → this draft saved); null if unknown. */
+  generationMs?: number | null
+  /** The same step by step, ms: planMs, designMs, photosMs, saveMs, totalMs. */
+  timing?: Record<string, number>
   /** The template_<n> file it was imported from, for drafts made before the database. */
   importedFrom?: string | null
   hasPreview: boolean

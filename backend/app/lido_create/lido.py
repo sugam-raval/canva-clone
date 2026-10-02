@@ -218,11 +218,16 @@ def _photo(e: Element, p: Photo) -> dict:
     })
 
 
-def _logo(e: Element, index: int, design: Design, v: Variant) -> dict:
-    under = background_at(design.elements, index, e.x + e.w / 2, e.y + e.h / 2, v.palette,
-                          design.background)
-    dark = under == "photo" or luminance(under) < 0.4  # type: ignore[arg-type]
-    url = LOGOS["white" if dark else "black"]
+def _logo(e: Element, index: int, design: Design, v: Variant,
+          logo_url: str | None = None) -> dict:
+    """The client's logo when given (fitted inside the box, any aspect), else the stock
+    placeholder in whichever of black/white reads on what's behind it."""
+    url = logo_url
+    if url is None:
+        under = background_at(design.elements, index, e.x + e.w / 2, e.y + e.h / 2,
+                              v.palette, design.background)
+        dark = under == "photo" or luminance(under) < 0.4  # type: ignore[arg-type]
+        url = LOGOS["white" if dark else "black"]
     return _layer("logo", "FrameLayer", {
         "image": {"url": url, "thumb": url, "rotate": 0,
                   "boxSize": {"width": e.w, "height": e.h}, "position": {"x": 0, "y": 0}},
@@ -236,9 +241,11 @@ def _logo(e: Element, index: int, design: Design, v: Variant) -> dict:
     })
 
 
-def to_lido(design: Design, v: Variant, photos: list[Photo] | None = None) -> list[dict]:
+def to_lido(design: Design, v: Variant, photos: list[Photo] | None = None,
+            logo_url: str | None = None) -> list[dict]:
     """`photos` fills the photo elements in order (see `photos.resolve_photos`); without
-    it each one gets a cached corpus photo."""
+    it each one gets a cached corpus photo. `logo_url` is the client's logo for the logo
+    element; without it the stock placeholder is used."""
     queue = list(photos or [])
     layers: dict[str, dict] = {"ROOT": {
         "type": {"type": "bgImage", "resolvedName": "RootLayer", "fixedText": None,
@@ -264,7 +271,7 @@ def to_lido(design: Design, v: Variant, photos: list[Photo] | None = None) -> li
         elif e.kind == "draw":
             layer = _draw(e, v)
         else:
-            layer = _logo(e, i, design, v)
+            layer = _logo(e, i, design, v, logo_url)
         lid = str(uuid.uuid4())
         layers[lid] = layer
         layers["ROOT"]["child"].append(lid)

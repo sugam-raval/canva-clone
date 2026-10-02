@@ -19,6 +19,7 @@ from __future__ import annotations
 import asyncio
 import random
 import tempfile
+import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Protocol
@@ -29,7 +30,8 @@ from botocore.exceptions import BotoCoreError, ClientError
 from app.db import repo
 from app.db.session import session_scope
 from app.lido_corpus.generated import upload_asset
-from app.lido_create.brief import DIRECTIONS, design_from_brief
+from app.lido_corpus.palette import parse_palette
+from app.lido_create.brief import DIRECTIONS, brand_palette, design_from_brief
 from app.lido_create.kit import Design, Photo, Variant, photo_pool
 from app.lido_create.lido import to_lido
 from app.lido_create.photos import GENERATED_TAG, PhotoSource, configured_source, resolve_photos
@@ -57,6 +59,8 @@ class DraftStore(Protocol):
 
     async def set_preview(self, draft_id: int, url: str) -> None: ...
 
+    async def set_timing(self, draft_id: int, timing: dict[str, int]) -> None: ...
+
     async def list(self, limit: int | None) -> list[dict[str, Any]]: ...
 
     async def get(self, draft_id: int) -> dict[str, Any] | None: ...
@@ -77,6 +81,10 @@ class DbDraftStore:
     async def set_preview(self, draft_id: int, url: str) -> None:
         async with session_scope() as s:
             await repo.set_lido_draft_preview(s, draft_id, url)
+
+    async def set_timing(self, draft_id: int, timing: dict[str, int]) -> None:
+        async with session_scope() as s:
+            await repo.set_lido_draft_timing(s, draft_id, timing)
 
     async def list(self, limit: int | None) -> list[dict[str, Any]]:
         async with session_scope() as s:
@@ -115,6 +123,8 @@ def _record(row: dict[str, Any]) -> dict[str, Any]:
         "fingerprint": row["fingerprint"],
         "previewUrl": row["preview_url"],
         "hasPreview": bool(row["preview_url"]),
+        "generationMs": row.get("generation_ms"),
+        "timing": row.get("timing") or {},
     }
     record.setdefault("problems", [])
     if "document" in row:
@@ -146,6 +156,10 @@ def _preview(doc: list[dict], draft_id: int) -> str | None:
         return upload_preview(draft_id, png.read_bytes())
 
 
+def _ms_since(start: float) -> int:
+    return round((time.perf_counter() - start) * 1000)
+
+
 def design_info(design: Design) -> dict[str, Any]:
     """What a design itself says about how it was made."""
     return {
@@ -163,11 +177,17 @@ def design_info(design: Design) -> dict[str, Any]:
 
 
 async def save_draft(design: Design, v: Variant, *, photos: list[Photo] | None = None,
-                     preview: bool = True, info: dict | None = None) -> dict:
+                     logo_url: str | None = None, preview: bool = True,
+                     info: dict | None = None, timing: dict[str, int] | None = None,
+                     started: float | None = None) -> dict:
     """Store the template as a new draft, then its preview (stored under the draft's
-    id, so it is taken once the row exists); return its record (with the document)."""
+    id, so it is taken once the row exists); return its record (with the document).
+
+    `timing`: how long the steps before this took (ms); with `started` (the request's
+    `time.perf_counter()`), the save time and the total are added and stored too."""
     drafts = store()
-    doc = to_lido(design, v, photos)
+    save_started = time.perf_counter()
+    doc = to_lido(design, v, photos, logo_url=logo_url)
     meta = {**design_info(design), **(info or {})}
     source = meta.pop("source")
     prompt, name, fingerprint = meta.pop("prompt", ""), meta.pop("name", ""), \
@@ -179,6 +199,11 @@ async def save_draft(design: Design, v: Variant, *, photos: list[Photo] | None =
     if preview and (url := await asyncio.to_thread(_preview, doc, draft_id)):
         await drafts.set_preview(draft_id, url)
         row["preview_url"] = url
+    if timing is not None and started is not None:
+        timing = {**timing, "saveMs": _ms_since(save_started), "totalMs": _ms_since(started)}
+        await drafts.set_timing(draft_id, timing)
+        log.info("lido.drafts.timing", draft=draft_id, **timing)
+        row.update(timing=timing, generation_ms=timing["totalMs"])
     return _record({**row, "id": draft_id})
 
 
@@ -215,7 +240,15 @@ def _fallbacks(source: PhotoSource, photos: list[Photo]) -> int:
     return sum(GENERATED_TAG not in p.tags for p in photos)
 
 
-async def _plans(prompt: str, variations: int, rng: random.Random) -> list:
+def _with_logo(plan):
+    """The client gave a logo: the plan places one, whatever the brief seemed to say."""
+    plan.logo = True
+    plan.exclude = [x for x in plan.exclude if x != "logo"]
+    return plan
+
+
+async def _plans(prompt: str, variations: int, rng: random.Random,
+                 logo: bool = False) -> list:
     """One art-director plan per variation, made one after another so each knows which
     layouts the others took. A failed plan falls back to designing without one."""
     from app.lido_create.plan import make_plan
@@ -230,7 +263,7 @@ async def _plans(prompt: str, variations: int, rng: random.Random) -> list:
             plan = await make_plan(prompt, recent=recent, avoid_layouts=taken, free=free,
                                    rng=random.Random(rng.random()))
             taken.append(plan.layout)
-            plans.append(plan)
+            plans.append(_with_logo(plan) if logo else plan)
         except Exception as exc:  # noqa: BLE001 — the designer can still work without it
             log.warning("lido.drafts.plan_failed", error=str(exc)[:300])
             plans.append(None)
@@ -238,23 +271,42 @@ async def _plans(prompt: str, variations: int, rng: random.Random) -> list:
 
 
 async def create_from_prompt(prompt: str, *, variations: int = 1,
-                             source: PhotoSource | None = None) -> list[dict]:
+                             source: PhotoSource | None = None,
+                             palette: list[str] | None = None,
+                             logo_url: str | None = None) -> list[dict]:
     """Design `variations` templates from one prompt and save them as drafts: the art
-    director plans each one (fast), then the designers build them in parallel."""
+    director plans each one (fast), then the designers build them in parallel.
+
+    `palette`: up to 4 brand colours (#rrggbb, first = primary), the same palette "fill a
+    template" takes; every variation is drawn in exactly these (`brief.brand_palette`
+    maps them onto the design's colour roles) instead of colours the model picks.
+    `logo_url`: the client's logo, placed in every variation's logo element (each one
+    gets a logo)."""
     from app.lido_create.plan import fingerprint
 
+    started = time.perf_counter()
     source = source or photo_source()
     photos = await asyncio.to_thread(photo_pool)
     if not photos:
         raise RuntimeError("no placeholder photos found in lidojs_templates/")
     rng = random.Random()
-    plans = await _plans(prompt, variations, rng)
+    brand = brand_palette(parse_palette(palette)) if palette else None
+    plan_started = time.perf_counter()
+    plans = await _plans(prompt, variations, rng, logo=bool(logo_url))
+    plan_ms = _ms_since(plan_started)
     fallback_directions = rng.sample(DIRECTIONS, variations)
+
+    async def timed(job):
+        t0 = time.perf_counter()
+        return await job, _ms_since(t0)
+
     outcomes = await asyncio.gather(*(
-        design_from_brief(prompt, photos, plan=plan, rng=random.Random(rng.random()),
-                          direction=None if plan else fallback_directions[i])
+        timed(design_from_brief(prompt, photos, plan=plan, rng=random.Random(rng.random()),
+                                direction=None if plan else fallback_directions[i],
+                                palette=brand, logo=bool(logo_url)))
         for i, plan in enumerate(plans)), return_exceptions=True)
-    done = [(o, plans[i]) for i, o in enumerate(outcomes) if not isinstance(o, BaseException)]
+    done = [(o[0], plans[i], o[1]) for i, o in enumerate(outcomes)
+            if not isinstance(o, BaseException)]
     failures = [o for o in outcomes if isinstance(o, BaseException)]
     if not done:
         raise failures[0]  # every variation failed: report why
@@ -262,17 +314,21 @@ async def create_from_prompt(prompt: str, *, variations: int = 1,
         log.warning("lido.drafts.variation_failed", error=str(exc)[:300])
 
     # every photo of every variation at once: generated ones take a while each
-    chosen_all = await asyncio.gather(*(resolve_photos(r.design, r.variant, source)
-                                        for r, _ in done))
+    chosen_all = await asyncio.gather(*(timed(resolve_photos(r.design, r.variant, source))
+                                        for r, _, _ in done))
     saved = []
-    for (r, plan), chosen in zip(done, chosen_all):
+    for (r, plan, design_ms), (chosen, photos_ms) in zip(done, chosen_all):
         plan_info = {"plan": plan.model_dump(), "fingerprint": fingerprint(plan),
                      "planLayout": plan.layout} if plan else {}
+        brand_info = {"brandPalette": palette} if palette else {}
         saved.append(await save_draft(
-            r.design, r.variant, photos=chosen,
+            r.design, r.variant, photos=chosen, logo_url=logo_url,
             info={"source": "brief", "prompt": prompt, "name": r.name, "idea": r.idea,
                   "direction": r.direction, "attempts": r.attempts, "colors": r.colors,
                   "features": r.features, **plan_info,
+                  **brand_info, "logoUrl": logo_url,
                   "photoSource": source.name, "photoFallbacks": _fallbacks(source, chosen),
-                  "problems": r.errors}))
+                  "problems": r.errors},
+            timing={"planMs": plan_ms, "designMs": design_ms, "photosMs": photos_ms},
+            started=started))
     return saved

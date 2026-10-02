@@ -248,6 +248,15 @@ async def set_lido_draft_preview(session: AsyncSession, draft_id: int, url: str)
                           {"url": url, "id": draft_id})
 
 
+async def set_lido_draft_timing(session: AsyncSession, draft_id: int,
+                                timing: dict[str, int]) -> None:
+    """How long it took to design (`timing["totalMs"]` also goes to generation_ms)."""
+    await session.execute(
+        text("update lido_drafts set generation_ms = :total, timing = cast(:timing as jsonb) "
+             "where id = :id"),
+        {"total": timing.get("totalMs"), "timing": json.dumps(timing), "id": draft_id})
+
+
 async def find_imported_draft(session: AsyncSession, imported_from: str) -> int | None:
     """The id of the draft imported from an old `template_<n>` file, if any."""
     return (await session.execute(
@@ -256,7 +265,8 @@ async def find_imported_draft(session: AsyncSession, imported_from: str) -> int 
     )).scalar()
 
 
-_DRAFT_COLUMNS = "id, source, prompt, name, fingerprint, preview_url, info, created_at"
+_DRAFT_COLUMNS = ("id, source, prompt, name, fingerprint, preview_url, info, generation_ms, "
+                  "timing, created_at")
 
 
 async def list_lido_drafts(session: AsyncSession, *, limit: int | None = 60) -> list[dict]:

@@ -22,6 +22,12 @@ create table if not exists lido_drafts (
   -- how it was made, for the review UI: layout, theme, palette, fonts, colours, plan,
   -- photo subjects/source, check problems… (the camelCase LidoDraftInfo fields)
   info jsonb not null default '{}',
+  -- how long designing it took, request start → this draft saved (null when unknown:
+  -- imported, or made by `make lido-create`)
+  generation_ms integer,
+  -- the same, step by step: planMs (shared by a request's variations), designMs and
+  -- photosMs (this variation's own), saveMs (storing it + its preview), totalMs
+  timing jsonb not null default '{}',
   -- the raw Lido export, `[{"layers": …}]` — what is exported into the corpus
   document jsonb not null,
   created_at timestamptz not null default now()

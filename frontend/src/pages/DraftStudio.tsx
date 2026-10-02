@@ -8,6 +8,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { api, ApiError } from '../lib/api'
+import { BrandInputs } from '../lib/BrandInputs'
 import { LidoPreview } from '../lib/lidoRender'
 import type { LidoDraftInfo } from '../lib/lidoTypes'
 
@@ -72,6 +73,18 @@ function download(draft: LidoDraftInfo) {
   URL.revokeObjectURL(link.href)
 }
 
+const seconds = (ms: number) => `${(ms / 1000).toFixed(1)}s`
+
+/** "47.3s — plan 3.1s · design 35.2s · photos 6.0s · save 3.0s" (null if not recorded). */
+function timingNote(draft: LidoDraftInfo): string | null {
+  if (draft.generationMs == null) return null
+  const t = draft.timing ?? {}
+  const steps = ([['plan', t.planMs], ['design', t.designMs], ['photos', t.photosMs], ['save', t.saveMs]] as const)
+    .filter(([, ms]) => ms != null)
+    .map(([label, ms]) => `${label} ${seconds(ms as number)}`)
+  return seconds(draft.generationMs) + (steps.length ? ` — ${steps.join(' · ')}` : '')
+}
+
 function photoNote(draft: LidoDraftInfo): string {
   if (draft.photoSource !== 'generated') {
     return 'Photo subjects (placeholder photos from the corpus — set LIDO_DRAFT_PHOTOS=generate to render them)'
@@ -105,8 +118,22 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
           )}
           <div style={{ fontSize: 12, marginTop: 10, display: 'grid', gap: 4 }}>
             {Object.keys(draft.colors).length > 0 && (
-              <div><strong>Colours:</strong> <Swatches colors={draft.colors} /></div>
+              <div>
+                <strong>Colours:</strong> <Swatches colors={draft.colors} />
+                {draft.brandPalette && draft.brandPalette.length > 0 && (
+                  <span style={{ color: 'var(--muted)' }}> (from your brand colours)</span>
+                )}
+              </div>
             )}
+            {draft.logoUrl && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <strong>Logo:</strong>
+                <img src={draft.logoUrl} alt="Brand logo"
+                  style={{ height: 22, width: 22, objectFit: 'contain', background: '#fff', borderRadius: 4 }} />
+                <span style={{ color: 'var(--muted)' }}>your logo</span>
+              </div>
+            )}
+            {timingNote(draft) && <div><strong>Time to design:</strong> {timingNote(draft)}</div>}
             {draft.fonts && <div><strong>Fonts:</strong> {draft.fonts}</div>}
             {draft.features && draft.features.length > 0 && (
               <div><strong>Signature elements:</strong> {draft.features.join(', ')}</div>
@@ -119,7 +146,9 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
                     : draft.plan.layout.replace(/_/g, ' ')}
                 </div>
                 <div><strong>Mood:</strong> {draft.plan.moods.join(', ').replace(/_/g, ' ')}</div>
-                <div><strong>Logo:</strong> {draft.plan.logo ? 'yes' : 'no (the prompt asked)'}</div>
+                {!draft.logoUrl && (
+                  <div><strong>Logo:</strong> {draft.plan.logo ? 'yes' : 'no (the prompt asked)'}</div>
+                )}
                 {draft.plan.exclude.length > 0 && (
                   <div><strong>Left out:</strong> {draft.plan.exclude.join(', ').replace(/_/g, ' ')}</div>
                 )}
@@ -183,8 +212,11 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
 export function DraftStudio() {
   const [prompt, setPrompt] = useState('')
   const [variations, setVariations] = useState(1)
+  const [palette, setPalette] = useState<string[]>([])
+  const [logoUrl, setLogoUrl] = useState('')
   const [running, setRunning] = useState(false)
   const [elapsed, setElapsed] = useState(0)
+  const [tookMs, setTookMs] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [created, setCreated] = useState<LidoDraftInfo[]>([])
   const [selected, setSelected] = useState<LidoDraftInfo | null>(null)
@@ -207,10 +239,14 @@ export function DraftStudio() {
     if (prompt.trim().length < 3 || running) return
     setRunning(true)
     setElapsed(0)
+    setTookMs(null)
     setError(null)
     setCreated([])
+    const started = performance.now()
     try {
-      const drafts = await api.lidoDraftCreate(prompt.trim(), variations)
+      const drafts = await api.lidoDraftCreate(prompt.trim(), variations,
+        { palette, logoUrl: logoUrl.trim() || undefined })
+      setTookMs(performance.now() - started)
       setCreated(drafts)
       setSelected(drafts[0] ?? null)
       refresh()
@@ -273,12 +309,22 @@ export function DraftStudio() {
           <button className="primary" onClick={design} disabled={running || prompt.trim().length < 3}>
             {running ? <span className="spinner" /> : 'Design template'}
           </button>
+          {tookMs != null && !running && (
+            <span className="badge" title="Total wait, from clicking Design template to the result">
+              Done in {seconds(tookMs)}
+            </span>
+          )}
           {running && (
             <span style={{ fontSize: 12, color: 'var(--muted)' }}>
               Designing with AI… {elapsed}s (usually 30–120 s; each variation runs in parallel)
             </span>
           )}
         </div>
+        <BrandInputs
+          palette={palette} onPalette={setPalette} logoUrl={logoUrl} onLogoUrl={setLogoUrl}
+          disabled={running} emptyLabel="the designer picks"
+          logoTitle="Every design gets a logo showing this image"
+        />
         <div className="examples">
           {EXAMPLES.map((example) => (
             <button key={example.label} onClick={() => setPrompt(example.prompt)} disabled={running}>
@@ -318,7 +364,8 @@ export function DraftStudio() {
               <div className="meta">
                 <div className="title">{d.name || d.layout || `Draft ${d.id}`}</div>
                 <div className="sub">
-                  #{d.id} · {d.source}{d.problems.length ? ` · ${d.problems.length} issue(s)` : ''}
+                  #{d.id} · {d.source}{d.generationMs != null ? ` · ${seconds(d.generationMs)}` : ''}
+                  {d.problems.length ? ` · ${d.problems.length} issue(s)` : ''}
                 </div>
               </div>
             </div>

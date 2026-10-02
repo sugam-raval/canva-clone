@@ -77,10 +77,11 @@ export const api = {
     request<{ designId: string; document: LidoDocumentEntry[] }>(`/lido/generations/${designId}`),
 
   /** Design brand-new template(s) from a prompt; slow (one LLM call per variation). */
-  lidoDraftCreate: (prompt: string, variations = 1) =>
+  lidoDraftCreate: (prompt: string, variations = 1,
+    brand: { palette?: string[]; logoUrl?: string } = {}) =>
     request<LidoDraftInfo[]>('/lido/drafts', {
       method: 'POST',
-      body: JSON.stringify({ prompt, variations }),
+      body: JSON.stringify({ prompt, variations, ...brand }),
     }),
 
   lidoDrafts: () => request<LidoDraftInfo[]>('/lido/drafts'),
