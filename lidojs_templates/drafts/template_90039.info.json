@@ -1,0 +1,130 @@
+{
+  "id": "template_90039",
+  "createdAt": "2026-10-02T06:12:34.995710+00:00",
+  "source": "brief",
+  "layout": "brief:brew_bloom_warm_mosaic",
+  "theme": "food",
+  "palette": "custom",
+  "fonts": "modern-serif",
+  "mirrored": false,
+  "textCount": 11,
+  "photoSubjects": [
+    "A cozy and stylish cafe interior showing seating area and decor, with soft warm lighting.",
+    "Cappuccino artfully decorated, served on a wooden table, warm lighting to emphasize the cozy atmosphere.",
+    "Freshly baked croissants, placed in a basket on a cafe table, natural light highlighting their golden texture.",
+    "Assorted artisan desserts displayed elegantly on a countertop, ambient cafe lighting enhances their appeal."
+  ],
+  "hasPreview": true,
+  "problems": [],
+  "prompt": "Design a vibrant promotional poster for the grand opening of Brew & Bloom Cafe. Show beautifully presented cappuccino, fresh croissants, desserts, and a cozy modern cafe interior.\n\nHeadline: BREW & BLOOM\nTagline: Your New Favorite Coffee Spot!\nGrand Opening: 15 October 2026.\nSpecial Offer: Buy 1 Get 1 Free.\nHighlights: Fresh Coffee, Artisan Desserts, Cozy Ambience.\nAddress: FC Road, Pune.\nContact: +91 98765 12345\nWebsite: [www.brewandbloom.in](http://www.brewandbloom.in)\n\nCTA: VISIT US TODAY!\n\nUse warm brown, cream, and pastel green tones, stylish typography, appetizing food photography, and an inviting contemporary layout.",
+  "name": "brew_bloom_warm_mosaic",
+  "idea": "A warm cream editorial poster pairing a generous brown serif text column with an organic four-photo cafe mosaic. Pastel green offer and CTA panels, a handwritten arrow, and subtle texture make the opening feel welcoming.",
+  "direction": null,
+  "attempts": 1,
+  "colors": {
+    "bg": "#fff5e6",
+    "ink": "#493025",
+    "accent": "#cadbb8",
+    "on_accent": "#35432b",
+    "soft": "#e9cbaa"
+  },
+  "features": [],
+  "plan": {
+    "texts": [
+      {
+        "role": "headline",
+        "text": "BREW & BLOOM"
+      },
+      {
+        "role": "subhead",
+        "text": "Your New Favorite Coffee Spot!"
+      },
+      {
+        "role": "date",
+        "text": "Grand Opening: 15 October 2026."
+      },
+      {
+        "role": "badge",
+        "text": "Special Offer: Buy 1 Get 1 Free."
+      },
+      {
+        "role": "item",
+        "text": "Fresh Coffee"
+      },
+      {
+        "role": "item",
+        "text": "Artisan Desserts"
+      },
+      {
+        "role": "item",
+        "text": "Cozy Ambience"
+      },
+      {
+        "role": "address",
+        "text": "FC Road, Pune."
+      },
+      {
+        "role": "phone",
+        "text": "+91 98765 12345"
+      },
+      {
+        "role": "website",
+        "text": "www.brewandbloom.in"
+      },
+      {
+        "role": "cta",
+        "text": "VISIT US TODAY!"
+      }
+    ],
+    "photos": [
+      {
+        "from_brief": "cozy modern cafe interior",
+        "subject": "A cozy and stylish cafe interior showing seating area and decor, with soft warm lighting.",
+        "role": "hero",
+        "frame": "rounded_card"
+      },
+      {
+        "from_brief": "beautifully presented cappuccino",
+        "subject": "Cappuccino artfully decorated, served on a wooden table, warm lighting to emphasize the cozy atmosphere.",
+        "role": "supporting",
+        "frame": "circle"
+      },
+      {
+        "from_brief": "fresh croissants",
+        "subject": "Freshly baked croissants, placed in a basket on a cafe table, natural light highlighting their golden texture.",
+        "role": "supporting",
+        "frame": "blob"
+      },
+      {
+        "from_brief": "desserts",
+        "subject": "Assorted artisan desserts displayed elegantly on a countertop, ambient cafe lighting enhances their appeal.",
+        "role": "supporting",
+        "frame": "scallop_badge"
+      }
+    ],
+    "logo": true,
+    "exclude": [],
+    "moods": [
+      "warm_handmade"
+    ],
+    "layout": "mosaic_four",
+    "custom_layout": null,
+    "shapes": [
+      "circle",
+      "rectangle"
+    ],
+    "draw": [
+      "arrow"
+    ],
+    "effects": [
+      "lift"
+    ],
+    "gradient": "a warm fade on a panel",
+    "photo_theme": "food",
+    "notes": "Ensure generous spacing around the text to maintain an inviting and uncluttered look. Use a balanced weight in typography to enhance readability and warmth."
+  },
+  "fingerprint": "mosaic_four (4 photos; frames blob/circle/rounded_card/scallop_badge, gradient, arrow, lift)",
+  "planLayout": "mosaic_four",
+  "photoSource": "generated",
+  "photoFallbacks": 0
+}

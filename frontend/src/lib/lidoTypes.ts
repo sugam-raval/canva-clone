@@ -147,9 +147,12 @@ export interface LidoDraftInfo {
   } | null
   planLayout?: string | null
   textCount?: number | null
-  /** What each photo should show — the prompts future image generation will use. */
+  /** What each photo should show — the prompts photo generation uses. */
   photoSubjects: string[]
+  /** corpus-cache (placeholder photos) or generated (rendered from photoSubjects). */
   photoSource?: string | null
+  /** Photos that failed to generate and kept a cached placeholder instead. */
+  photoFallbacks?: number | null
   attempts?: number | null
   /** Design checks still failing after repairs; empty when the design passes. */
   problems: string[]

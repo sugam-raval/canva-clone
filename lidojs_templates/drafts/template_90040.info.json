@@ -1,0 +1,113 @@
+{
+  "id": "template_90040",
+  "createdAt": "2026-10-02T06:16:49.354170+00:00",
+  "source": "brief",
+  "layout": "brief:urban_vogue_festive_editorial",
+  "theme": "fashion",
+  "palette": "custom",
+  "fonts": "modern-serif",
+  "mirrored": false,
+  "textCount": 12,
+  "photoSubjects": [
+    "Editorial fashion portrait of a fashionable model positioned toward the right in elegant contemporary ethnic clothing, surrounded by luxurious burgundy, gold and ivory fabrics under sophisticated studio lighting, with open fabric scenery in the lower left."
+  ],
+  "hasPreview": true,
+  "problems": [],
+  "prompt": "Create a stylish fashion promotional poster for Urban Vogue's festive collection launch. Feature a fashionable model wearing elegant contemporary ethnic clothing, surrounded by luxurious fabrics and sophisticated studio lighting.\n\nHeadline: FESTIVE STYLE, YOUR WAY\nTagline: Celebrate Every Moment in Style.\nCollection: New Festive Arrivals 2026.\nSpecial Offer: Up to 50% OFF.\nHighlights: Ethnic Wear, Designer Kurtas, Festive Dresses, Premium Accessories.\nAddress: Phoenix Marketcity, Pune.\nContact: +91 98765 43210\nWebsite: [www.urbanvogue.in](http://www.urbanvogue.in)\n\nCTA: SHOP THE NEW COLLECTION!\n\nUse burgundy, gold, and ivory, editorial fashion photography, elegant typography, and a premium magazine-inspired advertising layout.",
+  "name": "urban_vogue_festive_editorial",
+  "idea": "An ivory magazine masthead with oversized outlined serif lettering, a striking fashion portrait, and a burgundy collection card. Restrained gold rules and a prominent offer tab give the launch a luxurious editorial finish.",
+  "direction": null,
+  "attempts": 2,
+  "colors": {
+    "bg": "#f8f3e9",
+    "ink": "#501d2c",
+    "accent": "#b99755",
+    "on_accent": "#29151b",
+    "soft": "#e9ddc8"
+  },
+  "features": [],
+  "plan": {
+    "texts": [
+      {
+        "role": "headline",
+        "text": "FESTIVE STYLE, YOUR WAY"
+      },
+      {
+        "role": "subhead",
+        "text": "Celebrate Every Moment in Style."
+      },
+      {
+        "role": "body",
+        "text": "New Festive Arrivals 2026."
+      },
+      {
+        "role": "badge",
+        "text": "Up to 50% OFF"
+      },
+      {
+        "role": "item",
+        "text": "Ethnic Wear"
+      },
+      {
+        "role": "item",
+        "text": "Designer Kurtas"
+      },
+      {
+        "role": "item",
+        "text": "Festive Dresses"
+      },
+      {
+        "role": "item",
+        "text": "Premium Accessories"
+      },
+      {
+        "role": "address",
+        "text": "Phoenix Marketcity, Pune."
+      },
+      {
+        "role": "phone",
+        "text": "+91 98765 43210"
+      },
+      {
+        "role": "website",
+        "text": "www.urbanvogue.in"
+      },
+      {
+        "role": "cta",
+        "text": "SHOP THE NEW COLLECTION!"
+      }
+    ],
+    "photos": [
+      {
+        "from_brief": "fashionable model wearing elegant contemporary ethnic clothing",
+        "subject": "A fashionable model in elegant contemporary ethnic clothing, surrounded by luxurious fabrics in sophisticated studio lighting.",
+        "role": "hero",
+        "frame": "corner_card"
+      }
+    ],
+    "logo": true,
+    "exclude": [],
+    "moods": [
+      "elegant_refined",
+      "editorial_minimal"
+    ],
+    "layout": "magazine_cover",
+    "custom_layout": null,
+    "shapes": [
+      "rectangle"
+    ],
+    "draw": [
+      "underline"
+    ],
+    "effects": [
+      "hollow"
+    ],
+    "gradient": "a subtle radial glow, often on a dark background",
+    "photo_theme": "fashion",
+    "notes": "Ensure the headline is large and elegant, with the special offer badge placed prominently. Use a refined, serif typeface and generous white space to create a luxury feel."
+  },
+  "fingerprint": "magazine_cover (1 photos; frames corner_card, gradient, underline, hollow)",
+  "planLayout": "magazine_cover",
+  "photoSource": "generated",
+  "photoFallbacks": 0
+}

@@ -25,7 +25,7 @@ import structlog
 from app.lido_create.brief import DIRECTIONS, design_from_brief
 from app.lido_create.kit import CORPUS_DIR, DRAFTS_DIR, Design, Photo, Variant, photo_pool
 from app.lido_create.lido import to_lido
-from app.lido_create.photos import CachedPhotos, PhotoSource, resolve_photos
+from app.lido_create.photos import GENERATED_TAG, PhotoSource, configured_source, resolve_photos
 from app.lido_create.render import screenshot
 
 log = structlog.get_logger(__name__)
@@ -36,8 +36,9 @@ _id_lock = asyncio.Lock()
 
 
 def photo_source() -> PhotoSource:
-    """The one place that decides where new templates' photos come from."""
-    return CachedPhotos()
+    """The one place that decides where new templates' photos come from
+    (LIDO_DRAFT_PHOTOS: cache | generate — see `photos.configured_source`)."""
+    return configured_source()
 
 
 def used_ids() -> set[int]:
@@ -148,6 +149,13 @@ def recent_fingerprints(limit: int = 10) -> list[str]:
     return [r["fingerprint"] for r in list_drafts() if r.get("fingerprint")][:limit]
 
 
+def _fallbacks(source: PhotoSource, photos: list[Photo]) -> int:
+    """How many photos a generating source had to fill from the cache instead."""
+    if source.name != "generated":
+        return 0
+    return sum(GENERATED_TAG not in p.tags for p in photos)
+
+
 async def _plans(prompt: str, variations: int, rng: random.Random) -> list:
     """One art-director plan per variation, made one after another so each knows which
     layouts the others took. A failed plan falls back to designing without one."""
@@ -194,9 +202,11 @@ async def create_from_prompt(prompt: str, *, variations: int = 1,
     for exc in failures:  # some did: keep the ones that worked
         log.warning("lido.drafts.variation_failed", error=str(exc)[:300])
 
+    # every photo of every variation at once: generated ones take a while each
+    chosen_all = await asyncio.gather(*(resolve_photos(r.design, r.variant, source)
+                                        for r, _ in done))
     saved = []
-    for r, plan in done:
-        chosen = await resolve_photos(r.design, r.variant, source)
+    for (r, plan), chosen in zip(done, chosen_all):
         async with _id_lock:
             tid = next_ids(1)[0]
             # claim the id before the slow screenshot, so a parallel request can't take it
@@ -208,6 +218,7 @@ async def create_from_prompt(prompt: str, *, variations: int = 1,
             info={"source": "brief", "prompt": prompt, "name": r.name, "idea": r.idea,
                   "direction": r.direction, "attempts": r.attempts, "colors": r.colors,
                   "features": r.features, **plan_info,
-                  "photoSource": source.name, "problems": r.errors})
+                  "photoSource": source.name, "photoFallbacks": _fallbacks(source, chosen),
+                  "problems": r.errors})
         saved.append({**record, "document": json.loads(_paths(tid)[0].read_text())})
     return saved

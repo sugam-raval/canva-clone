@@ -183,8 +183,11 @@ class LidoDraftInfo(Base):
     fingerprint: str | None = None
     text_count: int | None = None
     photo_subjects: list[str] = Field(default_factory=list)
-    """What each photo should show — the prompts a future image-generation step uses."""
+    """What each photo should show — the prompts photo generation uses."""
     photo_source: str | None = None
+    """corpus-cache (placeholder photos) or generated (rendered from photo_subjects)."""
+    photo_fallbacks: int = 0
+    """Photos that failed to generate and kept a cached placeholder instead."""
     attempts: int | None = None
     problems: list[str] = Field(default_factory=list)
     """Design checks still failing after the repair rounds; empty when it passes."""

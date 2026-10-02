@@ -1,0 +1,116 @@
+{
+  "id": "template_90038",
+  "createdAt": "2026-10-02T06:05:24.767770+00:00",
+  "source": "brief",
+  "layout": "brief:nova_launch_sequence",
+  "theme": "business",
+  "palette": "custom",
+  "fonts": "tall-caps",
+  "mirrored": false,
+  "textCount": 16,
+  "photoSubjects": [
+    "A sleek metallic Nova X Pro smartphone with a glowing electric-blue AMOLED display and floating camera lenses, photographed in dramatic black studio lighting with silver reflections and a futuristic blue radial glow."
+  ],
+  "hasPreview": true,
+  "problems": [],
+  "prompt": "Create a futuristic technology advertisement for the launch of Nova X Pro smartphone. Feature a sleek metallic smartphone with a glowing display, floating camera lenses, and dramatic studio lighting.\n\nHeadline: MEET THE NOVA X PRO\nTagline: Power Meets Perfection.\nFeatures: 200MP Camera, 5G Connectivity, 512GB Storage, AMOLED Display, 5000mAh Battery.\nLaunch Price: \u20b939,999.\nOffer: \u20b93,000 Instant Discount.\nAvailable: 20 October 2026.\nWebsite: [www.novax.in](http://www.novax.in)\nContact: +91 98765 43210\n\nCTA: PRE-BOOK NOW!\n\nUse electric blue, black, and silver, futuristic visual effects, sharp typography, and a sleek product-focused composition.",
+  "name": "nova_launch_sequence",
+  "idea": "A metallic hexagon hero anchors a precision-engineered launch poster. Electric-blue geometry, silver typography and a three-step price-to-launch-to-prebooking flow create a futuristic product-first composition.",
+  "direction": null,
+  "attempts": 2,
+  "colors": {
+    "bg": "#070b12",
+    "ink": "#e8edf4",
+    "accent": "#1464ff",
+    "on_accent": "#ffffff",
+    "soft": "#17345c"
+  },
+  "features": [],
+  "plan": {
+    "texts": [
+      {
+        "role": "headline",
+        "text": "MEET THE NOVA X PRO"
+      },
+      {
+        "role": "subhead",
+        "text": "Power Meets Perfection."
+      },
+      {
+        "role": "item",
+        "text": "200MP Camera"
+      },
+      {
+        "role": "item",
+        "text": "5G Connectivity"
+      },
+      {
+        "role": "item",
+        "text": "512GB Storage"
+      },
+      {
+        "role": "item",
+        "text": "AMOLED Display"
+      },
+      {
+        "role": "item",
+        "text": "5000mAh Battery"
+      },
+      {
+        "role": "price",
+        "text": "Launch Price: \u20b939,999."
+      },
+      {
+        "role": "badge",
+        "text": "\u20b93,000 Instant Discount."
+      },
+      {
+        "role": "date",
+        "text": "Available: 20 October 2026."
+      },
+      {
+        "role": "cta",
+        "text": "PRE-BOOK NOW!"
+      },
+      {
+        "role": "website",
+        "text": "www.novax.in"
+      },
+      {
+        "role": "phone",
+        "text": "+91 98765 43210"
+      }
+    ],
+    "photos": [
+      {
+        "from_brief": "Nova X Pro smartphone",
+        "subject": "Sleek metallic smartphone with glowing display, floating camera lenses in dramatic studio lighting",
+        "role": "hero",
+        "frame": "hexagon"
+      }
+    ],
+    "logo": true,
+    "exclude": [],
+    "moods": [
+      "sleek_modern"
+    ],
+    "layout": "steps_flow",
+    "custom_layout": null,
+    "shapes": [
+      "hexagonHorizontal",
+      "parallelogram"
+    ],
+    "draw": [],
+    "effects": [
+      "hollow",
+      "shadow"
+    ],
+    "gradient": "a radial spotlight behind the hero",
+    "photo_theme": "business",
+    "notes": "Use sharp, modern typography with a high-tech feel. Ensure the photo captures the smartphone's sleek details and glowing features prominently."
+  },
+  "fingerprint": "steps_flow (1 photos; frames hexagon, gradient, hollow)",
+  "planLayout": "steps_flow",
+  "photoSource": "generated",
+  "photoFallbacks": 0
+}

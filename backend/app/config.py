@@ -61,6 +61,11 @@ class Settings(BaseSettings):
     # model is LLM_MODEL. Set one to run that step's model with reasoning at that effort.
     lido_plan_reasoning_effort: str = ""
     lido_layout_reasoning_effort: str = ""
+    # Where a new template's photos come from: "cache" (placeholders the corpus already
+    # uses — free, instant) or "generate" (each photo rendered from its subject by the
+    # image adapters at LIDO_TEMPLATE_IMAGE_QUALITY and uploaded to the asset store).
+    # "generate" without OPENAI_API_KEY falls back to the cache.
+    lido_draft_photos: str = Field(default="cache", description="cache | generate")
     # Local embedding model for template matching (lido_templates.embedding). The column
     # is vector(384): changing to a model with another dimension needs the column altered.
     sentence_transformer_model: str = "sentence-transformers/all-MiniLM-L6-v2"

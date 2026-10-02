@@ -141,7 +141,7 @@ def api(tmp_path, monkeypatch):
     monkeypatch.setattr(get_settings(), "openai_api_key", "test-key")
     for name, value in (("llm_model_fast", "gpt-4o-mini"), ("lido_plan_model", ""),
                         ("lido_plan_reasoning_effort", ""), ("lido_layout_model", ""),
-                        ("lido_layout_reasoning_effort", "")):
+                        ("lido_layout_reasoning_effort", ""), ("lido_draft_photos", "cache")):
         monkeypatch.setattr(get_settings(), name, value)  # not whatever .env says
     monkeypatch.setattr(brief, "RETRY_DELAYS", (0.0, 0.0))
     from app.lido_create import plan as plan_module
@@ -189,6 +189,100 @@ def test_variations_get_distinct_ids_and_directions(api):
     # each variation got its own plan and layout; the last one is a free invention
     assert len({d["planLayout"] for d in drafts_made}) == 3
     assert drafts_made[-1]["planLayout"] == "custom"
+
+
+class _FakeImages:
+    """Stands in for the image adapters: a solid PNG at the asked size, or a failure."""
+
+    name = "fake:images"
+
+    def __init__(self, fail: bool = False):
+        self.fail, self.prompts = fail, []
+
+    async def generate(self, *, prompt, negative_prompt="", width=1024, height=1024,
+                       quality="medium", **_):
+        import io
+
+        from PIL import Image
+
+        from app.adapters.base import ImageResult
+
+        self.prompts.append(prompt)
+        if self.fail:
+            raise AdapterError("image API 500")
+        out = io.BytesIO()
+        Image.new("RGB", (width, height), (200, 120, 90)).save(out, format="PNG")
+        return ImageResult(data=out.getvalue(), mime="image/png", width=width,
+                           height=height, model=self.name)
+
+
+def _generating(monkeypatch, images: _FakeImages) -> list[str]:
+    from app.config import get_settings
+    from app.lido_create import photos
+
+    uploads: list[str] = []
+
+    def upload(folder, name, data):
+        uploads.append(f"{folder}/{name}")
+        return f"https://store.test/{folder}/{name}.png"
+
+    monkeypatch.setattr(get_settings(), "lido_draft_photos", "generate")
+    monkeypatch.setattr(photos, "text_to_image", lambda: images)
+    monkeypatch.setattr(photos, "transparent_image", lambda: images)
+    monkeypatch.setattr(photos, "upload_asset", upload)
+    from app.lido_corpus import assets_ai  # the template flow's renderer, reused as is
+    monkeypatch.setattr(assets_ai, "get_text_to_image", lambda: images)
+    monkeypatch.setattr(assets_ai, "get_transparent_image", lambda: images)
+    return uploads
+
+
+def _photo_urls(draft: dict) -> list[str]:
+    return [lr["props"]["image"]["url"] for lr in draft["document"][0]["layers"].values()
+            if lr["type"]["resolvedName"] == "FrameLayer" and lr["type"]["type"] != "logo"]
+
+
+def test_photos_come_from_the_cache_by_default(api):
+    client, _, _ = api
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"}).json()
+    assert draft["photoSource"] == "corpus-cache" and draft["photoFallbacks"] == 0
+    assert all(u in {p.url for p in PHOTOS} for u in _photo_urls(draft))
+
+
+def test_photos_are_generated_from_their_subjects_when_configured(api, monkeypatch):
+    client, _, _ = api
+    images = _FakeImages()
+    uploads = _generating(monkeypatch, images)
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"}).json()
+    assert draft["photoSource"] == "generated" and draft["photoFallbacks"] == 0
+    assert images.prompts and images.prompts[0].startswith("a dinner party")
+    assert _photo_urls(draft) == [f"https://store.test/{u}.png" for u in uploads]
+
+
+def test_a_failed_photo_generation_keeps_a_cached_placeholder(api, monkeypatch):
+    client, _, _ = api
+    _generating(monkeypatch, _FakeImages(fail=True))
+    response = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"})
+    assert response.status_code == 200, response.text
+    [draft] = response.json()
+    urls = _photo_urls(draft)
+    assert draft["photoSource"] == "generated" and draft["photoFallbacks"] == len(urls) > 0
+    assert all(u in {p.url for p in PHOTOS} for u in urls)
+
+
+def test_generate_without_a_real_image_model_uses_the_cache(monkeypatch):
+    from app.adapters import stub_adapters as stub
+    from app.config import get_settings
+    from app.lido_create import photos
+
+    monkeypatch.setattr(get_settings(), "lido_draft_photos", "generate")
+    monkeypatch.setattr(photos, "text_to_image", stub.StubTextToImage)
+    monkeypatch.setattr(photos, "transparent_image", stub.StubTransparentImage)
+    assert photos.configured_source().name == "corpus-cache"
+    monkeypatch.setattr(photos, "text_to_image", _FakeImages)
+    monkeypatch.setattr(photos, "transparent_image", _FakeImages)
+    assert photos.configured_source().name == "generated"
+    monkeypatch.setattr(get_settings(), "lido_draft_photos", "cache")
+    assert photos.configured_source().name == "corpus-cache"
 
 
 def test_bad_ids_are_not_found(api):

@@ -72,6 +72,16 @@ function download(draft: LidoDraftInfo) {
   URL.revokeObjectURL(link.href)
 }
 
+function photoNote(draft: LidoDraftInfo): string {
+  if (draft.photoSource !== 'generated') {
+    return 'Photo subjects (placeholder photos from the corpus — set LIDO_DRAFT_PHOTOS=generate to render them)'
+  }
+  const missed = draft.photoFallbacks ?? 0
+  return missed
+    ? `Photo subjects (generated; ${missed} failed and kept a placeholder)`
+    : 'Photo subjects (each photo generated from its subject)'
+}
+
 function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () => void }) {
   const passed = draft.problems.length === 0
   return (
@@ -135,7 +145,7 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
         {draft.photoSubjects.length > 0 && (
           <div className="progress">
             <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 6 }}>
-              Photo subjects (placeholder photos for now — these become the image prompts)
+              {photoNote(draft)}
             </div>
             <div className="log">
               {draft.photoSubjects.map((s, i) => <div key={i}>{i + 1}. {s}</div>)}

@@ -9,7 +9,8 @@
 Drafts live in lidojs_templates/drafts/ (see app/lido_create/drafts.py) and are never
 match candidates: a reviewed draft is moved into lidojs_templates/ and onboarded with
 `make lido-add`. Designing runs synchronously — one LLM call per variation, more if a
-design needs repairing — so a request takes roughly 30–120 s.
+design needs repairing, plus the photo renders with LIDO_DRAFT_PHOTOS=generate — so a
+request takes roughly 30–120 s (longer when generating photos).
 """
 
 from __future__ import annotations
@@ -56,8 +57,8 @@ def _draft_id(draft_id: str) -> str:
 @router.post("", response_model=list[LidoDraftInfo])
 async def create_drafts(body: LidoDraftRequest) -> list[LidoDraftInfo]:
     """Design `variations` new templates from the prompt: layout, decoration, colours,
-    fonts and copy all come from the prompt; photos are placeholders from the corpus
-    for now. Each is checked (text fit, overlaps, contrast…) and repaired by the model
+    fonts and copy all come from the prompt; photos are generated from each photo's
+    subject or taken from the corpus cache, as LIDO_DRAFT_PHOTOS says. Each is checked (text fit, overlaps, contrast…) and repaired by the model
     until it passes; anything still failing is reported in `problems`."""
     verdict = screen_prompt(body.prompt)
     if not verdict.allowed:
