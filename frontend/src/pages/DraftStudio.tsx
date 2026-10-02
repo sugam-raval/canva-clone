@@ -54,7 +54,7 @@ function Swatches({ colors }: { colors: Record<string, string> }) {
 
 function Preview({ draft, big }: { draft: LidoDraftInfo; big?: boolean }) {
   if (draft.previewUrl) {
-    return <img src={draft.previewUrl} alt={draft.name ?? draft.id}
+    return <img src={draft.previewUrl} alt={draft.name ?? `Draft ${draft.id}`}
       style={{ width: '100%', display: 'block', borderRadius: big ? 6 : 0 }} />
   }
   const layers = draft.document?.[0]?.layers
@@ -67,7 +67,7 @@ function download(draft: LidoDraftInfo) {
   const blob = new Blob([JSON.stringify(draft.document, null, 2)], { type: 'application/json' })
   const link = document.createElement('a')
   link.href = URL.createObjectURL(blob)
-  link.download = `${draft.id}.json`
+  link.download = `draft_${draft.id}.json`
   link.click()
   URL.revokeObjectURL(link.href)
 }
@@ -93,9 +93,9 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
       </div>
       <div>
         <div className="progress" style={{ marginTop: 0 }}>
-          <div style={{ fontWeight: 600 }}>{draft.name || draft.layout || draft.id}</div>
+          <div style={{ fontWeight: 600 }}>{draft.name || draft.layout || `Draft ${draft.id}`}</div>
           <div style={{ fontSize: 12, color: 'var(--muted)' }}>
-            {draft.id} · {draft.source}{draft.attempts ? ` · ${draft.attempts} attempt(s)` : ''}
+            #{draft.id} · {draft.source}{draft.attempts ? ` · ${draft.attempts} attempt(s)` : ''}
           </div>
           {draft.idea && <div style={{ fontSize: 13, marginTop: 8 }}>{draft.idea}</div>}
           {draft.direction && (
@@ -164,15 +164,15 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
 
         <div className="progress">
           <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 6 }}>Saved as</div>
-          <code style={{ fontSize: 11 }}>lidojs_templates/drafts/{draft.id}.json</code>
+          <code style={{ fontSize: 11 }}>draft #{draft.id} (lido_drafts)</code>
           <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
             <button onClick={() => download(draft)} disabled={!draft.document}>Download JSON</button>
             <button className="danger" onClick={onDelete}>Delete</button>
           </div>
           <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 8 }}>
-            To use it: move the JSON into <code>lidojs_templates/</code> and its PNG into{' '}
-            <code>lidojs_templates/previews/</code>, then{' '}
-            <code>make lido-add TEMPLATE={draft.id} KIND=post</code>.
+            To use it: <code>make lido-draft-export ID={draft.id}</code> (writes it into{' '}
+            <code>lidojs_templates/</code> and prints its <code>template_N</code> name), then{' '}
+            <code>make lido-add TEMPLATE=template_N KIND=post</code>.
           </div>
         </div>
       </div>
@@ -221,7 +221,7 @@ export function DraftStudio() {
     }
   }
 
-  const open = async (id: string) => {
+  const open = async (id: number) => {
     setError(null)
     try {
       setSelected(await api.lidoDraft(id))
@@ -230,7 +230,7 @@ export function DraftStudio() {
     }
   }
 
-  const remove = async (id: string) => {
+  const remove = async (id: number) => {
     if (!window.confirm(`Delete draft ${id}? This removes its JSON and preview.`)) return
     try {
       await api.lidoDraftDelete(id)
@@ -296,7 +296,7 @@ export function DraftStudio() {
             <div key={d.id} className="card" onClick={() => setSelected(d)}
               style={{ width: 150, borderColor: selected?.id === d.id ? 'var(--accent)' : undefined }}>
               <div className="thumb" style={{ aspectRatio: '1' }}><Preview draft={d} /></div>
-              <div className="meta"><div className="title">{d.name || d.id}</div></div>
+              <div className="meta"><div className="title">{d.name || `Draft ${d.id}`}</div></div>
             </div>
           ))}
         </div>
@@ -316,9 +316,9 @@ export function DraftStudio() {
               style={{ borderColor: selected?.id === d.id ? 'var(--accent)' : undefined }}>
               <div className="thumb" style={{ aspectRatio: '1' }}><Preview draft={d} /></div>
               <div className="meta">
-                <div className="title">{d.name || d.layout || d.id}</div>
+                <div className="title">{d.name || d.layout || `Draft ${d.id}`}</div>
                 <div className="sub">
-                  {d.id} · {d.source}{d.problems.length ? ` · ${d.problems.length} issue(s)` : ''}
+                  #{d.id} · {d.source}{d.problems.length ? ` · ${d.problems.length} issue(s)` : ''}
                 </div>
               </div>
             </div>

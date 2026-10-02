@@ -1,6 +1,6 @@
 # How the 5 AI-made templates were created (template_90001 – 90005)
 
-This explains, step by step, how the five draft templates in `lidojs_templates/drafts/`
+This explains, step by step, how the draft templates (now stored in the `lido_drafts` table)
 were made without anyone opening the Lido editor: where the ideas came from, how every
 shape, photo and text box was placed, and how the screenshots were produced.
 
@@ -333,14 +333,14 @@ backend/.venv/bin/python scripts/lido_create_layouts.py \
     --recipe arch_showcase --theme beauty --palette plum-coral --count 3
 ```
 
-Output goes to `lidojs_templates/drafts/`: `template_<id>.json`, `previews/template_<id>.png`,
-and `overview.png` (the whole batch on one sheet). IDs start at 90001 and skip any
-already used anywhere under `lidojs_templates/`. Nothing enters matching until you move a
-draft into the corpus:
+Output goes to the database as drafts (the `lido_drafts` table,
+`infra/initdb/006_lido_drafts.sql`), with each preview screenshot uploaded to the object
+store; review them in the **Design new template** tab. Each draft is known by its row
+`id`; it gets a `template_<n>` name (from 90001) only when exported. Nothing enters matching until you export a draft into
+the corpus:
 
 ```bash
-mv lidojs_templates/drafts/template_N.json lidojs_templates/
-mv lidojs_templates/drafts/previews/template_N.png lidojs_templates/previews/
+make lido-draft-export ID=<draft id>   # writes template_N.json + previews/template_N.png, prints N
 make lido-add TEMPLATE=template_N KIND=post
 ```
 
@@ -357,8 +357,8 @@ mirrored left to right:
 | Copy themes | 8: fashion, interior, business, food, event, beauty, education, wellness | `kit.py` → `THEMES` |
 
 Within one batch the script rotates through recipes, palettes, fonts and themes, so
-items don't repeat. It also remembers every combination it has made
-(`drafts/.history.json`), so a rerun never produces the same one twice.
+items don't repeat. It also skips every combination already saved as a draft, so a rerun never produces
+the same one twice.
 
 Recipes don't use fixed coordinates for everything. Positions **flow from the measured
 text**: a headline that wraps to 3 lines pushes the body and button down, and headlines
@@ -367,7 +367,7 @@ shrink step by step until they fit their line budget in whatever font was picked
 ### Photos
 
 The script collects every photo already used by the corpus templates, downloads each
-once to learn its size (cached in `drafts/.photo_cache.json`), and gives it **one**
+once to learn its size (cached in `lidojs_templates/.photo_cache.v2.json`), and gives it **one**
 theme from its template's tags. It skips logos, icons and transparent cutouts. Each
 frame gets an on-theme photo whose shape is closest to the frame's shape. A theme is
 only used with a recipe it has enough photos for, so a portrait is never paired with a

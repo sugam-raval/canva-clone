@@ -18,8 +18,7 @@ dist/
 
 # Local caches and generated output
 lidojs_templates/fonts/
-lidojs_templates/drafts/.photo_cache*.json
-lidojs_templates/drafts/.history.json
+lidojs_templates/.photo_cache*.json
 backend/assets_local/
 *.tsbuildinfo
 

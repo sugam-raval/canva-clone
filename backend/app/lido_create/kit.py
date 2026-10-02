@@ -23,8 +23,8 @@ from app.lido_create.draw import DRAW_PRESETS
 from app.lido_create.shapes import LINE_ENDS, SHAPES, frames
 
 CORPUS_DIR = DEFAULT_CORPUS_DIR
-DRAFTS_DIR = CORPUS_DIR / "drafts"
-PHOTO_CACHE = DRAFTS_DIR / ".photo_cache.v2.json"  # url -> [w, h, is_cutout] or null
+# a local download cache (url -> [w, h, is_cutout] or null), not data: safe to delete
+PHOTO_CACHE = CORPUS_DIR / ".photo_cache.v2.json"
 
 W = H = 1080
 M = 70  # side margin every left-aligned element starts at

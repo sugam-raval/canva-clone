@@ -119,7 +119,8 @@ export interface LidoGenerationSummary {
 /** `/v1/lido/drafts` — a brand-new template designed from a prompt (or by the CLI),
  * waiting for review in lidojs_templates/drafts/. */
 export interface LidoDraftInfo {
-  id: string
+  /** The draft's row id (lido_drafts.id). */
+  id: number
   createdAt: string
   /** "brief" (from a prompt in this UI), "ai" / "recipe" (the CLI), "manual". */
   source: string
@@ -156,6 +157,8 @@ export interface LidoDraftInfo {
   attempts?: number | null
   /** Design checks still failing after repairs; empty when the design passes. */
   problems: string[]
+  /** The template_<n> file it was imported from, for drafts made before the database. */
+  importedFrom?: string | null
   hasPreview: boolean
   previewUrl?: string | null
   /** Only on a single draft (or one just created), not in the list. */

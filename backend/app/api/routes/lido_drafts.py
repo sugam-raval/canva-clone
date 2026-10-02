@@ -3,23 +3,21 @@
     POST   /v1/lido/drafts                  prompt → 1–3 new templates, saved as drafts
     GET    /v1/lido/drafts                  every draft, newest first
     GET    /v1/lido/drafts/{id}             one draft with its Lido document
-    GET    /v1/lido/drafts/{id}/preview.png its screenshot
     DELETE /v1/lido/drafts/{id}             remove it
 
-Drafts live in lidojs_templates/drafts/ (see app/lido_create/drafts.py) and are never
-match candidates: a reviewed draft is moved into lidojs_templates/ and onboarded with
-`make lido-add`. Designing runs synchronously — one LLM call per variation, more if a
-design needs repairing, plus the photo renders with LIDO_DRAFT_PHOTOS=generate — so a
-request takes roughly 30–120 s (longer when generating photos).
+Drafts live in the `lido_drafts` table (see app/lido_create/drafts.py), their preview
+screenshots in the object store (`previewUrl`), and are never match candidates: a
+reviewed draft is exported into lidojs_templates/ (`make lido-draft-export ID=<id>`)
+and onboarded with `make lido-add`. Designing runs synchronously — one LLM call per
+variation, more if a design needs repairing, plus the photo renders with
+LIDO_DRAFT_PHOTOS=generate — so a request takes roughly 30–120 s (longer when
+generating photos).
 """
 
 from __future__ import annotations
 
-import asyncio
-
 import structlog
 from fastapi import APIRouter, HTTPException, status
-from fastapi.responses import FileResponse
 
 from app.adapters.base import AdapterError
 from app.api.schemas import LidoDraftInfo, LidoDraftRequest
@@ -32,12 +30,7 @@ router = APIRouter(prefix="/v1/lido/drafts", tags=["lido drafts"])
 
 
 def _info(record: dict) -> LidoDraftInfo:
-    info = LidoDraftInfo.model_validate(record)
-    if info.has_preview:
-        # the creation time busts the browser cache when an id is reused after a delete
-        stamp = int(info.created_at.timestamp())
-        info.preview_url = f"/v1/lido/drafts/{info.id}/preview.png?v={stamp}"
-    return info
+    return LidoDraftInfo.model_validate(record)
 
 
 def _short(exc: Exception) -> str:
@@ -45,13 +38,11 @@ def _short(exc: Exception) -> str:
     return str(exc).split(":", 2)[0][:120] if "{" in str(exc) else str(exc)[:200]
 
 
-def _draft_id(draft_id: str) -> str:
-    try:
-        drafts.draft_id(draft_id)
-    except ValueError as exc:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail="draft not found") from exc
-    return draft_id
+def _draft_id(draft_id: str) -> int:
+    """The path's draft id (`lido_drafts.id`); anything that isn't one is simply not found."""
+    if not draft_id.isdigit():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="draft not found")
+    return int(draft_id)
 
 
 @router.post("", response_model=list[LidoDraftInfo])
@@ -85,27 +76,19 @@ async def create_drafts(body: LidoDraftRequest) -> list[LidoDraftInfo]:
 
 @router.get("", response_model=list[LidoDraftInfo])
 async def list_drafts(limit: int = 60) -> list[LidoDraftInfo]:
-    records = await asyncio.to_thread(drafts.list_drafts)
-    return [_info(r) for r in records[:max(1, min(limit, 500))]]
+    records = await drafts.list_drafts(max(1, min(limit, 500)))
+    return [_info(r) for r in records]
 
 
 @router.get("/{draft_id}", response_model=LidoDraftInfo)
 async def get_draft(draft_id: str) -> LidoDraftInfo:
-    record = await asyncio.to_thread(drafts.get_draft, _draft_id(draft_id))
+    record = await drafts.get_draft(_draft_id(draft_id))
     if record is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="draft not found")
     return _info(record)
 
 
-@router.get("/{draft_id}/preview.png", include_in_schema=False)
-async def draft_preview(draft_id: str) -> FileResponse:
-    path = drafts.preview_path(_draft_id(draft_id))
-    if path is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="no preview")
-    return FileResponse(path, media_type="image/png")
-
-
 @router.delete("/{draft_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_draft(draft_id: str) -> None:
-    if not drafts.delete_draft(_draft_id(draft_id)):
+    if not await drafts.delete_draft(_draft_id(draft_id)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="draft not found")

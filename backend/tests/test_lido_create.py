@@ -6,7 +6,6 @@ through the API), not any model's taste."""
 
 from __future__ import annotations
 
-import json
 import random
 
 import pytest
@@ -127,6 +126,35 @@ class _FakeLLM:
         return LLMResult(parsed=parsed, raw="", model="fake")
 
 
+class _MemoryDrafts:
+    """`lido_drafts` in memory (drafts.DraftStore), so the tests need no database."""
+
+    def __init__(self):
+        self.rows: dict[int, dict] = {}
+        self.last_id = 0  # an identity column: ids are never reused
+
+    async def insert(self, row):
+        self.last_id += 1
+        self.rows[self.last_id] = {**row, "id": self.last_id}
+        return self.last_id
+
+    async def set_preview(self, draft_id, url):
+        self.rows[draft_id]["preview_url"] = url
+
+    async def list(self, limit):
+        rows = sorted(self.rows.values(), key=lambda r: r["created_at"], reverse=True)
+        return [{k: v for k, v in r.items() if k != "document"} for r in rows][:limit]
+
+    async def get(self, draft_id):
+        return self.rows.get(draft_id)
+
+    async def delete(self, draft_id):
+        return self.rows.pop(draft_id, None) is not None
+
+    async def fingerprints(self, limit):
+        return [r["fingerprint"] for r in await self.list(None) if r["fingerprint"]][:limit]
+
+
 @pytest.fixture
 def api(tmp_path, monkeypatch):
     from app.adapters import registry
@@ -134,7 +162,8 @@ def api(tmp_path, monkeypatch):
     from app.config import get_settings
 
     fake = _FakeLLM()
-    monkeypatch.setattr(drafts, "DRAFTS_DIR", tmp_path)
+    memory = _MemoryDrafts()
+    monkeypatch.setattr(drafts, "store", lambda: memory)
     monkeypatch.setattr(drafts, "photo_pool", lambda: PHOTOS)
     monkeypatch.setattr(drafts, "screenshot", lambda layers, out: False)
     monkeypatch.setattr(registry, "llm", lambda: fake)
@@ -146,11 +175,12 @@ def api(tmp_path, monkeypatch):
     monkeypatch.setattr(brief, "RETRY_DELAYS", (0.0, 0.0))
     from app.lido_create import plan as plan_module
     monkeypatch.setattr(plan_module, "FREE_SHARE", 0.0)  # only the forced free variation
-    return TestClient(create_app()), fake, tmp_path
+    monkeypatch.chdir(tmp_path)  # anything written locally would land here
+    return TestClient(create_app()), fake, memory
 
 
 def test_prompt_becomes_a_saved_draft(api):
-    client, fake, folder = api
+    client, fake, memory = api
     response = client.post("/v1/lido/drafts", json={"prompt": "Grand opening dinner party"})
     assert response.status_code == 200, response.text
     [draft] = response.json()
@@ -170,15 +200,49 @@ def test_prompt_becomes_a_saved_draft(api):
     assert layers["ROOT"]["props"]["color"] == "rgb(36, 22, 64)"
 
     tid = draft["id"]
-    assert (folder / f"{tid}.json").is_file() and (folder / f"{tid}.info.json").is_file()
-    assert json.loads((folder / f"{tid}.json").read_text()) == draft["document"]
+    [row] = memory.rows.values()  # stored as one row, nothing on disk
+    assert row["id"] == tid == 1 and row["document"] == draft["document"]
+    assert row["prompt"] == "Grand opening dinner party" and row["source"] == "brief"
+    assert row["fingerprint"] == draft["fingerprint"] and row["info"]["colors"]
+    assert row["preview_url"] is None and not draft["hasPreview"]
 
     listed = client.get("/v1/lido/drafts").json()
     assert [d["id"] for d in listed] == [tid] and listed[0]["document"] is None
     assert client.get(f"/v1/lido/drafts/{tid}").json()["document"] == draft["document"]
-    assert client.get(f"/v1/lido/drafts/{tid}/preview.png").status_code == 404
     assert client.delete(f"/v1/lido/drafts/{tid}").status_code == 204
+    assert client.get(f"/v1/lido/drafts/{tid}").status_code == 404
     assert client.get("/v1/lido/drafts").json() == []
+
+
+def test_a_preview_is_uploaded_to_the_object_store(api, monkeypatch, tmp_path):
+    client, _, memory = api
+    uploads = []
+
+    def shoot(layers, out):
+        out.write_bytes(b"png")
+        return True
+
+    def upload(folder, name, data):
+        uploads.append((folder, name, data))
+        return f"https://store.test/{folder}/{name}.png"
+
+    monkeypatch.setattr(drafts, "screenshot", shoot)
+    monkeypatch.setattr(drafts, "upload_asset", upload)
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"}).json()
+    tid = draft["id"]
+    assert uploads == [(f"drafts/{tid}", "preview", b"png")]  # keyed by the row id
+    assert memory.rows[tid]["preview_url"] == draft["previewUrl"]
+    assert draft["hasPreview"] and draft["previewUrl"] == f"https://store.test/drafts/{tid}/preview.png"
+    assert client.get("/v1/lido/drafts").json()[0]["previewUrl"] == draft["previewUrl"]
+    assert list(tmp_path.iterdir()) == []  # the screenshot only passed through a temp dir
+
+
+def test_the_notebook_reads_recent_fingerprints_from_the_store(api):
+    client, fake, _ = api
+    client.post("/v1/lido/drafts", json={"prompt": "Grand opening"})
+    client.post("/v1/lido/drafts", json={"prompt": "Grand opening"})
+    first = client.get("/v1/lido/drafts").json()[-1]["fingerprint"]
+    assert first and first in fake.plan_calls[-1]["user"]
 
 
 def test_variations_get_distinct_ids_and_directions(api):
@@ -288,7 +352,8 @@ def test_generate_without_a_real_image_model_uses_the_cache(monkeypatch):
 def test_bad_ids_are_not_found(api):
     client, _, _ = api
     assert client.get("/v1/lido/drafts/../../etc").status_code == 404
-    assert client.get("/v1/lido/drafts/template_1x").status_code == 404
+    assert client.get("/v1/lido/drafts/template_1").status_code == 404
+    assert client.get("/v1/lido/drafts/12345").status_code == 404
 
 
 def test_a_transient_api_failure_is_retried(api):

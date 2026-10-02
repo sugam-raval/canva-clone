@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generate new Lido.js post templates (raw exports, no `meta`) plus preview screenshots,
-into lidojs_templates/drafts/ for review. How it works: docs/AI_TEMPLATE_GENERATION.md.
+saved as drafts in the database (`lido_drafts`) for review in the Draft Studio. How it works: docs/AI_TEMPLATE_GENERATION.md.
 
 Each template is a layout recipe (or, with --ai, a layout the LLM invents) dressed in a
 palette, a font pairing and a copy theme, optionally mirrored. Every one must pass the
@@ -15,10 +15,9 @@ discarded and another is tried.
     python scripts/lido_create_layouts.py --ai --idea "testimonial quote with a portrait"
     python scripts/lido_create_layouts.py --list           # recipes, palettes, fonts, themes
 
-After review, move a keeper into the corpus and onboard it as usual:
+After review, export a keeper into the corpus and onboard it as usual:
 
-    mv lidojs_templates/drafts/template_N.json lidojs_templates/
-    mv lidojs_templates/drafts/previews/template_N.png lidojs_templates/previews/
+    make lido-draft-export ID=<draft id>     # prints the template_N it was given
     make lido-add TEMPLATE=template_N KIND=post
 """
 
@@ -26,7 +25,6 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-import json
 import random
 import sys
 from pathlib import Path
@@ -34,9 +32,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "backend"))
 
 from app.lido_create.check import validate
-from app.lido_create.drafts import FIRST_ID, next_ids, save_draft
+from app.lido_create.drafts import list_drafts, save_draft
 from app.lido_create.kit import (
-    DRAFTS_DIR,
     FONT_SETS,
     FONT_SETS_BY_NAME,
     PALETTES,
@@ -50,7 +47,7 @@ from app.lido_create.kit import (
     theme_photo_count,
 )
 from app.lido_create.recipes import RECIPES, mirror
-from app.lido_create.render import browser, overview
+from app.lido_create.render import browser
 
 
 def build(recipe: str, v: Variant, mirrored: bool) -> Design:
@@ -149,16 +146,21 @@ async def from_ai(args, rng: random.Random, photos, count: int):
         yield design, v, errors
 
 
-def save(design: Design, v: Variant, tid: int, out: Path, preview: bool,
-         errors: list[str] | None = None) -> Path | None:
-    record = save_draft(design, v, tid, out=out, preview=preview,
-                        info={"problems": errors or []})
+async def history() -> set[str]:
+    """Combinations already saved as drafts, so a rerun never repeats one."""
+    return {f"{r.get('layout')}|{r.get('theme')}|{r.get('palette')}|{r.get('fonts')}|"
+            f"{int(bool(r.get('mirrored')))}" for r in await list_drafts(limit=None)}
+
+
+async def save(design: Design, v: Variant, preview: bool,
+               errors: list[str] | None = None) -> None:
+    record = await save_draft(design, v, preview=preview, info={"problems": errors or []})
     texts = record["textCount"]
     flag = f"  ({len(errors)} unresolved problem(s))" if errors else ""
-    print(f"  template_{tid}  {design.recipe:<18} {design.theme:<10} {design.palette:<17} "
-          f"{design.fonts:<17} {'mirrored ' if design.mirrored else ''}{texts} texts{flag}")
-    png = out / "previews" / f"template_{tid}.png"
-    return png if record["hasPreview"] else None
+    shot = "" if record["hasPreview"] else "  (no preview)"
+    print(f"  draft {record['id']:<5} {design.recipe:<18} {design.theme:<10} {design.palette:<17} "
+          f"{design.fonts:<17} {'mirrored ' if design.mirrored else ''}{texts} texts"
+          f"{flag}{shot}")
 
 
 def list_options() -> None:
@@ -187,8 +189,6 @@ def main() -> int:
                         help="with --ai: repair rounds for a layout that fails the checks")
     parser.add_argument("--keep-failed", action="store_true",
                         help="with --ai: save a layout even if repairs didn't fix it")
-    parser.add_argument("--start-id", type=int, default=FIRST_ID)
-    parser.add_argument("--out", type=Path, default=DRAFTS_DIR)
     parser.add_argument("--no-preview", action="store_true", help="skip the screenshots")
     parser.add_argument("--verbose", action="store_true", help="show rejected combinations")
     parser.add_argument("--list", action="store_true", help="list the options and exit")
@@ -203,37 +203,25 @@ def main() -> int:
         preview = False
 
     rng = random.Random(args.seed)
-    (args.out / "previews").mkdir(parents=True, exist_ok=True)
-    # Combinations already generated into this folder, so a rerun never repeats one.
-    history_file = args.out / ".history.json"
-    history = set(json.loads(history_file.read_text())) if history_file.is_file() else set()
     print("collecting placeholder photos from the corpus...")
     photos = photo_pool()
     if not photos:
         print("no usable photos found in lidojs_templates/", file=sys.stderr)
         return 1
 
-    ids = iter(next_ids(args.count, args.start_id))
-    pngs: list[Path] = []
-    print(f"writing to {args.out}/")
-
-    if args.ai:
-        async def run() -> None:
+    async def run() -> None:
+        if args.ai:
             async for design, v, errors in from_ai(args, rng, photos, args.count):
-                png = save(design, v, next(ids), args.out, preview, errors)
-                pngs.extend([png] if png else [])
-        asyncio.run(run())
-    else:
-        for design, v in from_recipes(args, rng, photos, history, args.count):
-            history.add(signature(design))
-            png = save(design, v, next(ids), args.out, preview)
-            pngs.extend([png] if png else [])
-        history_file.write_text(json.dumps(sorted(history), indent=1))
+                await save(design, v, preview, errors)
+            return
+        done = await history()
+        for design, v in from_recipes(args, rng, photos, done, args.count):
+            done.add(signature(design))
+            await save(design, v, preview)
 
-    if pngs:
-        overview(pngs, args.out / "overview.png")
-        print(f"\npreviews in {args.out / 'previews'}; whole batch at a glance: "
-              f"{args.out / 'overview.png'}")
+    print("saving drafts to the database (lido_drafts)...")
+    asyncio.run(run())
+    print("\nreview them in the Draft Studio (the \"Design new template\" tab)")
     return 0
 
 

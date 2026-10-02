@@ -161,7 +161,8 @@ class LidoDraftRequest(Base):
 class LidoDraftInfo(Base):
     """One draft template awaiting review. `document` is only sent when a single draft
     is requested (or just created); the list omits it."""
-    id: str
+    id: int
+    """`lido_drafts.id`."""
     created_at: datetime
     source: str = "recipe"
     """"brief" (designed from a prompt), "ai" (CLI --ai), "recipe" (CLI) or "manual"."""
@@ -191,6 +192,8 @@ class LidoDraftInfo(Base):
     attempts: int | None = None
     problems: list[str] = Field(default_factory=list)
     """Design checks still failing after the repair rounds; empty when it passes."""
+    imported_from: str | None = None
+    """The template_<n> file it was imported from (scripts/lido_drafts.py import)."""
     has_preview: bool = False
     preview_url: str | None = None
     document: list[dict[str, Any]] | None = None

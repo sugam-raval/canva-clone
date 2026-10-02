@@ -85,7 +85,7 @@ export const api = {
 
   lidoDrafts: () => request<LidoDraftInfo[]>('/lido/drafts'),
 
-  lidoDraft: (id: string) => request<LidoDraftInfo>(`/lido/drafts/${id}`),
+  lidoDraft: (id: number) => request<LidoDraftInfo>(`/lido/drafts/${id}`),
 
-  lidoDraftDelete: (id: string) => request<void>(`/lido/drafts/${id}`, { method: 'DELETE' }),
+  lidoDraftDelete: (id: number) => request<void>(`/lido/drafts/${id}`, { method: 'DELETE' }),
 }
