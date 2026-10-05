@@ -1,0 +1,56 @@
+# FRAMES — photo frame outlines (the photo is cut to the outline)
+#
+# Their outlines live in frame_outlines.json; this is the menu. A framed photo keeps
+# the outline's aspect ratio.
+#
+# One line per item:   name: "what it is and when to use it (the AI reads this)"
+#   REMOVE an item  -> comment its line out (put # in front). The AI can then never use
+#                      it: it disappears from the AI's instructions, the plan and the
+#                      reply schema. Uncomment to bring it back.
+#   ADD an item     -> add the outline to frame_outlines.json (name: path, x, y, w, h,
+#                      holes — SVG path data, copied from a Lido frame), then a line here.
+#
+# Check after editing: `make test` (or restart the backend — an unknown name stops it
+# with a message saying what is wrong).
+
+circle: "round photo"
+egg_blob: "organic egg-shaped blob"
+brush_stroke: "thin painted brush stroke"
+brush_band: "wide painted brush band"
+scallop_badge: "wavy-edged badge"
+triangle: "triangle"
+ring: "donut ring"
+oval: "wide oval"
+torn_paper: "rough torn-paper rectangle"
+brush_swoosh: "curved brush swoosh"
+corner_card: "square with one round corner"
+rounded_card: "wide rounded card"
+gem: "cut-gem shape"
+brush_layers: "stacked brush strokes"
+torn_panel: "tall torn-edge panel"
+letter_A: "the photo fills one big letter A — a bold initial or one-letter word"
+letter_B: "the photo fills one big letter B — a bold initial or one-letter word"
+letter_C: "the photo fills one big letter C — a bold initial or one-letter word"
+letter_D: "the photo fills one big letter D — a bold initial or one-letter word"
+letter_E: "the photo fills one big letter E — a bold initial or one-letter word"
+letter_F: "the photo fills one big letter F — a bold initial or one-letter word"
+letter_G: "the photo fills one big letter G — a bold initial or one-letter word"
+letter_H: "the photo fills one big letter H — a bold initial or one-letter word"
+letter_I: "the photo fills one big letter I — a bold initial or one-letter word"
+letter_J: "the photo fills one big letter J — a bold initial or one-letter word"
+letter_K: "the photo fills one big letter K — a bold initial or one-letter word"
+letter_L: "the photo fills one big letter L — a bold initial or one-letter word"
+letter_M: "the photo fills one big letter M — a bold initial or one-letter word"
+letter_N: "the photo fills one big letter N — a bold initial or one-letter word"
+letter_O: "the photo fills one big letter O — a bold initial or one-letter word"
+letter_P: "the photo fills one big letter P — a bold initial or one-letter word"
+letter_Q: "the photo fills one big letter Q — a bold initial or one-letter word"
+letter_R: "the photo fills one big letter R — a bold initial or one-letter word"
+letter_S: "the photo fills one big letter S — a bold initial or one-letter word"
+letter_T: "the photo fills one big letter T — a bold initial or one-letter word"
+letter_U: "the photo fills one big letter U — a bold initial or one-letter word"
+letter_V: "the photo fills one big letter V — a bold initial or one-letter word"
+letter_W: "the photo fills one big letter W — a bold initial or one-letter word"
+letter_X: "the photo fills one big letter X — a bold initial or one-letter word"
+letter_Y: "the photo fills one big letter Y — a bold initial or one-letter word"
+letter_Z: "the photo fills one big letter Z — a bold initial or one-letter word"

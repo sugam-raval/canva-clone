@@ -1,27 +1,35 @@
-"""The editable design knowledge the art director works from:
+"""The editable design knowledge the art director works from (both in library/):
 
-    data/layouts.yaml   the layout catalogue — post structures to pick from
-    data/moods.yaml     the mood map — which frames/shapes/strokes/effects fit a feel
+    library/layouts.yaml   the layout catalogue — post structures to pick from
+    library/moods.yaml     the mood map — which frames/shapes/strokes/effects fit a feel
 
-Both are plain YAML, meant to grow over time. They are checked on load: an unknown frame,
-shape, stroke or effect name is reported (`problems()`) instead of silently doing nothing.
+Both are plain YAML, meant to grow over time. They are checked (`problems()`): a frame,
+shape, stroke, effect or backdrop name the code can't draw is reported instead of
+silently doing nothing. One the library menus have switched off is simply left out of
+what the art director reads.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from functools import lru_cache
-from pathlib import Path
-
-import yaml
 
 from app.config import get_settings
-from app.lido_create.backdrops import STYLES as BACKDROP_STYLES
+from app.lido_create import library
+from app.lido_create.backdrops import SIDES as BACKDROP_SIDES
+from app.lido_create.backdrops import STYLES as ENABLED_BACKDROPS
 from app.lido_create.draw import DRAW_PRESETS
+from app.lido_create.kit import (
+    CROPS,
+    ENABLED_CROPS,
+    ENABLED_DRAW,
+    ENABLED_EFFECTS,
+    ENABLED_FRAMES,
+    ENABLED_SHAPES,
+)
 from app.lido_create.shapes import SHAPES, TEXT_EFFECTS, frames
 
-DATA = Path(__file__).parent / "data"
-CLIPS = ("rect", "rounded", "circle", "arch", "hexagon", "diamond", "blob", "leaf", "cutout")
+CLIPS = ENABLED_CROPS  # the crops a plan may give a photo (library/crops.yaml)
 # --------------------------------------------------------------------------------------
 # PHOTO LIMIT — how many photos (and so generated images) a new template may have.
 #
@@ -36,7 +44,7 @@ CLIPS = ("rect", "rounded", "circle", "arch", "hexagon", "diamond", "blob", "lea
 #   1. app/config.py         `lido_max_photos` — raise `le=4` to the new most (e.g. 6).
 #   2. here                  LAYOUT_MAX_PHOTOS — raise it, so layouts.yaml may hold
 #                            layouts written for that many photos.
-#   3. data/layouts.yaml     add layouts for 5-6 photos (e.g. a 3x2 grid), and widen
+#   3. library/layouts.yaml     add layouts for 5-6 photos (e.g. a 3x2 grid), and widen
 #                            ranges like `photos: [3, 4]` to `[3, 6]` where they fit.
 #   4. check.py              min_photo_side() — pick a smaller minimum for 5+ photos
 #                            (three per row at 1080px wide leaves ~300px each).
@@ -83,14 +91,7 @@ def _list(value) -> tuple[str, ...]:
 
 
 def _load(name: str) -> list[dict]:
-    path = DATA / name
-    try:
-        return yaml.safe_load(path.read_text()) or []
-    except yaml.YAMLError as exc:
-        mark = getattr(exc, "problem_mark", None)
-        where = f" at line {mark.line + 1}" if mark else ""
-        raise ValueError(f"{path.name}{where} is not valid YAML ({getattr(exc, 'problem', exc)})"
-                         " — a text containing ': ' must be wrapped in double quotes") from exc
+    return library.load_yaml(name) or []
 
 
 @lru_cache(maxsize=1)
@@ -129,7 +130,9 @@ def problems() -> list[str]:
                          f"1-{LAYOUT_MAX_PHOTOS}")
         if not lay.idea:
             found.append(f"layout {lay.name}: no idea text")
-    known_frames = set(frames()) | set(CLIPS)
+    # what the code can draw: a name outside it is a typo (one the menus switched off is
+    # fine — it is just left out of what the art director reads)
+    known_frames = set(frames()) | set(CROPS)
     for m in moods().values():
         found += [f"mood {m.name}: unknown frame {f!r}" for f in m.frames if f not in known_frames]
         found += [f"mood {m.name}: unknown shape {s!r}" for s in m.shapes if s not in SHAPES]
@@ -137,8 +140,13 @@ def problems() -> list[str]:
         found += [f"mood {m.name}: unknown effect {e!r}" for e in m.effects
                   if e not in TEXT_EFFECTS]
         found += [f"mood {m.name}: unknown backdrop {b!r}" for b in m.backdrops
-                  if b not in BACKDROP_STYLES]
+                  if b not in BACKDROP_SIDES]
     return found
+
+
+def _on(names: tuple[str, ...], menu: tuple[str, ...]) -> str:
+    """A mood's names that the library menus have switched on, comma-separated."""
+    return ", ".join(n for n in names if n in menu)
 
 
 def layout_menu() -> str:
@@ -152,9 +160,11 @@ def mood_guide() -> str:
     lines = []
     for m in moods().values():
         lines.append(
-            f"- {m.name} — when: {', '.join(m.when)}. frames: {', '.join(m.frames) or '-'}; "
-            f"shapes: {', '.join(m.shapes) or '-'}; draw: {', '.join(m.draw) or 'none'}; "
-            f"effects: {', '.join(m.effects) or 'none'}; gradient: {m.gradient}; "
-            f"backdrops: {', '.join(m.backdrops) or 'none'}; "
+            f"- {m.name} — when: {', '.join(m.when)}. "
+            f"frames: {_on(m.frames, ENABLED_FRAMES + ENABLED_CROPS) or '-'}; "
+            f"shapes: {_on(m.shapes, ENABLED_SHAPES) or '-'}; "
+            f"draw: {_on(m.draw, ENABLED_DRAW) or 'none'}; "
+            f"effects: {_on(m.effects, ENABLED_EFFECTS) or 'none'}; gradient: {m.gradient}; "
+            f"backdrops: {_on(m.backdrops, ENABLED_BACKDROPS) or 'none'}; "
             f"avoid: {m.avoid}; feel: {m.feel}")
     return "\n".join(lines)

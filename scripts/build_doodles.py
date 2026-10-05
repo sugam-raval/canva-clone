@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""(Re)build the Lucide part of the icon library, backend/app/lido_create/data/doodles.yaml.
+"""(Re)build the Lucide part of the icon library, backend/app/lido_create/library/icons.yaml.
 
-Lucide (https://lucide.dev, ISC licence — see data/doodles.LICENSE.md) draws every icon
+Lucide (https://lucide.dev, ISC licence — see library/icons.LICENSE.md) draws every icon
 as strokes on a 24 x 24 grid, which is exactly what Lido's DrawLayer draws. This script
 fetches the icons listed in CATALOG below from the lucide-static package, turns each
 SVG's elements (path, circle, ellipse, rect, line, polyline, polygon) into one path, and
-writes them into doodles.yaml. Hand-drawn entries (`source: hand`) already in the file
+writes them into icons.yaml. Hand-drawn entries (`source: hand`) already in the file
 are kept as they are, so the library can grow both ways:
 
     python scripts/build_doodles.py            # refresh the Lucide entries
     make lido-doodles                          # then look at every doodle on one sheet
 
 To add a Lucide icon: add a line to CATALOG and rerun. To add your own: write an entry
-with `source: hand` straight into doodles.yaml (see the comment at its top).
+with `source: hand` straight into icons.yaml (see the comment at its top).
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
-LIBRARY = ROOT / "backend" / "app" / "lido_create" / "data" / "doodles.yaml"
+LIBRARY = ROOT / "backend" / "app" / "lido_create" / "library" / "icons.yaml"
 LUCIDE = "1.49.0"
 URL = f"https://unpkg.com/lucide-static@{LUCIDE}/icons/{{}}.svg"
 

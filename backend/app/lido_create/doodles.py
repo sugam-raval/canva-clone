@@ -1,4 +1,4 @@
-"""The icon library (data/doodles.yaml): small line icons drawn as Lido `DrawLayer`
+"""The icon library (library/icons.yaml): small line icons drawn as Lido `DrawLayer`
 strokes — beside the contact lines (`decorate.add_contact_icons`) and as the glyph
 inside a solid list bullet (`bullet: true` entries: lists.py's check_circle and
 arrow_circle).
@@ -16,13 +16,13 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 from functools import lru_cache
-from pathlib import Path
 
 import yaml
 
+from app.lido_create import library
 from app.lido_create.svgpath import flatten
 
-DATA = Path(__file__).parent / "data" / "doodles.yaml"
+DATA = library.path("icons.yaml")
 GRID = 24.0
 PAIRS = ("website", "phone", "email", "address")  # text types an icon sits beside
 Point = tuple[float, float]

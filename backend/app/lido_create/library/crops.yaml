@@ -1,0 +1,22 @@
+# CROPS — simple ways to cut a photo without a frame outline
+#
+# Drawn by lido.py; this is the menu.
+#
+# One line per item:   name: "what it is and when to use it (the AI reads this)"
+#   REMOVE an item  -> comment its line out (put # in front). The AI can then never use
+#                      it: it disappears from the AI's instructions, the plan and the
+#                      reply schema. Uncomment to bring it back.
+#   ADD an item     -> needs drawing code in lido.py (clip shapes) — a line alone is not enough.
+#
+# Check after editing: `make test` (or restart the backend — an unknown name stops it
+# with a message saying what is wrong).
+
+rect: "plain rectangle"
+rounded: "rounded corners — set radius in px"
+circle: "round photo — w = h"
+arch: "rounded top, flat bottom"
+hexagon: "six-sided crop"
+diamond: "diamond crop"
+blob: "organic blob"
+leaf: "leaf shape"
+cutout: "a transparent subject with no frame, floating directly on the background (e.g. a product)"

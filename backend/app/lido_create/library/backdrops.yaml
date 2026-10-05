@@ -1,0 +1,20 @@
+# BACKDROPS — layered gradient backgrounds the art director can pick
+#
+# Drawn by backdrops.py `expand`; this is the menu.
+#
+# One line per item:   name: "what it is and when to use it (the AI reads this)"
+#   REMOVE an item  -> comment its line out (put # in front). The AI can then never use
+#                      it: it disappears from the AI's instructions, the plan and the
+#                      reply schema. Uncomment to bring it back.
+#   ADD an item     -> needs a drawing branch in backdrops.py `expand` and its allowed
+#                      sides in SIDES there.
+#
+# Check after editing: `make test` (or restart the backend — an unknown name stops it
+# with a message saying what is wrong).
+
+split_half: "two-tone: a gradient panel fills one side (left/right/top/bottom) — bold, editorial, offer next to a photo"
+diagonal_split: "the canvas split along a slanted line, a gradient panel on one side — dynamic, sale, sport, launch"
+diagonal_bands: "two slanted bands crossing the canvas — energetic, youth, event"
+corner_glow: "soft colour glows bleeding in from two corners over a gentle fade (a mesh-gradient look) — premium, tech, beauty, calm"
+spotlight: "one large soft glow behind the hero — product launch, reveal"
+horizon_arc: "a huge curved arc rising from one edge like a horizon — calm, wellness, travel, real estate"

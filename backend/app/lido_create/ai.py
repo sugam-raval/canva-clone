@@ -8,10 +8,17 @@ import json
 
 from pydantic import BaseModel
 
+from app.lido_create import library
 from app.lido_create.catalog import MAX_PHOTOS
 from app.lido_create.check import FEATURE_FAMILIES, validate
-from app.lido_create.draw import DRAW_PRESETS
 from app.lido_create.kit import (
+    ENABLED_BULLETS,
+    ENABLED_CROPS,
+    ENABLED_DRAW,
+    ENABLED_EFFECTS,
+    ENABLED_FRAMES,
+    ENABLED_LINE_ENDS,
+    ENABLED_SHAPES,
     FONT_SETS,
     PALETTES,
     THEMES,
@@ -28,7 +35,7 @@ from app.lido_create.kit import (
 )
 from app.lido_create.lists import expand_list
 from app.lido_create.recipes import RECIPES
-from app.lido_create.shapes import FRAME_HINTS, SHAPES, frames
+from app.lido_create.shapes import frames
 
 
 class AIDesign(BaseModel):
@@ -51,40 +58,29 @@ ELEMENTS (drawn in list order: first = back, last = front)
   (the fill is still drawn — fill with the colour behind it for an outline-only
   look); bleed=true if it may run off the canvas.
 - line: a straight line — x/y = its left end, w = length, h = thickness (2-8px),
-  rotate, color, stroke_style solid | dashed | dotted, line_start / line_end = none |
-  arrow | triangle | bar | circle | square | diamond | outlineCircle | outlineSquare |
-  outlineDiamond. For dividers, underlines, pointers, frames made of lines.
+  rotate, color, stroke_style solid | dashed | dotted, line_start / line_end =
+  {line_ends}. For dividers, underlines, pointers, frames made of lines.
 - draw: a hand-drawn marker stroke filling x/y/w/h — draw = one of DRAW below, color,
   stroke_width (4-14px), opacity. Casual, human accents: circle a price, underline a
   word, point an arrow at the product.
 - list: ONE element for any list (features, services, steps, menu entries, schedule
   rows) — items = EVERY item, word for word (never drop, merge or shorten any);
   x/y/w/h = the area it fills; columns = null for automatic (1-4 items → 1 column,
-  5-6 → 2 columns of 3, 7-9 → 3 columns of 3); bullet = dot (classic) | dash (a short
-  "–", minimal and editorial) | ring | square (modern) | diamond (premium, elegant) |
-  triangle (menus, services) | check (benefits) | check_circle (features, what's
-  included) | arrow_circle (steps, services) | plus (extras, add-ons) | number (steps
-  in order) | check_ring (tick in a circle outline — elegant benefits) | check_square
-  (white tick on a filled square) | arrow_square | plus_circle | target (dot in a circle
-  outline) | diamond_outline (premium) | number_ring (number in a circle outline) |
-  glow_dot (a dot with a soft halo — calm, beauty) | none — pick the one that suits the
-  list and the mood; divider = line | dotted | none (between columns, or between rows in
+  5-6 → 2 columns of 3, 7-9 → 3 columns of 3); bullet = {bullets} — pick the one that
+  suits the list and the mood; divider = line | dotted | none (between columns, or between rows in
   one column); size = starting font size (it shrinks to fit); color = text colour
   (on_accent when the list sits on an accent panel); font. The code lays it out
   evenly, so give it a generous area: about 70px of height per row.
 - dots: a dot-grid texture — x/y/w/h is the area, rows x cols dots (max 8 x 8) of
   diameter dot (6-12px), color, optional opacity. One element, not many circles.
 - photo: frame = one of FRAMES below (the photo is cut to that outline and keeps its
-  aspect ratio — h follows w), or clip "rect" | "rounded" (radius px) | "circle" (w = h)
-  | "arch" | "hexagon" | "diamond" | "blob" | "leaf" | "cutout" (a transparent subject
-  with no frame, floating directly on the background); focus 0-1 (0.3 keeps faces, 0.5
+  aspect ratio — h follows w), or clip = {crops}; focus 0-1 (0.3 keeps faces, 0.5
   centre); rotate (a few degrees for a tilted, printed-photo look); subject = one
   sentence on what it shows. The picture is supplied automatically.
 - logo: one, w 110, h 89 (none at all when the plan says no logo). It must sit on one
   flat colour, never on a photo.
 - text: text (placeholder copy), text_type, font role, size px, align, max_lines,
-  uppercase, letter_spacing (em, 0-0.3), line_height, effect = shadow | lift (soft
-  glow) | hollow (outline-only letters, display text of 56px or more) with
+  uppercase, letter_spacing (em, 0-0.3), line_height, effect = {effects}, with
   effect_color for the shadow. Set h to 0 — it is measured.
   text_type: headline (exactly one, the largest free text on the canvas), kicker, body,
   item (list lines), cta (button label), badge (offer/price/date label), caption (small
@@ -97,8 +93,7 @@ ELEMENTS (drawn in list order: first = back, last = front)
 SHAPES
 {shapes}
 
-FRAMES (photo outlines): {frames}; letter_A ... letter_Z (the photo fills one big
-letter — for a bold initial or a one-letter word).
+FRAMES (photo outlines): {frames}
 
 DRAW (hand-drawn strokes): {draws}
 
@@ -183,11 +178,31 @@ GOOD DESIGN
 """
 
 
+def menu_text(kind: str, names: tuple[str, ...], sep: str = " | ") -> str:
+    """A library menu as the AI reads it: `name (hint)` for each enabled item."""
+    return sep.join(f"{n} ({h})" if (h := library.hint(kind, n)) else n
+                    for n in names) or "none available — do not use any"
+
+
+def frames_text() -> str:
+    """The enabled frames, the 26 letter frames folded into one entry."""
+    letters = [n for n in ENABLED_FRAMES if n.startswith("letter_")]
+    text = menu_text("frames", tuple(n for n in ENABLED_FRAMES if n not in letters), ", ")
+    if letters:
+        text += (f"; {', '.join(letters)} (the photo fills one big letter — a bold initial "
+                 "or a one-letter word)")
+    return text
+
+
 SYSTEM = SYSTEM_TEMPLATE.format(
     max_photos=MAX_PHOTOS,
-    shapes="\n".join(f"- {s.name}: {s.hint}" for s in SHAPES.values()),
-    frames=", ".join(f"{name} ({hint})" for name, hint in FRAME_HINTS.items()),
-    draws="; ".join(f"{name} = {hint}" for name, hint in DRAW_PRESETS.items()),
+    shapes=menu_text("shapes", ENABLED_SHAPES, "\n- ").join(("- ", "")),
+    frames=frames_text(),
+    draws=menu_text("draw", ENABLED_DRAW, "; "),
+    crops=menu_text("crops", ENABLED_CROPS),
+    bullets=menu_text("bullets", ENABLED_BULLETS),
+    line_ends=menu_text("line_ends", ENABLED_LINE_ENDS),
+    effects=menu_text("effects", ENABLED_EFFECTS),
 )
 
 
@@ -345,7 +360,8 @@ async def invent(v: Variant, *, hint: str | None, avoid: list[str],
             + f"\n\nTwo existing layouts in the exact element format:\n{examples}\n\n"
             + f"Dress the new layout in:\n{_dress(v)}\n\n"
             + "Signature elements for this version — work all three into the design: "
-            + "; ".join(FEATURE_FAMILIES[f] for f in v.rng.sample(sorted(FEATURE_FAMILIES), 3))
+            + "; ".join(FEATURE_FAMILIES[f] for f in v.rng.sample(sorted(FEATURE_FAMILIES),
+                                                       min(3, len(FEATURE_FAMILIES))))
             + ".\n\nInvent ONE new layout for it. "
             + (f"Brief for the idea: {hint}" if hint else "Surprise me with the idea."))
 

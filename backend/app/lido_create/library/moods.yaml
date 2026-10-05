@@ -7,15 +7,17 @@
 # To add a mood, copy an entry:
 #   name:      short_snake_case
 #   when:      FEELING words that signal this mood (adjectives, not businesses)
-#   frames:    photo frames that fit (names from data/frames.json, or the crops
+#   frames:    photo frames that fit (names from frames.yaml, or from crops.yaml:
 #              rect, rounded, circle, arch, hexagon, diamond, blob, leaf, cutout)
-#   shapes:    Lido shapes that fit (names from shapes.py SHAPES)
-#   draw:      hand-drawn strokes that fit (draw.py DRAW_PRESETS), may be empty
+#   shapes:    Lido shapes that fit (names from shapes.yaml)
+#   draw:      hand-drawn strokes that fit (names from draw.yaml), may be empty
 #   effects:   text effects that fit (shadow, lift, hollow), may be empty
 #   gradient:  how a gradient is used in this mood, or "none"
-#   backdrops: layered gradient backgrounds that fit (backdrops.py STYLES), may be empty
+#   backdrops: layered gradient backgrounds that fit (backdrops.yaml), may be empty
 #   avoid:     what would feel wrong in this mood
 #   feel:      one line on spacing, weight and attitude
+# A name switched off in its menu file is skipped for this mood (no need to edit it
+# here). To remove a whole mood, comment out all of its lines.
 # After editing, check it: see docs/CREATIVE_LAYOUT_PLAN.md section 8.
 
 - name: calm_airy

@@ -23,7 +23,7 @@ knobs; `expand()` turns it into full-bleed gradient shapes under everything else
 - The layers are normal shapes (marked `backdrop`): text is checked against them like
   any other shape; photos may sit on them; a glow that fades out before its rim has no
   edge to straddle (`check.seamless`).
-- Which moods use which styles: `backdrops:` in `data/moods.yaml`.
+- Which moods use which styles: `backdrops:` in `library/moods.yaml`.
 
 To add a style: write its geometry in `expand()`, describe it in `STYLES`, list its
 sides in `SIDES`, then add it to the moods that suit it.
@@ -43,14 +43,14 @@ of a Lido layer like:
 - `angle` 180 fades from the top, 0 from the bottom, 90 from the left, 270 from the
   right. The designer writes it as a normal shape with `gradient: {style: linear,
   angle, start: bg, end: null, start_at, end_at: 100}` (technique in `ai.py`); the art
-  director can pick it as the `photo_fade` layout (`data/layouts.yaml`).
+  director can pick it as the `photo_fade` layout (`library/layouts.yaml`).
 - Checks: text on the fading part still "sits on a photo" (it must stay in the solid
   part); the photo counts as hidden only where a fade is more than 80% opaque
   (`check.HIDES_FADE`), so the photo below the fade stays the hero.
 
 ## Icons — beside contact lines, and as list bullets
 
-`backend/app/lido_create/data/doodles.yaml` (18 icons: 16 contact/info icons and 2
+`backend/app/lido_create/library/icons.yaml` (18 icons: 16 contact/info icons and 2
 bullet glyphs) is the icon library; `doodles.py` draws one into any box as a Lido `DrawLayer` (exact
 strokes); `decorate.add_contact_icons` places them.
 
@@ -69,7 +69,7 @@ strokes); `decorate.add_contact_icons` places them.
 
 - **Your own**: add an entry with `source: hand` to `doodles.yaml` — a stroke path in a
   24 x 24 box (the format is documented at the top of the file).
-- **From Lucide** (ISC, `data/doodles.LICENSE.md`): add a line to `CATALOG` in
+- **From Lucide** (ISC, `library/icons.LICENSE.md`): add a line to `CATALOG` in
   `scripts/build_doodles.py` and run it; it never touches hand-drawn entries.
 - Then `make lido-doodles`: validates the library (bad paths, duplicates, paths
   leaving the box) and draws every icon on a sheet in `lidojs_templates/doodles/`.

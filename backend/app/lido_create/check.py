@@ -17,7 +17,21 @@ import re
 
 from app.lido_create.catalog import MAX_PHOTOS
 from app.lido_create.draw import draw_path
-from app.lido_create.kit import RGB, Design, Element, Gradient, H, Palette, Variant, W, line_count
+from app.lido_create.kit import (
+    ENABLED_DRAW,
+    ENABLED_EFFECTS,
+    ENABLED_FRAMES,
+    ENABLED_SHAPES,
+    RGB,
+    Design,
+    Element,
+    Gradient,
+    H,
+    Palette,
+    Variant,
+    W,
+    line_count,
+)
 from app.lido_create.shapes import frame_contains, shape_contains
 
 EDGE = 30  # minimum distance from text/logo to the canvas edge
@@ -239,7 +253,7 @@ def rotated_extent(e: Element) -> tuple[float, float, float, float]:
 
 
 # The feature families beyond plain circles and rectangles; AI designs must use a few.
-FEATURE_FAMILIES = {
+_FAMILIES = {
     "shape": "a Lido shape beyond rectangle/circle (chevron, arrow, parallelogram, "
              "hexagon, triangle, arrow-tag…)",
     "gradient": "a gradient (radial spotlight, deepening background, fading panel)",
@@ -250,6 +264,11 @@ FEATURE_FAMILIES = {
     "frame": "a photo frame from FRAMES (brush stroke, torn paper, scallop, gem, letter…)",
     "effect": "a text effect (hollow outline word, lift or shadow on the headline)",
 }
+# only the families library/ leaves something to draw with (no draw presets switched on:
+# the designer is never asked for a hand-drawn accent)
+_AVAILABLE = {"shape": set(ENABLED_SHAPES) - {"rectangle", "circle"}, "border": ENABLED_SHAPES,
+              "draw": ENABLED_DRAW, "frame": ENABLED_FRAMES, "effect": ENABLED_EFFECTS}
+FEATURE_FAMILIES = {k: v for k, v in _FAMILIES.items() if _AVAILABLE.get(k, True)}
 MIN_FAMILIES = 2
 
 
@@ -560,7 +579,7 @@ def validate(design: Design, v: Variant, *, creative: bool = False, plan=None) -
     if creative:
         errors += _richness(els, texts, extents, name)
         used = families_used(design)
-        if plan is None and len(used) < MIN_FAMILIES:
+        if plan is None and len(used) < min(MIN_FAMILIES, len(FEATURE_FAMILIES)):
             missing = "; ".join(f"{k}: {v}" for k, v in FEATURE_FAMILIES.items()
                                 if k not in used)
             errors.append(f"the design only uses circles and rectangles"

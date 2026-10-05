@@ -22,24 +22,25 @@ from typing import Literal
 
 from pydantic import BaseModel
 
+from app.lido_create import library
 from app.lido_create.kit import RGB, ColorRole, Element, Gradient, H, Palette, W
 
-BackdropStyle = Literal["split_half", "diagonal_split", "diagonal_bands", "corner_glow",
-                        "spotlight", "horizon_arc"]
 Side = Literal["left", "right", "top", "bottom", "center"]
 
-STYLES: dict[str, str] = {
-    "split_half": "two-tone: a gradient panel fills one side (left/right/top/bottom) — "
-                  "bold, editorial, offer next to a photo",
-    "diagonal_split": "the canvas split along a slanted line, a gradient panel on one "
-                      "side — dynamic, sale, sport, launch",
-    "diagonal_bands": "two slanted bands crossing the canvas — energetic, youth, event",
-    "corner_glow": "soft colour glows bleeding in from two corners over a gentle fade "
-                   "(a mesh-gradient look) — premium, tech, beauty, calm",
-    "spotlight": "one large soft glow behind the hero — product launch, reveal",
-    "horizon_arc": "a huge curved arc rising from one edge like a horizon — calm, "
-                   "wellness, travel, real estate",
+SIDES: dict[str, tuple[str, ...]] = {  # every style `expand` draws: its sides, default first
+    "split_half": ("right", "left", "top", "bottom"),
+    "diagonal_split": ("bottom", "top"),
+    "diagonal_bands": ("bottom",),
+    "corner_glow": ("left", "right"),
+    "spotlight": ("center", "left", "right", "top", "bottom"),
+    "horizon_arc": ("bottom", "top"),
 }
+# The styles the art director may pick: the menu in library/backdrops.yaml (with the
+# hint it reads for each). Empty = never a backdrop.
+STYLES: tuple[str, ...] = library.enabled("backdrops", SIDES)
+# what the plan's schema accepts (every drawable style when the menu is empty: the
+# plan then always gets null — see `clean`)
+BackdropStyle = Literal[STYLES or tuple(SIDES)]  # type: ignore[valid-type]
 TEXT_ROLES = ("ink", "accent", "bg", "on_accent")  # never soft: decoration only
 SMALL, LARGE = 4.5, 3.0  # contrast for body text / display text (36px+)
 
@@ -53,15 +54,6 @@ class Backdrop(BaseModel):
     tone: ColorRole | None = None  # the backdrop's colour (default accent; never ink/bg)
 
 
-SIDES: dict[str, tuple[str, ...]] = {  # allowed sides, the default first
-    "split_half": ("right", "left", "top", "bottom"),
-    "diagonal_split": ("bottom", "top"),
-    "diagonal_bands": ("bottom",),
-    "corner_glow": ("left", "right"),
-    "spotlight": ("center", "left", "right", "top", "bottom"),
-    "horizon_arc": ("bottom", "top"),
-}
-
 
 def clean(b: Backdrop) -> Backdrop:
     side = b.side if b.side in SIDES[b.style] else SIDES[b.style][0]
@@ -74,7 +66,7 @@ def clean(b: Backdrop) -> Backdrop:
 
 def random_backdrop(rng: random.Random, chance: float = 0.6) -> Backdrop | None:
     """For a design made without a plan: often a backdrop, in a random style."""
-    if rng.random() >= chance:
+    if not STYLES or rng.random() >= chance:
         return None
     return clean(Backdrop(style=rng.choice(list(STYLES)),
                           angle=rng.choice((-1, 1)) * rng.uniform(12, 26),

@@ -96,7 +96,7 @@ On a `ShapeLayer.color` or on `ROOT.props.color` (the page background):
   its outline's aspect ratio.
 - `image.boxSize` / `image.position` are in natural units: the photo is cover-fitted
   and centred.
-- **41 outlines**, saved by name in `backend/app/lido_create/data/frames.json`:
+- **41 outlines**, saved by name in `backend/app/lido_create/library/frame_outlines.json`:
   - circle, egg_blob, brush_stroke, brush_band, scallop_badge, triangle, ring (donut),
     oval, torn_paper, brush_swoosh, corner_card, rounded_card, gem, brush_layers,
     torn_panel

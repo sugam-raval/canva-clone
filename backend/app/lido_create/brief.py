@@ -654,7 +654,7 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
     else:
         # a different trio of feature families per design, so results spread across
         # Lido's whole vocabulary instead of settling on circles and rectangles
-        features = rng.sample(sorted(FEATURE_FAMILIES), 3)
+        features = rng.sample(sorted(FEATURE_FAMILIES), min(3, len(FEATURE_FAMILIES)))
         steer = (f"Creative direction for this version: {direction}." if direction
                  else "Choose the composition that best serves this brief.")
         steer += ("\nSignature elements for this version — work all three into the design: "

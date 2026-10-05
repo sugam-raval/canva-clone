@@ -13,15 +13,16 @@ import json
 import random
 import urllib.request
 from dataclasses import dataclass, field
-from typing import Literal
+from typing import Literal, Union
 
 from pydantic import BaseModel
 from pydantic.json_schema import SkipJsonSchema
 
 from app.lido_corpus.loader import DEFAULT_CORPUS_DIR
 from app.lido_corpus.textfit import TextMeasure, font_file, too_wide_words, wrap
+from app.lido_create import library
 from app.lido_create.draw import DRAW_PRESETS
-from app.lido_create.shapes import LINE_ENDS, SHAPES, frames
+from app.lido_create.shapes import LINE_ENDS, SHAPES, TEXT_EFFECTS, frames
 
 CORPUS_DIR = DEFAULT_CORPUS_DIR
 # a local download cache (url -> [w, h, is_cutout] or null), not data: safe to delete
@@ -34,22 +35,61 @@ ColorRole = Literal["bg", "ink", "accent", "on_accent", "soft"]
 FontRole = Literal["display", "body", "button", "script"]
 TextType = Literal["headline", "kicker", "body", "item", "cta", "badge", "caption",
                    "website", "phone", "email", "address"]
-ClipShape = Literal["rect", "rounded", "circle", "arch", "hexagon", "diamond", "blob",
-                    "leaf", "cutout"]
+# Everything the code can draw (the `Element` a recipe or the code builds may use any of
+# it). What the AI may use is narrower: the ENABLED_* menus below.
+CROPS = ("rect", "rounded", "circle", "arch", "hexagon", "diamond", "blob", "leaf", "cutout")
+# List bullets (lists.py draws them): solid markers like real social-post templates use.
+BULLETS = ("dot", "dash", "ring", "square", "diamond", "triangle", "check", "check_circle",
+           "arrow_circle", "plus", "number",
+           # fancier two-part markers
+           "check_ring", "check_square", "arrow_square", "plus_circle", "target",
+           "diamond_outline", "number_ring", "glow_dot", "none")
+ClipShape = Literal[CROPS]  # type: ignore[valid-type]
 ShapeName = Literal[tuple(SHAPES)]  # type: ignore[valid-type]
 FrameName = Literal[tuple(frames())]  # type: ignore[valid-type]
-DrawPreset = Literal[tuple(DRAW_PRESETS)]  # type: ignore[valid-type]
+DrawPreset = Literal[DRAW_PRESETS]  # type: ignore[valid-type]
 LineEnd = Literal[LINE_ENDS]  # type: ignore[valid-type]
 StrokeStyle = Literal["solid", "dashed", "dotted"]
-TextEffect = Literal["shadow", "lift", "hollow"]
-# List bullets (lists.py draws them): solid markers like real social-post templates use.
-# "bar" is the older name of "dash".
-BulletStyle = Literal["dot", "dash", "ring", "square", "diamond", "triangle", "check",
-                      "check_circle", "arrow_circle", "plus", "number",
-                      # fancier two-part markers
-                      "check_ring", "check_square", "arrow_square", "plus_circle",
-                      "target", "diamond_outline", "number_ring", "glow_dot",
-                      "none", "bar"]
+TextEffect = Literal[tuple(TEXT_EFFECTS)]  # type: ignore[valid-type]
+BulletStyle = Literal[(*BULLETS, "bar")]  # type: ignore[valid-type]  # "bar": old "dash"
+
+# --------------------------------------------------------------------------------------
+# THE DESIGN LIBRARY'S MENUS — what the AI may use when designing from scratch: each is
+# library/<kind>.yaml, checked against what the code can draw (a line commented out
+# there is not here; an undrawable name stops the backend with a message). The AI's
+# reply schema (the *Out models below), its instructions and the plan are built from
+# these, so a disabled item can't be written at all.
+# --------------------------------------------------------------------------------------
+ENABLED_SHAPES = library.enabled("shapes", SHAPES)
+ENABLED_FRAMES = library.enabled("frames", frames())
+ENABLED_CROPS = library.enabled("crops", CROPS)
+ENABLED_DRAW = library.enabled("draw", DRAW_PRESETS)
+ENABLED_EFFECTS = library.enabled("effects", TEXT_EFFECTS)
+ENABLED_BULLETS = library.enabled("bullets", BULLETS)
+ENABLED_LINE_ENDS = library.enabled("line_ends", LINE_ENDS)
+if not ENABLED_FRAMES and not ENABLED_CROPS:
+    raise library.LibraryError("library/frames.yaml and library/crops.yaml are both empty: "
+                               "a photo needs at least one frame or crop")
+
+
+def _menu_type(names: tuple[str, ...]):
+    """A schema type allowing exactly `names` (always null when the menu is empty)."""
+    return Literal[names] if names else type(None)  # type: ignore[valid-type]
+
+
+AiShape = _menu_type(ENABLED_SHAPES)
+AiFrame = _menu_type(ENABLED_FRAMES)
+AiCrop = _menu_type(ENABLED_CROPS)
+AiDraw = _menu_type(ENABLED_DRAW)
+AiEffect = _menu_type(ENABLED_EFFECTS)
+AiBullet = _menu_type(ENABLED_BULLETS)
+AiLineEnd = _menu_type(ENABLED_LINE_ENDS)
+
+
+def default_photo_shape() -> str:
+    """What a photo falls back to when its frame or crop isn't usable: a rounded crop, or
+    the first one the library allows."""
+    return "rounded" if "rounded" in ENABLED_CROPS else (ENABLED_CROPS + ENABLED_FRAMES)[0]
 
 # --------------------------------------------------------------------------------------
 # Palettes: bg (ROOT colour), ink (text on bg), accent (buttons/badges), on_accent (text
@@ -297,7 +337,7 @@ class _Box(BaseModel):
 
 class ShapeOut(_Box):
     kind: Literal["shape"]
-    shape: ShapeName
+    shape: AiShape
     color: ColorRole | None = None
     gradient: Gradient | None = None
     radius: float | None = None
@@ -314,13 +354,13 @@ class LineOut(_Box):
     color: ColorRole | None = None
     rotate: float | None = None
     stroke_style: StrokeStyle | None = None
-    line_start: LineEnd | None = None
-    line_end: LineEnd | None = None
+    line_start: AiLineEnd | None = None
+    line_end: AiLineEnd | None = None
 
 
 class DrawOut(_Box):
     kind: Literal["draw"]
-    draw: DrawPreset
+    draw: AiDraw
     color: ColorRole | None = None
     stroke_width: float | None = None
     opacity: float | None = None
@@ -331,7 +371,7 @@ class ListOut(_Box):
     kind: Literal["list"]
     items: list[str]
     columns: int | None = None
-    bullet: BulletStyle | None = None
+    bullet: AiBullet | None = None
     divider: Literal["line", "dotted", "none"] | None = None
     size: float | None = None
     color: ColorRole | None = None
@@ -349,8 +389,8 @@ class DotsOut(_Box):
 
 class PhotoOut(_Box):
     kind: Literal["photo"]
-    frame: FrameName | None = None
-    clip: ClipShape | None = None
+    frame: AiFrame | None = None
+    clip: AiCrop | None = None
     radius: float | None = None
     focus: float | None = None
     rotate: float | None = None
@@ -374,11 +414,15 @@ class TextOut(_Box):
     uppercase: bool | None = None
     letter_spacing: float | None = None
     line_height: float | None = None
-    effect: TextEffect | None = None
+    effect: AiEffect | None = None
     effect_color: ColorRole | None = None
 
 
-ElementOut = ShapeOut | LineOut | DrawOut | ListOut | DotsOut | PhotoOut | LogoOut | TextOut
+# a kind the library leaves nothing to draw with (no shapes, no strokes) is not offered
+_OUT_KINDS = [k for k, menu in ((ShapeOut, ENABLED_SHAPES), (LineOut, True), (DrawOut, ENABLED_DRAW),
+                               (ListOut, True), (DotsOut, True), (PhotoOut, True),
+                               (LogoOut, True), (TextOut, True)) if menu]
+ElementOut = Union[tuple(_OUT_KINDS)]  # type: ignore[valid-type]  # noqa: UP007
 
 
 def to_element(e: BaseModel) -> Element:

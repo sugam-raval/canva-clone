@@ -1,0 +1,24 @@
+# LINE ENDS — markers at the ends of a straight line
+#
+# Written by lido.py (Lido's own line ends); this is the menu.
+#
+# One line per item:   name: "what it is and when to use it (the AI reads this)"
+#   REMOVE an item  -> comment its line out (put # in front). The AI can then never use
+#                      it: it disappears from the AI's instructions, the plan and the
+#                      reply schema. Uncomment to bring it back.
+#   ADD an item     -> only Lido's own line ends exist: a new one needs Lido support and
+#                      an entry in LINE_ENDS in shapes.py.
+#
+# Check after editing: `make test` (or restart the backend — an unknown name stops it
+# with a message saying what is wrong).
+
+none: "a plain end"
+arrow: "open arrow head"
+triangle: "filled triangle head"
+bar: "a short bar across the end"
+circle: "filled dot"
+square: "filled square"
+diamond: "filled diamond"
+outlineCircle: "hollow dot"
+outlineSquare: "hollow square"
+outlineDiamond: "hollow diamond"

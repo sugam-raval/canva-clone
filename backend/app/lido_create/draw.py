@@ -10,16 +10,10 @@ import random
 
 Point = tuple[float, float]
 
-DRAW_PRESETS = {
-    "underline": "one loose marker stroke under a word or headline",
-    "double_underline": "two quick strokes under a word",
-    "circle": "a loose hand-drawn loop around a price, badge or word",
-    "arrow": "a curved arrow pointing from one corner of the box to the other",
-    "squiggle": "a wavy line: divider or playful accent",
-    "zigzag": "a sharp zigzag accent",
-    "sparkle": "three short lines bursting out, for emphasis next to a word",
-    "check": "a hand-drawn tick",
-}
+# Every preset `draw_path` can draw. Which of them the AI may use, and the hint it reads
+# for each, is the menu in library/draw.yaml.
+DRAW_PRESETS = ("underline", "double_underline", "circle", "arrow", "squiggle", "zigzag",
+                "sparkle", "check")
 
 
 def _smooth(points: list[Point]) -> str:

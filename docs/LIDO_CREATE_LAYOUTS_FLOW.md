@@ -544,7 +544,7 @@ now available to recipes and the AI:
 | Dashed / dotted outlines | `stroke`, `stroke_width`, `stroke_style` | writer `_shape` |
 | Lines | `kind: "line"`, `line_start`, `line_end`, `stroke_style` | writer `_line` |
 | Hand-drawn strokes | `kind: "draw"`, `draw: "underline"`, … | `draw.py` |
-| 41 photo frames | photo `frame: "brush_band"`, `"letter_A"`, … | `shapes.py` `frames()`, `data/frames.json` |
+| 41 photo frames | photo `frame: "brush_band"`, `"letter_A"`, … | `shapes.py` `frames()`, `library/frame_outlines.json` (menu: `library/frames.yaml`) |
 | Text effects | text `effect: shadow / lift / hollow`, `effect_color` | writer `_text` |
 
 **The checks for these:**

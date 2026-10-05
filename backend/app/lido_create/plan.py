@@ -3,10 +3,10 @@
 One fast LLM call reads the brief and writes a short design plan — what goes in (the
 exact copy, how many photos and what each shows, logo or not), what must stay out
 (prices, badges…), the mood, which Lido features fit that mood, and which layout from
-the catalogue (data/layouts.yaml) to build — or a custom one. The designer
+the catalogue (library/layouts.yaml) to build — or a custom one. The designer
 (`brief.py`) then builds exactly that plan, and the checks hold it to it.
 
-The art director reads the mood map (data/moods.yaml) so users never need to know
+The art director reads the mood map (library/moods.yaml) so users never need to know
 feature names, and the last designs' fingerprints so it picks something different.
 """
 
@@ -19,16 +19,23 @@ from typing import Literal
 import structlog
 from pydantic import BaseModel
 
-from app.lido_create.backdrops import STYLES as BACKDROP_STYLES
+from app.lido_create import library
+from app.lido_create.backdrops import STYLES as ENABLED_BACKDROPS
 from app.lido_create.backdrops import Backdrop
 from app.lido_create.backdrops import clean as clean_backdrop
 from app.lido_create.catalog import CLIPS, MAX_PHOTOS, layout_menu, layouts, mood_guide, moods
 from app.lido_create.check import CURRENCY
-from app.lido_create.draw import DRAW_PRESETS
-from app.lido_create.kit import THEMES
+from app.lido_create.kit import (
+    ENABLED_DRAW,
+    ENABLED_EFFECTS,
+    ENABLED_FRAMES,
+    ENABLED_SHAPES,
+    THEMES,
+    default_photo_shape,
+)
 from app.lido_create.lists import MAX_ITEMS
 from app.lido_create.models import describe, plan_call
-from app.lido_create.shapes import SHAPES, TEXT_EFFECTS, frames
+from app.lido_create.shapes import frames
 
 log = structlog.get_logger(__name__)
 
@@ -51,7 +58,7 @@ class PlanPhoto(BaseModel):
     from_brief: str  # the exact words in the brief that ask for this photo
     subject: str  # one sentence: exactly what this photo shows
     role: Literal["hero", "supporting"]
-    frame: str  # a frame name (data/frames.json) or a crop (rect, arch, blob, hexagon…)
+    frame: str  # a frame (library/frames.yaml) or a crop (library/crops.yaml)
     # the frame's shape on the canvas (a frame name keeps its own): photos start
     # rendering at it while the designer works, so the designer keeps to it
     orientation: Literal["square", "portrait", "landscape"] = "square"
@@ -141,13 +148,15 @@ LAYOUT CATALOGUE
 MOOD GUIDE
 {{moods}}
 
-NAMES YOU MAY USE
-frames: {", ".join(frames())} | crops: {", ".join(CLIPS)} (cutout = a transparent subject
-with no frame, e.g. a product)
-shapes: {", ".join(SHAPES)}
-draw: {", ".join(DRAW_PRESETS)}
-effects: {", ".join(TEXT_EFFECTS)}
-backdrops: {"; ".join(f"{k} = {v}" for k, v in BACKDROP_STYLES.items())}
+NAMES YOU MAY USE (only these — anything else is not available)
+frames: {", ".join(ENABLED_FRAMES) or "none"} | crops: {", ".join(CLIPS) or "none"}{
+    " (cutout = a transparent subject with no frame, e.g. a product)" if "cutout" in CLIPS
+    else ""}
+shapes: {", ".join(ENABLED_SHAPES) or "none"}
+draw: {", ".join(ENABLED_DRAW) or "none — leave draw empty"}
+effects: {", ".join(ENABLED_EFFECTS) or "none — leave effects empty"}
+backdrops: {"; ".join(f"{k} = {library.hint('backdrops', k)}" for k in ENABLED_BACKDROPS)
+            or "none — backdrop is always null"}
 """
 
 
@@ -181,29 +190,30 @@ def _clean(plan: DesignPlan, brief: str = "") -> DesignPlan:
         if len(kept) < len(plan.photos):
             log.info("lido.plan.padding_dropped", asked=len(plan.photos), kept=len(kept))
         plan.photos = kept
-    known_frames = set(frames()) | set(CLIPS)
+    known_frames = set(ENABLED_FRAMES) | set(CLIPS)  # what library/ switches on
     plan.photos = plan.photos[:MAX_PHOTOS] or plan.photos
     for p in plan.photos:
         if p.frame not in known_frames:
-            p.frame = "rounded"
+            p.frame = default_photo_shape()
     # PHOTO LIMIT: written for up to 4 photos; revisit for 5+ (see catalog.py)
     if len(plan.photos) >= 3:  # several photos share the canvas: none of them wide
         for p in plan.photos:
             frame = frames().get(p.frame)
             if frame is not None and frame.aspect > WIDE_FRAME:
                 log.info("lido.plan.wide_frame_swapped", frame=p.frame, photos=len(plan.photos))
-                p.frame = "rounded"
+                p.frame = default_photo_shape()
             if p.orientation == "landscape":
                 p.orientation = "square"
     if not any(p.role == "hero" for p in plan.photos) and plan.photos:
         plan.photos[0].role = "hero"
-    plan.shapes = [s for s in plan.shapes if s in SHAPES]
-    plan.draw = [d for d in plan.draw if d in DRAW_PRESETS]
-    plan.effects = [e for e in plan.effects if e in TEXT_EFFECTS]
+    plan.shapes = [s for s in plan.shapes if s in ENABLED_SHAPES]
+    plan.draw = [d for d in plan.draw if d in ENABLED_DRAW]
+    plan.effects = [e for e in plan.effects if e in ENABLED_EFFECTS]
     if brief and CURRENCY.search(brief) and "price" in plan.exclude:
         plan.exclude.remove("price")  # the brief gives a price: it can't rule prices out
-    if plan.backdrop is not None:
-        plan.backdrop = clean_backdrop(plan.backdrop)
+    if plan.backdrop is not None:  # a style library/backdrops.yaml switched off: none
+        plan.backdrop = (clean_backdrop(plan.backdrop)
+                         if plan.backdrop.style in ENABLED_BACKDROPS else None)
     if plan.layout != "custom" and plan.layout not in layouts():
         plan.layout, plan.custom_layout = "custom", plan.custom_layout or plan.layout
     if any(t.role == "cta" for t in plan.texts) and "button" in plan.exclude:

@@ -1,0 +1,34 @@
+# SHAPES — Lido's native shapes (badges, bands, arrows, accents)
+#
+# Their outlines live in shapes.py (measured from the Lido editor); this is the menu.
+#
+# One line per item:   name: "what it is and when to use it (the AI reads this)"
+#   REMOVE an item  -> comment its line out (put # in front). The AI can then never use
+#                      it: it disappears from the AI's instructions, the plan and the
+#                      reply schema. Uncomment to bring it back.
+#   ADD an item     -> only Lido's own shapes exist. A new name needs its outline added to
+#                      SHAPES in shapes.py first (and Lido must support it).
+#
+# Check after editing: `make test` (or restart the backend — an unknown name stops it
+# with a message saying what is wrong).
+
+rectangle: "box; with radius a rounded card, pill or tag"
+circle: "circle or ellipse; badges, dots, rings, big background discs"
+triangle: "triangle pointing up; corner accents, play/arrow marks"
+triangleUpsideDown: "triangle pointing down; pennant tips, 'scroll' marks"
+rhombus: "diamond; small accents, badges, bullet markers"
+pentagon: "pentagon; badges, shields, accent tiles"
+hexagonVertical: "hexagon with points at top and bottom; tiles, badges"
+hexagonHorizontal: "hexagon with points at the sides; tiles, badges"
+octagon: "octagon; stop-sign style badges"
+parallelogram: "slanted bar leaning right; dynamic label bands, speed stripes"
+parallelogramUpsideDown: "slanted bar leaning left"
+trapezoid: "wider at the bottom; tabs, stands"
+trapezoidUpsideDown: "wider at the top; ribbons, banners"
+cross: "plus sign; small sparkle/plus accents"
+chevron: "notched arrow band pointing right; step flows, direction strips"
+arrowPentagon: "tag with a pointed right end; ribbon labels, price tags"
+arrowRight: "block arrow pointing right; 'next', call-to-action pointers"
+arrowLeft: "block arrow pointing left"
+arrowTop: "block arrow pointing up"
+arrowBottom: "block arrow pointing down"

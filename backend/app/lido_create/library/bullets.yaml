@@ -1,0 +1,34 @@
+# BULLETS — list markers (the list element draws them)
+#
+# Drawn by lists.py `bullet_marks`; this is the menu.
+#
+# One line per item:   name: "what it is and when to use it (the AI reads this)"
+#   REMOVE an item  -> comment its line out (put # in front). The AI can then never use
+#                      it: it disappears from the AI's instructions, the plan and the
+#                      reply schema. Uncomment to bring it back.
+#   ADD an item     -> needs a drawing branch in lists.py `bullet_marks` and its size in
+#                      MARKS there.
+#
+# Check after editing: `make test` (or restart the backend — an unknown name stops it
+# with a message saying what is wrong).
+
+dot: "classic"
+dash: "a short \"–\", minimal and editorial"
+ring: "a small ring"
+square: "modern"
+diamond: "premium, elegant"
+triangle: "menus, services"
+check: "benefits"
+check_circle: "features, what's included"
+arrow_circle: "steps, services"
+plus: "extras, add-ons"
+number: "steps in order"
+check_ring: "tick in a circle outline — elegant benefits"
+check_square: "white tick on a filled square"
+arrow_square: "arrow on a filled square"
+plus_circle: "plus in a filled circle"
+target: "dot in a circle outline"
+diamond_outline: "premium"
+number_ring: "number in a circle outline"
+glow_dot: "a dot with a soft halo — calm, beauty"
+none: "no marker"

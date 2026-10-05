@@ -16,7 +16,7 @@
 #   path:       SVG path data in the 24 x 24 box (M L H V C S Q T A Z; absolute or
 #               relative).
 # Then check it and look at it: `make lido-doodles` (loads, validates, draws a sheet).
-# Lucide icons are ISC-licensed: see doodles.LICENSE.md.
+# Lucide icons are ISC-licensed: see icons.LICENSE.md.
 
 - name: location_pin
   themes: [contact, address, visit, store]

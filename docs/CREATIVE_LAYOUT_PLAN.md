@@ -117,7 +117,7 @@ prompt asks for, never by the business. A bakery can be elegant, a bank warm, a 
 | `editorial_minimal` | chic, minimal, magazine | rect, arch and letter frames · type-led · white space · script plus caps |
 
 The full list, with every frame, shape, stroke and effect, is in
-`backend/app/lido_create/data/moods.yaml`.
+`backend/app/lido_create/library/moods.yaml`.
 
 ---|---|
 | calm, wellness, yoga, spa, organic | soft blob, egg and brush frames · soft gradients · squiggles · lift effect · lots of space |
@@ -267,7 +267,7 @@ camp) and compare the results before moving on.
 
 ## 8. Adding layouts and moods (for you)
 
-Both files are plain YAML in `backend/app/lido_create/data/`:
+Both files are plain YAML in `backend/app/lido_create/library/` (see its README.md):
 
 | File | What it holds | Add one by… |
 |---|---|---|
@@ -277,7 +277,7 @@ Both files are plain YAML in `backend/app/lido_create/data/`:
 Rules:
 - `name` must be unique, in `snake_case`.
 - If a text contains `: ` (colon + space), wrap it in double quotes.
-- Only real names work: frames from `data/frames.json` (or crops `rect, rounded, circle,
+- Only real names work: frames from `library/frame_outlines.json` (menu: `library/frames.yaml`) (or crops `rect, rounded, circle,
   arch, hexagon, diamond, blob, leaf, cutout`), shapes from `shapes.py`, strokes from
   `draw.py`, effects `shadow / lift / hollow`.
 
