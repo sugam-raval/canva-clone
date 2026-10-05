@@ -1,7 +1,14 @@
+import os
 import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+
+# Settings tests depend on, pinned to the code's defaults whatever backend/.env says (an
+# environment variable beats the .env file); set before the app is imported, since some
+# are read at import.
+os.environ["LIDO_MAX_PHOTOS"] = "4"
+os.environ["LIDO_TEMPLATE_IMAGE_QUALITY"] = "high"
 
 
 import pytest

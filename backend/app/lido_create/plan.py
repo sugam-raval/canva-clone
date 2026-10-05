@@ -52,6 +52,15 @@ class PlanPhoto(BaseModel):
     subject: str  # one sentence: exactly what this photo shows
     role: Literal["hero", "supporting"]
     frame: str  # a frame name (data/frames.json) or a crop (rect, arch, blob, hexagon…)
+    # the frame's shape on the canvas (a frame name keeps its own): photos start
+    # rendering at it while the designer works, so the designer keeps to it
+    orientation: Literal["square", "portrait", "landscape"] = "square"
+
+
+WIDE_FRAME = 1.4  # w / h above which a frame is too wide for 3-4 photos to share a canvas
+
+# w / h of each orientation: what the designer is asked for and photos are rendered at
+ORIENTATION_ASPECT = {"square": 1.0, "portrait": 0.75, "landscape": 4 / 3}
 
 
 class DesignPlan(BaseModel):
@@ -91,7 +100,12 @@ DECIDE
    use" photos the brief didn't ask for: one thing to show = 1 photo. More things than {MAX_PHOTOS} → {MAX_PHOTOS}
    (or 1 group shot). Each photo gets from_brief — the exact words copied from the brief
    that ask for it (the brief's own name for that thing, copied as written) — its own
-   subject sentence (who or what, action, setting, light) and a frame. Exactly one photo is the
+   subject sentence (who or what, action, setting, light), a frame and an orientation
+   (square | portrait | landscape — the shape that frame takes in your layout: a tall
+   side column is portrait, a wide band landscape). With 3 or 4 photos they share the
+   canvas: use square or portrait shapes and no wide frames (rounded_card, oval,
+   brush_stroke, brush_swoosh) — four wide photos side by side are too small to read;
+   lay them out as a grid, a stagger or a column. Exactly one photo is the
    hero, the rest supporting. A supporting photo whose words are not in the brief is
    removed.
 3. logo — true unless the brief explicitly says no logo / no branding.
@@ -172,6 +186,15 @@ def _clean(plan: DesignPlan, brief: str = "") -> DesignPlan:
     for p in plan.photos:
         if p.frame not in known_frames:
             p.frame = "rounded"
+    # PHOTO LIMIT: written for up to 4 photos; revisit for 5+ (see catalog.py)
+    if len(plan.photos) >= 3:  # several photos share the canvas: none of them wide
+        for p in plan.photos:
+            frame = frames().get(p.frame)
+            if frame is not None and frame.aspect > WIDE_FRAME:
+                log.info("lido.plan.wide_frame_swapped", frame=p.frame, photos=len(plan.photos))
+                p.frame = "rounded"
+            if p.orientation == "landscape":
+                p.orientation = "square"
     if not any(p.role == "hero" for p in plan.photos) and plan.photos:
         plan.photos[0].role = "hero"
     plan.shapes = [s for s in plan.shapes if s in SHAPES]
@@ -276,6 +299,8 @@ def plan_brief(plan: DesignPlan) -> str:
         mood_lines.append(f"{name} — feel: {m.feel}; avoid: {m.avoid}")
     photos = "\n".join(
         f"  {i}. {p.role}: {p.subject} — frame: {p.frame}"
+        + ("" if p.frame in frames() else
+           f", {p.orientation} (w/h about {ORIENTATION_ASPECT[p.orientation]:.2f})")
         for i, p in enumerate(plan.photos, 1))
     texts = "\n".join(f"  - {t.role}: {t.text!r}" for t in plan.texts if t.role != "item")
     items = [t.text for t in plan.texts if t.role == "item"]
@@ -293,7 +318,8 @@ def plan_brief(plan: DesignPlan) -> str:
         "DESIGN PLAN (from the art director — build exactly this)\n"
         f"- Layout: {structure}\n"
         f"- Photos: exactly {len(plan.photos)}, each in its frame (frame = the photo's "
-        f"`frame` field when it is a frame name, otherwise its `clip`):\n{photos}\n"
+        f"`frame` field when it is a frame name, otherwise its `clip`) and with its "
+        f"shape (its picture is already being made at that shape):\n{photos}\n"
         f"- Text, use these exact words (roles map to text_type; price/date → badge, "
         f"subhead → body):\n{texts}\n"
         f"- Logo: {'one small logo' if plan.logo else 'NONE — no logo element at all'}\n"

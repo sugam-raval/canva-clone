@@ -61,11 +61,25 @@ class Settings(BaseSettings):
     # model is LLM_MODEL. Set one to run that step's model with reasoning at that effort.
     lido_plan_reasoning_effort: str = ""
     lido_layout_reasoning_effort: str = ""
+    # A design that fails its checks is repaired with a small patch (only the elements
+    # that change), not a whole new layout — a quick edit a fast model does well. Empty
+    # model: the layout model; empty effort: as for the layout (see models.py).
+    lido_repair_model: str = ""
+    lido_repair_reasoning_effort: str = ""
+    # How many first drafts of each design are requested at once; the first to pass the
+    # checks wins (the rest are cancelled) and saves a repair round. Each one is a full
+    # layout call, so 2 roughly doubles the layout cost.
+    lido_layout_candidates: int = 1
     # Where a new template's photos come from: "cache" (placeholders the corpus already
     # uses — free, instant) or "generate" (each photo rendered from its subject by the
     # image adapters at LIDO_TEMPLATE_IMAGE_QUALITY and uploaded to the asset store).
     # "generate" without OPENAI_API_KEY falls back to the cache.
     lido_draft_photos: str = Field(default="cache", description="cache | generate")
+    # The most photos a new template may have (1-4): a brief that names more things to
+    # show gets this many, so at most this many images are generated per template.
+    # Read at startup — restart the backend after changing it.
+    # PHOTO LIMIT: to allow more than 4, raise `le` — see app/lido_create/catalog.py.
+    lido_max_photos: int = Field(default=4, ge=1, le=4)
     # Local embedding model for template matching (lido_templates.embedding). The column
     # is vector(384): changing to a model with another dimension needs the column altered.
     sentence_transformer_model: str = "sentence-transformers/all-MiniLM-L6-v2"
@@ -77,6 +91,10 @@ class Settings(BaseSettings):
     # re-embedded on the next request after this many seconds).
     lido_template_sync_seconds: float = 10.0
     image_model: str = "gpt-image-2.5-sunburst"
+    # How long one image request may take before it is abandoned and tried once more. A
+    # render normally takes 20-60 s; now and then a request hangs, and waiting out the
+    # client's 180 s for it stalled whole drafts.
+    image_timeout_seconds: float = 90.0
     # The Lido.js (template) flow's main fill call uses the global llm_reasoning_effort,
     # same as everywhere else; its repair call always uses llm_model_fast instead.
     lido_template_image_quality: str = Field(default="high", description="low | medium | high")

@@ -8,6 +8,7 @@ import json
 
 from pydantic import BaseModel
 
+from app.lido_create.catalog import MAX_PHOTOS
 from app.lido_create.check import FEATURE_FAMILIES, validate
 from app.lido_create.draw import DRAW_PRESETS
 from app.lido_create.kit import (
@@ -17,11 +18,13 @@ from app.lido_create.kit import (
     Canvas,
     Design,
     Element,
+    ElementOut,
     Gradient,
     H,
     Variant,
     W,
     line_count,
+    to_element,
 )
 from app.lido_create.lists import expand_list
 from app.lido_create.recipes import RECIPES
@@ -32,7 +35,7 @@ class AIDesign(BaseModel):
     name: str  # short snake_case name for the layout idea
     idea: str  # the composition in one sentence
     background: Gradient | None  # a gradient canvas, or null for the flat bg colour
-    elements: list[Element]
+    elements: list[ElementOut]
 
 
 SYSTEM_TEMPLATE = """You are a senior social-media designer. You lay out ONE square 1080x1080 post
@@ -117,7 +120,9 @@ RULES THAT ARE CHECKED (your layout is rejected if any fails)
 - every text sits entirely on ONE flat colour: never on a photo, never across a
   shape's edge, never over a dot grid. Put a label exactly on its pill/badge.
 - text/logo at least 30px from the canvas edge; shapes/photos inside unless bleed
-- 1 to 4 photos (exactly as many as the plan says), each at least 200px on each side;
+- 1 to {max_photos} photos (exactly as many as the plan says), each at least 200px on
+  each side (140px when there are 3 or more — arrange those as a grid, a stagger or a
+  column);
   together they get real prominence (roughly a third of the canvas or more); 3 to 24
   text boxes
 - at least 3 decorative elements that no text sits on
@@ -179,6 +184,7 @@ GOOD DESIGN
 
 
 SYSTEM = SYSTEM_TEMPLATE.format(
+    max_photos=MAX_PHOTOS,
     shapes="\n".join(f"- {s.name}: {s.hint}" for s in SHAPES.values()),
     frames=", ".join(f"{name} ({hint})" for name, hint in FRAME_HINTS.items()),
     draws="; ".join(f"{name} = {hint}" for name, hint in DRAW_PRESETS.items()),
@@ -350,9 +356,9 @@ async def invent(v: Variant, *, hint: str | None, avoid: list[str],
                                          temperature=0.9, max_tokens=16000)
         ai: AIDesign = result.parsed
         as_written = ai.model_dump_json(exclude_none=True)  # repairs edit this version
-        ai.elements = normalise(ai.elements, v)
+        elements = normalise([to_element(e) for e in ai.elements], v)
         design = Design(recipe=f"ai:{ai.name}", theme=v.theme.name, palette=v.palette.name,
-                        fonts=v.fonts.name, background=ai.background, elements=ai.elements)
+                        fonts=v.fonts.name, background=ai.background, elements=elements)
         errors = validate(design, v, creative=True)
         print(f"    ai attempt {attempt + 1}: {ai.name!r} — "
               + ("passes" if not errors else f"{len(errors)} problem(s)"))

@@ -20,6 +20,7 @@ import asyncio
 import random
 import tempfile
 import time
+from collections.abc import Callable
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Protocol
@@ -34,7 +35,13 @@ from app.lido_corpus.palette import parse_palette
 from app.lido_create.brief import DIRECTIONS, brand_palette, design_from_brief
 from app.lido_create.kit import Design, Photo, Variant, photo_pool
 from app.lido_create.lido import to_lido
-from app.lido_create.photos import GENERATED_TAG, PhotoSource, configured_source, resolve_photos
+from app.lido_create.photos import (
+    GENERATED_TAG,
+    PhotoPrefetch,
+    PhotoSource,
+    configured_source,
+    resolve_photos,
+)
 from app.lido_create.render import screenshot
 
 log = structlog.get_logger(__name__)
@@ -248,9 +255,10 @@ def _with_logo(plan):
 
 
 async def _plans(prompt: str, variations: int, rng: random.Random,
-                 logo: bool = False) -> list:
+                 logo: bool = False, on_plan=None) -> list:
     """One art-director plan per variation, made one after another so each knows which
-    layouts the others took. A failed plan falls back to designing without one."""
+    layouts the others took. A failed plan falls back to designing without one.
+    `on_plan(i, plan)` hears about each plan the moment it is written."""
     from app.lido_create.plan import make_plan
 
     recent = await recent_fingerprints()
@@ -264,26 +272,41 @@ async def _plans(prompt: str, variations: int, rng: random.Random,
                                    rng=random.Random(rng.random()))
             taken.append(plan.layout)
             plans.append(_with_logo(plan) if logo else plan)
+            if on_plan is not None:
+                on_plan(i, plan)
         except Exception as exc:  # noqa: BLE001 — the designer can still work without it
             log.warning("lido.drafts.plan_failed", error=str(exc)[:300])
             plans.append(None)
     return plans
 
 
+Progress = Callable[[dict[str, Any]], None]
+
+
 async def create_from_prompt(prompt: str, *, variations: int = 1,
                              source: PhotoSource | None = None,
                              palette: list[str] | None = None,
-                             logo_url: str | None = None) -> list[dict]:
+                             logo_url: str | None = None,
+                             on_progress: Progress | None = None) -> list[dict]:
     """Design `variations` templates from one prompt and save them as drafts: the art
-    director plans each one (fast), then the designers build them in parallel.
+    director plans each one (fast), then each variation is designed, gets its photos and
+    is saved on its own — a quick one doesn't wait for a slow one.
 
     `palette`: up to 4 brand colours (#rrggbb, first = primary), the same palette "fill a
     template" takes; every variation is drawn in exactly these (`brief.brand_palette`
     maps them onto the design's colour roles) instead of colours the model picks.
     `logo_url`: the client's logo, placed in every variation's logo element (each one
-    gets a logo)."""
+    gets a logo).
+
+    Generated photos don't wait for the design: each variation's start rendering as soon
+    as its plan is written, and any a draft adds while repairs run (`PhotoPrefetch`).
+
+    `on_progress` hears each step as it starts — {"stage": planning | designing |
+    repairing | photos | saving, "variation": i, …} — and {"stage": "draft",
+    "variation": i, "draft": record} the moment a variation is saved."""
     from app.lido_create.plan import fingerprint
 
+    emit = on_progress or (lambda event: None)
     started = time.perf_counter()
     source = source or photo_source()
     photos = await asyncio.to_thread(photo_pool)
@@ -291,37 +314,40 @@ async def create_from_prompt(prompt: str, *, variations: int = 1,
         raise RuntimeError("no placeholder photos found in lidojs_templates/")
     rng = random.Random()
     brand = brand_palette(parse_palette(palette)) if palette else None
+    prefetches = [PhotoPrefetch(source) for _ in range(variations)]
+    emit({"stage": "planning"})
     plan_started = time.perf_counter()
-    plans = await _plans(prompt, variations, rng, logo=bool(logo_url))
+    plans = await _plans(prompt, variations, rng, logo=bool(logo_url),
+                         on_plan=lambda i, plan: prefetches[i].from_plan(plan))
     plan_ms = _ms_since(plan_started)
     fallback_directions = rng.sample(DIRECTIONS, variations)
+    brand_info = {"brandPalette": palette} if palette else {}
 
-    async def timed(job):
-        t0 = time.perf_counter()
-        return await job, _ms_since(t0)
+    async def variation(i: int, plan, seed: float) -> dict:
+        def repairing(attempt: int, problems: int) -> None:
+            emit({"stage": "repairing", "variation": i, "attempt": attempt,
+                  "problems": problems})
 
-    outcomes = await asyncio.gather(*(
-        timed(design_from_brief(prompt, photos, plan=plan, rng=random.Random(rng.random()),
-                                direction=None if plan else fallback_directions[i],
-                                palette=brand, logo=bool(logo_url)))
-        for i, plan in enumerate(plans)), return_exceptions=True)
-    done = [(o[0], plans[i], o[1]) for i, o in enumerate(outcomes)
-            if not isinstance(o, BaseException)]
-    failures = [o for o in outcomes if isinstance(o, BaseException)]
-    if not done:
-        raise failures[0]  # every variation failed: report why
-    for exc in failures:  # some did: keep the ones that worked
-        log.warning("lido.drafts.variation_failed", error=str(exc)[:300])
-
-    # every photo of every variation at once: generated ones take a while each
-    chosen_all = await asyncio.gather(*(timed(resolve_photos(r.design, r.variant, source))
-                                        for r, _, _ in done))
-    saved = []
-    for (r, plan, design_ms), (chosen, photos_ms) in zip(done, chosen_all):
+        try:
+            emit({"stage": "designing", "variation": i})
+            t0 = time.perf_counter()
+            r = await design_from_brief(prompt, photos, plan=plan, rng=random.Random(seed),
+                                        direction=None if plan else fallback_directions[i],
+                                        palette=brand, logo=bool(logo_url),
+                                        on_draft=prefetches[i].from_design,
+                                        on_repair=repairing)
+            design_ms = _ms_since(t0)
+            emit({"stage": "photos", "variation": i})
+            t0 = time.perf_counter()
+            chosen = await resolve_photos(r.design, r.variant, source, prefetches[i])
+            photos_ms = _ms_since(t0)
+        except BaseException:
+            prefetches[i].cancel()
+            raise
+        emit({"stage": "saving", "variation": i})
         plan_info = {"plan": plan.model_dump(), "fingerprint": fingerprint(plan),
                      "planLayout": plan.layout} if plan else {}
-        brand_info = {"brandPalette": palette} if palette else {}
-        saved.append(await save_draft(
+        record = await save_draft(
             r.design, r.variant, photos=chosen, logo_url=logo_url,
             info={"source": "brief", "prompt": prompt, "name": r.name, "idea": r.idea,
                   "direction": r.direction, "attempts": r.attempts, "colors": r.colors,
@@ -330,5 +356,17 @@ async def create_from_prompt(prompt: str, *, variations: int = 1,
                   "photoSource": source.name, "photoFallbacks": _fallbacks(source, chosen),
                   "problems": r.errors},
             timing={"planMs": plan_ms, "designMs": design_ms, "photosMs": photos_ms},
-            started=started))
+            started=started)
+        emit({"stage": "draft", "variation": i, "draft": record})
+        return record
+
+    outcomes = await asyncio.gather(*(variation(i, plan, rng.random())
+                                      for i, plan in enumerate(plans)),
+                                    return_exceptions=True)
+    saved = [o for o in outcomes if not isinstance(o, BaseException)]
+    failures = [o for o in outcomes if isinstance(o, BaseException)]
+    if not saved:
+        raise failures[0]  # every variation failed: report why
+    for exc in failures:  # some did: keep the ones that worked
+        log.warning("lido.drafts.variation_failed", error=str(exc)[:300])
     return saved

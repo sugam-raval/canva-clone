@@ -409,23 +409,31 @@ free-text prompt, the kind you'd give a designer, and designs a brand-new templa
 from it: layout, decoration, colours, fonts **and the copy**, all from the prompt.
 
 ```
-UI prompt ──► POST /v1/lido/drafts {prompt, variations 1–3}
-                 │  (app/api/routes/lido_drafts.py; prompt screened by screen_prompt)
+UI prompt ──► POST /v1/lido/drafts/stream {prompt, variations 1–3}
+                 │  (app/api/routes/lido_drafts.py; prompt screened by screen_prompt;
+                 │   NDJSON progress events, each draft sent the moment it is saved)
                  ▼
         drafts.create_from_prompt()                 app/lido_create/drafts.py
-                 │  photo pool loaded (cached corpus photos)
-                 │  one creative direction per variation (none for a single design)
-                 ▼  variations run in parallel
+                 │  art director's plan per variation (fast model)
+                 │  ── generated photos START HERE (PhotoPrefetch.from_plan), at each
+                 │     planned frame's aspect / orientation, while the designer works
+                 ▼  each variation: design → photos → save, on its own
         brief.design_from_brief()  ×N               app/lido_create/brief.py
-                 │  1 LLM call: layout + colours + fonts + copy + photo subjects
-                 │  check.validate() → failures sent back for repair (≤ 2 rounds)
+                 │  LIDO_LAYOUT_CANDIDATES first drafts at once; first to pass wins
+                 │  (layout + colours + fonts + copy + photo subjects, written in the
+                 │   slim per-kind element schema — kit.ElementOut)
+                 │  check.validate() → mechanical fixes (brief.auto_fix)
+                 │  → what's left sent back as a patch (BriefRepair, LIDO_REPAIR_MODEL,
+                 │    ≤ 2 rounds); a draft's new photos start rendering meanwhile
                  ▼
-        photos.resolve_photos(source)               app/lido_create/photos.py
-                 │  LIDO_DRAFT_PHOTOS: cache (a corpus photo per frame) or generate
+        photos.resolve_photos(source, prefetch)     app/lido_create/photos.py
+                 │  reuses started renders with the same subject and a close shape
+                 │  (≤ 1.5× aspect), renders the rest; cache = a corpus photo per frame
                  ▼
         drafts.save_draft()  →  one lido_drafts row; preview PNG to the object store
                  ▼
-UI shows the preview, idea, colours, fonts, photo subjects and check status,
+UI shows live progress, then the preview, idea, colours, fonts, photo subjects, check
+status and per-call timings,
 and lists every draft (GET /v1/lido/drafts) with open / download / delete.
 ```
 
@@ -454,6 +462,7 @@ and lists every draft (GET /v1/lido/drafts) with open / download / delete.
 | Method | Path | Does |
 |---|---|---|
 | POST | `/v1/lido/drafts` | `{prompt, variations}` → the new drafts, each with its document |
+| POST | `/v1/lido/drafts/stream` | The same as NDJSON: `{stage: planning/designing/repairing/photos/saving}` events, `{stage: "draft", draft}` per saved draft, then `done` (or `error`) |
 | GET | `/v1/lido/drafts` | Every draft, newest first (no documents) |
 | GET | `/v1/lido/drafts/{id}` | One draft with its document |
 | DELETE | `/v1/lido/drafts/{id}` | Removes its `lido_drafts` row (the preview and photos stay in the object store: an exported copy still points at them) |

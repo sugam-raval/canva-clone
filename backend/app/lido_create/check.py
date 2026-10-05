@@ -15,6 +15,7 @@ from __future__ import annotations
 import math
 import re
 
+from app.lido_create.catalog import MAX_PHOTOS
 from app.lido_create.draw import draw_path
 from app.lido_create.kit import RGB, Design, Element, Gradient, H, Palette, Variant, W, line_count
 from app.lido_create.shapes import frame_contains, shape_contains
@@ -27,7 +28,11 @@ FREE_TEXT = {"headline", "kicker", "body", "item", "cta", "badge", "caption"}
 MAX_TEXTS = 24  # room for a 9-item list next to headline, copy, button and contacts
 HOLLOW_MIN_PX = 56  # outline-only letters are only readable when big
 LIST_MIN_PX = 20  # below this a list on a post is too small to read
-MAX_PHOTOS = 4
+# PHOTO LIMIT: add a smaller minimum here before allowing 5+ photos (catalog.py).
+def min_photo_side(photos: int) -> float:
+    """The shortest side a photo may have: 200px, or 140px when 3-4 photos share the
+    canvas (four 16:9 photos 200px tall would need 1424px in a row)."""
+    return 200.0 if photos <= 2 else 140.0
 CURRENCY = re.compile(r"[$€£₹¥]\s?\d|\d\s?(?:[$€£₹¥]|usd|eur|inr|rs\.?)(?:\W|$)", re.IGNORECASE)
 PERCENT = re.compile(r"\d\s?%")
 _WORDS = re.compile(r"[\w$€£₹%]+")
@@ -301,21 +306,10 @@ def _richness(els: list[Element], texts, extents, name) -> list[str]:
     for p, photo in enumerate(els):
         if photo.kind != "photo":
             continue
-        area = photo.w * photo.h
-        for s in els[:p]:
-            if s.kind != "shape" or s.backdrop:  # photos may sit on the backdrop
-                continue
-            x0, y0, x1, y1 = rotated_extent(s)
-            ox = max(0.0, min(x1, photo.x + photo.w) - max(x0, photo.x))
-            oy = max(0.0, min(y1, photo.y + photo.h) - max(y0, photo.y))
-            # a snug border just around the photo (a polaroid mat) is part of the photo
-            snug = (x0 >= photo.x - 40 and y0 >= photo.y - 40 and x1 <= photo.x + photo.w + 40
-                    and y1 <= photo.y + photo.h + 70 and s.w * s.h <= area * 1.6)
-            if ox * oy > 0.1 * area and not snug:
-                errors.append("a shape is placed behind a photo — photos sit directly on "
-                              "the background; put decoration around the photo, not under "
-                              "it (badges may overlap its edge if drawn on top)")
-                break
+        if shapes_behind(els, p):
+            errors.append("a shape is placed behind a photo — photos sit directly on "
+                          "the background; put decoration around the photo, not under "
+                          "it (badges may overlap its edge if drawn on top)")
     for i, e in texts:
         if e.text_type != "item":
             continue
@@ -330,6 +324,25 @@ def _richness(els: list[Element], texts, extents, name) -> list[str]:
             errors.append(f"{name(e)}: list item has no bullet marker — put a small shape "
                           "(dot, ring, bar) just beside it, vertically centred on its line")
     return errors
+
+
+def shapes_behind(els: list[Element], p: int) -> list[int]:
+    """The shapes drawn before photo `p` that sit under a real part of it (a snug
+    border just around the photo — a polaroid mat — and the backdrop don't count)."""
+    photo = els[p]
+    area = photo.w * photo.h
+    under = []
+    for i, s in enumerate(els[:p]):
+        if s.kind != "shape" or s.backdrop:  # photos may sit on the backdrop
+            continue
+        x0, y0, x1, y1 = rotated_extent(s)
+        ox = max(0.0, min(x1, photo.x + photo.w) - max(x0, photo.x))
+        oy = max(0.0, min(y1, photo.y + photo.h) - max(y0, photo.y))
+        snug = (x0 >= photo.x - 40 and y0 >= photo.y - 40 and x1 <= photo.x + photo.w + 40
+                and y1 <= photo.y + photo.h + 70 and s.w * s.h <= area * 1.6)
+        if ox * oy > 0.1 * area and not snug:
+            under.append(i)
+    return under
 
 
 def _plan_problems(design: Design, plan, texts: list[tuple[int, Element]]) -> list[str]:
@@ -486,14 +499,16 @@ def validate(design: Design, v: Variant, *, creative: bool = False, plan=None) -
             if _overlap(box, extents[i]):
                 errors.append(f"logo overlaps {name(e)}")
 
+    min_side = min_photo_side(sum(e.kind == "photo" for e in els))
     for e in els:
         x0, y0, x1, y1 = rotated_extent(e)
         off = x0 < -1 or y0 < -1 or x1 > W + 1 or y1 > H + 1
         if e.kind in ("shape", "photo", *STROKES) and not e.bleed and off:
             errors.append(f"{e.kind} at ({e.x:.0f},{e.y:.0f}) runs off the canvas "
                           "without bleed")
-        if e.kind == "photo" and min(e.w, e.h) < 200:
-            errors.append(f"photo {e.w:.0f}x{e.h:.0f} is too small to read")
+        if e.kind == "photo" and min(e.w, e.h) < min_side:
+            errors.append(f"photo {e.w:.0f}x{e.h:.0f} is too small to read (at least "
+                          f"{min_side:.0f}px on each side)")
 
     # a photo must stay visible: shapes drawn over it may overlap its edge (a badge),
     # not cover most of it

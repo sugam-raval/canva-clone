@@ -27,6 +27,7 @@ from app.lido_create.kit import (
     Photo,
     Variant,
 )
+from app.lido_create.kit import W as W_CANVAS
 from app.lido_create.lido import to_lido
 from app.lido_create.recipes import RECIPES, mirror
 
@@ -91,24 +92,30 @@ def test_checks_catch_text_on_a_photo_line_breaks_and_emoji():
 
 
 class _FakeLLM:
-    """Replays a pro recipe as the model's answer; the first answer carries a line break so
-    the repair round is exercised."""
+    """Replays a pro recipe as the model's answer. The first draft carries a flaw: by
+    default a line break (the mechanical fixes clean it, no repair call), or with
+    `defect = "headline"` a missing headline, which only a repair round's patch fixes."""
 
     LAYOUTS = ("centre_stage", "split_half", "top_band")
 
     def __init__(self):
-        self.calls: list[str] = []  # the designer's calls
+        self.calls: list[str] = []  # the designer's calls (drafts and repairs)
         self.plan_calls: list[dict] = []  # the art director's calls
+        self.repair_calls: list[dict] = []  # the repair rounds' kwargs
         self.failures: dict[int, AdapterError] = {}  # designer call number (1-based) -> error
         self.plan_extra: dict = {}  # extra plan fields (backdrop…)
+        self.plan_photo = {"from_brief": "dinner party", "subject": "a dinner party",
+                           "role": "hero", "frame": "cutout"}
+        self.defect: str | None = "line_break"
+        self.headline: tuple[int, dict] | None = None  # (index, element) the defect took
+        self.repairs_fix = True  # False: repair rounds send no edits (nothing gets fixed)
 
     async def complete_json(self, *, system, user, schema, **kwargs):
         if schema.__name__ == "DesignPlan":
             self.plan_calls.append({"user": user, **kwargs})
             return LLMResult(parsed=schema(
                 texts=[{"role": "headline", "text": "Grand Night"}],
-                photos=[{"from_brief": "dinner party", "subject": "a dinner party",
-                         "role": "hero", "frame": "cutout"}],
+                photos=[self.plan_photo],
                 logo=True, exclude=[], moods=["warm_handmade"],
                 layout=self.LAYOUTS[(len(self.plan_calls) - 1) % 3], custom_layout=None,
                 shapes=["rhombus"], draw=[], effects=[], gradient=None,
@@ -117,17 +124,28 @@ class _FakeLLM:
         self.calls.append(user)
         if len(self.calls) in self.failures:
             raise self.failures[len(self.calls)]
+        if schema.__name__ == "BriefRepair":
+            self.repair_calls.append(kwargs)
+            edits = [] if self.headline is None or not self.repairs_fix else [
+                {"action": "replace", "index": self.headline[0], "element": self.headline[1]}]
+            return LLMResult(parsed=schema(edits=edits), raw="", model="fake")
         v = _variant()
         design = _recipe_design("fresh_promo", v)  # rich enough for the creative checks
-        if len(self.calls) == 1:
-            next(e for e in design.elements if e.text_type == "headline").text = "Grand\nNight"
+        elements = [e.model_dump(exclude_none=True)
+                    | ({"subject": "a dinner party"} if e.kind == "photo" else {})
+                    for e in design.elements]
+        index = next(i for i, e in enumerate(elements) if e.get("text_type") == "headline")
+        first = len(self.calls) == 1  # only the first draft is flawed
+        if self.defect == "line_break" and first:
+            elements[index]["text"] = "Grand\nNight"
+        elif self.defect == "headline" and first:
+            self.headline = (index, dict(elements[index]))
+            elements[index]["text_type"] = "kicker"
         parsed = schema(
             name="test_layout", idea="A centred invite.",
             colors=brief.BriefColors(bg="#241640", ink="#ffffff", accent="#ff6b6b",
                                      on_accent="#241640", soft="#ffde96"),
-            fonts=v.fonts.name, photo_theme="business", background=None,
-            elements=[e.model_copy(update={"subject": "a dinner party"} if e.kind == "photo"
-                                   else {}) for e in design.elements])
+            fonts=v.fonts.name, photo_theme="business", background=None, elements=elements)
         return LLMResult(parsed=parsed, raw="", model="fake")
 
 
@@ -178,7 +196,9 @@ def api(tmp_path, monkeypatch):
     monkeypatch.setattr(get_settings(), "openai_api_key", "test-key")
     for name, value in (("llm_model_fast", "gpt-4o-mini"), ("lido_plan_model", ""),
                         ("lido_plan_reasoning_effort", ""), ("lido_layout_model", ""),
-                        ("lido_layout_reasoning_effort", ""), ("lido_draft_photos", "cache")):
+                        ("lido_layout_reasoning_effort", ""), ("lido_repair_model", ""),
+                        ("lido_repair_reasoning_effort", ""), ("lido_layout_candidates", 1),
+                        ("lido_draft_photos", "cache")):
         monkeypatch.setattr(get_settings(), name, value)  # not whatever .env says
     monkeypatch.setattr(brief, "RETRY_DELAYS", (0.0, 0.0))
     from app.lido_create import plan as plan_module
@@ -189,6 +209,7 @@ def api(tmp_path, monkeypatch):
 
 def test_prompt_becomes_a_saved_draft(api):
     client, fake, memory = api
+    fake.defect = "headline"
     response = client.post("/v1/lido/drafts", json={"prompt": "Grand opening dinner party"})
     assert response.status_code == 200, response.text
     [draft] = response.json()
@@ -199,8 +220,10 @@ def test_prompt_becomes_a_saved_draft(api):
     assert draft["plan"]["photos"][0]["subject"] == "a dinner party"
     assert draft["fingerprint"].startswith(draft["planLayout"])
     assert "Grand opening dinner party" in fake.calls[0]
-    assert "line break" in fake.calls[1]
+    assert "needs exactly one headline" in fake.calls[1]
+    assert "\n0: {" in fake.calls[1]  # numbered, so the patch can point at elements
     assert draft["problems"] == [] and draft["attempts"] == 2
+    assert [c["step"] for c in draft["llmCalls"]] == ["draft", "repair"]
     assert draft["source"] == "brief" and draft["prompt"] == "Grand opening dinner party"
     assert draft["colors"]["accent"] == "#ff6b6b"
     assert draft["photoSubjects"] == ["a dinner party"]
@@ -328,6 +351,78 @@ def test_photos_are_generated_from_their_subjects_when_configured(api, monkeypat
     assert draft["photoSource"] == "generated" and draft["photoFallbacks"] == 0
     assert images.prompts and images.prompts[0].startswith("a dinner party")
     assert _photo_urls(draft) == [f"https://store.test/{u}.png" for u in uploads]
+
+
+def test_photos_start_from_the_plan_and_are_reused_by_the_design(api, monkeypatch):
+    client, fake, _ = api
+    fake.defect = "headline"  # a repair round too: the photo must not be rendered again
+    images = _FakeImages()
+    uploads = _generating(monkeypatch, images)
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"}).json()
+    assert len(images.prompts) == 1 and len(uploads) == 1  # started early, used once
+    assert _photo_urls(draft) == [f"https://store.test/{uploads[0]}.png"]
+
+
+def test_the_plan_s_photo_is_rendered_once_however_the_designer_words_it(api, monkeypatch):
+    """Draft #56: the designer rewrote the plan's subject (same washing machine, longer
+    sentence), it was taken for another photo and rendered a second time."""
+    client, fake, _ = api
+    fake.plan_photo = {**fake.plan_photo, "subject": "Elegant evening banquet, candlelit"}
+    images = _FakeImages()
+    uploads = _generating(monkeypatch, images)
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"}).json()
+    assert images.prompts == [images.prompts[0]] and len(uploads) == 1
+    assert images.prompts[0].startswith("Elegant evening banquet")  # the plan's render
+    assert _photo_urls(draft) == [f"https://store.test/{uploads[0]}.png"]
+
+
+def test_subject_overlap_reads_a_richer_rewording_as_the_same_picture():
+    from app.lido_create.photos import SAME_SUBJECT, subject_overlap
+
+    plan = ("A photorealistic washing machine in a modern home setting with glossy "
+            "reflections, water splashes, and fresh laundry elements")
+    design = ("A large photorealistic premium metallic front-loading washing machine "
+              "dominates a stylish bright modern Indian home laundry setting, with "
+              "sophisticated blue and white finishes, glossy reflections, realistic "
+              "shadows, subtle water splashes, neatly folded fresh laundry and elegant "
+              "glowing highlights.")
+    assert subject_overlap(plan, design) >= SAME_SUBJECT
+    assert subject_overlap(plan, "A happy family cooking in a kitchen") < SAME_SUBJECT
+
+
+def test_a_hung_image_request_is_tried_once_more():
+    import asyncio
+
+    from openai import APITimeoutError
+
+    from app.adapters.openai_adapters import _call_images
+
+    class Images:
+        def __init__(self):
+            self.calls: list[float] = []
+
+        async def generate(self, **kwargs):
+            self.calls.append(kwargs["timeout"])
+            if len(self.calls) == 1:
+                raise APITimeoutError(request=None)  # type: ignore[arg-type]
+            return "rendered"
+
+    class Client:
+        images = Images()
+
+    assert asyncio.run(_call_images(Client(), model="m", prompt="p")) == "rendered"
+    assert Client.images.calls == [90.0, 90.0]
+
+
+def test_a_started_photo_of_the_wrong_shape_is_rendered_again(api, monkeypatch):
+    client, fake, _ = api
+    # the plan said a framed portrait photo, the design made it a cutout
+    fake.plan_photo = {**fake.plan_photo, "frame": "rect", "orientation": "portrait"}
+    images = _FakeImages()
+    uploads = _generating(monkeypatch, images)
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Grand opening"}).json()
+    assert len(images.prompts) == 2  # the early one is not used
+    assert _photo_urls(draft) == [f"https://store.test/{uploads[-1]}.png"]
 
 
 def test_a_failed_photo_generation_keeps_a_cached_placeholder(api, monkeypatch):
@@ -471,9 +566,171 @@ def test_a_failed_variation_does_not_sink_the_others(api):
 
 def test_a_failed_repair_keeps_the_last_design(api):
     client, fake, _ = api
+    fake.defect = "headline"
     fake.failures = {2: AdapterError("refused", recoverable=False)}  # the repair call
     [draft] = client.post("/v1/lido/drafts", json={"prompt": "Launch"}).json()
-    assert any("line break" in p for p in draft["problems"])
+    assert any("headline" in p for p in draft["problems"])
+
+
+def test_slips_the_code_can_fix_cost_no_repair_round(api):
+    client, fake, _ = api  # the default flaw: a line break in the headline
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Launch"}).json()
+    assert len(fake.calls) == 1 and draft["attempts"] == 1
+    assert draft["problems"] == []
+    headline = next(lr for lr in draft["document"][0]["layers"].values()
+                    if "Grand Night" in json.dumps(lr))
+    assert "\\n" not in json.dumps(headline)
+
+
+def test_repairs_use_the_repair_model(api, monkeypatch):
+    from app.config import get_settings
+
+    client, fake, _ = api
+    fake.defect = "headline"
+    monkeypatch.setattr(get_settings(), "lido_repair_model", "gpt-4o")
+    client.post("/v1/lido/drafts", json={"prompt": "Launch"})
+    assert [c["model"] for c in fake.repair_calls] == ["gpt-4o"]
+    assert "reasoning_effort" not in fake.repair_calls[0]
+
+
+def test_several_candidates_race_and_a_passing_one_saves_the_repair(api, monkeypatch):
+    from app.config import get_settings
+
+    client, fake, _ = api
+    fake.defect = "headline"  # the first candidate is flawed, the second is not
+    monkeypatch.setattr(get_settings(), "lido_layout_candidates", 2)
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Launch"}).json()
+    assert len(fake.calls) == 2 and not fake.repair_calls
+    assert draft["problems"] == [] and draft["attempts"] == 1
+
+
+def _stream(client, body) -> list[dict]:
+    with client.stream("POST", "/v1/lido/drafts/stream", json=body) as response:
+        assert response.status_code == 200
+        assert response.headers["content-type"].startswith("application/x-ndjson")
+        return [json.loads(line) for line in response.iter_lines() if line]
+
+
+def test_the_stream_reports_each_step_then_each_draft(api):
+    client, fake, memory = api
+    fake.defect = "headline"
+    events = _stream(client, {"prompt": "Grand opening dinner party", "variations": 2})
+    stages = [e["stage"] for e in events]
+    assert stages[0] == "planning" and stages[-1] == "done"
+    assert stages.count("draft") == 2 and "repairing" in stages
+    for i in (0, 1):  # each variation in order: designed, photographed, saved
+        mine = [e["stage"] for e in events if e.get("variation") == i]
+        assert mine[0] == "designing" and mine[-3:] == ["photos", "saving", "draft"]
+    drafts_sent = [e["draft"] for e in events if e["stage"] == "draft"]
+    assert {d["id"] for d in drafts_sent} == set(memory.rows)
+    assert all("document" in d and "elapsedMs" in e for d, e in zip(drafts_sent, events))
+    times = [e["elapsedMs"] for e in events]
+    assert times == sorted(times)
+
+
+def test_a_failure_arrives_in_the_stream(api):
+    client, fake, _ = api
+    fake.failures = {n: AdapterError("refused", recoverable=False) for n in range(1, 5)}
+    events = _stream(client, {"prompt": "Grand opening"})
+    assert events[-1]["stage"] == "error" and events[-1]["status"] == 503
+    assert "refused" in events[-1]["detail"]
+
+
+def test_repairs_stop_once_the_model_cannot_fix_what_is_left(api):
+    client, fake, _ = api
+    fake.defect, fake.repairs_fix = "headline", False
+    [draft] = client.post("/v1/lido/drafts", json={"prompt": "Launch"}).json()
+    # one round tried the missing headline and failed; a second would repeat it
+    assert len(fake.repair_calls) == 1
+    assert [c["step"] for c in draft["llmCalls"]] == ["draft", "repair"]
+    assert any("headline" in p for p in draft["problems"])
+
+
+def test_the_photo_minimum_shrinks_when_photos_share_the_canvas():
+    v = _variant()
+    d = _recipe_design("split_offer", v)
+    photo = next(e for e in d.elements if e.kind == "photo")
+    small = [photo.model_copy(update={"x": 60 + 300 * i, "y": 60, "w": 250, "h": 141,
+                                      "frame": None, "clip": "rect"}) for i in range(3)]
+    rest = [e for e in d.elements if e.kind != "photo"]
+    def too_small(photos):
+        errors = validate(d.model_copy(update={"elements": photos + rest}), v)
+        return [e for e in errors if "too small to read (at least" in e]
+    assert too_small(small[:2]) and "200px" in too_small(small[:2])[0]
+    assert not too_small(small)  # 3 photos: 140px is enough
+
+
+def test_photo_slips_are_fixed_by_code():
+    v = _variant()
+    d = _recipe_design("split_offer", v)
+    p = next(i for i, e in enumerate(d.elements) if e.kind == "photo")
+    photo = d.elements[p]
+
+    off = d.model_copy(update={"elements": [
+        *d.elements[:p], photo.model_copy(update={"x": W_CANVAS - photo.w / 2, "bleed": None}),
+        *d.elements[p + 1:]]})
+    fixed = brief.photos_inside(off, v).elements[p]
+    assert fixed.x + fixed.w <= W_CANVAS + 1 and fixed.w == photo.w
+
+    tiny = d.model_copy(update={"elements": [
+        *d.elements[:p], photo.model_copy(update={"w": 160, "h": 90}), *d.elements[p + 1:]]})
+    grown = brief.grow_photos(tiny, v).elements[p]
+    assert min(grown.w, grown.h) >= 200 and grown.w / grown.h == pytest.approx(160 / 90)
+
+    # sticks out past the photo's edge: decoration under it, not a snug mat
+    under = Element(kind="shape", shape="circle", x=photo.x - 100, y=photo.y + 20,
+                    w=photo.w * 0.8, h=photo.h * 0.8, color="accent", bleed=True)
+    stacked = d.model_copy(update={"elements": [*d.elements[:p], under, *d.elements[p:]]})
+    assert any("behind a photo" in e for e in validate(stacked, v, creative=True))
+    cleared = brief.clear_under_photos(stacked, v)
+    assert under not in cleared.elements and len(cleared.elements) == len(d.elements)
+
+
+def test_four_photos_never_get_wide_frames():
+    from app.lido_create.plan import _clean
+
+    photos = [{"from_brief": w, "subject": f"the {w}", "role": "supporting",
+               "frame": "rounded_card", "orientation": "landscape"}
+              for w in ("slide", "pool", "raft", "river")]
+    plan = _clean(_plan(photos=photos), "a slide, a pool, a raft and a river")
+    assert len(plan.photos) == 4
+    assert {p.frame for p in plan.photos} == {"rounded"}
+    assert {p.orientation for p in plan.photos} == {"square"}
+    one = _clean(_plan(photos=photos[:1]), "a slide")
+    assert one.photos[0].frame == "rounded_card"  # a lone photo may be wide
+
+
+def test_lido_max_photos_caps_the_plan_and_the_catalogue(monkeypatch):
+    from app.lido_create import catalog
+    from app.lido_create import plan as plan_module
+
+    monkeypatch.setattr(catalog, "MAX_PHOTOS", 3)  # LIDO_MAX_PHOTOS=3
+    monkeypatch.setattr(plan_module, "MAX_PHOTOS", 3)
+    catalog.layouts.cache_clear()
+    try:
+        assert catalog.layouts() and max(lay.photos[1] for lay in catalog.layouts().values()) == 3
+        assert "mosaic_four" not in catalog.layouts()  # a 4-photo layout is left out
+        assert catalog.problems() == []  # the file itself is still valid
+        photos = [{"from_brief": w, "subject": f"the {w}", "role": "supporting",
+                   "frame": "rounded"} for w in ("slide", "pool", "raft", "river", "tube")]
+        plan = plan_module._clean(_plan(photos=photos),
+                                  "a slide, a pool, a raft, a river and a tube")
+        assert len(plan.photos) == 3  # so at most 3 images are generated
+    finally:
+        catalog.layouts.cache_clear()
+
+
+def test_patch_edits_apply_against_the_numbering_sent():
+    els = [Element(kind="shape", shape="circle", x=i, y=0, w=10, h=10) for i in range(4)]
+    new = brief.ElementEdit.model_validate(
+        {"action": "insert", "index": 2,
+         "element": {"kind": "logo", "x": 0, "y": 0, "w": 110, "h": 89}})
+    edits = [brief.ElementEdit(action="delete", index=0, element=None),
+             brief.ElementEdit(action="delete", index=2, element=None), new,
+             brief.ElementEdit(action="delete", index=9, element=None)]  # points nowhere
+    out = brief.apply_edits(els, edits)
+    assert [e.kind for e in out] == ["shape", "logo", "shape"]
+    assert [e.x for e in out if e.kind == "shape"] == [1, 3]
 
 
 def test_rotated_shapes_and_new_crops_hit_test_their_real_outline():

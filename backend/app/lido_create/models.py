@@ -35,6 +35,14 @@ def layout_call() -> dict:
     return _options(s.lido_layout_model, s.lido_layout_reasoning_effort)
 
 
+def repair_call() -> dict:
+    """LIDO_REPAIR_MODEL / LIDO_REPAIR_REASONING_EFFORT; both empty: the layout's own."""
+    s = get_settings()
+    if not s.lido_repair_model.strip() and not s.lido_repair_reasoning_effort.strip():
+        return layout_call()
+    return _options(s.lido_repair_model or s.lido_layout_model, s.lido_repair_reasoning_effort)
+
+
 def describe(options: dict) -> str:
     s = get_settings()
     model = options.get("model") or s.llm_model

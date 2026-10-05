@@ -144,7 +144,7 @@ export interface LidoDraftInfo {
     exclude: string[]
     logo: boolean
     notes: string
-    photos: { subject: string; role: string; frame: string }[]
+    photos: { subject: string; role: string; frame: string; orientation?: string }[]
   } | null
   planLayout?: string | null
   textCount?: number | null
@@ -169,6 +169,8 @@ export interface LidoDraftInfo {
   generationMs?: number | null
   /** The same step by step, ms: planMs, designMs, photosMs, saveMs, totalMs. */
   timing?: Record<string, number>
+  /** Each designer LLM call in order: a first draft or a repair patch, and how long it took. */
+  llmCalls?: { step: 'draft' | 'repair'; ms: number; outputTokens?: number | null }[]
   /** The template_<n> file it was imported from, for drafts made before the database. */
   importedFrom?: string | null
   hasPreview: boolean
@@ -176,3 +178,11 @@ export interface LidoDraftInfo {
   /** Only on a single draft (or one just created), not in the list. */
   document?: LidoDocumentEntry[] | null
 }
+
+/** One line of POST /lido/drafts/stream: a step starting, a saved draft, the end or a failure. */
+export type LidoDraftEvent =
+  | { stage: 'planning' | 'designing' | 'photos' | 'saving'; variation?: number; elapsedMs: number }
+  | { stage: 'repairing'; variation: number; attempt: number; problems: number; elapsedMs: number }
+  | { stage: 'draft'; variation: number; draft: LidoDraftInfo; elapsedMs: number }
+  | { stage: 'done'; elapsedMs: number }
+  | { stage: 'error'; status: number; detail: string }

@@ -22,7 +22,7 @@ import re
 from typing import Any
 
 import structlog
-from openai import APIError, APIStatusError, AsyncOpenAI, RateLimitError
+from openai import APIError, APIStatusError, APITimeoutError, AsyncOpenAI, RateLimitError
 from PIL import Image
 
 from app.adapters.base import AdapterError, ImageResult, LLMResult, TModel
@@ -160,9 +160,20 @@ def compose_prompt(prompt: str, negative_prompt: str) -> str:
     )
 
 
+async def _generate_image(client: AsyncOpenAI, **kwargs) -> Any:
+    """One images.generate call with IMAGE_TIMEOUT_SECONDS; a request that hangs past it
+    is tried once more (a stuck render rarely means the next one is stuck too)."""
+    timeout = get_settings().image_timeout_seconds
+    try:
+        return await client.images.generate(**kwargs, timeout=timeout)
+    except APITimeoutError:
+        log.warning("openai.image_timeout_retry", timeout_s=timeout)
+        return await client.images.generate(**kwargs, timeout=timeout)
+
+
 async def _call_images(client: AsyncOpenAI, **kwargs) -> Any:
     try:
-        return await client.images.generate(**kwargs)
+        return await _generate_image(client, **kwargs)
     except RateLimitError as exc:
         # Ahead of APIStatusError, which it subclasses — the other way round this
         # branch never runs.
@@ -176,7 +187,7 @@ async def _call_images(client: AsyncOpenAI, **kwargs) -> Any:
         if retry is None:
             raise _as_adapter_error(exc) from exc
         try:
-            return await client.images.generate(**retry)
+            return await _generate_image(client, **retry)
         except APIError as inner:
             raise _as_adapter_error(inner) from inner
     except APIError as exc:

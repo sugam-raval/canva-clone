@@ -1,5 +1,5 @@
 /**
- * "Design a new template": `POST /v1/lido/drafts` — the AI designs a brand-new template
+ * "Design a new template": `POST /v1/lido/drafts/stream` — the AI designs a brand-new template
  * (layout, decoration, colours, fonts and copy) from a prompt and saves it as a draft in
  * lidojs_templates/drafts/. Shows the result and every draft for review. Photos are
  * placeholders from the corpus until image generation is added.
@@ -10,7 +10,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { api, ApiError } from '../lib/api'
 import { BrandInputs } from '../lib/BrandInputs'
 import { LidoPreview } from '../lib/lidoRender'
-import type { LidoDraftInfo } from '../lib/lidoTypes'
+import type { LidoDraftEvent, LidoDraftInfo } from '../lib/lidoTypes'
 
 const EXAMPLES = [
   {
@@ -85,6 +85,24 @@ function timingNote(draft: LidoDraftInfo): string | null {
   return seconds(draft.generationMs) + (steps.length ? ` — ${steps.join(' · ')}` : '')
 }
 
+/** "draft 48.2s · repair 9.1s" — how long each designer LLM call took (null if not recorded). */
+function callsNote(draft: LidoDraftInfo): string | null {
+  const calls = draft.llmCalls ?? []
+  return calls.length ? calls.map((c) => `${c.step} ${seconds(c.ms)}`).join(' · ') : null
+}
+
+/** What a streamed step means to the person waiting (null: nothing new to show). */
+function stepLabel(event: LidoDraftEvent): string | null {
+  switch (event.stage) {
+    case 'designing': return 'designing the layout'
+    case 'repairing': return `fixing ${event.problems} problem${event.problems === 1 ? '' : 's'}`
+    case 'photos': return 'finishing photos'
+    case 'saving': return 'saving'
+    case 'draft': return 'ready'
+    default: return null
+  }
+}
+
 function photoNote(draft: LidoDraftInfo): string {
   if (draft.photoSource !== 'generated') {
     return 'Photo subjects (placeholder photos from the corpus — set LIDO_DRAFT_PHOTOS=generate to render them)'
@@ -134,6 +152,7 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
               </div>
             )}
             {timingNote(draft) && <div><strong>Time to design:</strong> {timingNote(draft)}</div>}
+            {callsNote(draft) && <div><strong>AI calls:</strong> {callsNote(draft)}</div>}
             {draft.fonts && <div><strong>Fonts:</strong> {draft.fonts}</div>}
             {draft.features && draft.features.length > 0 && (
               <div><strong>Signature elements:</strong> {draft.features.join(', ')}</div>
@@ -225,6 +244,8 @@ export function DraftStudio() {
   const [logoUrl, setLogoUrl] = useState('')
   const [running, setRunning] = useState(false)
   const [elapsed, setElapsed] = useState(0)
+  /** What each variation is doing right now; empty while the plan is being written. */
+  const [steps, setSteps] = useState<Record<number, string>>({})
   const [tookMs, setTookMs] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [created, setCreated] = useState<LidoDraftInfo[]>([])
@@ -251,13 +272,26 @@ export function DraftStudio() {
     setTookMs(null)
     setError(null)
     setCreated([])
+    setSteps({})
     const started = performance.now()
+    let first = true
     try {
-      const drafts = await api.lidoDraftCreate(prompt.trim(), variations,
-        { palette, logoUrl: logoUrl.trim() || undefined })
+      await api.lidoDraftCreateStream(prompt.trim(), variations,
+        { palette, logoUrl: logoUrl.trim() || undefined },
+        (event) => {
+          const label = stepLabel(event)
+          if (label != null && 'variation' in event && event.variation != null) {
+            const i = event.variation
+            setSteps((current) => ({ ...current, [i]: label }))
+          }
+          if (event.stage === 'draft') {
+            // show each design the moment it is saved; the first one opens by itself
+            setCreated((list) => [...list, event.draft])
+            if (first) setSelected(event.draft)
+            first = false
+          }
+        })
       setTookMs(performance.now() - started)
-      setCreated(drafts)
-      setSelected(drafts[0] ?? null)
       refresh()
     } catch (caught) {
       setError(caught instanceof ApiError ? caught.message : String(caught))
@@ -325,7 +359,12 @@ export function DraftStudio() {
           )}
           {running && (
             <span style={{ fontSize: 12, color: 'var(--muted)' }}>
-              Designing with AI… {elapsed}s (usually 30–120 s; each variation runs in parallel)
+              {elapsed}s ·{' '}
+              {Object.keys(steps).length === 0
+                ? 'planning the design…'
+                : Object.entries(steps)
+                  .map(([i, step]) => (variations > 1 ? `#${Number(i) + 1} ${step}` : step))
+                  .join(' · ') + '…'}
             </span>
           )}
         </div>

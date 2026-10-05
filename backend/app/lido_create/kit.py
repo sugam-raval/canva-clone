@@ -279,6 +279,115 @@ class Element(BaseModel):
     doodle: SkipJsonSchema[str | None] = None
 
 
+# --------------------------------------------------------------------------------------
+# What the LLM writes: one small model per element kind, holding only that kind's
+# fields. Structured outputs are strict — every field of the schema must be written —
+# so writing the full 40-field `Element` meant ~80% of a layout reply was `null`s, and
+# output tokens are what a layout call spends its time on. `to_element` turns each one
+# back into an `Element` straight away; nothing past the reply sees these.
+# --------------------------------------------------------------------------------------
+
+
+class _Box(BaseModel):
+    x: float
+    y: float
+    w: float
+    h: float
+
+
+class ShapeOut(_Box):
+    kind: Literal["shape"]
+    shape: ShapeName
+    color: ColorRole | None = None
+    gradient: Gradient | None = None
+    radius: float | None = None
+    opacity: float | None = None
+    rotate: float | None = None
+    stroke: ColorRole | None = None
+    stroke_width: float | None = None
+    stroke_style: StrokeStyle | None = None
+    bleed: bool | None = None
+
+
+class LineOut(_Box):
+    kind: Literal["line"]
+    color: ColorRole | None = None
+    rotate: float | None = None
+    stroke_style: StrokeStyle | None = None
+    line_start: LineEnd | None = None
+    line_end: LineEnd | None = None
+
+
+class DrawOut(_Box):
+    kind: Literal["draw"]
+    draw: DrawPreset
+    color: ColorRole | None = None
+    stroke_width: float | None = None
+    opacity: float | None = None
+    rotate: float | None = None
+
+
+class ListOut(_Box):
+    kind: Literal["list"]
+    items: list[str]
+    columns: int | None = None
+    bullet: BulletStyle | None = None
+    divider: Literal["line", "dotted", "none"] | None = None
+    size: float | None = None
+    color: ColorRole | None = None
+    font: FontRole | None = None
+
+
+class DotsOut(_Box):
+    kind: Literal["dots"]
+    rows: int
+    cols: int
+    dot: float
+    color: ColorRole | None = None
+    opacity: float | None = None
+
+
+class PhotoOut(_Box):
+    kind: Literal["photo"]
+    frame: FrameName | None = None
+    clip: ClipShape | None = None
+    radius: float | None = None
+    focus: float | None = None
+    rotate: float | None = None
+    bleed: bool | None = None
+    subject: str
+
+
+class LogoOut(_Box):
+    kind: Literal["logo"]
+
+
+class TextOut(_Box):
+    kind: Literal["text"]
+    text: str
+    text_type: TextType
+    font: FontRole | None = None
+    size: float
+    color: ColorRole | None = None
+    align: Literal["left", "center", "right"] | None = None
+    max_lines: int | None = None
+    uppercase: bool | None = None
+    letter_spacing: float | None = None
+    line_height: float | None = None
+    effect: TextEffect | None = None
+    effect_color: ColorRole | None = None
+
+
+ElementOut = ShapeOut | LineOut | DrawOut | ListOut | DotsOut | PhotoOut | LogoOut | TextOut
+
+
+def to_element(e: BaseModel) -> Element:
+    """A written element (any of the `*Out` models, or an `Element`) as an `Element`."""
+    if isinstance(e, Element):
+        return e.model_copy(deep=True)
+    return Element(**e.model_dump(exclude_none=True))
+
+
 class Design(BaseModel):
     recipe: str
     theme: str

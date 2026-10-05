@@ -216,6 +216,8 @@ class LidoDraftInfo(Base):
     """How long designing it took, request start → this draft saved (null: unknown)."""
     timing: dict[str, int] = Field(default_factory=dict)
     """The same step by step, in ms: planMs, designMs, photosMs, saveMs, totalMs."""
+    llm_calls: list[dict[str, Any]] = Field(default_factory=list)
+    """Each designer LLM call in order: step (draft | repair), ms, outputTokens."""
     imported_from: str | None = None
     """The template_<n> file it was imported from (scripts/lido_drafts.py import)."""
     has_preview: bool = False

@@ -1,7 +1,7 @@
 /** Typed client for the Lido.js (template) API. */
 
 import type {
-  LidoDocumentEntry, LidoDraftInfo, LidoGenerateResponse, LidoGenerationSummary,
+  LidoDocumentEntry, LidoDraftEvent, LidoDraftInfo, LidoGenerateResponse, LidoGenerationSummary,
   LidoTemplateSummary,
 } from './lidoTypes'
 
@@ -83,6 +83,43 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ prompt, variations, ...brand }),
     }),
+
+  /** The same, streamed: `onEvent` hears each step and each draft as soon as it is saved.
+   *  Resolves with every draft made; rejects with the server's message on failure. */
+  lidoDraftCreateStream: async (prompt: string, variations: number,
+    brand: { palette?: string[]; logoUrl?: string },
+    onEvent: (event: LidoDraftEvent) => void): Promise<LidoDraftInfo[]> => {
+    const response = await fetch(`${BASE}/lido/drafts/stream`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, variations, ...brand }),
+    })
+    if (!response.ok || !response.body) {
+      let detail = `${response.status} ${response.statusText}`
+      try {
+        const body = await response.json()
+        if (body?.detail) detail = typeof body.detail === 'string' ? body.detail : JSON.stringify(body.detail)
+      } catch { /* keep the status line */ }
+      throw new ApiError(detail, response.status)
+    }
+    const made: LidoDraftInfo[] = []
+    const reader = response.body.pipeThrough(new TextDecoderStream()).getReader()
+    let buffered = ''
+    for (;;) {
+      const { value, done } = await reader.read()
+      buffered += value ?? ''
+      const lines = buffered.split('\n')
+      buffered = done ? '' : lines.pop() ?? ''
+      for (const line of lines) {
+        if (!line.trim()) continue
+        const event = JSON.parse(line) as LidoDraftEvent
+        if (event.stage === 'error') throw new ApiError(event.detail, event.status)
+        if (event.stage === 'draft') made.push(event.draft)
+        onEvent(event)
+      }
+      if (done) return made
+    }
+  },
 
   lidoDrafts: () => request<LidoDraftInfo[]>('/lido/drafts'),
 
