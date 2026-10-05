@@ -28,6 +28,7 @@ from typing import Any, Protocol
 import structlog
 from botocore.exceptions import BotoCoreError, ClientError
 
+from app import costs
 from app.db import repo
 from app.db.session import session_scope
 from app.lido_corpus.generated import upload_asset
@@ -255,10 +256,11 @@ def _with_logo(plan):
 
 
 async def _plans(prompt: str, variations: int, rng: random.Random,
-                 logo: bool = False, on_plan=None) -> list:
+                 logo: bool = False, on_plan=None, bills: list | None = None) -> list:
     """One art-director plan per variation, made one after another so each knows which
     layouts the others took. A failed plan falls back to designing without one.
-    `on_plan(i, plan)` hears about each plan the moment it is written."""
+    `on_plan(i, plan)` hears about each plan the moment it is written. `bills[i]`: the
+    cost ledger plan i (and whatever on_plan starts, e.g. its photos) is charged to."""
     from app.lido_create.plan import make_plan
 
     recent = await recent_fingerprints()
@@ -268,12 +270,13 @@ async def _plans(prompt: str, variations: int, rng: random.Random,
         try:
             # with several variations, at least one is a free invention
             free = True if variations > 1 and i == variations - 1 else None
-            plan = await make_plan(prompt, recent=recent, avoid_layouts=taken, free=free,
-                                   rng=random.Random(rng.random()))
-            taken.append(plan.layout)
-            plans.append(_with_logo(plan) if logo else plan)
-            if on_plan is not None:
-                on_plan(i, plan)
+            with costs.collect(bills[i] if bills is not None else []):
+                plan = await make_plan(prompt, recent=recent, avoid_layouts=taken, free=free,
+                                       rng=random.Random(rng.random()))
+                taken.append(plan.layout)
+                plans.append(_with_logo(plan) if logo else plan)
+                if on_plan is not None:
+                    on_plan(i, plan)  # photos started here go on this plan's bill
         except Exception as exc:  # noqa: BLE001 — the designer can still work without it
             log.warning("lido.drafts.plan_failed", error=str(exc)[:300])
             plans.append(None)
@@ -315,10 +318,11 @@ async def create_from_prompt(prompt: str, *, variations: int = 1,
     rng = random.Random()
     brand = brand_palette(parse_palette(palette)) if palette else None
     prefetches = [PhotoPrefetch(source) for _ in range(variations)]
+    bills: list[list[costs.Charge]] = [[] for _ in range(variations)]  # one per variation
     emit({"stage": "planning"})
     plan_started = time.perf_counter()
     plans = await _plans(prompt, variations, rng, logo=bool(logo_url),
-                         on_plan=lambda i, plan: prefetches[i].from_plan(plan))
+                         on_plan=lambda i, plan: prefetches[i].from_plan(plan), bills=bills)
     plan_ms = _ms_since(plan_started)
     fallback_directions = rng.sample(DIRECTIONS, variations)
     brand_info = {"brandPalette": palette} if palette else {}
@@ -328,6 +332,10 @@ async def create_from_prompt(prompt: str, *, variations: int = 1,
             emit({"stage": "repairing", "variation": i, "attempt": attempt,
                   "problems": problems})
 
+        with costs.collect(bills[i]):  # design, repairs and photos go on its bill
+            return await build(i, plan, seed, repairing)
+
+    async def build(i: int, plan, seed: float, repairing) -> dict:
         try:
             emit({"stage": "designing", "variation": i})
             t0 = time.perf_counter()
@@ -345,6 +353,9 @@ async def create_from_prompt(prompt: str, *, variations: int = 1,
             prefetches[i].cancel()
             raise
         emit({"stage": "saving", "variation": i})
+        cost = costs.summary(bills[i])
+        log.info("lido.drafts.cost", variation=i, total_usd=cost["totalUsd"],
+                 unknown_calls=cost["unknownCalls"], **cost["byStepUsd"])
         plan_info = {"plan": plan.model_dump(), "fingerprint": fingerprint(plan),
                      "planLayout": plan.layout} if plan else {}
         record = await save_draft(
@@ -354,7 +365,7 @@ async def create_from_prompt(prompt: str, *, variations: int = 1,
                   "features": r.features, **plan_info, **r.extras,
                   **brand_info, "logoUrl": logo_url,
                   "photoSource": source.name, "photoFallbacks": _fallbacks(source, chosen),
-                  "problems": r.errors},
+                  "problems": r.errors, "cost": cost},
             timing={"planMs": plan_ms, "designMs": design_ms, "photosMs": photos_ms},
             started=started)
         emit({"stage": "draft", "variation": i, "draft": record})

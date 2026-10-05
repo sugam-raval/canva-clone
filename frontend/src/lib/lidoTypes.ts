@@ -171,6 +171,8 @@ export interface LidoDraftInfo {
   timing?: Record<string, number>
   /** Each designer LLM call in order: a first draft or a repair patch, and how long it took. */
   llmCalls?: { step: 'draft' | 'repair'; ms: number; outputTokens?: number | null }[]
+  /** What making it cost in OpenAI calls (backend/app/costs); null for older drafts. */
+  cost?: LidoDraftCost | null
   /** The template_<n> file it was imported from, for drafts made before the database. */
   importedFrom?: string | null
   hasPreview: boolean
@@ -186,3 +188,17 @@ export type LidoDraftEvent =
   | { stage: 'draft'; variation: number; draft: LidoDraftInfo; elapsedMs: number }
   | { stage: 'done'; elapsedMs: number }
   | { stage: 'error'; status: number; detail: string }
+
+/** The bill of one draft: priced from each call's token usage (backend/app/costs/pricing.yaml). */
+export interface LidoDraftCost {
+  totalUsd: number
+  /** plan, design, repair, photo → USD */
+  byStepUsd: Record<string, number>
+  /** Calls abandoned before OpenAI answered (timed out, cancelled): may still be billed. */
+  unknownCalls: number
+  calls: {
+    step: string; model: string; kind: 'text' | 'image'
+    inputTokens: number; cachedTokens: number; imageInputTokens: number; outputTokens: number
+    usd: number | null; note?: string
+  }[]
+}

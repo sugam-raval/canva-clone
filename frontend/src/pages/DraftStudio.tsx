@@ -85,6 +85,19 @@ function timingNote(draft: LidoDraftInfo): string | null {
   return seconds(draft.generationMs) + (steps.length ? ` — ${steps.join(' · ')}` : '')
 }
 
+const usd = (n: number) => `$${n < 0.1 ? n.toFixed(4) : n.toFixed(3)}`
+const COST_STEPS = ['plan', 'design', 'repair', 'photo']
+
+/** "$0.2134 — plan $0.0040 · design $0.1830 · photos $0.0229" (null for older drafts). */
+function costNote(draft: LidoDraftInfo): string | null {
+  const cost = draft.cost
+  if (!cost) return null
+  const steps = Object.entries(cost.byStepUsd)
+    .sort(([a], [b]) => COST_STEPS.indexOf(a) - COST_STEPS.indexOf(b))
+    .map(([step, value]) => `${step === 'photo' ? 'photos' : step} ${usd(value)}`)
+  return usd(cost.totalUsd) + (steps.length ? ` — ${steps.join(' · ')}` : '')
+}
+
 /** "draft 48.2s · repair 9.1s" — how long each designer LLM call took (null if not recorded). */
 function callsNote(draft: LidoDraftInfo): string | null {
   const calls = draft.llmCalls ?? []
@@ -111,6 +124,93 @@ function photoNote(draft: LidoDraftInfo): string {
   return missed
     ? `Photo subjects (generated; ${missed} failed and kept a placeholder)`
     : 'Photo subjects (each photo generated from its subject)'
+}
+
+const COST_GROUPS: { step: string; label: string; what: string }[] = [
+  { step: 'plan', label: 'Plan', what: 'art director: what goes in' },
+  { step: 'design', label: 'Design', what: 'designer: the layout' },
+  { step: 'repair', label: 'Repair', what: 'fixing failed checks' },
+  { step: 'photo', label: 'Photos', what: 'image generation' },
+]
+const tokens = (n: number) => n.toLocaleString('en-US')
+
+/** The bill of one draft: every OpenAI call grouped by step, a subtotal each, the total. */
+function CostCard({ draft }: { draft: LidoDraftInfo }) {
+  const cost = draft.cost
+  const head = (
+    <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 8 }}>
+      Cost of this template (OpenAI, USD)
+    </div>
+  )
+  if (!cost) {
+    return (
+      <div className="progress">
+        {head}
+        <div style={{ fontSize: 12, color: 'var(--muted)' }}>
+          Not tracked: this draft was made before cost tracking was added. New drafts show
+          their full bill here.
+        </div>
+      </div>
+    )
+  }
+  const known = new Set(COST_GROUPS.map((g) => g.step))
+  const groups = [
+    ...COST_GROUPS,
+    // any step not in the list above still shows, so nothing is left out of the total
+    ...[...new Set(cost.calls.map((c) => c.step))].filter((s) => !known.has(s))
+      .map((s) => ({ step: s, label: s, what: '' })),
+  ].map((g) => ({ ...g, calls: cost.calls.filter((c) => c.step === g.step) }))
+    .filter((g) => g.calls.length > 0)
+  return (
+    <div className="progress">
+      {head}
+      <div style={{ display: 'grid', gap: 10, fontSize: 12 }}>
+        {groups.map((g) => (
+          <div key={g.step}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 600 }}>
+              <span>
+                {g.label}
+                {g.what && <span style={{ fontWeight: 400, color: 'var(--muted)' }}> · {g.what}</span>}
+              </span>
+              <span>{usd(cost.byStepUsd[g.step] ?? 0)}</span>
+            </div>
+            {g.calls.map((c, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', gap: 8,
+                paddingLeft: 10, marginTop: 3, color: 'var(--muted)', fontSize: 11 }}>
+                <span>
+                  {c.model}
+                  {c.usd == null
+                    ? <span style={{ color: 'var(--accent-2)' }}> · {c.note || 'no usage reported'}</span>
+                    : <> · in {tokens(c.inputTokens)}{c.cachedTokens ? ` (${tokens(c.cachedTokens)} cached)` : ''}
+                      {c.imageInputTokens ? ` + ${tokens(c.imageInputTokens)} image` : ''}
+                      {' '}· out {tokens(c.outputTokens)}</>}
+                </span>
+                <span style={{ whiteSpace: 'nowrap', color: c.usd == null ? 'var(--accent-2)' : undefined }}>
+                  {c.usd == null ? 'unknown' : usd(c.usd)}
+                </span>
+              </div>
+            ))}
+          </div>
+        ))}
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700,
+          fontSize: 13, borderTop: '1px solid var(--line)', paddingTop: 8 }}>
+          <span>Total</span>
+          <span>{usd(cost.totalUsd)}</span>
+        </div>
+        {cost.unknownCalls > 0 && (
+          <div style={{ fontSize: 11, color: 'var(--accent-2)' }}>
+            + {cost.unknownCalls} call{cost.unknownCalls === 1 ? '' : 's'} of unknown cost (timed
+            out or cancelled before OpenAI answered): not in the total, but OpenAI may still
+            bill {cost.unknownCalls === 1 ? 'it' : 'them'}.
+          </div>
+        )}
+        <div style={{ fontSize: 11, color: 'var(--muted)' }}>
+          Priced from each call's token usage, at the prices in{' '}
+          <code>backend/app/costs/pricing.yaml</code>.
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () => void }) {
@@ -153,6 +253,9 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
             )}
             {timingNote(draft) && <div><strong>Time to design:</strong> {timingNote(draft)}</div>}
             {callsNote(draft) && <div><strong>AI calls:</strong> {callsNote(draft)}</div>}
+            {costNote(draft) && (
+              <div><strong>Cost:</strong> {costNote(draft)} <span style={{ color: 'var(--muted)' }}>(details below)</span></div>
+            )}
             {draft.fonts && <div><strong>Fonts:</strong> {draft.fonts}</div>}
             {draft.features && draft.features.length > 0 && (
               <div><strong>Signature elements:</strong> {draft.features.join(', ')}</div>
@@ -198,6 +301,8 @@ function DraftDetail({ draft, onDelete }: { draft: LidoDraftInfo; onDelete: () =
             </div>
           )}
         </div>
+
+        <CostCard draft={draft} />
 
         {draft.photoSubjects.length > 0 && (
           <div className="progress">

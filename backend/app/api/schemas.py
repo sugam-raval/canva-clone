@@ -218,6 +218,10 @@ class LidoDraftInfo(Base):
     """The same step by step, in ms: planMs, designMs, photosMs, saveMs, totalMs."""
     llm_calls: list[dict[str, Any]] = Field(default_factory=list)
     """Each designer LLM call in order: step (draft | repair), ms, outputTokens."""
+    cost: dict[str, Any] | None = None
+    """What making it cost in OpenAI calls (app/costs): totalUsd, byStepUsd (plan, design,
+    repair, photo), unknownCalls (abandoned calls OpenAI may still bill) and every call
+    with its tokens and price. Null for drafts made before costs were tracked."""
     imported_from: str | None = None
     """The template_<n> file it was imported from (scripts/lido_drafts.py import)."""
     has_preview: bool = False

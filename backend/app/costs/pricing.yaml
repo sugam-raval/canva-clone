@@ -1,0 +1,26 @@
+# OpenAI prices, in US dollars per 1 MILLION tokens — Standard tier.
+#
+# Source: https://developers.openai.com/api/docs/pricing   (checked 2026-10-05)
+# When OpenAI changes a price, change the number here and restart the backend.
+#
+# A model not listed here is still tracked (its tokens are recorded) but its cost shows
+# as unknown, never as $0. A dated snapshot ("gpt-4o-2024-08-06") uses the entry of the
+# longest name it starts with ("gpt-4o").
+
+# -- Text models (plan, design, repair; also the "fill a template" calls) --------------
+# input         : prompt tokens
+# cached_input  : prompt tokens OpenAI served from its prompt cache (part of input)
+# output        : reply tokens — for reasoning models this includes the hidden
+#                 reasoning tokens, which are billed as output
+text:
+  gpt-6-astra: {input: 10.00, cached_input: 1.00, output: 50.00}
+  gpt-4o:      {input: 2.50,  cached_input: 1.25, output: 10.00}
+  gpt-4o-mini: {input: 0.15,  cached_input: 0.075, output: 0.60}
+
+# -- Image models (photos) --------------------------------------------------------------
+# Images are billed by tokens too: the prompt (text_input), any reference image
+# (image_input) and the generated picture itself (output — most of the cost; it grows
+# with size and quality). OpenAI returns the exact counts with every image.
+images:
+  gpt-image-2.5-flare:    {text_input: 5.00, image_input: 8.00, output: 30.00}
+  gpt-image-2.5-sunburst: {text_input: 5.00, image_input: 8.00, output: 30.00}

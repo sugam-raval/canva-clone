@@ -22,6 +22,7 @@ from typing import Literal
 import structlog
 from pydantic import BaseModel
 
+from app import costs
 from app.adapters.base import AdapterError
 from app.lido_corpus.palette import (
     BLACK,
@@ -711,8 +712,16 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
 
     async def first_draft() -> _Draft:
         t0 = time.perf_counter()
-        reply = await _ask(llm, system=system, user=draft_prompt(), schema=BriefDesign,
-                           temperature=0.9, max_tokens=16000, **options)
+        try:
+            with costs.step("design"):
+                reply = await _ask(llm, system=system, user=draft_prompt(),
+                                   schema=BriefDesign, temperature=0.9, max_tokens=16000,
+                                   **options)
+        except asyncio.CancelledError:
+            # another parallel draft passed first; OpenAI may bill this one's tokens so far
+            costs.record_unknown(options.get("model") or get_settings().llm_model, "text",
+                                 "cancelled: a parallel draft passed first", "design")
+            raise
         calls.append(_call_info("draft", t0, reply))
         ai: BriefDesign = reply.parsed
         return build(ai, [to_element(e) for e in ai.elements], 1)
@@ -743,8 +752,9 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
                   "idea and the brief's copy; leave every element that is fine alone.")
         t0 = time.perf_counter()
         try:
-            reply = await _ask(llm, system=system, user=user, schema=BriefRepair,
-                               temperature=0.4, max_tokens=8000, **fix_options)
+            with costs.step("repair"):
+                reply = await _ask(llm, system=system, user=user, schema=BriefRepair,
+                                   temperature=0.4, max_tokens=8000, **fix_options)
         except AdapterError:
             # a repair round failed: keep the best design, its problems are reported
             log.warning("lido.brief.repair_unavailable", attempt=attempt)

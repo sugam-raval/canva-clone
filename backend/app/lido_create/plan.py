@@ -19,6 +19,7 @@ from typing import Literal
 import structlog
 from pydantic import BaseModel
 
+from app import costs
 from app.lido_create import library
 from app.lido_create.backdrops import STYLES as ENABLED_BACKDROPS
 from app.lido_create.backdrops import Backdrop
@@ -284,8 +285,9 @@ async def make_plan(prompt: str, *, recent: list[str], avoid_layouts: list[str] 
                else f"Prefer a catalogue layout not in: {', '.join(avoid) or 'none'}.\n\n")
             + "Write the design plan.")
     options = plan_call()
-    reply = await _ask(get_llm(), system=system, user=user, schema=DesignPlan,
-                       temperature=0.8, max_tokens=6000, **options)
+    with costs.step("plan"):
+        reply = await _ask(get_llm(), system=system, user=user, schema=DesignPlan,
+                           temperature=0.8, max_tokens=6000, **options)
     plan = _clean(reply.parsed, prompt)
     if free:
         plan.layout = "custom"

@@ -91,6 +91,20 @@ def test_checks_catch_text_on_a_photo_line_breaks_and_emoji():
     assert "emoji" in errors
 
 
+FAKE_TEXT_USAGE = (1_000, 500)  # input, output tokens every fake LLM call "uses"
+FAKE_IMAGE_TOKENS = 2_000  # output tokens every fake image "uses"
+
+
+def _bill_text(model: str) -> None:
+    """What the OpenAI adapter does after every call: charge it to the current bill."""
+    from types import SimpleNamespace as NS
+
+    from app import costs
+    inp, out = FAKE_TEXT_USAGE
+    costs.record_text(model, NS(input_tokens=inp, output_tokens=out,
+                                input_tokens_details=NS(cached_tokens=0)))
+
+
 class _FakeLLM:
     """Replays a pro recipe as the model's answer. The first draft carries a flaw: by
     default a line break (the mechanical fixes clean it, no repair call), or with
@@ -113,6 +127,7 @@ class _FakeLLM:
     async def complete_json(self, *, system, user, schema, **kwargs):
         if schema.__name__ == "DesignPlan":
             self.plan_calls.append({"user": user, **kwargs})
+            _bill_text(kwargs.get("model") or "gpt-4o")
             return LLMResult(parsed=schema(
                 texts=[{"role": "headline", "text": "Grand Night"}],
                 photos=[self.plan_photo],
@@ -124,6 +139,7 @@ class _FakeLLM:
         self.calls.append(user)
         if len(self.calls) in self.failures:
             raise self.failures[len(self.calls)]
+        _bill_text(kwargs.get("model") or "gpt-6-astra")
         if schema.__name__ == "BriefRepair":
             self.repair_calls.append(kwargs)
             edits = [] if self.headline is None or not self.repairs_fix else [
@@ -305,6 +321,12 @@ class _FakeImages:
         self.prompts.append(prompt)
         if self.fail:
             raise AdapterError("image API 500")
+        from types import SimpleNamespace as NS
+
+        from app import costs
+        costs.record_image("gpt-image-2.5-flare",
+                           NS(input_tokens=50, output_tokens=FAKE_IMAGE_TOKENS,
+                              input_tokens_details=NS(text_tokens=50, image_tokens=0)))
         out = io.BytesIO()
         Image.new("RGB", (width, height), (200, 120, 90)).save(out, format="PNG")
         return ImageResult(data=out.getvalue(), mime="image/png", width=width,
@@ -718,6 +740,28 @@ def test_lido_max_photos_caps_the_plan_and_the_catalogue(monkeypatch):
         assert len(plan.photos) == 3  # so at most 3 images are generated
     finally:
         catalog.layouts.cache_clear()
+
+
+def test_each_draft_carries_its_own_bill_step_by_step(api, monkeypatch):
+    from app import costs
+
+    client, fake, _ = api
+    fake.defect = "headline"  # a repair round, so every step is billed
+    images = _FakeImages()
+    _generating(monkeypatch, images)
+    made = client.post("/v1/lido/drafts", json={"prompt": "Launch", "variations": 2}).json()
+    inp, out = FAKE_TEXT_USAGE
+    plan = costs.text_cost("gpt-4o-mini", inp, 0, out)  # the fixture's plan model
+    design = costs.text_cost("gpt-6-astra", inp, 0, out)  # LLM_MODEL (no layout model set)
+    photo = costs.image_cost("gpt-image-2.5-flare", 50, 0, FAKE_IMAGE_TOKENS)
+    first, second = (d["cost"] for d in made)
+    # the first variation: its plan, its draft, its repair, its one photo — nothing else
+    assert first["byStepUsd"] == pytest.approx(
+        {"plan": plan, "design": design, "repair": design, "photo": photo})
+    assert first["totalUsd"] == pytest.approx(plan + 2 * design + photo)
+    assert first["unknownCalls"] == 0 and len(first["calls"]) == 4
+    # the second has no flaw (only the first draft call carries it): no repair
+    assert set(second["byStepUsd"]) == {"plan", "design", "photo"}
 
 
 def test_patch_edits_apply_against_the_numbering_sent():

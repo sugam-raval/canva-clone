@@ -25,6 +25,7 @@ import structlog
 from openai import APIError, APIStatusError, APITimeoutError, AsyncOpenAI, RateLimitError
 from PIL import Image
 
+from app import costs
 from app.adapters.base import AdapterError, ImageResult, LLMResult, TModel
 from app.adapters.openai_schema import response_format
 from app.config import get_settings
@@ -97,11 +98,9 @@ def render_size(model: str, width: int, height: int) -> tuple[int, int]:
         return flexible_size(width, height)
     return nearest_supported_size(width, height)
 
-# Rough list prices in cents, for the §6.7 budget ledger. Approximate by design: the
-# ledger exists to stop runaway spend, not to reconcile an invoice.
+# Real prices live in app/costs/pricing.yaml (every call is priced from its token usage).
+# This rough per-quality figure is only the fallback for an image model not listed there.
 _IMAGE_COST_CENTS = {"low": 2, "medium": 4, "high": 17}
-_LLM_COST_PER_MTOK = {"gpt-4o": (250, 1000), "gpt-4o-mini": (15, 60),
-                      "text-embedding-3-small": (2, 0)}
 
 
 def _client() -> AsyncOpenAI:
@@ -116,12 +115,18 @@ def _client() -> AsyncOpenAI:
     )
 
 
-def _llm_cost(model: str, prompt_tokens: int, completion_tokens: int) -> int:
-    for key, (inp, out) in _LLM_COST_PER_MTOK.items():
-        if model.startswith(key):
-            cents = (prompt_tokens * inp + completion_tokens * out) / 1_000_000
-            return max(0, round(cents))
-    return 0
+def _llm_cost(model: str, usage: Any) -> int:
+    """Cents for one text call (app/costs/pricing.yaml), recorded on the current bill."""
+    charge = costs.record_text(model, usage)
+    return round(charge.usd * 100) if charge.usd is not None else 0
+
+
+def _image_cents(model: str, result: Any, quality: str) -> int:
+    """Cents for one image call, from the token usage it came back with (recorded on
+    the current bill); the rough per-quality figure when the model isn't priced."""
+    charge = costs.record_image(model, getattr(result, "usage", None))
+    return round(charge.usd * 100) if charge.usd is not None else \
+        _IMAGE_COST_CENTS.get(quality, 4)
 
 
 def nearest_supported_size(width: int, height: int) -> tuple[int, int]:
@@ -168,7 +173,15 @@ async def _generate_image(client: AsyncOpenAI, **kwargs) -> Any:
         return await client.images.generate(**kwargs, timeout=timeout)
     except APITimeoutError:
         log.warning("openai.image_timeout_retry", timeout_s=timeout)
+        # we never see what the stalled request used; OpenAI may still bill it
+        costs.record_unknown(kwargs.get("model", "?"), "image",
+                             f"timed out after {timeout:.0f}s and was sent again")
+    try:
         return await client.images.generate(**kwargs, timeout=timeout)
+    except APITimeoutError:
+        costs.record_unknown(kwargs.get("model", "?"), "image",
+                             f"timed out twice after {timeout:.0f}s")
+        raise
 
 
 async def _call_images(client: AsyncOpenAI, **kwargs) -> Any:
@@ -295,7 +308,7 @@ class OpenAITextToImage:
         return ImageResult(
             data=data, mime="image/png", width=width, height=height,
             model=settings.image_model, has_alpha=False,
-            cost_cents=_IMAGE_COST_CENTS.get(quality, 4),
+            cost_cents=_image_cents(settings.image_model, result, quality),
             params={"renderSize": f"{render_w}x{render_h}", "quality": quality,
                     "seedSupported": False, "requestedSeed": seed},
         )
@@ -330,7 +343,7 @@ class OpenAITransparentImage:
         return ImageResult(
             data=data, mime="image/png", width=width, height=height,
             model=settings.image_model, has_alpha=True,
-            cost_cents=_IMAGE_COST_CENTS.get(quality, 4),
+            cost_cents=_image_cents(settings.image_model, result, quality),
             params={"renderSize": f"{render_w}x{render_h}", "quality": quality,
                     "background": "transparent", "seedSupported": False,
                     "requestedSeed": seed},
@@ -497,7 +510,7 @@ class OpenAILLM:
         p_tok = getattr(usage, "prompt_tokens", 0) or 0
         c_tok = getattr(usage, "completion_tokens", 0) or 0
         return LLMResult(parsed=parsed, raw=raw, model=model,
-                         cost_cents=_llm_cost(model, p_tok, c_tok),
+                         cost_cents=_llm_cost(model, usage),
                          prompt_tokens=p_tok, completion_tokens=c_tok)
 
     @classmethod
@@ -566,5 +579,5 @@ class OpenAILLM:
         p_tok = getattr(usage, "input_tokens", 0) or 0
         c_tok = getattr(usage, "output_tokens", 0) or 0
         return LLMResult(parsed=parsed, raw=response.output_text, model=model,
-                         cost_cents=_llm_cost(model, p_tok, c_tok),
+                         cost_cents=_llm_cost(model, usage),
                          prompt_tokens=p_tok, completion_tokens=c_tok)

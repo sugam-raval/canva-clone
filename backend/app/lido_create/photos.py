@@ -29,6 +29,7 @@ import structlog
 from botocore.exceptions import BotoCoreError, ClientError
 from PIL import Image
 
+from app import costs
 from app.adapters.registry import text_to_image, transparent_image
 from app.config import get_settings
 from app.lido_corpus.assets_ai import generate_template_images
@@ -96,7 +97,8 @@ class GeneratedPhotos:
     async def render(self, element: Element) -> Photo | None:
         """The element's subject rendered and uploaded; None if either step failed."""
         try:
-            return await self._generate(element)
+            with costs.step("photo"):
+                return await self._generate(element)
         except (BotoCoreError, ClientError, OSError) as exc:
             log.warning("lido.drafts.photo_upload_failed", error=str(exc)[:300])
             return None
@@ -291,6 +293,9 @@ class PhotoPrefetch:
                                                                      strict=True))))
         unused = [s for s in self.started if not s.claimed]
         for s in unused:
+            if not s.task.done():  # abandoned mid-render: OpenAI may still bill it
+                costs.record_unknown(get_settings().image_model, "image",
+                                     "cancelled: not used by the final design", "photo")
             s.task.cancel()
         log.info("lido.drafts.photo_prefetch", photos=len(photos), renders=len(self.started),
                  reused=sum(s.claimed for s in self.started), wasted=len(unused))

@@ -587,7 +587,9 @@ become `bodyText` (`replacableText`); cta, badge and caption become `static`
 ### What else is saved with the draft
 `8_saved_draft_record.json` holds everything the review UI shows: `plan`, `name`, `idea`,
 `colors`, `fonts`, `backdrop`, `contactIcons`, `photoSubjects`, `attempts`, `problems`,
-`fingerprint` (used by the next plans' "Recently made"), and the timings:
+`fingerprint` (used by the next plans' "Recently made"), `cost` (the bill: total, per
+step, every call with its tokens; drafts made after cost tracking was added), and the
+timings:
 ```json
 "timing":   {"planMs": 6405, "designMs": 70890, "photosMs": 0, "saveMs": 627, "totalMs": 77965},
 "llmCalls": [{"step": "draft", "ms": 63484, "outputTokens": 4411},
@@ -612,6 +614,7 @@ become `bodyText` (`replacableText`); cta, badge and caption become `static`
 | `lido.brief.repairs_stalled` | ④ | repairs stopped: the model couldn't fix what's left |
 | `openai.image_timeout_retry` | ② | an image request hung and was resent |
 | `lido.drafts.photo_prefetch photos= renders= reused= wasted=` | ⑤ | **renders = images generated**; wasted should be 0 |
+| `lido.drafts.cost total_usd=… plan=… design=… repair=… photo=…` | ⑤ | **what the template cost** (priced from each call's tokens, `backend/app/costs/pricing.yaml`) |
 | `lido.drafts.timing … totalMs=` | ⑤ | the timings saved with the draft |
 
 ### Files
@@ -627,3 +630,4 @@ become `bodyText` (`replacableText`); cta, badge and caption become `static`
 | ⑤ Lido JSON writer | `backend/app/lido_create/lido.py` |
 | Everything the AI may choose from | `backend/app/lido_create/library/` (see its README) |
 | Models and limits | `backend/.env`, section 3 "DESIGN FROM SCRATCH" |
+| Prices, and the per-template bill | `backend/app/costs/` (`pricing.yaml` = the price list) |
