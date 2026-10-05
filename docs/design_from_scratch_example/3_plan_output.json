@@ -1,0 +1,125 @@
+{
+  "draw": [
+    "underline",
+    "sparkle"
+  ],
+  "logo": true,
+  "moods": [
+    "bold_loud"
+  ],
+  "notes": "Ensure the ticket badge is prominently placed and the main attraction photos form the lively background. Use bright, high-contrast colors and maintain clear text readability with bold typography.",
+  "texts": [
+    {
+      "role": "badge",
+      "text": "50% OFF"
+    },
+    {
+      "role": "headline",
+      "text": "WATER PARK TICKETS"
+    },
+    {
+      "role": "subhead",
+      "text": "SUMMER SPLASH SALE"
+    },
+    {
+      "role": "body",
+      "text": "LIMITED-TIME OFFER"
+    },
+    {
+      "role": "body",
+      "text": "BOOK NOW & SAVE 50%"
+    },
+    {
+      "role": "kicker",
+      "text": "IMAGICAA WATER PARK"
+    },
+    {
+      "role": "address",
+      "text": "Imagicaa Road, Khopoli, Maharashtra 410203"
+    },
+    {
+      "role": "phone",
+      "text": "+91 98765 43210"
+    },
+    {
+      "role": "website",
+      "text": "www.imagicaawaterpark.example"
+    },
+    {
+      "role": "body",
+      "text": "Open Daily: 10:00 AM – 7:00 PM"
+    },
+    {
+      "role": "item",
+      "text": "Thrilling Water Slides"
+    },
+    {
+      "role": "item",
+      "text": "Wave Pool"
+    },
+    {
+      "role": "item",
+      "text": "Lazy River"
+    },
+    {
+      "role": "item",
+      "text": "Kids Splash Zone"
+    },
+    {
+      "role": "item",
+      "text": "Family Raft Rides"
+    },
+    {
+      "role": "cta",
+      "text": "GRAB YOUR TICKETS NOW!"
+    },
+    {
+      "role": "body",
+      "text": "MAKE A SPLASH THIS SUMMER"
+    }
+  ],
+  "layout": "steps_flow",
+  "photos": [
+    {
+      "role": "hero",
+      "frame": "rounded",
+      "subject": "A gigantic twisting water slide with happy families enjoying the ride",
+      "from_brief": "gigantic twisting water slide",
+      "orientation": "portrait"
+    },
+    {
+      "role": "supporting",
+      "frame": "circle",
+      "subject": "High-speed racing slides with groups of friends racing down",
+      "from_brief": "high-speed racing slides",
+      "orientation": "portrait"
+    },
+    {
+      "role": "supporting",
+      "frame": "torn_paper",
+      "subject": "A giant wave pool with energetic splashes and people having fun",
+      "from_brief": "giant wave pool",
+      "orientation": "portrait"
+    }
+  ],
+  "shapes": [
+    "octagon",
+    "parallelogram",
+    "chevron"
+  ],
+  "effects": [
+    "shadow"
+  ],
+  "exclude": [],
+  "backdrop": {
+    "side": "bottom",
+    "tone": "accent",
+    "angle": 20.0,
+    "split": 0.5,
+    "style": "diagonal_bands"
+  },
+  "gradient": "a strong band or a punchy two-colour background",
+  "photo_theme": "event",
+  "contact_icons": true,
+  "custom_layout": null
+}

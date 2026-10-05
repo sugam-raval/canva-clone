@@ -1,0 +1,199 @@
+{
+ "id": 69,
+ "createdAt": "2026-10-05T10:36:57.996348Z",
+ "source": "brief",
+ "prompt": "Create a vibrant, high-energy social media promotional poster for **Imagicaa Water Park** featuring an exciting **50% OFF ticket offer**. Make the design look like a premium summer adventure campaign filled with colorful water rides, thrilling attractions and joyful family experiences.\n\nShow a dynamic collage of multiple realistic water park attractions: a gigantic twisting water slide, high-speed racing slides, a giant wave pool, family raft ride, lazy river, kids splash zone and a huge tropical pool. Include happy families and groups of friends enjoying the rides, with realistic expressions, natural poses and energetic water splashes.\n\nMake a large **ticket-shaped promotional badge** one of the main visual elements. Design it like a colorful admission ticket with perforated edges, subtle ticket texture and bold typography:\n\n**50% OFF**\n**WATER PARK TICKETS**\n\nAdd supporting offer text:\n\n**SUMMER SPLASH SALE**\n**LIMITED-TIME OFFER**\n**BOOK NOW & SAVE 50%**\n\nInclude fictional test information:\n\n**IMAGICAA WATER PARK**\n**Imagicaa Road, Khopoli, Maharashtra 410203**\n**+91 98765 43210**\n**[www.imagicaawaterpark.example](http://www.imagicaawaterpark.example)**\n**Open Daily: 10:00 AM – 7:00 PM**\n\nAdd attraction highlights:\n\n**Thrilling Water Slides • Wave Pool • Lazy River • Kids Splash Zone • Family Raft Rides**\n\nAdd a strong CTA:\n\n**GRAB YOUR TICKETS NOW!**\n**MAKE A SPLASH THIS SUMMER**\n\nCreate a visually exciting composition with the water rides forming the background and the large ticket-shaped **50% OFF** offer badge prominently overlapping the main imagery. Use bright tropical colors, crystal-clear water, dramatic sunlight, palm trees, colorful slides and cinematic water splashes. Make the poster feel like a professional amusement-park advertising campaign with excellent depth, realistic photography and strong visual hierarchy.\n\nEnsure the **50% OFF ticket badge, park name, offer, contact information and CTA** are immediately readable. Keep all text correctly spelled and visually clean, with no distorted typography, gibberish, duplicated rides or unnecessary text.",
+ "name": "Summer Splash Ticket Flow",
+ "idea": "A bold three-stop attraction flow, with cinematic ride photography and a giant perforated sale ticket overlapping the imagery. Tropical yellow, deep ocean blue and hot coral create a high-energy summer campaign.",
+ "direction": null,
+ "layout": "brief:Summer Splash Ticket Flow",
+ "theme": "event",
+ "palette": "custom",
+ "fonts": "condensed-poster",
+ "mirrored": false,
+ "colors": {
+  "bg": "#fff7d6",
+  "ink": "#073c63",
+  "soft": "#bceeeb",
+  "accent": "#f74736",
+  "on_accent": "#ffffff"
+ },
+ "features": [],
+ "plan": {
+  "draw": [
+   "underline",
+   "sparkle"
+  ],
+  "logo": true,
+  "moods": [
+   "bold_loud"
+  ],
+  "notes": "Ensure the ticket badge is prominently placed and the main attraction photos form the lively background. Use bright, high-contrast colors and maintain clear text readability with bold typography.",
+  "texts": [
+   {
+    "role": "badge",
+    "text": "50% OFF"
+   },
+   {
+    "role": "headline",
+    "text": "WATER PARK TICKETS"
+   },
+   {
+    "role": "subhead",
+    "text": "SUMMER SPLASH SALE"
+   },
+   {
+    "role": "body",
+    "text": "LIMITED-TIME OFFER"
+   },
+   {
+    "role": "body",
+    "text": "BOOK NOW & SAVE 50%"
+   },
+   {
+    "role": "kicker",
+    "text": "IMAGICAA WATER PARK"
+   },
+   {
+    "role": "address",
+    "text": "Imagicaa Road, Khopoli, Maharashtra 410203"
+   },
+   {
+    "role": "phone",
+    "text": "+91 98765 43210"
+   },
+   {
+    "role": "website",
+    "text": "www.imagicaawaterpark.example"
+   },
+   {
+    "role": "body",
+    "text": "Open Daily: 10:00 AM – 7:00 PM"
+   },
+   {
+    "role": "item",
+    "text": "Thrilling Water Slides"
+   },
+   {
+    "role": "item",
+    "text": "Wave Pool"
+   },
+   {
+    "role": "item",
+    "text": "Lazy River"
+   },
+   {
+    "role": "item",
+    "text": "Kids Splash Zone"
+   },
+   {
+    "role": "item",
+    "text": "Family Raft Rides"
+   },
+   {
+    "role": "cta",
+    "text": "GRAB YOUR TICKETS NOW!"
+   },
+   {
+    "role": "body",
+    "text": "MAKE A SPLASH THIS SUMMER"
+   }
+  ],
+  "layout": "steps_flow",
+  "photos": [
+   {
+    "role": "hero",
+    "frame": "rounded",
+    "subject": "A gigantic twisting water slide with happy families enjoying the ride",
+    "from_brief": "gigantic twisting water slide",
+    "orientation": "portrait"
+   },
+   {
+    "role": "supporting",
+    "frame": "circle",
+    "subject": "High-speed racing slides with groups of friends racing down",
+    "from_brief": "high-speed racing slides",
+    "orientation": "portrait"
+   },
+   {
+    "role": "supporting",
+    "frame": "torn_paper",
+    "subject": "A giant wave pool with energetic splashes and people having fun",
+    "from_brief": "giant wave pool",
+    "orientation": "portrait"
+   }
+  ],
+  "shapes": [
+   "octagon",
+   "parallelogram",
+   "chevron"
+  ],
+  "effects": [
+   "shadow"
+  ],
+  "exclude": [],
+  "backdrop": {
+   "side": "bottom",
+   "tone": "accent",
+   "angle": 20.0,
+   "split": 0.5,
+   "style": "diagonal_bands"
+  },
+  "gradient": "a strong band or a punchy two-colour background",
+  "photo_theme": "event",
+  "contact_icons": true,
+  "custom_layout": null
+ },
+ "planLayout": "steps_flow",
+ "fingerprint": "steps_flow (3 photos; frames circle/rounded/torn_paper, gradient, underline, sparkle, shadow, backdrop diagonal_bands)",
+ "textCount": 20,
+ "photoSubjects": [
+  "A gigantic colorful twisting water slide towers above happy families riding through crystal-clear splashing water, with natural expressions, tropical palms and dramatic summer sunlight in realistic premium campaign photography.",
+  "Groups of friends race down colorful high-speed parallel water slides with joyful natural expressions, energetic sprays of clear water, tropical palms and cinematic sunshine.",
+  "A giant turquoise wave pool filled with happy families and friends enjoying energetic waves and realistic water splashes, framed by palm trees in brilliant dramatic tropical sunlight."
+ ],
+ "photoSource": "generated",
+ "photoFallbacks": 0,
+ "attempts": 2,
+ "problems": [
+  "body 'BOOK NOW & SAVE 50%': contrast 3.3:1 against what's behind it, needs 4.5:1",
+  "cta 'GRAB YOUR TICKETS NOW!': contrast 3.3:1 against what's behind it, needs 4.5:1"
+ ],
+ "backdrop": {
+  "side": "bottom",
+  "tone": "accent",
+  "angle": 20.0,
+  "split": 0.5,
+  "style": "diagonal_bands"
+ },
+ "contactIcons": [
+  "website",
+  "phone",
+  "address"
+ ],
+ "brandPalette": null,
+ "logoUrl": null,
+ "generationMs": 77965,
+ "timing": {
+  "planMs": 6405,
+  "saveMs": 627,
+  "totalMs": 77965,
+  "designMs": 70890,
+  "photosMs": 0
+ },
+ "llmCalls": [
+  {
+   "ms": 63484,
+   "step": "draft",
+   "outputTokens": 4411
+  },
+  {
+   "ms": 6032,
+   "step": "repair",
+   "outputTokens": 214
+  }
+ ],
+ "importedFrom": null,
+ "hasPreview": true,
+ "previewUrl": "https://e065-2402-e280-3e26-5d7-8cb4-876d-e5d1-df7f.ngrok-free.app/design-assets/public/lido-generated/drafts/69/preview.png"
+}

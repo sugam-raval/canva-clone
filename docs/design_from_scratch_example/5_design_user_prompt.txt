@@ -1,0 +1,77 @@
+CLIENT BRIEF:
+"""
+Create a vibrant, high-energy social media promotional poster for **Imagicaa Water Park** featuring an exciting **50% OFF ticket offer**. Make the design look like a premium summer adventure campaign filled with colorful water rides, thrilling attractions and joyful family experiences.
+
+Show a dynamic collage of multiple realistic water park attractions: a gigantic twisting water slide, high-speed racing slides, a giant wave pool, family raft ride, lazy river, kids splash zone and a huge tropical pool. Include happy families and groups of friends enjoying the rides, with realistic expressions, natural poses and energetic water splashes.
+
+Make a large **ticket-shaped promotional badge** one of the main visual elements. Design it like a colorful admission ticket with perforated edges, subtle ticket texture and bold typography:
+
+**50% OFF**
+**WATER PARK TICKETS**
+
+Add supporting offer text:
+
+**SUMMER SPLASH SALE**
+**LIMITED-TIME OFFER**
+**BOOK NOW & SAVE 50%**
+
+Include fictional test information:
+
+**IMAGICAA WATER PARK**
+**Imagicaa Road, Khopoli, Maharashtra 410203**
+**+91 98765 43210**
+**[www.imagicaawaterpark.example](http://www.imagicaawaterpark.example)**
+**Open Daily: 10:00 AM – 7:00 PM**
+
+Add attraction highlights:
+
+**Thrilling Water Slides • Wave Pool • Lazy River • Kids Splash Zone • Family Raft Rides**
+
+Add a strong CTA:
+
+**GRAB YOUR TICKETS NOW!**
+**MAKE A SPLASH THIS SUMMER**
+
+Create a visually exciting composition with the water rides forming the background and the large ticket-shaped **50% OFF** offer badge prominently overlapping the main imagery. Use bright tropical colors, crystal-clear water, dramatic sunlight, palm trees, colorful slides and cinematic water splashes. Make the poster feel like a professional amusement-park advertising campaign with excellent depth, realistic photography and strong visual hierarchy.
+
+Ensure the **50% OFF ticket badge, park name, offer, contact information and CTA** are immediately readable. Keep all text correctly spelled and visually clean, with no distorted typography, gibberish, duplicated rides or unnecessary text.
+"""
+
+DESIGN PLAN (from the art director — build exactly this)
+- Layout: steps_flow: Three numbered steps run left to right as a flow (chevrons, arrows or lines connecting them); headline above; one photo or one small photo per step.
+- Photos: exactly 3, each in its frame (frame = the photo's `frame` field when it is a frame name, otherwise its `clip`) and with its shape (its picture is already being made at that shape):
+  1. hero: A gigantic twisting water slide with happy families enjoying the ride — frame: rounded, portrait (w/h about 0.75)
+  2. supporting: High-speed racing slides with groups of friends racing down — frame: circle
+  3. supporting: A giant wave pool with energetic splashes and people having fun — frame: torn_paper
+- Text, use these exact words (roles map to text_type; price/date → badge, subhead → body):
+  - badge: '50% OFF'
+  - headline: 'WATER PARK TICKETS'
+  - subhead: 'SUMMER SPLASH SALE'
+  - body: 'LIMITED-TIME OFFER'
+  - body: 'BOOK NOW & SAVE 50%'
+  - kicker: 'IMAGICAA WATER PARK'
+  - address: 'Imagicaa Road, Khopoli, Maharashtra 410203'
+  - phone: '+91 98765 43210'
+  - website: 'www.imagicaawaterpark.example'
+  - body: 'Open Daily: 10:00 AM – 7:00 PM'
+  - cta: 'GRAB YOUR TICKETS NOW!'
+  - body: 'MAKE A SPLASH THIS SUMMER'
+  - list of 5 items — put ALL of them in ONE list element (it lays them out as 2 columns of 3): ['Thrilling Water Slides', 'Wave Pool', 'Lazy River', 'Kids Splash Zone', 'Family Raft Rides']
+- Logo: one small logo
+- Mood: bold_loud — feel: loud, high contrast, huge numbers or words, one dominant element, slanted energy; avoid: timid small type, lots of empty space, pastel softness
+- Features to use: shapes: octagon, parallelogram, chevron; hand-drawn: underline, sparkle; text effects: shadow; gradient: a strong band or a punchy two-colour background
+- Do NOT add: nothing excluded
+- Art direction: Ensure the ticket badge is prominently placed and the main attraction photos form the lively background. Use bright, high-contrast colors and maintain clear text readability with bold typography.
+- Contact icons: a small icon is added beside each website/phone/email/address line — leave about 50px free to the left of those lines
+BACKDROP — drawn for you underneath everything; do not draw it yourself and set background to null: two slanted bands (a 120px accent band, then a thin soft one) cross the canvas, starting along the line (0, 343) to (1080, 737) and running down from it — decoration, keep text off them.
+Text areas:
+- the plain canvas (about x 0-1080, y 0-1080): text in ink or accent
+- the plain canvas (about x 0-1080, y 360-840): text in ink or accent
+- the soft backdrop panel (about x 0-1020, y 480-900): text in ink
+Keep every text (and its pill or badge) entirely inside ONE area, never across an edge between areas. Photos and decoration may sit anywhere.
+
+Two existing pro layouts, to show the format and the level of detail expected — match their richness, do not copy their composition:
+{"name":"fresh_promo","background":null,"elements":[{"kind":"shape","x":822.0,"y":-168.0,"w":396.0,"h":396.0,"color":"accent","shape":"rhombus","bleed":true},{"kind":"dots","x":70.0,"y":400.0,"w":934.0,"h":412.0,"color":"accent","rows":7,"cols":8,"dot":8.0},{"kind":"logo","x":70.0,"y":50.0,"w":110.0,"h":89.21},{"kind":"text","x":190.0,"y":55.0,"w":700.0,"h":91.2,"color":"accent","text":"Just Dropped","text_type":"kicker","font":"script","size":76.0,"align":"center","max_lines":1,"uppercase":false,"letter_spacing":0.0,"line_height":1.2},{"kind":"text","x":60.0,"y":146.2,"w":960.0,"h":130.2,"color":"ink","text":"Summer Style Sale","text_type":"headline","font":"display","size":124.0,"align":"center","max_lines":2,"uppercase":true,"letter_spacing":0.0,"line_height":1.05},{"kind":"shape","x":366.5,"y":290.4,"w":347.0,"h":58.0,"color":"ink","shape":"rectangle","radius":29.0},{"kind":"text","x":366.5,"y":301.4,"w":347.0,"h":36.0,"color":"bg","text":"New Collection","text_type":"kicker","font":"button","size":30.0,"align":"center","max_lines":1,"uppercase":true,"letter_spacing":0.08,"line_height":1.2},{"kind":"photo","x":250.0,"y":398.4,"w":580.0,"h":546.6,"clip":"cutout","focus":0.4},{"kind":"shape","x":820.0,"y":430.0,"w":210.0,"h":210.0,"color":"accent","shape":"circle"},{"kind":"text","x":851.5,"y":462.2,"w":147.0,"h":28.0,"color":"on_accent","text":"Up to","text_type":"caption","font":"body","size":20.0,"align":"center","max_lines":1,"uppercase":true,"letter_spacing":0.15,"line_height":1.4},{"kind":"text","x":841.0,"y":490.2,"w":168.0,"h":117.6,"color":"on_accent","text":"50% Off","text_type":"badge","font":"display","size":56.0,"align":"center","max_lines":2,"uppercase":true,"letter_spacing":0.0,"line_height":1.05},{"kind":"shape","x":70.0,"y":560.0,"w":200.0,"h":120.0,"color":"bg","shape":"rectangle","radius":18.0,"stroke":"accent","stroke_width":3.0,"stroke_style":"dashed"},{"kind":"text","x":70.0,"y":580.1,"w":200.0,"h":25.2,"color":"accent","text":"Only","text_type":"caption","font":"body","size":18.0,"align":"center","max_lines":1,"uppercase":true,"letter_spacing":0.2,"line_height":1.4},{"kind":"text","x":80.0,"y":605.3,"w":180.0,"h":54.6,"color":"ink","text":"$29.99","text_type":"badge","font":"display","size":52.0,"align":"center","max_lines":1,"uppercase":false,"letter_spacing":0.0,"line_height":1.05},{"kind":"text","x":118.0,"y":950.0,"w":300.0,"h":25.2,"color":"accent","text":"Order now","text_type":"caption","font":"body","size":18.0,"align":"left","max_lines":1,"uppercase":true,"letter_spacing":0.15,"line_height":1.4},{"kind":"text","x":118.0,"y":977.2,"w":300.0,"h":36.4,"color":"ink","text":"+123-456-7890","text_type":"phone","font":"body","size":26.0,"align":"left","max_lines":1,"uppercase":false,"letter_spacing":0.0,"line_height":1.4},{"kind":"shape","x":70.0,"y":956.0,"w":34.0,"h":34.0,"color":"accent","shape":"circle"},{"kind":"shape","x":79.18,"y":965.18,"w":15.64,"h":15.64,"color":"bg","shape":"circle"},{"kind":"text","x":560.0,"y":950.0,"w":362.0,"h":25.2,"color":"accent","text":"Visit us","text_type":"caption","font":"body","size":18.0,"align":"right","max_lines":1,"uppercase":true,"letter_spacing":0.15,"line_height":1.4},{"kind":"text","x":560.0,"y":977.2,"w":362.0,"h":36.4,"color":"ink","text":"www.yourwebsite.com","text_type":"website","font":"body","size":26.0,"align":"right","max_lines":1,"uppercase":false,"letter_spacing":0.0,"line_height":1.4},{"kind":"shape","x":976.0,"y":956.0,"w":34.0,"h":34.0,"color":"accent","shape":"circle"},{"kind":"shape","x":985.18,"y":965.18,"w":15.64,"h":15.64,"color":"bg","shape":"circle"}]}
+{"name":"spotlight_launch","background":{"style":"radial","start":"soft","end":"bg","end_at":75.0},"elements":[{"kind":"shape","x":800.0,"y":44.0,"w":230.0,"h":24.0,"color":"accent","shape":"parallelogram"},{"kind":"shape","x":850.0,"y":82.0,"w":180.0,"h":24.0,"color":"accent","shape":"parallelogram","opacity":0.5},{"kind":"logo","x":70.0,"y":50.0,"w":110.0,"h":89.21},{"kind":"text","x":140.0,"y":165.0,"w":800.0,"h":67.2,"color":"accent","text":"Just Dropped","text_type":"kicker","font":"display","size":64.0,"align":"center","max_lines":1,"uppercase":true,"letter_spacing":0.0,"line_height":1.05,"effect":"hollow"},{"kind":"text","x":90.0,"y":236.2,"w":900.0,"h":115.5,"color":"ink","text":"Summer Style Sale","text_type":"headline","font":"display","size":110.0,"align":"center","max_lines":2,"uppercase":true,"letter_spacing":0.0,"line_height":1.05},{"kind":"draw","x":380.0,"y":355.7,"w":320.0,"h":26.0,"color":"accent","stroke_width":8.0,"draw":"underline"},{"kind":"photo","x":240.0,"y":403.7,"w":600.0,"h":439.32,"frame":"brush_band","focus":0.4},{"kind":"shape","x":690.0,"y":743.0208000458756,"w":290.0,"h":84.0,"color":"accent","shape":"arrowPentagon"},{"kind":"text","x":710.0,"y":758.77,"w":226.0,"h":52.5,"color":"on_accent","text":"$29.99","text_type":"badge","font":"display","size":50.0,"align":"center","max_lines":1,"uppercase":false,"letter_spacing":0.0,"line_height":1.05},{"kind":"draw","x":110.0,"y":643.0208000458756,"w":150.0,"h":120.0,"color":"accent","stroke_width":6.0,"draw":"arrow"},{"kind":"dots","x":930.0,"y":423.7,"w":52.0,"h":74.0,"color":"accent","rows":4,"cols":3,"dot":8.0},{"kind":"shape","x":410.5,"y":972.0,"w":259.0,"h":68.0,"color":"accent","shape":"rectangle","radius":34.0},{"kind":"text","x":410.5,"y":988.0,"w":259.0,"h":36.0,"color":"on_accent","text":"Shop Now","text_type":"cta","font":"button","size":30.0,"align":"center","max_lines":1,"uppercase":true,"letter_spacing":0.08,"line_height":1.2},{"kind":"line","x":70.0,"y":1004.5,"w":310.5,"h":3.0,"color":"accent","stroke_style":"dotted","line_start":"none","line_end":"circle"},{"kind":"line","x":699.5,"y":1004.5,"w":310.5,"h":3.0,"color":"accent","stroke_style":"dotted","line_start":"circle","line_end":"none"}]}
+
+Design the template: name, idea, colours, font set, photo theme, elements.

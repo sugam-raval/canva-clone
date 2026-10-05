@@ -1,0 +1,2547 @@
+[
+ {
+  "layers": {
+   "ROOT": {
+    "type": {
+     "type": "bgImage",
+     "fixedText": null,
+     "resolvedName": "RootLayer",
+     "replacableText": null
+    },
+    "child": [
+     "b9c71dda-91b6-4673-9f48-1212e73ce8ff",
+     "5f4d022f-3680-46c1-87e1-e2761a715163",
+     "6a3d7492-2675-4d20-a6dc-12f1c059207b",
+     "1229b4fc-25b8-4637-aa11-4850e450a337",
+     "f47d0555-9087-4b10-8432-b3b6e64894ad",
+     "8d722272-e184-42aa-95f8-d23b9b6d2e63",
+     "ecc5b44a-f2ed-4466-9a58-05199ab38e31",
+     "5270a9c6-9324-4d4d-90c0-25e2324f42c1",
+     "0f6e6d25-7178-4def-9966-a9ced3c770cf",
+     "84e6835d-9ca8-4bbe-aded-f0f2d61796a9",
+     "8f662940-cb5b-4189-ac9c-2e079e106b7c",
+     "54e877f3-a6d7-48e7-bc29-10bfbb653bc7",
+     "f111ffc0-7db0-42d5-90de-cf27fa3f612d",
+     "2c86ca86-8f98-46f5-bf8d-8f09624f11ed",
+     "e60c3c0b-b479-4b9c-a435-86e5676f0135",
+     "4ebdb79e-b778-4a0e-8ab9-e863e57e2a90",
+     "117b9a56-2c24-4c81-85c2-bdaea9fb6806",
+     "e90892cb-19d7-45b4-9e4d-6bc1e05f8a14",
+     "73ab7fab-d85b-4936-89d5-c3cd7484c6ad",
+     "3af1f494-c2eb-465d-a5dd-66c573c462a1",
+     "7a886dd5-a89b-48d5-89a9-f925f6555f9b",
+     "f783e260-b2f9-4471-b130-993e8ce300b7",
+     "354e18d1-91d3-4ddf-81ee-c5607c28aea0",
+     "32a98f20-de5a-4aa5-92a4-174b5df88c5f",
+     "9a490fea-a718-4801-b736-771415065a14",
+     "02a50429-bdc3-4898-8d6f-715b7a396bb1",
+     "76d97408-4777-488d-a409-e7264209affb",
+     "11cf2624-11db-40ed-a198-527a63a24662",
+     "6b4cd8a6-e08c-4d0d-95b1-865b269d38cb",
+     "315fb9bc-8fe0-4117-8205-244aaf5ffcfc",
+     "3d2f615f-1ea5-40d8-8116-05785170abe2",
+     "0d67ee96-667f-4243-85b2-be1b4083ee1e",
+     "e3407d98-745d-4d56-ad9d-8cc6e2c63611",
+     "f6b325f1-0204-4fcf-8d97-d2a2502e7482",
+     "c3615e11-8565-4f75-a19d-70ce1f1e9aae",
+     "9da5fd22-1c5c-4302-bf35-03b1f6298c1c",
+     "dbc14994-0fb2-4b3c-af1d-18eab698a055",
+     "b0d5a689-c5f0-43c0-8643-41656c7220da",
+     "6788492a-f168-4ea3-9c90-3bb52992dd28",
+     "dae18c81-3275-4736-abe0-fa44f05ee2cb",
+     "37cd6ae6-a32f-48ac-a226-aa5e2d7652cf",
+     "4df49d9f-de6d-4385-92c0-95e4c77fa44b",
+     "8bfdc537-aeaa-43de-96b1-e6d5898d080a",
+     "e28e3efb-2d44-4615-9818-1b3b318b5134",
+     "34bd6e6d-de84-4cb8-93be-1f212befdf48",
+     "45a0d6b8-e759-45b5-9a9c-1f78aa87ec6e",
+     "c8487a52-1c2f-4780-ac3e-7e99cb0744e7",
+     "bc2f5d2c-bb9b-4664-8e05-df9249bd79eb",
+     "f713ae36-905a-4b83-a91c-fb1a2721a210",
+     "bb9df62d-0b80-4207-85ca-d75041e0a2e1",
+     "798be971-cb40-4dce-acf3-c3dfe9e929c3",
+     "1c5c6375-42eb-40c7-b779-b078a2d0901e",
+     "dc87fd96-8ea9-4cd6-9e15-9665f05adfed",
+     "0bb908a8-00de-45d3-ac8c-4a867d9cc4a4"
+    ],
+    "props": {
+     "color": "rgb(255, 247, 214)",
+     "image": null,
+     "video": null,
+     "rotate": 0,
+     "boxSize": {
+      "width": 1080,
+      "height": 1080
+     },
+     "position": {
+      "x": 0,
+      "y": 0
+     }
+    },
+    "locked": false,
+    "parent": null
+   },
+   "02a50429-bdc3-4898-8d6f-715b7a396bb1": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "BOOK NOW & SAVE 50%"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(255, 247, 214)",
+         "indent": 0,
+         "fontSize": "29.0px",
+         "listType": "",
+         "textAlign": "center",
+         "fontFamily": "Anton",
+         "lineHeight": "1.12",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "uppercase"
+        },
+        "content": [
+         {
+          "text": "BOOK NOW & SAVE 50%",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(255, 247, 214)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Anton",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(255, 247, 214)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 186.0,
+      "height": 64.96
+     },
+     "position": {
+      "x": 779.0,
+      "y": 600.0
+     },
+     "fontSizes": [
+      29.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "0bb908a8-00de-45d3-ac8c-4a867d9cc4a4": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "DrawLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "path": "M 18.83,10.42 L 18.74,11.47 L 18.48,12.52 L 18.08,13.55 L 17.57,14.56 L 16.97,15.53 L 16.31,16.45 L 15.61,17.31 L 14.92,18.11 L 14.24,18.82 L 13.61,19.43 L 12.61,20.35 L 11.75,20.44 L 10.59,19.43 L 9.96,18.82 L 9.28,18.11 L 8.59,17.31 L 7.89,16.45 L 7.23,15.53 L 6.63,14.56 L 6.12,13.55 L 5.72,12.52 L 5.46,11.47 L 5.37,10.42 L 5.60,8.67 L 6.27,7.05 L 7.34,5.66 L 8.73,4.59 L 10.36,3.91 L 12.10,3.68 L 13.84,3.91 L 15.47,4.59 L 16.86,5.66 L 17.93,7.05 L 18.60,8.67 L 18.83,10.42 M 9.57,10.42 L 9.91,11.68 L 10.84,12.60 L 12.10,12.94 L 13.36,12.60 L 14.29,11.68 L 14.62,10.42 L 14.29,9.15 L 13.36,8.23 L 12.10,7.89 L 10.84,8.23 L 9.91,9.15 L 9.57,10.42",
+     "color": "rgb(7, 60, 99)",
+     "scale": 1,
+     "width": 2.0,
+     "rotate": 0,
+     "boxSize": {
+      "width": 24.2,
+      "height": 24.2
+     },
+     "position": {
+      "x": 120.0,
+      "y": 1010.0
+     },
+     "transparency": 1
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "0d67ee96-667f-4243-85b2-be1b4083ee1e": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(247, 71, 54)",
+     "scale": 5.0625,
+     "shape": "circle",
+     "rotate": 0,
+     "boxSize": {
+      "width": 17.22,
+      "height": 17.22
+     },
+     "position": {
+      "x": 65.0,
+      "y": 813.24
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "0f6e6d25-7178-4def-9966-a9ced3c770cf": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "LIMITED-TIME OFFER"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "22.0px",
+         "listType": "",
+         "textAlign": "right",
+         "fontFamily": "Montserrat",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0.04,
+         "textTransform": "uppercase"
+        },
+        "content": [
+         {
+          "text": "LIMITED-TIME OFFER",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Montserrat",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 345.0,
+      "height": 24.2
+     },
+     "position": {
+      "x": 664.0,
+      "y": 262.0
+     },
+     "fontSizes": [
+      22.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "117b9a56-2c24-4c81-85c2-bdaea9fb6806": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(247, 71, 54)",
+     "scale": 5.0625,
+     "shape": "chevron",
+     "rotate": 0,
+     "boxSize": {
+      "width": 45.0,
+      "height": 45.0
+     },
+     "position": {
+      "x": 697.0,
+      "y": 446.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "11cf2624-11db-40ed-a198-527a63a24662": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(255, 247, 214)",
+     "scale": 5.0625,
+     "shape": "rectangle",
+     "rotate": 0,
+     "boxSize": {
+      "width": 1080.0,
+      "height": 355.0
+     },
+     "position": {
+      "x": 0.0,
+      "y": 725.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "1229b4fc-25b8-4637-aa11-4850e450a337": {
+    "type": {
+     "type": "logo",
+     "fixedText": null,
+     "resolvedName": "FrameLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "image": {
+      "url": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+      "thumb": "https://assets.quickhub.ai/qh-assets/logo_black.png",
+      "rotate": 0,
+      "boxSize": {
+       "width": 110,
+       "height": 89
+      },
+      "position": {
+       "x": 0,
+       "y": 0
+      }
+     },
+     "scale": 1,
+     "style": {
+      "width": "110px",
+      "height": "89px",
+      "display": "flex",
+      "overflow": "hidden",
+      "alignItems": "center",
+      "justifyContent": "center"
+     },
+     "rotate": 0,
+     "boxSize": {
+      "width": 110,
+      "height": 89
+     },
+     "position": {
+      "x": 70.0,
+      "y": 38.0
+     },
+     "imageStyle": {
+      "width": "100%",
+      "height": "100%",
+      "display": "block",
+      "objectFit": "contain"
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "1c5c6375-42eb-40c7-b779-b078a2d0901e": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "DrawLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "path": "M 3.68,12.10 L 3.97,14.28 L 4.81,16.31 L 6.15,18.05 L 7.89,19.39 L 9.92,20.23 L 12.10,20.52 L 14.28,20.23 L 16.31,19.39 L 18.05,18.05 L 19.39,16.31 L 20.23,14.28 L 20.52,12.10 L 20.23,9.92 L 19.39,7.89 L 18.05,6.15 L 16.31,4.81 L 14.28,3.97 L 12.10,3.68 L 9.92,3.97 L 7.89,4.81 L 6.15,6.15 L 4.81,7.89 L 3.97,9.92 L 3.68,12.10 L 3.68,12.10 M 12.10,3.68 L 11.11,4.87 L 10.27,6.17 L 9.61,7.57 L 9.12,9.04 L 8.83,10.56 L 8.73,12.10 L 8.83,13.64 L 9.12,15.16 L 9.61,16.63 L 10.27,18.03 L 11.11,19.33 L 12.10,20.52 L 13.09,19.33 L 13.93,18.03 L 14.59,16.63 L 15.08,15.16 L 15.37,13.64 L 15.47,12.10 L 15.37,10.56 L 15.08,9.04 L 14.59,7.57 L 13.93,6.17 L 13.09,4.87 L 12.10,3.68 M 3.68,12.10 L 20.52,12.10",
+     "color": "rgb(7, 60, 99)",
+     "scale": 1,
+     "width": 2.0,
+     "rotate": 0,
+     "boxSize": {
+      "width": 24.2,
+      "height": 24.2
+     },
+     "position": {
+      "x": 581.0,
+      "y": 960.0
+     },
+     "transparency": 1
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "2c86ca86-8f98-46f5-bf8d-8f09624f11ed": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(7, 60, 99)",
+     "scale": 5.0625,
+     "shape": "octagon",
+     "rotate": 0,
+     "boxSize": {
+      "width": 64.0,
+      "height": 64.0
+     },
+     "position": {
+      "x": 399.0,
+      "y": 320.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "315fb9bc-8fe0-4117-8205-244aaf5ffcfc": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "DrawLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "path": "M 1.92,6.90 C 2.15,6.72 2.91,5.91 3.29,5.79 C 3.68,5.66 3.89,6.17 4.22,6.18 C 4.55,6.19 4.92,6.02 5.27,5.85 C 5.61,5.68 5.91,5.34 6.30,5.14 C 6.68,4.93 7.21,4.78 7.58,4.63 C 7.96,4.48 8.38,4.30 8.54,4.24",
+     "color": "rgb(255, 247, 214)",
+     "scale": 1,
+     "width": 2.0,
+     "rotate": 0,
+     "boxSize": {
+      "width": 10.6764,
+      "height": 10.6764
+     },
+     "position": {
+      "x": 68.2718,
+      "y": 749.3118
+     },
+     "transparency": 1
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "32a98f20-de5a-4aa5-92a4-174b5df88c5f": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "LineLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(255, 255, 255)",
+     "scale": 1,
+     "style": "shortDashes",
+     "rotate": 90.0,
+     "boxSize": {
+      "width": 110.0,
+      "height": 3.0
+     },
+     "arrowEnd": "none",
+     "position": {
+      "x": 698.0,
+      "y": 636.0
+     },
+     "arrowStart": "none"
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "34bd6e6d-de84-4cb8-93be-1f212befdf48": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(247, 71, 54)",
+     "scale": 5.0625,
+     "shape": "rectangle",
+     "rotate": 0,
+     "boxSize": {
+      "width": 374.0,
+      "height": 67.0
+     },
+     "position": {
+      "x": 638.0,
+      "y": 799.0
+     },
+     "roundedCorners": 51
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "354e18d1-91d3-4ddf-81ee-c5607c28aea0": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(255, 247, 214)",
+     "scale": 5.0625,
+     "shape": "circle",
+     "rotate": 0,
+     "boxSize": {
+      "width": 26.0,
+      "height": 26.0
+     },
+     "position": {
+      "x": 986.0,
+      "y": 623.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "37cd6ae6-a32f-48ac-a226-aa5e2d7652cf": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(247, 71, 54)",
+     "scale": 5.0625,
+     "shape": "circle",
+     "rotate": 0,
+     "boxSize": {
+      "width": 17.22,
+      "height": 17.22
+     },
+     "position": {
+      "x": 361.5,
+      "y": 785.9399999999999
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "3af1f494-c2eb-465d-a5dd-66c573c462a1": {
+    "type": {
+     "type": "static",
+     "fixedText": "03",
+     "resolvedName": "TextLayer",
+     "replacableText": ""
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(255, 247, 214)",
+         "indent": 0,
+         "fontSize": "34.0px",
+         "listType": "",
+         "textAlign": "center",
+         "fontFamily": "Anton",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "03",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(255, 247, 214)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Anton",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(255, 247, 214)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 46.0,
+      "height": 37.4
+     },
+     "position": {
+      "x": 755.0,
+      "y": 331.0
+     },
+     "fontSizes": [
+      34.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "3d2f615f-1ea5-40d8-8116-05785170abe2": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "Thrilling Water Slides"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "21.0px",
+         "listType": "",
+         "textAlign": "left",
+         "fontFamily": "Montserrat",
+         "lineHeight": "1.3",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "Thrilling Water Slides",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Montserrat",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 219.75,
+      "height": 54.6
+     },
+     "position": {
+      "x": 93.75,
+      "y": 741.0
+     },
+     "fontSizes": [
+      21.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "45a0d6b8-e759-45b5-9a9c-1f78aa87ec6e": {
+    "type": {
+     "type": "static",
+     "fixedText": "GRAB YOUR TICKETS NOW!",
+     "resolvedName": "TextLayer",
+     "replacableText": ""
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(255, 247, 214)",
+         "indent": 0,
+         "fontSize": "28.0px",
+         "listType": "",
+         "textAlign": "center",
+         "fontFamily": "Anton",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "uppercase"
+        },
+        "content": [
+         {
+          "text": "GRAB YOUR TICKETS NOW!",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(255, 247, 214)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Anton",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(255, 247, 214)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 348.0,
+      "height": 30.8
+     },
+     "position": {
+      "x": 651.0,
+      "y": 818.0
+     },
+     "fontSizes": [
+      28.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "4df49d9f-de6d-4385-92c0-95e4c77fa44b": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "DrawLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "path": "M 2.01,6.34 C 2.23,6.33 2.95,6.47 3.30,6.28 C 3.64,6.09 3.76,5.50 4.08,5.21 C 4.41,4.93 4.83,4.55 5.26,4.58 C 5.68,4.62 6.25,5.49 6.62,5.43 C 6.99,5.36 7.15,4.32 7.49,4.19 C 7.83,4.06 8.46,4.56 8.65,4.64",
+     "color": "rgb(255, 247, 214)",
+     "scale": 1,
+     "width": 2.0,
+     "rotate": 0,
+     "boxSize": {
+      "width": 10.6764,
+      "height": 10.6764
+     },
+     "position": {
+      "x": 364.7718,
+      "y": 789.2117999999999
+     },
+     "transparency": 1
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "4ebdb79e-b778-4a0e-8ab9-e863e57e2a90": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(247, 71, 54)",
+     "scale": 5.0625,
+     "shape": "chevron",
+     "rotate": 0,
+     "boxSize": {
+      "width": 45.0,
+      "height": 45.0
+     },
+     "position": {
+      "x": 346.0,
+      "y": 446.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "5270a9c6-9324-4d4d-90c0-25e2324f42c1": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "DrawLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "path": "M 4.55,7.23 C 12.35,7.19 35.69,7.13 51.31,7.02 C 66.93,6.90 82.64,6.73 98.25,6.52 C 113.85,6.30 129.30,5.88 144.93,5.73 C 160.57,5.58 176.40,5.54 192.06,5.63 C 207.72,5.72 223.33,6.19 238.90,6.29 C 254.48,6.40 277.75,6.27 285.52,6.27",
+     "color": "rgb(247, 71, 54)",
+     "scale": 1,
+     "width": 7.0,
+     "rotate": 0,
+     "boxSize": {
+      "width": 290.0,
+      "height": 12.0
+     },
+     "position": {
+      "x": 72.0,
+      "y": 267.0
+     },
+     "transparency": 1.0
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "54e877f3-a6d7-48e7-bc29-10bfbb653bc7": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "FrameLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "image": {
+      "url": "https://e065-2402-e280-3e26-5d7-8cb4-876d-e5d1-df7f.ngrok-free.app/design-assets/public/lido-generated/drafts/photo-f9f8ee7619e44eba89d8a18763a33bf3.png",
+      "thumb": "https://e065-2402-e280-3e26-5d7-8cb4-876d-e5d1-df7f.ngrok-free.app/design-assets/public/lido-generated/drafts/photo-f9f8ee7619e44eba89d8a18763a33bf3.png",
+      "rotate": 0,
+      "boxSize": {
+       "width": 186.967,
+       "height": 158.11857617187502
+      },
+      "position": {
+       "x": 0.0,
+       "y": -0.009288085937512847
+      }
+     },
+     "scale": 1.711531981579637,
+     "rotate": 0,
+     "boxSize": {
+      "width": 320.0,
+      "height": 270.59
+     },
+     "clipPath": "M 186.9 139.8 c -0.1 -39.5 -1.3 -92.9 -1.3 -132.3 c 0 -0.6 0.1 -1.2 0.1 -1.7 c -0.1 -0.1 -0.2 -0.1 -0.3 -0.2 c 0 0 -0.1 0.1 -0.1 0.2 c -0.2 0.5 -0.6 0.5 -1 0.5 c -0.5 -0.1 -1 -0.6 -1.6 -0.4 c -0.2 0.1 -0.6 -0.1 -0.7 -0.3 c -0.3 -0.4 -0.7 -0.4 -1.1 -0.2 c -0.2 0.1 -0.4 0 -0.6 0 c -0.3 0 -0.7 -0.1 -1 -0.2 c -0.1 0 -0.3 -0.1 -0.4 -0.1 c -0.3 -0.1 -0.6 -0.4 -0.9 0 c 0 0 -0.2 0 -0.3 -0.1 c -0.1 -0.2 -0.2 -0.5 -0.3 -0.7 c -0.2 -0.3 -0.2 -0.8 -0.5 -1 c -0.2 -0.1 -0.3 -0.2 -0.4 -0.4 c 0 -0.1 -0.2 -0.2 -0.2 -0.3 l -0.3 -0.3 c -0.1 -0.2 -0.2 -0.5 -0.4 -0.6 c -0.4 -0.3 -0.5 -0.7 -0.3 -1.2 c -0.3 -0.1 -0.5 -0.3 -0.8 -0.3 c -1.2 0.1 -2.5 0.3 -3.7 0.4 c -0.2 0 -0.5 0.1 -0.6 0.2 c -0.8 0.5 -1.6 0.1 -2.4 0 c -0.6 0 -1.2 -0.3 -1.8 -0.4 c -0.7 -0.1 -1.3 0 -2 -0.1 c -0.1 0 -0.2 -0.1 -0.3 -0.2 c -0.2 -0.3 -0.6 -0.2 -0.8 -0.1 c -0.3 0.2 -0.4 0.5 -0.6 0.8 c -0.5 0.1 -1.2 0.2 -1.7 0.5 c -0.4 0.2 -0.6 0.3 -0.9 0.1 l -0.1 0.1 c 0.2 0.2 0.3 0.5 0.5 0.7 c -0.3 0.1 -0.7 0.3 -0.9 0.2 c -0.5 -0.1 -0.7 0.1 -1.1 0.3 c -0.4 0.3 -0.9 0.5 -1.3 0.7 c -0.1 0 -0.2 0 -0.3 -0.1 c -0.1 0 -0.2 -0.1 -0.2 -0.1 c -0.5 0.2 -1 0.4 -1.5 0.2 c -0.1 0 -0.1 0.1 -0.2 0.1 c -0.6 0.2 -1 0.9 -1.8 0.9 c -0.6 0 -1.2 0.5 -1.8 0.5 c -0.7 0.1 -1.3 0.3 -1.9 0.6 c -0.2 0.1 -0.4 0.1 -0.5 0.1 c -0.5 -0.2 -0.8 0.1 -1 0.4 c -0.5 0.7 -1.3 0.9 -2 1.1 c -0.9 0.2 -1.8 0.3 -2.7 0.4 c -0.1 0 -0.2 0.3 -0.4 0.4 c -0.1 0 -0.2 -0.1 -0.2 -0.1 c -0.5 0.6 -0.8 1.5 -1.8 1.4 h -0.1 c -0.8 0.5 -1.6 0.3 -2.3 0.1 c -0.2 0 -0.5 -0.2 -0.6 -0.4 c -0.3 -0.6 -1.1 -0.8 -1.7 -0.6 c -0.5 0.2 -1 0.3 -1.5 0.5 c -0.8 0.2 -1.5 0.3 -2.3 -0.1 s -1.4 -0.1 -1.8 0.8 c -0.3 0.6 -1.1 0.7 -1.6 0.2 c -0.3 -0.3 -0.5 -0.2 -0.8 0 l -0.6 0.6 c -0.1 0.1 -0.3 0.1 -0.4 0.1 h -0.6 c -0.4 0 -0.8 -0.1 -1.2 -0.2 c -0.5 -0.1 -0.9 -0.4 -1.4 -0.5 c -0.8 -0.1 -1 -0.8 -1.3 -1.3 c -0.2 -0.3 -0.6 -0.7 -1 -0.6 c -0.4 0.2 -0.8 0 -1.1 -0.1 c -0.1 0 -0.3 -0.1 -0.4 -0.1 c -0.7 -0.2 -1.2 0.2 -1.7 0.7 l -0.4 0.4 c -0.1 0.1 -0.1 0.3 -0.2 0.4 c -0.6 0.5 -1.2 0.3 -1.9 0 c -0.6 -0.3 -1.3 0 -1.5 0.6 c -0.1 0.4 -0.2 0.7 -0.7 0.9 c -0.5 0.3 -1.1 0.5 -1.2 1.2 c 0 0.1 -0.1 0.2 -0.2 0.2 c -0.3 0.1 -0.5 0.2 -0.8 0.3 h -0.9 c -0.6 -0.1 -1.2 -0.3 -1.8 -0.4 c -0.7 -0.1 -1.3 0.3 -2 0.4 l -0.1 0.1 c -0.2 0.3 -0.5 0.2 -0.7 0 c -0.4 -0.4 -1.1 -0.5 -1.6 -0.3 c -0.6 0.3 -1.2 0.5 -1.8 0.7 c -0.2 0 -0.4 -0.1 -0.5 -0.1 c -0.2 0 -0.5 -0.1 -0.6 0 c -0.8 0.6 -1.6 0.4 -2.3 0 c -0.4 -0.2 -1 -0.4 -1.2 -1 c -0.1 -0.4 -0.5 -0.8 -0.8 -1.1 c -0.5 -0.5 -1 -1.2 -1.9 -1.2 c -0.2 0 -0.4 -0.4 -0.5 -0.3 c -0.4 0.1 -0.4 -0.1 -0.6 -0.3 s -0.5 -0.4 -0.7 -0.7 c -0.3 -0.4 -0.6 -0.9 -0.9 -1.3 s -0.5 -0.9 -0.8 -1.3 c -0.1 -0.1 -0.4 -0.2 -0.5 -0.1 l -1.2 0.6 c -0.2 0.1 -0.3 0.3 -0.4 0.5 l -0.1 -0.1 c 0.1 -0.3 0.2 -0.6 0.3 -0.7 l -1.2 -0.3 c -0.3 -0.1 -0.8 -0.1 -1 -0.1 h -1.6 c -0.6 0 -1.1 -0.1 -1.7 0 c -0.4 0.1 -0.7 -0.1 -1 -0.3 c -0.8 -0.6 -1.6 -1.3 -2.7 -1 c -0.1 0 -0.3 -0.1 -0.4 -0.2 c -0.3 -0.1 -0.5 -0.3 -0.9 -0.5 c 0 0.3 0 0.4 0.1 0.6 c -0.2 0.2 -0.3 0.1 -0.4 0 c -0.1 0.1 -0.2 0.3 -0.3 0.3 c -0.5 0.2 -1 0.3 -1.5 0.5 c -0.2 0.1 -0.4 0.2 -0.5 0.3 c -0.4 0.3 -0.7 0.8 -1.4 0.7 c -0.1 0 -0.3 0.2 -0.5 0.2 c -0.2 0.1 -0.5 0.1 -0.7 0.2 h -0.2 c -0.6 0.2 -1.1 0.4 -1.7 0.5 h -0.4 c -0.5 0 -0.9 -0.1 -1.4 -0.1 s -1 0.2 -1.5 0.2 c -0.6 0 -1.3 0 -1.8 -0.4 c -0.1 -0.1 -0.4 -0.1 -0.6 0 c -0.7 0.1 -1.4 0.2 -2 0.4 s -0.9 0 -1.1 -0.5 c -0.1 -0.2 -0.3 -0.4 -0.5 -0.6 c -0.3 -0.2 -0.6 -0.5 -0.9 -0.5 c -0.7 0 -1.1 -0.4 -1.6 -0.7 c -0.8 -0.5 -1.5 -1.1 -2.5 -1 v -0.5 c 0.2 0 0.4 0 0.6 -0.1 c -0.3 -0.2 -0.3 -0.5 -0.5 -0.7 c -0.4 -0.3 -0.8 -0.4 -1.2 -0.6 c -0.3 -0.1 -0.7 -0.1 -0.5 0.4 c -0.5 0.1 -0.9 0.1 -1.1 0.3 c -0.4 0.3 -0.8 0.1 -1.1 -0.1 c -0.2 -0.1 -0.4 -0.2 -0.6 -0.1 c -1.2 0.6 -2.4 0.3 -3.6 0.3 c -0.2 0 -0.4 -0.1 -0.7 -0.1 c -0.4 -0.1 -0.7 -0.3 -1.1 -0.4 s -0.9 -0.2 -1.3 -0.3 h -0.3 c -0.7 0 -1.4 0.1 -2 0.1 c -0.5 0 -1 -0.2 -1.6 -0.3 c -0.1 -0.8 -0.9 -0.6 -1.4 -1 c -0.1 -0.1 -0.3 0 -0.4 0 c -0.6 -0.1 -1 0.2 -1.2 0.7 c -0.3 0.5 -1.1 0.7 -0.8 1.5 c 0.1 0.1 0.3 0.2 0.4 0.4 c 0 0.3 -0.1 0.5 -0.4 0.4 c -0.1 0 -0.2 0.2 -0.3 0.3 s -0.1 0.3 -0.2 0.3 c -0.6 0.2 -1 0.7 -1.7 0.6 h -0.2 c -0.6 0.5 -1.2 0.4 -1.9 0.3 c -0.3 -0.1 -0.7 0 -1.1 0 c -0.3 0 -0.6 0 -0.9 -0.2 c -0.4 -0.2 -0.8 -0.5 -1.2 -0.7 s -0.9 -0.2 -0.9 -0.9 c 0 -0.1 -0.2 -0.2 -0.2 -0.3 c -0.7 0.6 -1.3 1.1 -1.9 1.6 c -0.3 0.3 -0.7 0.7 -0.5 1.2 c 0 0.1 -0.1 0.2 -0.1 0.3 c -0.1 0.2 -0.2 0.4 -0.4 0.5 c -0.2 0.3 -0.4 0.6 -0.6 1 l -0.6 0.6 c -0.2 0.3 -0.4 0.6 -0.7 0.8 c -0.7 0.6 -1.4 1.2 -2.2 1.8 c -0.4 0.4 -0.9 0.7 -1.3 1.1 c -0.7 0.6 -1.5 1.1 -1.9 2 c 0 0.1 -0.2 0.2 -0.3 0.3 c -0.5 0.4 -1.3 0.4 -1.3 1.2 c -0.8 0 -1.2 0.6 -1.6 1.1 c -0.3 0.4 -0.6 0.9 -1 1.2 c -0.4 0.2 -0.9 0.1 -1.4 0.1 c -0.2 0 -0.4 0 -0.4 0.1 c -0.4 0.4 -0.9 0.7 -1.2 1.2 s -0.6 0.8 -1.1 0.9 s -1 0.6 -1.7 0.3 c -0.6 -0.2 -1.3 0 -1.7 -0.4 c -0.8 0.1 -1.4 0.3 -2.1 0.4 c -0.8 0.2 -1.7 0.1 -2.4 0.7 c -0.6 0.5 -1.1 1 -2 0.9 c 0.1 0.6 0.2 1.1 0.3 1.7 c 0.2 1.6 0.4 3.2 0.5 4.8 c 0.3 2 0.4 3.9 0.2 5.8 c -0.2 2.7 -1.1 95.1 -2 97.6 l -0.9 2.1 c -0.2 0.5 0.1 0.8 0.6 0.9 c 0.6 0.1 0.8 0.5 1 1 c 0.2 0.8 -0.1 1.6 0.3 2.4 c 0.2 0.4 0 1.1 -0.1 1.7 c -0.1 0.8 0.1 1.6 0.4 2.3 c 0.7 1.2 0.8 2.6 0.8 3.9 c 0 0.3 0.1 0.6 0.2 0.8 c 0.2 0.2 0.6 0.4 1 0.5 l 2.4 1.2 c 1.1 0.6 2 0.5 3 -0.2 c 0.1 -0.1 0.4 -0.2 0.5 -0.2 c 0.7 0.1 1.4 0.1 2 0.7 c 0.7 0.6 1.7 1 2.5 1.5 c 0.5 0.3 1.1 0.7 1.4 1.1 c 0.2 0.2 0.4 0.4 0.6 0.5 c 1.1 0.4 1.7 1.4 2.4 2.2 c 0.6 0.7 1.4 1.1 2.3 1.2 c 1 0.2 2 0.3 3 0.5 c 0.4 0.1 0.9 0.2 1.3 0.4 c 0.5 0.2 1 0.2 1.4 0.5 c 0.6 0.5 1.2 0.8 2 0.6 c 0.3 -0.1 0.7 0.1 1 0.2 c 0.1 0 0.2 0.1 0.3 0.1 c 1.1 0.1 2.1 -0.1 3.1 -0.3 c 0.4 -0.1 0.8 -0.2 1.2 -0.4 c 1.1 -0.5 2.2 -1 3.2 -1.6 c 0.7 -0.4 1.4 -0.8 2.2 -0.4 h 0.4 c 0.7 0 1.4 -0.1 2 -0.2 c 0.1 0 0.3 0 0.3 -0.1 c 0.3 -0.4 0.8 -0.4 1.3 -0.5 c 0.8 -0.1 1.6 -0.1 2.2 -0.6 c 0.6 -0.4 1.2 -0.5 1.9 -0.6 c 0.1 0 0.3 -0.1 0.4 -0.1 c 0.5 -0.1 1 -0.4 1.4 -0.3 c 0.9 0.2 1.3 -0.1 1.9 -0.9 c 0.1 -0.2 0.4 -0.3 0.6 -0.4 c 0.5 -0.1 1 0 1.5 -0.1 c 0.3 0 0.6 -0.3 0.8 -0.3 c 0.8 0.1 1.7 -0.2 2.4 0.3 c 0.1 0.1 0.3 0.1 0.5 0.1 c 1.3 0.1 2.4 0.5 3.3 1.3 c 0.3 0.3 0.7 0.5 1 0.7 s 0.7 0.2 1 0.3 s 0.5 0.2 0.8 0.2 c 0.5 0 0.9 0.2 1.2 0.6 c 0.1 0.1 0.2 0.2 0.3 0.4 c -0.1 0.3 0.5 1.1 0.9 1.1 c 0.7 0 1.4 0.2 2 0.7 c 0.1 0.1 0.3 0.1 0.5 0 c 0.3 -0.1 0.5 -0.1 0.7 0.2 c 0.1 0.1 0.5 0.1 0.7 0.1 c 0.5 0 1.1 -0.1 1.6 0 c 0.9 0.1 1.7 0.2 2.6 0.4 c 0.2 0 0.4 0.1 0.5 0.2 c 0.2 0.5 0.7 0.5 1 0.6 s 0.7 0.2 0.9 0.2 c 0.1 -0.1 0.3 -0.2 0.5 -0.4 c -0.4 0 -0.6 0.1 -0.8 0.1 c 0.4 -0.5 0.8 -0.6 1.3 -0.3 c 0.6 0.5 1.1 0.5 1.8 0 l 0.6 -0.3 v -0.5 c 0.3 0.1 0.6 0.3 0.8 0.3 c 0.6 -0.3 1.2 -0.6 1.7 -1 c 0.6 -0.4 1.1 -0.9 1.6 -1.3 c 0.1 0 0.1 -0.1 0.2 -0.1 c 0.7 -0.2 1.3 -0.3 2 -0.5 c 0.4 -0.1 0.7 -0.3 1.1 -0.4 c 0.3 -0.1 0.5 -0.1 0.8 -0.2 h 1 c 0.2 0 0.5 0 0.7 -0.1 c 0.1 -0.2 0.3 -0.5 0.4 -0.5 c 0.3 0 0.5 0.2 0.8 0.3 c 0.1 0 0.1 0.1 0.1 0.2 c 0.4 0.4 0.7 0.9 1.1 1.3 c 0.5 0.5 1 0.5 1.3 0.2 c 0.5 -0.4 0.9 -0.7 1.6 -0.5 c 0.1 0 0.3 0.1 0.4 0 c 0.5 -0.2 1.1 -0.4 1.6 -0.7 c 0.3 -0.1 0.7 -0.1 0.8 -0.3 c 0.3 -0.6 0.8 -0.9 1.3 -1.3 c 0.3 -0.3 0.6 -0.7 0.9 -0.8 c 0.7 -0.2 1.2 -0.8 1.8 -1.2 c 0.5 -0.3 0.8 -0.9 1.3 -1 c 0.8 -0.2 1.4 -0.7 2.1 -1.2 c 0.4 -0.3 0.9 -0.5 1.4 -0.4 c 0.3 0.1 0.7 0 0.9 -0.1 c 0.4 -0.2 0.8 -0.5 1.2 -0.7 c 0.3 -0.2 0.6 -0.4 0.9 -0.4 c 1 -0.1 1.8 -0.3 2.3 -1.3 c 0.2 -0.4 1.2 -0.9 1.6 -0.7 c 0.7 0.3 1.2 0.1 1.6 -0.5 c 0.3 -0.3 0.7 -0.2 1 0 c 0.2 0.2 0.4 0.3 0.6 0.3 c 0.7 0.1 1.5 0 2.2 0.1 c 0.6 0.1 1.2 -0.1 1.6 -0.5 s 0.7 -0.4 1.3 -0.2 c 0.5 0.2 0.9 0.7 1.6 0.6 c 0.6 -0.1 1.3 0.2 2 -0.1 h 0.4 c 0.6 0.2 1.2 0.3 1.7 0.8 c 0.6 0.5 0.7 -3.2 1.3 -2.8 c 0.9 0.6 0.7 0 1.6 0.5 c 0.7 0.3 0.4 -0.8 1.2 -0.6 c 0.1 0 1.3 0.8 1.3 0.7 c 0.5 -0.3 1 -3.3 1.5 -3.2 c 1 0.3 1.9 0.1 2.8 -0.3 c 0.5 -0.2 1.3 -0.9 1.7 -0.6 c 0.7 0.5 1.4 0.7 2.2 0.8 c 0.1 0 0.2 0.1 0.3 0.2 c 0.3 0.4 1.7 -0.7 2 -0.3 c 0.4 0.6 0.8 1.2 1.2 1.7 c 0.2 0.2 0.5 0.3 0.6 0.5 c 0.1 0.5 0.3 0.7 0.8 0.7 c 0.3 0 0.6 0.1 0.8 0.3 c 0.5 0.3 0.9 0.6 1.3 0.9 c 0.5 0.3 1 0.6 1.2 1.1 c 0.1 0.2 0.2 0.3 0.3 0.4 c 0.4 0.4 0.8 0.7 1.2 1.1 c 0.6 0.5 1.1 1.1 1.7 1.6 c 0.2 0.1 0.4 0.3 0.6 0.4 c 0.4 0.2 0.8 0.4 1.1 0.7 s 1.7 -1.5 1.9 -1.1 c 0 0.1 0.1 0.1 0.2 0.1 c 0.6 0.5 1.2 0.3 1.8 0.1 c 0.2 -0.1 0.4 -0.2 0.5 -0.1 c 0.7 0.3 1.2 1 2.1 1.1 c 0 0 0.1 0 0.1 0.1 c 0.2 0.6 0.8 0.6 1.3 0.7 c 0.3 0 0.6 0.1 0.8 0.2 c 0.6 0.3 1.2 0.7 1.9 0.9 c 0.9 0.3 1.8 0.5 2.5 1 c 0.1 0 0.2 0 0.2 0.1 c 0.3 0.2 0.8 0.3 1 0.6 c 0.3 0.6 1.1 0.5 1.5 1 h 0.1 c 0.4 0 0.8 0.1 1.3 0.1 c 0.2 -0.1 0.5 -0.3 0.7 -0.3 c 0.9 0.3 1.8 0.3 2.4 -0.5 c 0.1 -0.1 0.3 -0.1 0.5 -0.1 h 0.8 c 0.9 -0.2 1.7 -0.4 2.6 -0.5 c 0.4 -0.1 0.9 0.1 1.3 0.2 s 0.8 0.1 1.2 0.1 c 0.5 0 0.9 -0.2 1.4 -0.2 c 0.4 -0.1 0.9 -0.1 1.3 -0.2 c 0.9 -0.2 1.7 -0.4 2.6 -0.5 c 0.6 -3.4 0.5 -7.4 0.5 -11.5 Z",
+     "position": {
+      "x": 729.0,
+      "y": 323.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "5f4d022f-3680-46c1-87e1-e2761a715163": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(188, 238, 235)",
+     "scale": 5.0625,
+     "shape": "rectangle",
+     "rotate": 20.0,
+     "boxSize": {
+      "width": 2600.0,
+      "height": 44.0
+     },
+     "position": {
+      "x": -767.52,
+      "y": 692.37
+     },
+     "transparency": 0.9
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "6788492a-f168-4ea3-9c90-3bb52992dd28": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "DrawLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "path": "M 2.01,6.59 C 2.23,6.41 2.99,5.67 3.33,5.51 C 3.67,5.35 3.68,5.78 4.03,5.65 C 4.38,5.53 4.97,4.92 5.41,4.76 C 5.86,4.60 6.32,4.79 6.70,4.70 C 7.07,4.61 7.30,4.21 7.64,4.22 C 7.97,4.24 8.53,4.70 8.70,4.80",
+     "color": "rgb(255, 247, 214)",
+     "scale": 1,
+     "width": 2.0,
+     "rotate": 0,
+     "boxSize": {
+      "width": 10.6764,
+      "height": 10.6764
+     },
+     "position": {
+      "x": 364.7718,
+      "y": 749.3118
+     },
+     "transparency": 1
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "6a3d7492-2675-4d20-a6dc-12f1c059207b": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": {
+      "angle": 90.0,
+      "style": "linear",
+      "colors": [
+       {
+        "color": "rgba(247, 71, 54, 1)",
+        "percent": 0
+       },
+       {
+        "color": "rgba(7, 60, 99, 1)",
+        "percent": 100.0
+       }
+      ]
+     },
+     "scale": 5.0625,
+     "shape": "parallelogram",
+     "rotate": 0,
+     "boxSize": {
+      "width": 220.0,
+      "height": 18.0
+     },
+     "position": {
+      "x": 800.0,
+      "y": 36.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "6b4cd8a6-e08c-4d0d-95b1-865b269d38cb": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(247, 71, 54)",
+     "scale": 5.0625,
+     "shape": "circle",
+     "rotate": 0,
+     "boxSize": {
+      "width": 17.22,
+      "height": 17.22
+     },
+     "position": {
+      "x": 65.0,
+      "y": 746.04
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "73ab7fab-d85b-4936-89d5-c3cd7484c6ad": {
+    "type": {
+     "type": "static",
+     "fixedText": "02",
+     "resolvedName": "TextLayer",
+     "replacableText": ""
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(255, 247, 214)",
+         "indent": 0,
+         "fontSize": "34.0px",
+         "listType": "",
+         "textAlign": "center",
+         "fontFamily": "Anton",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "02",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(255, 247, 214)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Anton",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(255, 247, 214)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 46.0,
+      "height": 37.4
+     },
+     "position": {
+      "x": 408.0,
+      "y": 331.0
+     },
+     "fontSizes": [
+      34.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "76d97408-4777-488d-a409-e7264209affb": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "DrawLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "path": "M 21.51,34.03 L 8.54,24.79 M 27.91,30.45 L 26.81,14.56 M 35.69,34.33 L 49.05,25.66",
+     "color": "rgb(247, 71, 54)",
+     "scale": 1,
+     "width": 6.0,
+     "rotate": 12.0,
+     "boxSize": {
+      "width": 57.0,
+      "height": 43.0
+     },
+     "position": {
+      "x": 947.0,
+      "y": 509.0
+     },
+     "transparency": 1.0
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "798be971-cb40-4dce-acf3-c3dfe9e929c3": {
+    "type": {
+     "type": "website",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "www.imagicaawaterpark.example"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "22.0px",
+         "listType": "",
+         "textAlign": "left",
+         "fontFamily": "Montserrat",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "www.imagicaawaterpark.example",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Montserrat",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 396.1,
+      "height": 24.2
+     },
+     "position": {
+      "x": 614.9000000000001,
+      "y": 960.0
+     },
+     "fontSizes": [
+      22.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "7a886dd5-a89b-48d5-89a9-f925f6555f9b": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(247, 71, 54)",
+     "scale": 5.0625,
+     "shape": "rectangle",
+     "rotate": 0,
+     "boxSize": {
+      "width": 590.0,
+      "height": 145.0
+     },
+     "position": {
+      "x": 410.0,
+      "y": 565.0
+     },
+     "roundedCorners": 76
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "84e6835d-9ca8-4bbe-aded-f0f2d61796a9": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "FrameLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "image": {
+      "url": "https://e065-2402-e280-3e26-5d7-8cb4-876d-e5d1-df7f.ngrok-free.app/design-assets/public/lido-generated/drafts/photo-1cdd3f1ad85040b080efef33ff4e0988.png",
+      "thumb": "https://e065-2402-e280-3e26-5d7-8cb4-876d-e5d1-df7f.ngrok-free.app/design-assets/public/lido-generated/drafts/photo-1cdd3f1ad85040b080efef33ff4e0988.png",
+      "rotate": 0,
+      "boxSize": {
+       "width": 500.000025,
+       "height": 666.6667
+      },
+      "position": {
+       "x": -1.2499999996862243e-05,
+       "y": 0.0
+      }
+     },
+     "scale": 0.6,
+     "rotate": 0,
+     "boxSize": {
+      "width": 300.0,
+      "height": 400.0
+     },
+     "clipPath": "M 40.000 0 L 460.000 0 Q 500.0 0 500.0 40.000 L 500.0 626.667 Q 500.0 666.6667 460.000 666.6667 L 40.000 666.6667 Q 0 666.6667 0 626.667 L 0 40.000 Q 0 0 40.000 0 Z",
+     "position": {
+      "x": 60.0,
+      "y": 309.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "8bfdc537-aeaa-43de-96b1-e6d5898d080a": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "Family Raft Rides"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "21.0px",
+         "listType": "",
+         "textAlign": "left",
+         "fontFamily": "Montserrat",
+         "lineHeight": "1.3",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "Family Raft Rides",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Montserrat",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 219.75,
+      "height": 27.3
+     },
+     "position": {
+      "x": 390.25,
+      "y": 780.9
+     },
+     "fontSizes": [
+      21.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "8d722272-e184-42aa-95f8-d23b9b6d2e63": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "SUMMER SPLASH SALE"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "24.0px",
+         "listType": "",
+         "textAlign": "left",
+         "fontFamily": "Montserrat",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0.09,
+         "textTransform": "uppercase"
+        },
+        "content": [
+         {
+          "text": "SUMMER SPLASH SALE",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Montserrat",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 610.0,
+      "height": 26.4
+     },
+     "position": {
+      "x": 212.0,
+      "y": 102.0
+     },
+     "fontSizes": [
+      24.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "8f662940-cb5b-4189-ac9c-2e079e106b7c": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "FrameLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "image": {
+      "url": "https://e065-2402-e280-3e26-5d7-8cb4-876d-e5d1-df7f.ngrok-free.app/design-assets/public/lido-generated/drafts/photo-88d88361c571449d80a28e0fa688a826.png",
+      "thumb": "https://e065-2402-e280-3e26-5d7-8cb4-876d-e5d1-df7f.ngrok-free.app/design-assets/public/lido-generated/drafts/photo-88d88361c571449d80a28e0fa688a826.png",
+      "rotate": 0,
+      "boxSize": {
+       "width": 500.0,
+       "height": 500.0
+      },
+      "position": {
+       "x": 0.0,
+       "y": -0.0010000000000047748
+      }
+     },
+     "scale": 0.64,
+     "rotate": 0,
+     "boxSize": {
+      "width": 320.0,
+      "height": 320.0
+     },
+     "clipPath": "M 500 250.002 c 0 138.065 -111.931 249.996 -250 249.996 c -138.071 0 -250 -111.931 -250 -249.996 C 0 111.93 111.929 0 250 0 s 250 111.93 250 250.002 Z",
+     "position": {
+      "x": 387.0,
+      "y": 320.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "9a490fea-a718-4801-b736-771415065a14": {
+    "type": {
+     "type": "static",
+     "fixedText": "50% OFF",
+     "resolvedName": "TextLayer",
+     "replacableText": ""
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(255, 255, 255)",
+         "indent": 0,
+         "fontSize": "79.0px",
+         "listType": "",
+         "textAlign": "center",
+         "fontFamily": "Anton",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "uppercase"
+        },
+        "content": [
+         {
+          "text": "50% OFF",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(255, 255, 255)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Anton",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(255, 255, 255)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 288.0,
+      "height": 86.9
+     },
+     "position": {
+      "x": 441.0,
+      "y": 582.0
+     },
+     "fontSizes": [
+      79.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "9da5fd22-1c5c-4302-bf35-03b1f6298c1c": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "DrawLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "path": "M 1.78,6.86 C 2.02,6.66 2.81,5.85 3.19,5.70 C 3.57,5.56 3.67,6.18 4.07,5.99 C 4.46,5.79 5.18,4.60 5.56,4.52 C 5.94,4.44 5.99,5.46 6.33,5.52 C 6.66,5.58 7.19,4.97 7.56,4.88 C 7.94,4.78 8.43,4.95 8.60,4.97",
+     "color": "rgb(255, 247, 214)",
+     "scale": 1,
+     "width": 2.0,
+     "rotate": 0,
+     "boxSize": {
+      "width": 10.6764,
+      "height": 10.6764
+     },
+     "position": {
+      "x": 68.2718,
+      "y": 856.4118
+     },
+     "transparency": 1
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "b0d5a689-c5f0-43c0-8643-41656c7220da": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(247, 71, 54)",
+     "scale": 5.0625,
+     "shape": "circle",
+     "rotate": 0,
+     "boxSize": {
+      "width": 17.22,
+      "height": 17.22
+     },
+     "position": {
+      "x": 361.5,
+      "y": 746.04
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "b9c71dda-91b6-4673-9f48-1212e73ce8ff": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(247, 71, 54)",
+     "scale": 5.0625,
+     "shape": "rectangle",
+     "rotate": 20.0,
+     "boxSize": {
+      "width": 2600.0,
+      "height": 120.0
+     },
+     "position": {
+      "x": -780.52,
+      "y": 536.38
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "bb9df62d-0b80-4207-85ca-d75041e0a2e1": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "DrawLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "path": "M 14.89,17.43 L 15.70,17.41 L 16.34,16.71 L 17.00,16.17 L 17.82,15.97 L 20.60,15.97 L 21.52,16.22 L 22.20,16.90 L 22.45,17.82 L 22.45,20.60 L 22.20,21.52 L 21.52,22.20 L 20.60,22.45 L 18.43,22.31 L 16.29,21.88 L 14.23,21.18 L 12.28,20.22 L 10.46,19.01 L 8.83,17.57 L 7.39,15.94 L 6.18,14.13 L 5.22,12.17 L 4.52,10.11 L 4.09,7.97 L 3.95,5.80 L 4.20,4.88 L 4.87,4.20 L 5.80,3.95 L 8.57,3.95 L 9.50,4.20 L 10.18,4.88 L 10.42,5.80 L 10.42,8.57 L 10.23,9.40 L 9.68,10.05 L 9.04,10.61 L 8.94,11.42 L 9.31,12.15 L 10.07,13.34 L 10.96,14.45 L 11.96,15.45 L 13.07,16.34 L 14.27,17.10 L 14.89,17.43",
+     "color": "rgb(7, 60, 99)",
+     "scale": 1,
+     "width": 2.2,
+     "rotate": 0,
+     "boxSize": {
+      "width": 26.4,
+      "height": 26.4
+     },
+     "position": {
+      "x": 120.0,
+      "y": 958.0
+     },
+     "transparency": 1
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "bc2f5d2c-bb9b-4664-8e05-df9249bd79eb": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "LineLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(7, 60, 99)",
+     "scale": 1,
+     "style": "solid",
+     "rotate": 0,
+     "boxSize": {
+      "width": 940.0,
+      "height": 3.0
+     },
+     "arrowEnd": "none",
+     "position": {
+      "x": 70.0,
+      "y": 937.0
+     },
+     "arrowStart": "none"
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "c3615e11-8565-4f75-a19d-70ce1f1e9aae": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(247, 71, 54)",
+     "scale": 5.0625,
+     "shape": "circle",
+     "rotate": 0,
+     "boxSize": {
+      "width": 17.22,
+      "height": 17.22
+     },
+     "position": {
+      "x": 65.0,
+      "y": 853.14
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "c8487a52-1c2f-4780-ac3e-7e99cb0744e7": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "Open Daily: 10:00 AM – 7:00 PM"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "21.0px",
+         "listType": "",
+         "textAlign": "center",
+         "fontFamily": "Montserrat",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "Open Daily: 10:00 AM – 7:00 PM",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Montserrat",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 378.0,
+      "height": 23.1
+     },
+     "position": {
+      "x": 637.0,
+      "y": 887.0
+     },
+     "fontSizes": [
+      21.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "dae18c81-3275-4736-abe0-fa44f05ee2cb": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "Kids Splash Zone"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "21.0px",
+         "listType": "",
+         "textAlign": "left",
+         "fontFamily": "Montserrat",
+         "lineHeight": "1.3",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "Kids Splash Zone",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Montserrat",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 219.75,
+      "height": 27.3
+     },
+     "position": {
+      "x": 390.25,
+      "y": 741.0
+     },
+     "fontSizes": [
+      21.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "dbc14994-0fb2-4b3c-af1d-18eab698a055": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "Lazy River"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "21.0px",
+         "listType": "",
+         "textAlign": "left",
+         "fontFamily": "Montserrat",
+         "lineHeight": "1.3",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "Lazy River",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Montserrat",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 219.75,
+      "height": 27.3
+     },
+     "position": {
+      "x": 93.75,
+      "y": 848.1
+     },
+     "fontSizes": [
+      21.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "dc87fd96-8ea9-4cd6-9e15-9665f05adfed": {
+    "type": {
+     "type": "address",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "Imagicaa Road, Khopoli, Maharashtra 410203"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "22.0px",
+         "listType": "",
+         "textAlign": "left",
+         "fontFamily": "Montserrat",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "Imagicaa Road, Khopoli, Maharashtra 410203",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Montserrat",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 856.0999999999999,
+      "height": 24.2
+     },
+     "position": {
+      "x": 153.89999999999998,
+      "y": 1010.0
+     },
+     "fontSizes": [
+      22.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "e28e3efb-2d44-4615-9818-1b3b318b5134": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "MAKE A SPLASH THIS SUMMER"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "27.0px",
+         "listType": "",
+         "textAlign": "center",
+         "fontFamily": "Anton",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "uppercase"
+        },
+        "content": [
+         {
+          "text": "MAKE A SPLASH THIS SUMMER",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Anton",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 370.0,
+      "height": 29.7
+     },
+     "position": {
+      "x": 640.0,
+      "y": 750.0
+     },
+     "fontSizes": [
+      27.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "e3407d98-745d-4d56-ad9d-8cc6e2c63611": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "DrawLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "path": "M 2.04,6.56 C 2.23,6.51 2.86,6.34 3.22,6.24 C 3.58,6.14 3.81,6.16 4.19,5.95 C 4.58,5.74 5.15,5.24 5.53,4.97 C 5.92,4.71 6.13,4.53 6.49,4.38 C 6.84,4.22 7.25,4.04 7.65,4.06 C 8.05,4.07 8.69,4.41 8.90,4.49",
+     "color": "rgb(255, 247, 214)",
+     "scale": 1,
+     "width": 2.0,
+     "rotate": 0,
+     "boxSize": {
+      "width": 10.6764,
+      "height": 10.6764
+     },
+     "position": {
+      "x": 68.2718,
+      "y": 816.5118
+     },
+     "transparency": 1
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "e60c3c0b-b479-4b9c-a435-86e5676f0135": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(7, 60, 99)",
+     "scale": 5.0625,
+     "shape": "octagon",
+     "rotate": 0,
+     "boxSize": {
+      "width": 64.0,
+      "height": 64.0
+     },
+     "position": {
+      "x": 746.0,
+      "y": 320.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "e90892cb-19d7-45b4-9e4d-6bc1e05f8a14": {
+    "type": {
+     "type": "static",
+     "fixedText": "01",
+     "resolvedName": "TextLayer",
+     "replacableText": ""
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(255, 247, 214)",
+         "indent": 0,
+         "fontSize": "34.0px",
+         "listType": "",
+         "textAlign": "center",
+         "fontFamily": "Anton",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "01",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(255, 247, 214)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Anton",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(255, 247, 214)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 46.0,
+      "height": 37.4
+     },
+     "position": {
+      "x": 83.0,
+      "y": 331.0
+     },
+     "fontSizes": [
+      34.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "ecc5b44a-f2ed-4466-9a58-05199ab38e31": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "WATER PARK TICKETS"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "100.0px",
+         "listType": "",
+         "textAlign": "left",
+         "fontFamily": "Anton",
+         "lineHeight": "1.08",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "uppercase"
+        },
+        "content": [
+         {
+          "text": "WATER PARK TICKETS",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Anton",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "effect": {
+      "name": "shadow",
+      "settings": {
+       "blur": 12,
+       "color": "rgb(188, 238, 235)",
+       "offset": 30,
+       "direction": -45,
+       "transparency": 40
+      }
+     },
+     "rotate": 0,
+     "boxSize": {
+      "width": 955.0,
+      "height": 108.0
+     },
+     "position": {
+      "x": 65.0,
+      "y": 150.0
+     },
+     "fontSizes": [
+      100.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "f111ffc0-7db0-42d5-90de-cf27fa3f612d": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(7, 60, 99)",
+     "scale": 5.0625,
+     "shape": "octagon",
+     "rotate": 0,
+     "boxSize": {
+      "width": 64.0,
+      "height": 64.0
+     },
+     "position": {
+      "x": 74.0,
+      "y": 320.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "f47d0555-9087-4b10-8432-b3b6e64894ad": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "IMAGICAA WATER PARK"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "35.0px",
+         "listType": "",
+         "textAlign": "left",
+         "fontFamily": "Anton",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0.035,
+         "textTransform": "uppercase"
+        },
+        "content": [
+         {
+          "text": "IMAGICAA WATER PARK",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Anton",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm0K08i4gS7lu.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 550.0,
+      "height": 38.5
+     },
+     "position": {
+      "x": 212.0,
+      "y": 54.0
+     },
+     "fontSizes": [
+      35.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "f6b325f1-0204-4fcf-8d97-d2a2502e7482": {
+    "type": {
+     "type": "bodyText",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "Wave Pool"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "21.0px",
+         "listType": "",
+         "textAlign": "left",
+         "fontFamily": "Montserrat",
+         "lineHeight": "1.3",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "Wave Pool",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Montserrat",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 219.75,
+      "height": 27.3
+     },
+     "position": {
+      "x": 93.75,
+      "y": 808.2
+     },
+     "fontSizes": [
+      21.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "f713ae36-905a-4b83-a91c-fb1a2721a210": {
+    "type": {
+     "type": "phoneNumber",
+     "fixedText": "",
+     "resolvedName": "TextLayer",
+     "replacableText": "+91 98765 43210"
+    },
+    "child": [],
+    "props": {
+     "doc": {
+      "type": "doc",
+      "content": [
+       {
+        "type": "paragraph",
+        "attrs": {
+         "color": "rgb(7, 60, 99)",
+         "indent": 0,
+         "fontSize": "24.0px",
+         "listType": "",
+         "textAlign": "left",
+         "fontFamily": "Montserrat",
+         "lineHeight": "1.1",
+         "marginLeft": null,
+         "letterSpacing": 0,
+         "textTransform": "none"
+        },
+        "content": [
+         {
+          "text": "+91 98765 43210",
+          "type": "text",
+          "marks": [
+           {
+            "type": "color",
+            "attrs": {
+             "color": "rgb(7, 60, 99)"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "fonts": [
+      {
+       "name": "Montserrat",
+       "fonts": [
+        {
+         "urls": [
+          "https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf"
+         ]
+        }
+       ]
+      }
+     ],
+     "scale": 1,
+     "colors": [
+      "rgb(7, 60, 99)"
+     ],
+     "rotate": 0,
+     "boxSize": {
+      "width": 263.0,
+      "height": 26.4
+     },
+     "position": {
+      "x": 157.0,
+      "y": 958.0
+     },
+     "fontSizes": [
+      24.0
+     ]
+    },
+    "locked": false,
+    "parent": "ROOT"
+   },
+   "f783e260-b2f9-4471-b130-993e8ce300b7": {
+    "type": {
+     "type": null,
+     "fixedText": null,
+     "resolvedName": "ShapeLayer",
+     "replacableText": null
+    },
+    "child": [],
+    "props": {
+     "color": "rgb(255, 247, 214)",
+     "scale": 5.0625,
+     "shape": "circle",
+     "rotate": 0,
+     "boxSize": {
+      "width": 26.0,
+      "height": 26.0
+     },
+     "position": {
+      "x": 398.0,
+      "y": 623.0
+     }
+    },
+    "locked": false,
+    "parent": "ROOT"
+   }
+  }
+ }
+]

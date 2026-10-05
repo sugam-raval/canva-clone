@@ -1,0 +1,45 @@
+CLIENT BRIEF:
+"""
+Create a vibrant, high-energy social media promotional poster for **Imagicaa Water Park** featuring an exciting **50% OFF ticket offer**. Make the design look like a premium summer adventure campaign filled with colorful water rides, thrilling attractions and joyful family experiences.
+
+Show a dynamic collage of multiple realistic water park attractions: a gigantic twisting water slide, high-speed racing slides, a giant wave pool, family raft ride, lazy river, kids splash zone and a huge tropical pool. Include happy families and groups of friends enjoying the rides, with realistic expressions, natural poses and energetic water splashes.
+
+Make a large **ticket-shaped promotional badge** one of the main visual elements. Design it like a colorful admission ticket with perforated edges, subtle ticket texture and bold typography:
+
+**50% OFF**
+**WATER PARK TICKETS**
+
+Add supporting offer text:
+
+**SUMMER SPLASH SALE**
+**LIMITED-TIME OFFER**
+**BOOK NOW & SAVE 50%**
+
+Include fictional test information:
+
+**IMAGICAA WATER PARK**
+**Imagicaa Road, Khopoli, Maharashtra 410203**
+**+91 98765 43210**
+**[www.imagicaawaterpark.example](http://www.imagicaawaterpark.example)**
+**Open Daily: 10:00 AM – 7:00 PM**
+
+Add attraction highlights:
+
+**Thrilling Water Slides • Wave Pool • Lazy River • Kids Splash Zone • Family Raft Rides**
+
+Add a strong CTA:
+
+**GRAB YOUR TICKETS NOW!**
+**MAKE A SPLASH THIS SUMMER**
+
+Create a visually exciting composition with the water rides forming the background and the large ticket-shaped **50% OFF** offer badge prominently overlapping the main imagery. Use bright tropical colors, crystal-clear water, dramatic sunlight, palm trees, colorful slides and cinematic water splashes. Make the poster feel like a professional amusement-park advertising campaign with excellent depth, realistic photography and strong visual hierarchy.
+
+Ensure the **50% OFF ticket badge, park name, offer, contact information and CTA** are immediately readable. Keep all text correctly spelled and visually clean, with no distorted typography, gibberish, duplicated rides or unnecessary text.
+"""
+
+Recently made (choose something different):
+- <layout (N photos; frames …, features …) of each of the last 10 drafts>
+
+Prefer a catalogue layout not in: <layouts of those recent drafts>.
+
+Write the design plan.
