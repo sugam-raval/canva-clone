@@ -26,6 +26,7 @@ from app.lido_create.kit import (
     Element,
     Photo,
     Variant,
+    to_out,
 )
 from app.lido_create.kit import W as W_CANVAS
 from app.lido_create.lido import to_lido
@@ -147,8 +148,7 @@ class _FakeLLM:
             return LLMResult(parsed=schema(edits=edits), raw="", model="fake")
         v = _variant()
         design = _recipe_design("fresh_promo", v)  # rich enough for the creative checks
-        elements = [e.model_dump(exclude_none=True)
-                    | ({"subject": "a dinner party"} if e.kind == "photo" else {})
+        elements = [to_out(e) | ({"subject": "a dinner party"} if e.kind == "photo" else {})
                     for e in design.elements]
         index = next(i for i, e in enumerate(elements) if e.get("text_type") == "headline")
         first = len(self.calls) == 1  # only the first draft is flawed
@@ -762,6 +762,45 @@ def test_each_draft_carries_its_own_bill_step_by_step(api, monkeypatch):
     assert first["unknownCalls"] == 0 and len(first["calls"]) == 4
     # the second has no flaw (only the first draft call carries it): no repair
     assert set(second["byStepUsd"]) == {"plan", "design", "photo"}
+
+
+def test_the_designer_s_shared_instructions_are_identical_on_every_call(api, monkeypatch):
+    client, fake, _ = api
+    seen: list[tuple[str, str, str | None]] = []
+    real = fake.complete_json
+
+    async def spy(*, system, user, schema, **kwargs):
+        seen.append((schema.__name__, system, kwargs.get("cache_key")))
+        return await real(system=system, user=user, schema=schema, **kwargs)
+
+    fake.defect = "headline"  # a repair too: it shares the designer's instructions
+    monkeypatch.setattr(fake, "complete_json", spy)
+    client.post("/v1/lido/drafts", json={"prompt": "Launch", "variations": 2})
+    design = [(s, k) for name, s, k in seen if name in ("BriefDesign", "BriefRepair")]
+    assert len(design) == 3 and len({s for s, _ in design}) == 1  # byte-identical
+    assert {k for _, k in design} == {"lido-design"}
+    assert "EXAMPLE LAYOUTS" in design[0][0]  # the examples are in the cached part
+    assert all("EXAMPLE LAYOUTS" not in call for call in fake.calls)  # not in the brief
+    assert {k for name, _, k in seen if name == "DesignPlan"} == {"lido-plan"}
+
+
+def test_the_reply_format_is_lean_and_reads_back_exactly():
+    from pydantic import TypeAdapter
+
+    from app.lido_create.kit import ElementOut, Gradient, to_element
+    shape = Element(kind="shape", shape="rectangle", x=10.4, y=20, w=300, h=50,
+                    color="accent", radius=12, opacity=0.5, bleed=True,
+                    gradient=Gradient(style="linear", angle=180))
+    text = Element(kind="text", x=70, y=80, w=900, h=0, text="Hi", text_type="headline",
+                   size=96, effect="shadow", effect_color="soft")
+    out = to_out(shape)
+    assert out["x"] == 10 and "opacity" not in out  # whole pixels; rare settings grouped
+    assert out["style"] == {"gradient": {"style": "linear", "angle": 180.0}, "opacity": 0.5}
+    assert to_out(text)["effect"] == {"name": "shadow", "color": "soft"}
+    adapter = TypeAdapter(ElementOut)
+    for e in (shape, text):
+        back = to_element(adapter.validate_python(to_out(e)))
+        assert back.model_dump(exclude={"x"}) == e.model_dump(exclude={"x"})
 
 
 def test_patch_edits_apply_against_the_numbering_sent():

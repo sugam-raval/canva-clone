@@ -17,6 +17,7 @@ import re
 import time
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
+from functools import cache
 from typing import Literal
 
 import structlog
@@ -33,7 +34,7 @@ from app.lido_corpus.palette import (
     pick_readable,
     to_hex,
 )
-from app.lido_create.ai import EXAMPLE_RECIPES, SYSTEM, example, normalise
+from app.lido_create.ai import SYSTEM, example, normalise
 from app.lido_create.backdrops import brief_for, random_backdrop
 from app.lido_create.backdrops import expand as expand_backdrop
 from app.lido_create.check import FEATURE_FAMILIES, validate
@@ -55,6 +56,7 @@ from app.lido_create.kit import (
     W,
     line_count,
     to_element,
+    to_out,
 )
 from app.lido_create.models import describe, layout_call, repair_call
 from app.lido_create.plan import DesignPlan, plan_brief
@@ -201,7 +203,9 @@ class _Draft:
 
 def _call_info(step: str, started: float, reply) -> dict:
     info = {"step": step, "ms": round((time.perf_counter() - started) * 1000),
-            "outputTokens": getattr(reply, "completion_tokens", None)}
+            "outputTokens": getattr(reply, "completion_tokens", None),
+            "reasoningTokens": getattr(reply, "reasoning_tokens", None),
+            "cachedInputTokens": getattr(reply, "cached_tokens", None)}
     log.info("lido.brief.llm_call", **info)
     return info
 
@@ -551,7 +555,7 @@ def _numbered(ai: BriefDesign, written: list[Element]) -> str:
     head = {"name": ai.name, "idea": ai.idea,
             "background": ai.background.model_dump(exclude_none=True) if ai.background
             else None}
-    rows = "\n".join(f"{i}: {e.model_dump_json(exclude_none=True)}"
+    rows = "\n".join(f"{i}: {json.dumps(to_out(e), separators=(',', ':'))}"
                      for i, e in enumerate(written))
     return (f"{json.dumps(head)}\nElements (drawn in this order: first = back, "
             f"last = front):\n{rows}")
@@ -607,11 +611,24 @@ def _palette(colors: BriefColors) -> Palette:
     return Palette("custom", **rgb)
 
 
-def _format_example(photos: list[Photo], rng: random.Random) -> str:
-    """Two of the pro example layouts, a different pair each time, so the designer
-    doesn't keep imitating the same one."""
-    v = Variant(PALETTES[0], FONT_SETS[0], THEMES[0], random.Random(0), photos)
-    return "\n".join(example(r, v) for r in rng.sample(EXAMPLE_RECIPES, 2))
+# The two pro layouts every design is shown. Fixed (not a random pair) so they belong to
+# the cached part of the request: the plan, the mood and the brief vary the designs.
+CACHED_EXAMPLES = ("fresh_promo", "spotlight_launch")
+
+
+@cache
+def designer_instructions() -> str:
+    """Everything the designer reads that is the same for every template — the rules,
+    the catalogue and the example layouts. Sent first and byte-identical on every call,
+    so OpenAI serves it from its prompt cache (a tenth of the input price); only the
+    brief and the plan after it are billed in full."""
+    v = Variant(PALETTES[0], FONT_SETS[0], THEMES[0], random.Random(0),
+                [Photo("https://assets.quickhub.ai/placeholder.png", 1000, 1000, ("business",))])
+    examples = "\n".join(example(r, v) for r in CACHED_EXAMPLES)
+    return (SYSTEM + BRIEF_RULES + "\n" + _catalogue()
+            + "\n\nEXAMPLE LAYOUTS — two existing pro layouts in the exact element format, to "
+              "show the format and the level of detail expected. Match their richness; never "
+              "copy their composition:\n" + examples)
 
 
 def _catalogue() -> str:
@@ -647,7 +664,7 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
         raise RuntimeError("designing from a prompt needs OPENAI_API_KEY in backend/.env")
 
     rng = rng or random.Random()
-    system = SYSTEM + BRIEF_RULES + "\n" + _catalogue()
+    system = designer_instructions()
     brief = f'CLIENT BRIEF:\n"""\n{prompt.strip()}\n"""'
     if plan is not None:
         features: list[str] = []
@@ -672,11 +689,8 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
     if logo and plan is None:
         steer += "\nInclude exactly one logo element: the client supplied their logo."
 
-    def draft_prompt() -> str:  # a different pair of examples for every draft
+    def draft_prompt() -> str:  # only what is this template's own: the brief and plan
         return (f"{brief}\n\n{steer}\n\n"
-                "Two existing pro layouts, to show the format and the level of detail "
-                "expected — match their richness, do not copy their composition:\n"
-                f"{_format_example(photos, rng)}\n\n"
                 "Design the template: name, idea, colours, font set, photo theme, elements.")
 
     def build(ai: BriefDesign, written: list[Element], attempt: int) -> _Draft:
@@ -716,7 +730,7 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
             with costs.step("design"):
                 reply = await _ask(llm, system=system, user=draft_prompt(),
                                    schema=BriefDesign, temperature=0.9, max_tokens=16000,
-                                   **options)
+                                   cache_key="lido-design", **options)
         except asyncio.CancelledError:
             # another parallel draft passed first; OpenAI may bill this one's tokens so far
             costs.record_unknown(options.get("model") or get_settings().llm_model, "text",
@@ -754,7 +768,8 @@ async def design_from_brief(prompt: str, photos: list[Photo], *,
         try:
             with costs.step("repair"):
                 reply = await _ask(llm, system=system, user=user, schema=BriefRepair,
-                                   temperature=0.4, max_tokens=8000, **fix_options)
+                                   temperature=0.4, max_tokens=8000, cache_key="lido-design",
+                                   **fix_options)
         except AdapterError:
             # a repair round failed: keep the best design, its problems are reported
             log.warning("lido.brief.repair_unavailable", attempt=attempt)

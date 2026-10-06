@@ -287,7 +287,7 @@ async def make_plan(prompt: str, *, recent: list[str], avoid_layouts: list[str] 
     options = plan_call()
     with costs.step("plan"):
         reply = await _ask(get_llm(), system=system, user=user, schema=DesignPlan,
-                           temperature=0.8, max_tokens=6000, **options)
+                           temperature=0.8, max_tokens=6000, cache_key="lido-plan", **options)
     plan = _clean(reply.parsed, prompt)
     if free:
         plan.layout = "custom"

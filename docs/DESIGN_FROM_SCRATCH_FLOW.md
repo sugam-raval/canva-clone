@@ -334,19 +334,18 @@ between areas. Photos and decoration may sit anywhere.
 If the client gave brand colours, a `BRAND COLOURS — fixed by the client…` line is added
 here too.
 
-**4. Two example layouts** (two of `fresh_promo`, `geo_agency`, `spotlight_launch`, picked
-at random each time), written in the exact element format to show the level of detail
-expected:
+**4. Two example layouts.** These are no longer in this part. `fresh_promo` and
+`spotlight_launch` are now a **fixed** part of the designer's instructions
+(`brief.designer_instructions()`), after the rules. So everything except the brief, the
+plan and the backdrop is byte-identical on every call, and OpenAI can serve it from its
+prompt cache at a tenth of the price. The request marks the end of that shared part
+with an explicit cache breakpoint and sends `prompt_cache_key="lido-design"` (the plan
+call sends `"lido-plan"`). The user prompt ends with:
 ```text
-Two existing pro layouts, to show the format and the level of detail expected — match
-their richness, do not copy their composition:
-{"name":"fresh_promo","background":null,"elements":[{"kind":"shape","x":822.0,"y":-168.0,
-"w":396.0,"h":396.0,"color":"accent","shape":"rhombus","bleed":true},{"kind":"dots",…},
-{"kind":"logo","x":70.0,"y":50.0,"w":110.0,"h":89.21},{"kind":"text",…"text":"Just Dropped",…
-{"name":"spotlight_launch",…}
-
 Design the template: name, idea, colours, font set, photo theme, elements.
 ```
+(The files in `design_from_scratch_example/` were captured before this change: there,
+the examples still sit in `5_design_user_prompt.txt`.)
 
 ### Output: the design (abridged)
 
@@ -386,11 +385,19 @@ positions and texts) to show the shape of the answer:
 }
 ```
 
-The real reply also contains every optional field of each element, mostly as `null`,
-because strict structured output requires all fields. The schema is **one small model per
-element kind** (`ShapeOut`, `TextOut`, `PhotoOut`… in [`kit.py`](../backend/app/lido_create/kit.py)),
-so a text doesn't carry 30 shape fields of `null`. That keeps the reply about 65% shorter
-than one big element model would.
+The real reply also contains every optional field of each element (`null` when unused),
+because strict structured output requires all fields. Output tokens are the slowest and
+most expensive part of the call ($50 per million on gpt-6-astra), so the format in
+[`kit.py`](../backend/app/lido_create/kit.py) is kept lean:
+- **one small model per element kind** (`ShapeOut`, `TextOut`, `PhotoOut`…), so a text
+  doesn't carry shape fields;
+- **whole pixels**: `"x": 822`, not `822.0`;
+- **rarely used settings grouped**, so one `null` covers them: a shape's gradient, opacity,
+  rotate and outline are its `style`; a photo's tilt and bleed its `style`; a text's effect
+  and its colour one `effect: {"name": "shadow", "color": "soft"}`.
+
+Measured on the 14 hand-made layouts, this is 25% fewer reply tokens than the previous
+flat format. `kit.to_element()` turns each reply element back into the internal `Element`.
 
 The schema's allowed values (shapes, frames, crops, strokes, bullets, effects, line ends)
 come from `library/*.yaml`. A switched-off item can't be written at all.
@@ -608,7 +615,7 @@ timings:
 | `lido.plan … layout=… photos=…` | ① | **plan done**: layout, moods, photo count |
 | `lido.drafts.photo_started planned=True` | ② | one line per photo rendering from the plan |
 | `lido.brief.model layout=… repair=…` | ③ | which models are used |
-| `lido.brief.llm_call step=draft ms=… outputTokens=…` | ③ | **design call done** |
+| `lido.brief.llm_call step=draft ms=… outputTokens=… reasoningTokens=… cachedInputTokens=…` | ③ | **design call done**: how much was thinking, how much input came from the cache |
 | `lido.brief.auto_fixed fix=… before=… after=…` | ④ | a code fix that helped |
 | `lido.brief.llm_call step=repair` / `lido.brief.repaired before= after=` | ④ | a repair round and its effect |
 | `lido.brief.repairs_stalled` | ④ | repairs stopped: the model couldn't fix what's left |

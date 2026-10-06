@@ -183,7 +183,8 @@ function CostCard({ draft }: { draft: LidoDraftInfo }) {
                     ? <span style={{ color: 'var(--accent-2)' }}> · {c.note || 'no usage reported'}</span>
                     : <> · in {tokens(c.inputTokens)}{c.cachedTokens ? ` (${tokens(c.cachedTokens)} cached)` : ''}
                       {c.imageInputTokens ? ` + ${tokens(c.imageInputTokens)} image` : ''}
-                      {' '}· out {tokens(c.outputTokens)}</>}
+                      {' '}· out {tokens(c.outputTokens)}
+                      {c.reasoningTokens ? ` (${tokens(c.reasoningTokens)} thinking)` : ''}</>}
                 </span>
                 <span style={{ whiteSpace: 'nowrap', color: c.usd == null ? 'var(--accent-2)' : undefined }}>
                   {c.usd == null ? 'unknown' : usd(c.usd)}

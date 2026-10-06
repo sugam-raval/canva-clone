@@ -121,6 +121,14 @@ def _llm_cost(model: str, usage: Any) -> int:
     return round(charge.usd * 100) if charge.usd is not None else 0
 
 
+def _token_counts(usage: Any) -> dict[str, int]:
+    """LLMResult's token fields from either API's usage (Responses: input/output_tokens,
+    chat completions: prompt/completion_tokens)."""
+    c = costs.token_counts(usage)
+    return {"prompt_tokens": c["input"], "completion_tokens": c["output"],
+            "reasoning_tokens": c["reasoning"], "cached_tokens": c["cached"]}
+
+
 def _image_cents(model: str, result: Any, quality: str) -> int:
     """Cents for one image call, from the token usage it came back with (recorded on
     the current bill); the rough per-quality figure when the model isn't priced."""
@@ -208,6 +216,12 @@ async def _call_images(client: AsyncOpenAI, **kwargs) -> Any:
 
 
 _MAX_COMPLETION_TOKENS_RE = re.compile(r"at most (\d+) completion tokens")
+
+
+def _rejects_cache_hints(exc: APIStatusError) -> bool:
+    """A 400 about the prompt-cache hints this adapter adds (not about anything else)."""
+    text = f"{getattr(exc, 'param', '') or ''} {exc}".lower()
+    return exc.status_code == 400 and ("prompt_cache" in text or "cache_breakpoint" in text)
 
 
 def _completion_token_ceiling(exc: APIStatusError) -> int | None:
@@ -395,6 +409,9 @@ class OpenAILLM:
     # Models that exist only on the Responses API, learned from a chat.completions
     # 404 — so LLM_REASONING_EFFORT does not need to be set just to reach them.
     _responses_only_models: set[str] = set()
+    # Models that rejected the prompt-cache hints (key / explicit breakpoint), learned
+    # from their 400s: they are called without them from then on.
+    _no_cache_hints: set[str] = set()
 
     @classmethod
     async def _create_completion(cls, kwargs: dict[str, Any]):
@@ -413,6 +430,8 @@ class OpenAILLM:
                 kwargs["max_completion_tokens"] = kwargs.pop("max_tokens")
             elif param == "temperature" and "temperature" in kwargs:
                 kwargs.pop("temperature")
+            elif param == "prompt_cache_key" and "prompt_cache_key" in kwargs:
+                kwargs.pop("prompt_cache_key")  # caching is a saving, never a requirement
             else:
                 return False
             return True
@@ -439,7 +458,12 @@ class OpenAILLM:
     async def complete_json(self, *, system: str, user: str, schema: type[TModel],
                             temperature: float = 0.2, model: str | None = None,
                             max_tokens: int = 4096,
-                            reasoning_effort: str | None = None) -> LLMResult:
+                            reasoning_effort: str | None = None,
+                            cache_key: str | None = None) -> LLMResult:
+        """`cache_key`: `system` is the same on every call of this kind (it names the
+        kind, e.g. "lido-design") — OpenAI is then asked to cache it: a prompt-cache key
+        routes the calls together and, on the Responses API, an explicit cache breakpoint
+        marks where the shared part ends. A model that rejects either just runs without."""
         settings = get_settings()
         # An explicit `model=` (e.g. the glyph detector's llm_model_fast) always means
         # "use this exact non-reasoning model" and skips the Responses/reasoning path,
@@ -462,13 +486,14 @@ class OpenAILLM:
         if effort or model in self._responses_only_models:
             return await self._complete_json_reasoning(
                 system=system, user=user, schema=schema, model=model,
-                effort=effort, max_tokens=max_tokens)
+                effort=effort, max_tokens=max_tokens, cache_key=cache_key)
         return await self._complete_json_chat(
             system=system, user=user, schema=schema, model=model,
-            temperature=temperature, max_tokens=max_tokens)
+            temperature=temperature, max_tokens=max_tokens, cache_key=cache_key)
 
     async def _complete_json_chat(self, *, system: str, user: str, schema: type[TModel],
-                                  temperature: float, model: str, max_tokens: int) -> LLMResult:
+                                  temperature: float, model: str, max_tokens: int,
+                                  cache_key: str | None = None) -> LLMResult:
         kwargs: dict[str, Any] = dict(
             model=model,
             temperature=temperature,
@@ -479,6 +504,8 @@ class OpenAILLM:
             ],
             response_format=response_format(schema),
         )
+        if cache_key:
+            kwargs["prompt_cache_key"] = cache_key
         try:
             completion = await self._create_completion(kwargs)
         except RateLimitError as exc:
@@ -507,14 +534,12 @@ class OpenAILLM:
             raise AdapterError(f"schema-constrained output failed validation: {exc}") from exc
 
         usage = completion.usage
-        p_tok = getattr(usage, "prompt_tokens", 0) or 0
-        c_tok = getattr(usage, "completion_tokens", 0) or 0
         return LLMResult(parsed=parsed, raw=raw, model=model,
-                         cost_cents=_llm_cost(model, usage),
-                         prompt_tokens=p_tok, completion_tokens=c_tok)
+                         cost_cents=_llm_cost(model, usage), **_token_counts(usage))
 
     @classmethod
-    async def _create_response(cls, kwargs: dict[str, Any]):
+    async def _create_response(cls, kwargs: dict[str, Any],
+                               without_cache_hints: dict[str, Any] | None = None):
         """Mirrors `_create_completion`'s self-healing: some reasoning models accept
         only one `reasoning.effort` value (gpt-5-pro: 'high' only) and reject any
         other the caller happens to be configured with. Learn it from the API's own
@@ -523,21 +548,35 @@ class OpenAILLM:
         required = cls._required_reasoning_effort.get(model)
         if required is not None:
             kwargs = {**kwargs, "reasoning": {"effort": required}}
+            if without_cache_hints is not None:
+                without_cache_hints = {**without_cache_hints, "reasoning": {"effort": required}}
         client = _client()
-        for attempt in range(2):
+        for attempt in range(3):
             try:
                 return await client.responses.parse(**kwargs)
             except APIStatusError as exc:
+                if without_cache_hints is not None and _rejects_cache_hints(exc):
+                    # caching is a saving, never a requirement: run without, and don't
+                    # send this model the hints again
+                    log.warning("openai.cache_hints_rejected", model=model, error=str(exc)[:200])
+                    cls._no_cache_hints.add(model)
+                    kwargs = {**without_cache_hints, **(
+                        {"reasoning": kwargs["reasoning"]} if "reasoning" in kwargs else {})}
+                    without_cache_hints = None
+                    continue
                 value = _required_reasoning_effort(exc)
-                if attempt == 1 or value is None:
+                if attempt == 2 or value is None:
                     raise
                 cls._required_reasoning_effort[model] = value
                 kwargs = {**kwargs, "reasoning": {"effort": value}}
+                if without_cache_hints is not None:
+                    without_cache_hints = {**without_cache_hints, "reasoning": {"effort": value}}
         raise AssertionError("unreachable")
 
     async def _complete_json_reasoning(self, *, system: str, user: str, schema: type[TModel],
                                        model: str, effort: str | None,
-                                       max_tokens: int) -> LLMResult:
+                                       max_tokens: int,
+                                       cache_key: str | None = None) -> LLMResult:
         """Reasoning models (gpt-6-astra, the gpt-5 family, and friends) are called
         through the Responses API with `reasoning.effort` rather than chat.completions'
         `temperature`, which they reject outright. `effort` may be None (no
@@ -555,8 +594,20 @@ class OpenAILLM:
         }
         if effort:
             kwargs["reasoning"] = {"effort": effort}
+        plain = kwargs
+        if cache_key and model not in self._no_cache_hints:
+            # the shared instructions as their own message, ending in an explicit cache
+            # breakpoint: "everything up to here is the same on every call" — then the
+            # part that is this call's own
+            kwargs = {**kwargs, "prompt_cache_key": cache_key, "input": [
+                {"role": "developer", "content": [
+                    {"type": "input_text", "text": system,
+                     "prompt_cache_breakpoint": {"mode": "explicit"}}]},
+                {"role": "user", "content": [{"type": "input_text", "text": user}]}]}
+            kwargs.pop("instructions")
         try:
-            response = await self._create_response(kwargs)
+            response = await self._create_response(kwargs, plain if kwargs is not plain
+                                                   else None)
         except RateLimitError as exc:
             raise AdapterError(f"rate limited: {exc}", recoverable=True) from exc
         except APIStatusError as exc:
@@ -576,8 +627,5 @@ class OpenAILLM:
                                recoverable=False)
 
         usage = response.usage
-        p_tok = getattr(usage, "input_tokens", 0) or 0
-        c_tok = getattr(usage, "output_tokens", 0) or 0
         return LLMResult(parsed=parsed, raw=response.output_text, model=model,
-                         cost_cents=_llm_cost(model, usage),
-                         prompt_tokens=p_tok, completion_tokens=c_tok)
+                         cost_cents=_llm_cost(model, usage), **_token_counts(usage))

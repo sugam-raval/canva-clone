@@ -322,31 +322,42 @@ class Element(BaseModel):
 # --------------------------------------------------------------------------------------
 # What the LLM writes: one small model per element kind, holding only that kind's
 # fields. Structured outputs are strict — every field of the schema must be written —
-# so writing the full 40-field `Element` meant ~80% of a layout reply was `null`s, and
-# output tokens are what a layout call spends its time on. `to_element` turns each one
-# back into an `Element` straight away; nothing past the reply sees these.
+# and output tokens are both the slow and the expensive part of a layout call ($50/1M on
+# gpt-6-astra), so the format is kept lean:
+#   - one model per kind, so a text doesn't carry 30 shape fields of `null`;
+#   - whole pixels (x 822, not 822.0 — the ".0" alone was ~12% of a reply);
+#   - the settings most elements never use are grouped, so one `null` covers them: a
+#     shape's gradient/opacity/rotate/outline are its `style`, a photo's tilt and bleed
+#     its `style`, a text's effect and effect colour one `effect`.
+# `to_element` turns each one back into an `Element` straight away; `to_out` writes an
+# `Element` in this format (the example layouts and repair rounds the model reads).
 # --------------------------------------------------------------------------------------
 
 
 class _Box(BaseModel):
-    x: float
-    y: float
-    w: float
-    h: float
+    x: int
+    y: int
+    w: int
+    h: int
+
+
+class ShapeStyle(BaseModel):
+    """A shape's rarely used settings — the whole group is null when none is needed."""
+    gradient: Gradient | None = None
+    opacity: float | None = None
+    rotate: float | None = None
+    stroke: ColorRole | None = None
+    stroke_width: int | None = None
+    stroke_style: StrokeStyle | None = None
 
 
 class ShapeOut(_Box):
     kind: Literal["shape"]
     shape: AiShape
     color: ColorRole | None = None
-    gradient: Gradient | None = None
-    radius: float | None = None
-    opacity: float | None = None
-    rotate: float | None = None
-    stroke: ColorRole | None = None
-    stroke_width: float | None = None
-    stroke_style: StrokeStyle | None = None
+    radius: int | None = None
     bleed: bool | None = None
+    style: ShapeStyle | None = None
 
 
 class LineOut(_Box):
@@ -362,7 +373,7 @@ class DrawOut(_Box):
     kind: Literal["draw"]
     draw: AiDraw
     color: ColorRole | None = None
-    stroke_width: float | None = None
+    stroke_width: int | None = None
     opacity: float | None = None
     rotate: float | None = None
 
@@ -373,7 +384,7 @@ class ListOut(_Box):
     columns: int | None = None
     bullet: AiBullet | None = None
     divider: Literal["line", "dotted", "none"] | None = None
-    size: float | None = None
+    size: int | None = None
     color: ColorRole | None = None
     font: FontRole | None = None
 
@@ -382,24 +393,38 @@ class DotsOut(_Box):
     kind: Literal["dots"]
     rows: int
     cols: int
-    dot: float
+    dot: int
     color: ColorRole | None = None
     opacity: float | None = None
+
+
+class PhotoStyle(BaseModel):
+    """A photo's rarely used settings — null when the photo is neither tilted nor bleeding."""
+    rotate: float | None = None
+    bleed: bool | None = None
 
 
 class PhotoOut(_Box):
     kind: Literal["photo"]
     frame: AiFrame | None = None
     clip: AiCrop | None = None
-    radius: float | None = None
+    radius: int | None = None
     focus: float | None = None
-    rotate: float | None = None
-    bleed: bool | None = None
     subject: str
+    style: PhotoStyle | None = None
 
 
 class LogoOut(_Box):
     kind: Literal["logo"]
+
+
+class TextEffectOut(BaseModel):
+    name: AiEffect
+    color: ColorRole | None = None  # the shadow's colour
+
+
+# no effect switched on in library/effects.yaml: a text's effect can only be null
+_TextEffect = TextEffectOut if ENABLED_EFFECTS else type(None)
 
 
 class TextOut(_Box):
@@ -407,15 +432,14 @@ class TextOut(_Box):
     text: str
     text_type: TextType
     font: FontRole | None = None
-    size: float
+    size: int
     color: ColorRole | None = None
     align: Literal["left", "center", "right"] | None = None
     max_lines: int | None = None
     uppercase: bool | None = None
     letter_spacing: float | None = None
     line_height: float | None = None
-    effect: AiEffect | None = None
-    effect_color: ColorRole | None = None
+    effect: _TextEffect | None = None  # type: ignore[valid-type]
 
 
 # a kind the library leaves nothing to draw with (no shapes, no strokes) is not offered
@@ -424,12 +448,41 @@ _OUT_KINDS = [k for k, menu in ((ShapeOut, ENABLED_SHAPES), (LineOut, True), (Dr
                                (LogoOut, True), (TextOut, True)) if menu]
 ElementOut = Union[tuple(_OUT_KINDS)]  # type: ignore[valid-type]  # noqa: UP007
 
+_GROUPED = {"shape": ("style", tuple(ShapeStyle.model_fields)),
+            "photo": ("style", tuple(PhotoStyle.model_fields))}
+_WHOLE = ("x", "y", "w", "h", "size", "radius", "stroke_width", "dot")  # whole pixels
+
 
 def to_element(e: BaseModel) -> Element:
-    """A written element (any of the `*Out` models, or an `Element`) as an `Element`."""
+    """A written element (any of the `*Out` models, or an `Element`) as an `Element`:
+    its grouped settings put back in place."""
     if isinstance(e, Element):
         return e.model_copy(deep=True)
-    return Element(**e.model_dump(exclude_none=True))
+    d = e.model_dump(exclude_none=True)
+    d.update(d.pop("style", None) or {})
+    effect = d.pop("effect", None)
+    if effect:
+        d["effect"], d["effect_color"] = effect.get("name"), effect.get("color")
+    return Element(**d)
+
+
+def to_out(e: Element) -> dict:
+    """An `Element` written the way the model writes one (no empty fields, whole
+    pixels, rarely used settings grouped) — for the example layouts and repair rounds."""
+    d = e.model_dump(mode="json", exclude_none=True, exclude={"backdrop", "doodle"})
+    for k in _WHOLE:
+        if isinstance(d.get(k), float):
+            d[k] = round(d[k])
+    group = _GROUPED.get(e.kind)
+    if group:
+        name, fields = group
+        moved = {k: d.pop(k) for k in fields if k in d}
+        if moved:
+            d[name] = moved
+    if e.kind == "text" and "effect" in d:
+        d["effect"] = {"name": d["effect"], "color": d.pop("effect_color", None)}
+    d.pop("effect_color", None)
+    return d
 
 
 class Design(BaseModel):

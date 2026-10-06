@@ -46,7 +46,9 @@ class LLMResult:
     model: str
     cost_cents: int = 0
     prompt_tokens: int = 0
-    completion_tokens: int = 0
+    completion_tokens: int = 0  # includes the reasoning tokens (billed as output)
+    reasoning_tokens: int = 0  # the hidden "thinking" part of completion_tokens
+    cached_tokens: int = 0  # the part of prompt_tokens OpenAI served from its cache
 
 
 class TextToImage(Protocol):
@@ -77,6 +79,7 @@ class LLM(Protocol):
     async def complete_json(
         self, *, system: str, user: str, schema: type[TModel], temperature: float = 0.2,
         model: str | None = None, max_tokens: int = 4096, reasoning_effort: str | None = None,
+        cache_key: str | None = None,
     ) -> LLMResult:
         """Return a `schema` instance. Implementations MUST constrain generation to the
         schema (§1.1, §1.3) rather than parsing free text and hoping."""

@@ -12,6 +12,6 @@
 # Check after editing: `make test` (or restart the backend — an unknown name stops it
 # with a message saying what is wrong).
 
-shadow: "a drop shadow on bold type — effect_color sets its colour"
+shadow: "a drop shadow on bold type — its color sets the shadow colour"
 lift: "a soft glow under a big headline on a busy panel"
 hollow: "outline-only letters — display text of 56px or more"

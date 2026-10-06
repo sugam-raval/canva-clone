@@ -44,6 +44,7 @@ class Charge:
     cached_tokens: int = 0  # text: prompt tokens served from OpenAI's cache
     image_input_tokens: int = 0  # image: reference images sent along
     output_tokens: int = 0  # text: reply incl. reasoning; image: the generated picture
+    reasoning_tokens: int = 0  # text: the hidden "thinking" part of output_tokens
     usd: float | None = None  # None: not priced (unknown model, or no usage came back)
     note: str = ""  # why the cost is unknown (timed out, cancelled…)
 
@@ -130,18 +131,28 @@ def _int(value: Any) -> int:
     return int(value or 0)
 
 
-def record_text(model: str, usage: Any) -> Charge:
-    """A finished text call, from its `usage` (chat completions or Responses API)."""
-    # Responses API: input/output_tokens; chat completions: prompt/completion_tokens
+def token_counts(usage: Any) -> dict[str, int]:
+    """input / cached / output / reasoning tokens from either API's usage — Responses:
+    input/output_tokens (+ *_tokens_details), chat completions: prompt/completion_tokens."""
     inp = _int(getattr(usage, "input_tokens", None) or getattr(usage, "prompt_tokens", None))
     out = _int(getattr(usage, "output_tokens", None)
                or getattr(usage, "completion_tokens", None))
-    details = (getattr(usage, "input_tokens_details", None)
-               or getattr(usage, "prompt_tokens_details", None))
-    cached = _int(getattr(details, "cached_tokens", None))
-    usd = text_cost(model, inp, cached, out)
-    return _add(Charge(_STEP.get(), model, "text", input_tokens=inp, cached_tokens=cached,
-                       output_tokens=out, usd=usd,
+    in_details = (getattr(usage, "input_tokens_details", None)
+                  or getattr(usage, "prompt_tokens_details", None))
+    out_details = (getattr(usage, "output_tokens_details", None)
+                   or getattr(usage, "completion_tokens_details", None))
+    return {"input": inp, "output": out,
+            "cached": _int(getattr(in_details, "cached_tokens", None)),
+            "reasoning": _int(getattr(out_details, "reasoning_tokens", None))}
+
+
+def record_text(model: str, usage: Any) -> Charge:
+    """A finished text call, from its `usage` (chat completions or Responses API)."""
+    c = token_counts(usage)
+    usd = text_cost(model, c["input"], c["cached"], c["output"])
+    return _add(Charge(_STEP.get(), model, "text", input_tokens=c["input"],
+                       cached_tokens=c["cached"], output_tokens=c["output"],
+                       reasoning_tokens=c["reasoning"], usd=usd,
                        note="" if usd is not None else "model not in costs/pricing.yaml"))
 
 
@@ -179,7 +190,7 @@ def summary(ledger: list[Charge]) -> dict[str, Any]:
         "calls": [{"step": c.step, "model": c.model, "kind": c.kind,
                    "inputTokens": c.input_tokens, "cachedTokens": c.cached_tokens,
                    "imageInputTokens": c.image_input_tokens,
-                   "outputTokens": c.output_tokens,
+                   "outputTokens": c.output_tokens, "reasoningTokens": c.reasoning_tokens,
                    "usd": None if c.usd is None else round(c.usd, 6),
                    **({"note": c.note} if c.note else {})} for c in ledger],
         "pricing": "backend/app/costs/pricing.yaml",

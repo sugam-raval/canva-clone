@@ -199,6 +199,8 @@ export interface LidoDraftCost {
   calls: {
     step: string; model: string; kind: 'text' | 'image'
     inputTokens: number; cachedTokens: number; imageInputTokens: number; outputTokens: number
+    /** The hidden "thinking" part of outputTokens (billed as output). */
+    reasoningTokens?: number
     usd: number | null; note?: string
   }[]
 }

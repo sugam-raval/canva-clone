@@ -32,6 +32,7 @@ from app.lido_create.kit import (
     W,
     line_count,
     to_element,
+    to_out,
 )
 from app.lido_create.lists import expand_list
 from app.lido_create.recipes import RECIPES
@@ -50,13 +51,15 @@ template as a list of elements with pixel coordinates. The template will later b
 automatically for any business, so it must be generic in its decoration, but it must look
 like a polished, professionally designed template — never a plain wireframe.
 
-ELEMENTS (drawn in list order: first = back, last = front)
+ELEMENTS (drawn in list order: first = back, last = front). Positions and sizes are
+whole pixels.
 - shape: shape = one of the SHAPES below; color = a palette role; radius = corner
-  radius px (rectangle only); opacity 0-1; rotate = degrees clockwise around its centre;
-  gradient = a fill that changes across the shape (see GRADIENTS) instead of a flat
-  colour; stroke + stroke_width + stroke_style (solid | dashed | dotted) = an outline
-  (the fill is still drawn — fill with the colour behind it for an outline-only
-  look); bleed=true if it may run off the canvas.
+  radius px (rectangle only); bleed=true if it may run off the canvas; style = null,
+  or — only when the shape needs any of these — {{gradient = a fill that changes across
+  the shape (see GRADIENTS) instead of a flat colour; opacity 0-1; rotate = degrees
+  clockwise around its centre; stroke + stroke_width + stroke_style (solid | dashed |
+  dotted) = an outline (the fill is still drawn — fill with the colour behind it for an
+  outline-only look)}}.
 - line: a straight line — x/y = its left end, w = length, h = thickness (2-8px),
   rotate, color, stroke_style solid | dashed | dotted, line_start / line_end =
   {line_ends}. For dividers, underlines, pointers, frames made of lines.
@@ -75,13 +78,13 @@ ELEMENTS (drawn in list order: first = back, last = front)
   diameter dot (6-12px), color, optional opacity. One element, not many circles.
 - photo: frame = one of FRAMES below (the photo is cut to that outline and keeps its
   aspect ratio — h follows w), or clip = {crops}; focus 0-1 (0.3 keeps faces, 0.5
-  centre); rotate (a few degrees for a tilted, printed-photo look); subject = one
-  sentence on what it shows. The picture is supplied automatically.
+  centre); style = null, or {{rotate (a few degrees for a tilted, printed-photo look),
+  bleed (may run off the canvas)}}; subject = one sentence on what it shows. The picture is supplied automatically.
 - logo: one, w 110, h 89 (none at all when the plan says no logo). It must sit on one
   flat colour, never on a photo.
 - text: text (placeholder copy), text_type, font role, size px, align, max_lines,
-  uppercase, letter_spacing (em, 0-0.3), line_height, effect = {effects}, with
-  effect_color for the shadow. Set h to 0 — it is measured.
+  uppercase, letter_spacing (em, 0-0.3), line_height, effect = null or {{name =
+  {effects}; color = the shadow's colour role, or null}}. Set h to 0 — it is measured.
   text_type: headline (exactly one, the largest free text on the canvas), kicker, body,
   item (list lines), cta (button label), badge (offer/price/date label), caption (small
   caps label like "CALL US", "UP TO", "ONLY"), website, phone, email, address (at most
@@ -149,8 +152,8 @@ PRO TEMPLATE TECHNIQUES — use several in every design
   thick band along one edge; or thin lines forming corner brackets.
 - Photo fade (scrim): a full-bleed photo with ONE fade layer drawn right after it — a
   rectangle covering the whole canvas (x -6, y -4, w 1092, h 1088, bleed), color = the
-  canvas role (usually bg), gradient {{style linear, angle 180, start bg, end null,
-  start_at 30-40, end_at 100}}: solid canvas colour across the top start_at% of the post,
+  canvas role (usually bg), style {{gradient {{style linear, angle 180, start bg, end null,
+  start_at 30-40, end_at 100}}}}: solid canvas colour across the top start_at% of the post,
   then fading to transparent so the photo melts into it. Logo, headline, copy and button
   sit entirely inside the solid part (for start_at 35 that is y 30 to about 360 minus a
   little room) — never in the fading part, which still shows the photo. Fade from the
@@ -216,12 +219,11 @@ def compact(els: list[Element]) -> list[dict]:
         if len(run) >= 4:
             xs, ys = sorted({e.x for e in run}), sorted({e.y for e in run})
             dot = run[0].w
-            out.append(Element(kind="dots", x=xs[0], y=ys[0], w=xs[-1] - xs[0] + dot,
-                               h=ys[-1] - ys[0] + dot, rows=len(ys), cols=len(xs), dot=dot,
-                               color=run[0].color, opacity=run[0].opacity)
-                       .model_dump(exclude_none=True))
+            out.append(to_out(Element(kind="dots", x=xs[0], y=ys[0], w=xs[-1] - xs[0] + dot,
+                                      h=ys[-1] - ys[0] + dot, rows=len(ys), cols=len(xs),
+                                      dot=dot, color=run[0].color, opacity=run[0].opacity)))
         else:
-            out.extend(e.model_dump(exclude_none=True) for e in run)
+            out.extend(to_out(e) for e in run)
         run.clear()
 
     for e in els:
@@ -233,7 +235,7 @@ def compact(els: list[Element]) -> list[dict]:
         if small_dot:
             run.append(e)
         else:
-            out.append(e.model_dump(exclude_none=True))
+            out.append(to_out(e))
     flush()
     return out
 

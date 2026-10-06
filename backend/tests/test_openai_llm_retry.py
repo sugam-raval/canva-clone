@@ -73,11 +73,13 @@ def clear_learned_state():
     OpenAILLM._max_completion_tokens.clear()
     OpenAILLM._required_reasoning_effort.clear()
     OpenAILLM._responses_only_models.clear()
+    OpenAILLM._no_cache_hints.clear()
     yield
     OpenAILLM._rejected_params.clear()
     OpenAILLM._max_completion_tokens.clear()
     OpenAILLM._required_reasoning_effort.clear()
     OpenAILLM._responses_only_models.clear()
+    OpenAILLM._no_cache_hints.clear()
 
 
 @pytest.fixture
@@ -286,3 +288,65 @@ async def test_an_explicit_model_with_an_explicit_effort_reasons(monkeypatch):
                             reasoning_effort="low")
     await llm.complete_json(system="s", user="u", schema=Answer, model="gpt-4o")
     assert calls == [("reasoning", "gpt-6-astra", "low"), ("chat", "gpt-4o", None)]
+
+
+# -- prompt caching: the shared instructions are marked for OpenAI's cache ---------------
+
+
+async def test_shared_instructions_end_in_a_cache_breakpoint(fake_client):
+    fake_client.responses.return_value = _response()
+    await OpenAILLM().complete_json(system="the rules", user="this brief", schema=Answer,
+                                    model="gpt-6-astra", reasoning_effort="low",
+                                    cache_key="lido-design")
+    sent = fake_client.responses.call_args.kwargs
+    assert sent["prompt_cache_key"] == "lido-design" and "instructions" not in sent
+    developer, user = sent["input"]
+    assert developer["role"] == "developer"
+    assert developer["content"][0] == {"type": "input_text", "text": "the rules",
+                                       "prompt_cache_breakpoint": {"mode": "explicit"}}
+    assert user["content"][0]["text"] == "this brief"
+
+
+async def test_a_model_that_rejects_the_cache_hints_runs_without_them(fake_client):
+    rejected = _status_error("Unknown parameter: 'prompt_cache_key'.", param="prompt_cache_key",
+                             code="unknown_parameter")
+    fake_client.responses.side_effect = [rejected, _response(), _response()]
+    llm = OpenAILLM()
+    for _ in range(2):
+        result = await llm.complete_json(system="s", user="u", schema=Answer,
+                                         model="gpt-6-astra", reasoning_effort="low",
+                                         cache_key="lido-design")
+        assert result.parsed == Answer(text="hi")
+    calls = [c.kwargs for c in fake_client.responses.call_args_list]
+    assert "prompt_cache_key" in calls[0]
+    # the retry and the next call: plain instructions, no hints, effort kept
+    for plain in calls[1:]:
+        assert "prompt_cache_key" not in plain and plain["instructions"] == "s"
+        assert plain["input"] == "u" and plain["reasoning"] == {"effort": "low"}
+    assert "gpt-6-astra" in OpenAILLM._no_cache_hints
+
+
+async def test_chat_models_get_the_cache_key_and_drop_it_if_rejected(fake_client):
+    rejected = _status_error("Unsupported parameter: 'prompt_cache_key'.",
+                             param="prompt_cache_key", code="unsupported_parameter")
+    fake_client.chat.side_effect = [rejected, _completion()]
+    await OpenAILLM().complete_json(system="s", user="u", schema=Answer, model="gpt-4o",
+                                    cache_key="lido-plan")
+    first, second = (c.kwargs for c in fake_client.chat.call_args_list)
+    assert first["prompt_cache_key"] == "lido-plan" and "prompt_cache_key" not in second
+
+
+async def test_reasoning_and_cached_tokens_are_reported(fake_client):
+    usage = type("Usage", (), {
+        "input_tokens": 10_000, "output_tokens": 3_000,
+        "input_tokens_details": type("D", (), {"cached_tokens": 8_000})(),
+        "output_tokens_details": type("D", (), {"reasoning_tokens": 1_200})()})()
+    response = _response()
+    response.usage = usage
+    fake_client.responses.return_value = response
+    result = await OpenAILLM().complete_json(system="s", user="u", schema=Answer,
+                                             model="gpt-6-astra", reasoning_effort="low")
+    assert (result.prompt_tokens, result.cached_tokens) == (10_000, 8_000)
+    assert (result.completion_tokens, result.reasoning_tokens) == (3_000, 1_200)
+    # 2,000 full-price + 8,000 cached input, 3,000 output: (20,000 + 8,000 + 150,000) / 1M
+    assert result.cost_cents == round((2_000 * 10 + 8_000 * 1 + 3_000 * 50) / 1e6 * 100)
